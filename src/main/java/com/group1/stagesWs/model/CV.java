@@ -16,14 +16,17 @@ public class CV implements Serializable {
     private int id;
 
     private LocalDate dateSoumission;
-    private boolean valid;
+    private boolean isValid;
 
 
     @Lob
     private byte[] data;
 
+    @ManyToOne
+    private Etudiant etudiant;
+
     public CV() {
         this.dateSoumission = LocalDate.now();
-        valid = false;
+        isValid = false;
     }
 }

@@ -20,7 +20,7 @@ public class User implements Serializable {
     private String password;
     private String numTelephone;
 
-    private boolean verifier;
+    private boolean isVerifier;
     private LocalDate dateCreation;
 
 
@@ -34,7 +34,7 @@ public class User implements Serializable {
         this.courriel = courriel;
         this.password = password;
         this.numTelephone = numTelephone;
-        this.verifier = false;
+        this.isVerifier = false;
         this.dateCreation = LocalDate.now();
     }
 }

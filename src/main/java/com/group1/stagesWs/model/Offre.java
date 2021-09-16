@@ -19,8 +19,8 @@ public class Offre implements Serializable {
     private String description;
     private String entreprise;
 
-    @OneToMany
-    private Set<Etudiant> visibiliteEtudiant;
+    @OneToOne
+    private Whitelist visibiliteEtudiant;
 
     public Offre() {
     }
@@ -29,6 +29,5 @@ public class Offre implements Serializable {
         this.titre = titre;
         this.description = description;
         this.entreprise = entreprise;
-        visibiliteEtudiant = new HashSet<>();
     }
 }

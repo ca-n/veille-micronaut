@@ -19,9 +19,9 @@ public class Contrat implements Serializable {
 
     private LocalDate dateCreation;
 
-    private boolean confirmationMoniteur;
-    private boolean confirmationEtudiant;
-    private boolean confirmationGestionnaire;
+    private boolean isMoniteurConfirmed;
+    private boolean isEtudiantConfirmed;
+    private boolean isGestionnaireConfirmed;
 
     private LocalDate dateConfirmationMoniteur;
     private LocalDate dateConfirmationEtudiant;
@@ -32,8 +32,8 @@ public class Contrat implements Serializable {
 
     public Contrat(LocalDate dateCreation) {
         this.dateCreation = dateCreation;
-        this.confirmationEtudiant = false;
-        this.confirmationGestionnaire = false;
-        this.confirmationMoniteur = false;
+        this.isEtudiantConfirmed = false;
+        this.isGestionnaireConfirmed = false;
+        this.isMoniteurConfirmed = false;
     }
 }
