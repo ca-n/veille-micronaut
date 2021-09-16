@@ -34,4 +34,6 @@ public class Etudiant extends User implements Serializable {
         this.hasLicense = hasLicense;
         this.hasVoiture = hasVoiture;
     }
+
+
 }
