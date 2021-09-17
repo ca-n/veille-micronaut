@@ -2,7 +2,7 @@ package com.group1.stagesWs.service;
 
 
 import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.User;
+import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.GestionnaireRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
@@ -29,5 +29,9 @@ public class AppService {
 
     public Etudiant addEtudiant(Etudiant etudiant){
         return etudiantRepository.save(etudiant);
+    }
+
+    public Moniteur addSuperviseur(Moniteur moniteur){
+        return moniteurRepository.save(moniteur);
     }
 }
