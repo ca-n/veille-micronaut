@@ -26,8 +26,23 @@ public class UserService {
     private SuperviseurRepository superviseurRepository;
 
 
-
-    public Etudiant addEtudiant(Etudiant etudiant){
+    public Etudiant addEtudiant(Etudiant etudiant) {
         return etudiantRepository.save(etudiant);
+    }
+
+    public User login(String email, String pwd) {
+        if (etudiantRepository.findEtudiantByCourriel(email) != null) {
+            return etudiantRepository.findEtudiantByCourrielAndPassword(email, pwd);
+        }
+        if (gestionnaireRepository.findGestionnaireByCourriel(email) != null) {
+            return gestionnaireRepository.findGestionnaireByCourrielAndPassword(email, pwd);
+        }
+        if (moniteurRepository.findMoniteurByCourriel(email) != null) {
+            return moniteurRepository.findMoniteurByCourrielAndPassword(email, pwd);
+        }
+        if (superviseurRepository.findSuperviseurByCourriel(email) != null) {
+            return superviseurRepository.findSuperviseurByCourrielAndPassword(email, pwd);
+        }
+        return null;
     }
 }
