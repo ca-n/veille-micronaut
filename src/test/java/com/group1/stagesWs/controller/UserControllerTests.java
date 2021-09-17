@@ -1,4 +1,4 @@
-package com.group1.stagesWs;
+package com.group1.stagesWs.controller;
 
 import com.group1.stagesWs.controller.UserController;
 import com.group1.stagesWs.model.Etudiant;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class StageswsApplicationTests {
+class UserControllerTests {
 
     @Autowired
     UserController controller;
