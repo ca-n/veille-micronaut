@@ -1,6 +1,6 @@
 package com.group1.stagesWs;
 
-import com.group1.stagesWs.controller.AppController;
+import com.group1.stagesWs.controller.UserController;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Gestionnaire;
 import com.group1.stagesWs.model.Moniteur;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class StageswsApplicationTests {
 
     @Autowired
-    AppController controller;
+    UserController controller;
 
     @Autowired
     private EtudiantRepository etudiantRepository;
@@ -56,18 +56,8 @@ class StageswsApplicationTests {
     }
 
     @Test
-    void testFindEtudiant() {
-        assertNotNull(etudiantRepository.findEtudiantByCourriel("jay123@email.com"));
-    }
-
-    @Test
     void testFindEtudiantByLogin() {
         assertNotNull(controller.login("jay123@email.com", "password123"));
-    }
-
-    @Test
-    void testFindGestionnaire() {
-        assertNotNull(gestionnaireRepository.findGestionnaireByCourriel("mdupuis@email.ca"));
     }
 
     @Test
@@ -76,18 +66,8 @@ class StageswsApplicationTests {
     }
 
     @Test
-    void testFindMoniteur() {
-        assertNotNull(moniteurRepository.findMoniteurByCourriel("pascald@email.ca"));
-    }
-
-    @Test
     void testFindMoniteurByLogin() {
         assertNotNull(controller.login("pascald@email.ca", "banque123"));
-    }
-
-    @Test
-    void testFindSuperviseur() {
-        assertNotNull(superviseurRepository.findSuperviseurByCourriel("cashJ@email.ca"));
     }
 
     @Test

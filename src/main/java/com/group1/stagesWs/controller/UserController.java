@@ -1,16 +1,16 @@
 package com.group1.stagesWs.controller;
 
 import com.group1.stagesWs.model.User;
-import com.group1.stagesWs.service.AppService;
+import com.group1.stagesWs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AppController {
+public class UserController {
     @Autowired
-    AppService service;
+    UserService service;
 
     //login
     @GetMapping("/user/{email}/{password}")
