@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SuperviseurRepository extends JpaRepository<Superviseur, Integer> {
+    public Superviseur save(Superviseur superviseur);
 }
