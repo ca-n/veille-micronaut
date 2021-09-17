@@ -71,8 +71,12 @@ class UserControllerTests {
     }
 
     @Test
-    void testFindSuperviseurByLogin() {
-        assertNotNull(controller.login("cashJ@email.ca", "money123"));
+    void testFindSuperviseurByLogin() { assertNotNull(controller.login("cashJ@email.ca", "money123")); }
+
+    @Test
+    void testAddMoniteur() {
+        Moniteur moniteur = controller.addMoniteur("Alfa", "Collins", "acollins@email.ca", "cooli123", "123-456-7891", "Banque Desjardins", "2 boul leduc montreal");
+        assertNotNull(moniteurRepository.findMoniteurByCourriel("acollins@email.ca"));
     }
 
 }
