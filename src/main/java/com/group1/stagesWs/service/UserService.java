@@ -10,6 +10,8 @@ import com.group1.stagesWs.repositories.SuperviseurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -27,7 +29,7 @@ public class UserService {
 
 
 
-    public Etudiant addEtudiant(Etudiant etudiant){
-        return etudiantRepository.save(etudiant);
+    public Optional<Etudiant> addEtudiant(Etudiant etudiant){
+        return Optional.of(etudiantRepository.save(etudiant));
     }
 }

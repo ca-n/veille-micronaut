@@ -50,10 +50,10 @@ public class UserServiceTest {
         when(etudiantRepository.save(any(Etudiant.class))).thenReturn(etudiant);
 
         //Act
-        Etudiant etudiantTest = service.addEtudiant(etudiant);
+        Optional<Etudiant> etudiantTest = service.addEtudiant(etudiant);
 
         //Assert
-        assertThat(etudiantTest).isEqualTo(etudiant);
+        assertThat(etudiantTest).isEqualTo(Optional.of(etudiant));
 
 
     }

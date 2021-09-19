@@ -49,18 +49,18 @@ public class UserControllerTest {
         etudiant.setHasLicense(true);
         etudiant.setHasVoiture(true);
 
-//        when(userService.addEtudiant(etudiant)).thenReturn(etudiant);
-//
-//        // Act
-//        MvcResult result = mockMvc.perform(post("/stage/etudiant")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(new ObjectMapper().writeValueAsString(etudiant))).andReturn();
-//
-//        // Assert
-//        var actualEtudiant = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Etudiant.class);
-//        assertThat(result.getResponse().getStatus()).isEqualTo( HttpStatus.CREATED.value());
-//        assertThat(etudiant).isEqualTo(actualEtudiant);
-//    }
+        when(userService.addEtudiant(etudiant)).thenReturn(Optional.of(etudiant));
+
+        // Act
+        MvcResult result = mockMvc.perform(post("/stage/etudiant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(etudiant))).andReturn();
+
+        // Assert
+        var actualEtudiant = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Etudiant.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo( HttpStatus.CREATED.value());
+        assertThat(etudiant).isEqualTo(actualEtudiant);
+    }
 
 
 }
