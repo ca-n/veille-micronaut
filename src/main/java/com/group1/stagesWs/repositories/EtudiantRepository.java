@@ -9,5 +9,8 @@ public interface EtudiantRepository extends JpaRepository<Etudiant, Integer> {
 
     public Etudiant save(Etudiant etudiant);
 
-    public Etudiant findByNumMatricule(String numMatricule);
+    Etudiant findEtudiantByCourriel(String email);
+
+    Etudiant findEtudiantByCourrielAndPassword(String email, String pwd);
+
 }

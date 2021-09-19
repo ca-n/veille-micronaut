@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MoniteurRepository extends JpaRepository<Moniteur, Integer> {
+
+    Moniteur findMoniteurByCourriel(String email);
+
+    Moniteur findMoniteurByCourrielAndPassword(String email, String pwd);
 }
