@@ -12,6 +12,7 @@ public class StageswsApplication implements CommandLineRunner {
     @Autowired
     EtudiantRepository etudiantRepository;
 
+
     public static void main(String[] args) {
         SpringApplication.run(StageswsApplication.class, args);
     }

@@ -34,8 +34,7 @@ public class UserService {
         return Optional.of(etudiantRepository.save(etudiant));
     }
 
-    public Moniteur addMoniteur(String prenom, String nom, String courriel, String password, String numTelephone, String nomEntreprise, String adresseEntreprise) {
-        Moniteur moniteur = new Moniteur(prenom, nom, courriel, password, numTelephone, nomEntreprise, adresseEntreprise);
+    public Moniteur addMoniteur(Moniteur moniteur) {
         return moniteurRepository.save(moniteur);
     }
 
