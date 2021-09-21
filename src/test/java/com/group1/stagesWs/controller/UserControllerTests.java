@@ -73,6 +73,4 @@ class UserControllerTests {
     @Test
     void testFindSuperviseurByLogin() { assertNotNull(controller.login("cashJ@email.ca", "money123")); }
     
-
-
 }

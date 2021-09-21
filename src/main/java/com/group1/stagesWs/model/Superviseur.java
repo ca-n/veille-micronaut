@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 public class Superviseur extends User implements Serializable {
 
-    private String programme;
+    private String departement;
     private String specialite;
 
 
@@ -17,9 +17,9 @@ public class Superviseur extends User implements Serializable {
         super();
     }
 
-    public Superviseur(String prenom, String nom, String courriel, String password, String numTelephone, String programme, String specialite) {
+    public Superviseur(String prenom, String nom, String courriel, String password, String numTelephone, String departement, String specialite) {
         super(prenom, nom, courriel, password, numTelephone);
-        this.programme = programme;
+        this.departement = departement;
         this.specialite = specialite;
     }
 }

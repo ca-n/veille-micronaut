@@ -10,15 +10,15 @@ import java.io.Serializable;
 @Entity
 public class Gestionnaire extends User implements Serializable {
 
-    private String programme;
+    private String departement;
 
 
     public Gestionnaire(){
 
     }
 
-    public Gestionnaire(String prenom, String nom, String courriel, String password, String numTelephone, String programme) {
+    public Gestionnaire(String prenom, String nom, String courriel, String password, String numTelephone, String departement) {
         super(prenom, nom, courriel, password, numTelephone);
-        this.programme = programme;
+        this.departement = departement;
     }
 }
