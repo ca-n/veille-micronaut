@@ -39,8 +39,8 @@ public class UserService {
         return moniteurRepository.save(moniteur);
     }
 
-    public Superviseur addSuperviseur(Superviseur superviseur) {
-        return superviseurRepository.save(superviseur);
+    public Optional<Superviseur> addSuperviseur(Superviseur superviseur) {
+        return Optional.of(superviseurRepository.save(superviseur));
     }
 
     public User login(String email, String pwd) {
