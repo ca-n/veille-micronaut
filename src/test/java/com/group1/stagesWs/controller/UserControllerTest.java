@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
+import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -81,6 +82,22 @@ public class UserControllerTest {
         assertThat(actualMoniteur).isEqualTo(expected);
     }
 
+    @Test
+    public void testAddSuperviseur() throws Exception {
+        //Arrange
+        Superviseur expected = getSuperviseur();
+        when(userService.addSuperviseur(expected)).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/superviseur")
+                .contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualSuperviseur = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Superviseur.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(actualSuperviseur).isEqualTo(expected);
+    }
+
     private Moniteur getMoniteur() {
         return new Moniteur(
                 "John",
@@ -90,5 +107,16 @@ public class UserControllerTest {
                 "000111222",
                 "Example Enterprises",
                 "123 Enterprise Lane");
+    }
+
+    private Superviseur getSuperviseur() {
+        return new Superviseur(
+                "Jane",
+                "Smith",
+                "jane.smith@example.com",
+                "pa55w0rd",
+                "123000322",
+                "Informatique",
+                "Securite");
     }
 }
