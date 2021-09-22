@@ -39,7 +39,8 @@ public class UserController {
 
     //Create Moniteur
     @PostMapping(path = "/stage/moniteur")
-    public Moniteur addMoniteur(@RequestBody Moniteur moniteur) {
-        return service.addMoniteur(moniteur);
+    public ResponseEntity<Moniteur> addMoniteur(@RequestBody Moniteur moniteur) {
+        Moniteur result = service.addMoniteur(moniteur);
+        return result != null ? ResponseEntity.status(HttpStatus.CREATED).body(result) : ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 }
