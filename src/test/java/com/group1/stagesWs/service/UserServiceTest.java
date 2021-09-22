@@ -2,8 +2,10 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
+import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
+import com.group1.stagesWs.repositories.SuperviseurRepository;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,6 +29,9 @@ public class UserServiceTest {
 
     @Mock
     MoniteurRepository moniteurRepository;
+
+    @Mock
+    SuperviseurRepository superviseurRepository;
 
     @InjectMocks
     private UserService service;
@@ -76,6 +81,19 @@ public class UserServiceTest {
         assertThat(returned).isEqualTo(expected);
     }
 
+    @Test
+    public void testAddSuperviseur() {
+        //Arrange
+        Superviseur expected = getSuperviseur();
+        when(superviseurRepository.save(expected)).thenReturn(expected);
+
+        //Act
+        Optional<Superviseur> returned = service.addSuperviseur(expected);
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
     private Moniteur getMoniteur() {
         return new Moniteur(
                 "John",
@@ -85,5 +103,16 @@ public class UserServiceTest {
                 "000111222",
                 "Example Enterprises",
                 "123 Enterprise Lane");
+    }
+
+    private Superviseur getSuperviseur() {
+        return new Superviseur(
+                "Jane",
+                "Smith",
+                "jane.smith@example.com",
+                "pa55w0rd",
+                "123000322",
+                "Informatique",
+                "Securite");
     }
 }
