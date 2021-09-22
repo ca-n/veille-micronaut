@@ -38,8 +38,8 @@ public class UserController {
     }
 
     //Create Moniteur
-    @PostMapping("/moniteur/{prenom}/{nom}/{courriel}/{password}/{numTelephone}/{nomEntreprise}/{adresseEntreprise}")
-    public Moniteur addMoniteur(@PathVariable String prenom, @PathVariable String nom, @PathVariable String courriel, @PathVariable String password, @PathVariable String numTelephone, @PathVariable String nomEntreprise, @PathVariable String adresseEntreprise) {
-        return service.addMoniteur(prenom, nom, courriel, password, numTelephone, nomEntreprise, adresseEntreprise);
+    @PostMapping(path = "/stage/moniteur")
+    public Moniteur addMoniteur(@RequestBody Moniteur moniteur) {
+        return service.addMoniteur(moniteur);
     }
 }

@@ -25,7 +25,7 @@ public class User implements Serializable {
 
 
     public User(){
-
+        dateCreation = LocalDate.now();
     }
 
     public User(String prenom, String nom, String courriel, String password, String numTelephone) {
