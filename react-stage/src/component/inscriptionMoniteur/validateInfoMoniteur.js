@@ -29,18 +29,13 @@ export default function validateInfoMoniteur(values) {
         errors.numTelephone = "Numero de telephone requis"
     }
 
-    if(!values.programme) {
-        errors.programme = "Nom du programme requis"
+    if(!values.nomEntreprise) {
+        errors.nomEntreprise = "Nom de l'entreprise requis"
     }
 
-    if(!values.adresse) {
-        errors.adresse = "Adresse requise"
+    if(!values.adresseEntreprise) {
+        errors.adresseEntreprise = "Adresse requise"
     }
-
-    if(!values.numMatricule) {
-        errors.numMatricule = "Numero de matricule requis"
-    }
-
 
     return errors;
 }

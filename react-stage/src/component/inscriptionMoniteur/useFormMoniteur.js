@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
-import validateInfoMoniteur from "./validateInfoMoniteur";
 
-
-
-
-
-const useFormMoniteur = (callback, validateInfoEtudiant) => {
+const useFormMoniteur = (callback, validateInfoMoniteur) => {
     const url = ""
     const [values,setValues] = useState({
         prenom: "",
@@ -14,11 +9,8 @@ const useFormMoniteur = (callback, validateInfoEtudiant) => {
         password: "",
         password2: "",
         numTelephone: "",
-        programme: "",
-        adresse: "",
-        numMatricule: "",
-        hasLicense: "",
-        hasVoiture: "",
+        nomEntreprise: "",
+        adresseEntreprise: "",
     })
     const [errors,setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -34,7 +26,7 @@ const useFormMoniteur = (callback, validateInfoEtudiant) => {
     const handleSubmit = e =>{
         e.preventDefault();
 
-        setErrors(validateInfoEtudiant(values))
+        setErrors(validateInfoMoniteur(values))
         setIsSubmitting(true)
     }
 
@@ -44,13 +36,13 @@ const useFormMoniteur = (callback, validateInfoEtudiant) => {
             callback();
 
             var request = new XMLHttpRequest();
-            request.open('POST', 'http://localhost:9191/stage/etudiant', true);
+            request.open('POST', 'http://localhost:9191/stage/moniteur', true);
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
 
-            const etudiant = JSON.stringify(values);
+            const moniteur = JSON.stringify(values);
 
-            request.send(etudiant)
+            request.send(moniteur)
         }
     }, [errors]
     );
