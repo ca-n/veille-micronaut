@@ -75,10 +75,10 @@ public class UserServiceTest {
         when(moniteurRepository.save(expected)).thenReturn(expected);
 
         //Act
-        Moniteur returned = service.addMoniteur(expected);
+        Optional<Moniteur> returned = service.addMoniteur(expected);
 
         //Assert
-        assertThat(returned).isEqualTo(expected);
+        assertThat(returned).isEqualTo(Optional.of(expected));
     }
 
     @Test
