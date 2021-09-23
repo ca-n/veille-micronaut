@@ -63,10 +63,10 @@ public class UserControllerTest {
         // Act
         MvcResult result = mockMvc.perform(post("/stage/etudiant")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(etudiant))).andReturn();
+                .content(mapper.writeValueAsString(etudiant))).andReturn();
 
         // Assert
-        var actualEtudiant = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Etudiant.class);
+        var actualEtudiant = mapper.readValue(result.getResponse().getContentAsString(), Etudiant.class);
         assertThat(result.getResponse().getStatus()).isEqualTo( HttpStatus.CREATED.value());
         assertThat(etudiant).isEqualTo(actualEtudiant);
     }
@@ -75,7 +75,7 @@ public class UserControllerTest {
     public void testAddMoniteur() throws Exception {
         //Arrange
         Moniteur expected = getMoniteur();
-        when(userService.addMoniteur(expected)).thenReturn(expected);
+        when(userService.addMoniteur(expected)).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/moniteur")
