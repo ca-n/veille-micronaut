@@ -43,18 +43,18 @@ public class UserService {
         return Optional.of(superviseurRepository.save(superviseur));
     }
 
-    public User login(String email, String pwd) {
+    public Optional<User> login(String email, String pwd) {
         if (etudiantRepository.findEtudiantByCourriel(email) != null) {
-            return etudiantRepository.findEtudiantByCourrielAndPassword(email, pwd);
+            return Optional.of(etudiantRepository.findEtudiantByCourrielAndPassword(email, pwd));
         }
         if (gestionnaireRepository.findGestionnaireByCourriel(email) != null) {
-            return gestionnaireRepository.findGestionnaireByCourrielAndPassword(email, pwd);
+            return Optional.of(gestionnaireRepository.findGestionnaireByCourrielAndPassword(email, pwd));
         }
         if (moniteurRepository.findMoniteurByCourriel(email) != null) {
-            return moniteurRepository.findMoniteurByCourrielAndPassword(email, pwd);
+            return Optional.of(moniteurRepository.findMoniteurByCourrielAndPassword(email, pwd));
         }
         if (superviseurRepository.findSuperviseurByCourriel(email) != null) {
-            return superviseurRepository.findSuperviseurByCourrielAndPassword(email, pwd);
+            return Optional.of(superviseurRepository.findSuperviseurByCourrielAndPassword(email, pwd));
         }
         return null;
     }

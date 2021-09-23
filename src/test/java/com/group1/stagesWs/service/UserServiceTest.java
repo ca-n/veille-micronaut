@@ -6,17 +6,15 @@ import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
 import com.group1.stagesWs.repositories.SuperviseurRepository;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
+import com.group1.stagesWs.model.User;
+import com.group1.stagesWs.repositories.GestionnaireRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -32,6 +30,10 @@ public class UserServiceTest {
 
     @Mock
     SuperviseurRepository superviseurRepository;
+
+    @Mock
+    GestionnaireRepository gestionnaireRepository;
+
 
     @InjectMocks
     private UserService service;
@@ -92,6 +94,19 @@ public class UserServiceTest {
 
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    public void testLogin(){
+        //Arrange
+        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(etudiant);
+        Optional<Etudiant> addedEtudiant = service.addEtudiant(etudiant);
+
+        //Act
+        Optional<User> etudiantTest = service.login(etudiant.getCourriel(),etudiant.getPassword());
+
+        //Assert
+        assertThat(etudiantTest).isEqualTo(Optional.of(etudiant));
     }
 
     private Moniteur getMoniteur() {

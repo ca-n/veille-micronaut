@@ -34,7 +34,7 @@ public class UserController {
 
     //login
     @GetMapping("/user/{email}/{password}")
-    public User login(@PathVariable("email") String email, @PathVariable("password") String password) {
+    public Optional<User> login(@PathVariable("email") String email, @PathVariable("password") String password) {
         return service.login(email, password);
     }
 
