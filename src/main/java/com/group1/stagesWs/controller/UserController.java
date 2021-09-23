@@ -41,8 +41,9 @@ public class UserController {
     //Create Moniteur
     @PostMapping(path = "/stage/moniteur")
     public ResponseEntity<Moniteur> addMoniteur(@RequestBody Moniteur moniteur) {
-        Moniteur result = service.addMoniteur(moniteur);
-        return result != null ? ResponseEntity.status(HttpStatus.CREATED).body(result) : ResponseEntity.status(HttpStatus.CONFLICT).build();
+        return service.addMoniteur(moniteur)
+                .map(moniteur1 -> ResponseEntity.status(HttpStatus.CREATED).body(moniteur1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
     @PostMapping("/stage/superviseur")
