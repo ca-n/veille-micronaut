@@ -35,8 +35,8 @@ public class UserService {
         return Optional.of(etudiantRepository.save(etudiant));
     }
 
-    public Moniteur addMoniteur(Moniteur moniteur) {
-        return moniteurRepository.save(moniteur);
+    public Optional<Moniteur> addMoniteur(Moniteur moniteur) {
+        return Optional.of(moniteurRepository.save(moniteur));
     }
 
     public Optional<Superviseur> addSuperviseur(Superviseur superviseur) {
