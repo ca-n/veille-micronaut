@@ -55,7 +55,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testInsertionEtudiant(){
+    public void testAddEtudiant(){
        //Arrange
         when(etudiantRepository.save(any(Etudiant.class))).thenReturn(etudiant);
 
