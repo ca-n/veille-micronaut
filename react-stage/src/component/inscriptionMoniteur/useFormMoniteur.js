@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
-import validateInfoSuperviseur from "./validateInfoSuperviseur";
-import Axios from 'axios'
 
-
-
-const useFormSuperviseur = (callback,validateInfoSuperviseur) => {
+const useFormMoniteur = (callback, validateInfoMoniteur) => {
     const url = ""
     const [values,setValues] = useState({
         prenom: "",
@@ -13,8 +9,8 @@ const useFormSuperviseur = (callback,validateInfoSuperviseur) => {
         password: "",
         password2: "",
         numTelephone: "",
-        departement: "",
-        specialite: "",
+        nomEntreprise: "",
+        adresseEntreprise: "",
     })
     const [errors,setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -30,9 +26,8 @@ const useFormSuperviseur = (callback,validateInfoSuperviseur) => {
     const handleSubmit = e =>{
         e.preventDefault();
 
-        setErrors(validateInfoSuperviseur(values))
+        setErrors(validateInfoMoniteur(values))
         setIsSubmitting(true)
-        console.log(values)
     }
 
 
@@ -41,13 +36,13 @@ const useFormSuperviseur = (callback,validateInfoSuperviseur) => {
             callback();
 
             var request = new XMLHttpRequest();
-            request.open('POST', 'http://localhost:9191/stage/superviseur', true);
+            request.open('POST', 'http://localhost:9191/stage/moniteur', true);
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
 
-            const superviseur = JSON.stringify(values);
+            const moniteur = JSON.stringify(values);
 
-            request.send(superviseur)
+            request.send(moniteur)
         }
     }, [errors]
     );
@@ -56,4 +51,4 @@ const useFormSuperviseur = (callback,validateInfoSuperviseur) => {
     return {handleChange, values, handleSubmit, errors}
 };
 
-export default useFormSuperviseur;
+export default useFormMoniteur;

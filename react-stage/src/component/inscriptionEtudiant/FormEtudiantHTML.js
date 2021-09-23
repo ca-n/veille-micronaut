@@ -2,6 +2,7 @@ import React from 'react'
 import useFormEtudiant from './useFormEtudiant'
 import validateInfoEtudiant from './validateInfoEtudiant';
 import './FormEtudiant';
+import { Link } from 'react-router-dom';
 
 
 
@@ -98,7 +99,7 @@ const FormEtudiantHTML = ({submitForm}) => {
                     className="form-label">
                         Cochez si vous avez votre permis de conduite
                     </label>
-                    <input id="hasLicense" type="checkbox" name="hasLicense" className="form-input" placeholder="" value={values.hasLicense} onChange={handleChange}></input>
+                    <input id="hasLicense" type="checkbox" name="hasLicense" className="form-input" placeholder="" value={values.hasLicense} onClick={handleChange}></input>
                     {errors.hasLicense && <p>{errors.hasLicense}</p>}
                 </div>
 
@@ -107,12 +108,12 @@ const FormEtudiantHTML = ({submitForm}) => {
                     className="form-label">
                        Cochez si vous avez une voiture
                     </label>
-                    <input id="hasVoiture" type="checkbox" name="hasVoiture" className="form-input" placeholder="Cochez si vous avez une voiture" value={values.hasLicense} onChange={handleChange}></input>
+                    <input id="hasVoiture" type="checkbox" name="hasVoiture" className="form-input" placeholder="" value={values.hasVoiture} onClick={handleChange}></input>
                     {errors.hasVoiture && <p>{errors.hasVoiture}</p>}
                 </div>
 
                 <button className="form-input-btn" type="submit">S'inscrire</button>
-                <span className="form-input-login">Déjà un compte? Login <a href="#">ici</a></span>
+                <span className="form-input-login">Déjà un compte? Login <Link to="/login">ici</Link></span>
             </form>
         </div>
     )

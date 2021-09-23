@@ -3,6 +3,7 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
+import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.model.User;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.GestionnaireRepository;
@@ -36,6 +37,10 @@ public class UserService {
 
     public Moniteur addMoniteur(Moniteur moniteur) {
         return moniteurRepository.save(moniteur);
+    }
+
+    public Superviseur addSuperviseur(Superviseur superviseur) {
+        return superviseurRepository.save(superviseur);
     }
 
     public User login(String email, String pwd) {

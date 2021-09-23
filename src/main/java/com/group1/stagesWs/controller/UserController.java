@@ -3,8 +3,10 @@ package com.group1.stagesWs.controller;
 
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
+import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.model.User;
 import com.group1.stagesWs.service.UserService;
+import net.bytebuddy.implementation.bind.annotation.Super;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +43,10 @@ public class UserController {
     @PostMapping(path = "/stage/moniteur")
     public Moniteur addMoniteur(@RequestBody Moniteur moniteur) {
         return service.addMoniteur(moniteur);
+    }
+
+    @PostMapping(path= "/stage/superviseur")
+    public Superviseur addSuperviseur(@RequestBody Superviseur superviseur){
+        return service.addSuperviseur(superviseur);
     }
 }

@@ -17,8 +17,8 @@ const useFormEtudiant = (callback,validateInfoEtudiant) => {
         programme: "",
         adresse: "",
         numMatricule: "",
-        hasLicense: "",
-        hasVoiture: "",
+        hasLicense: false,
+        hasVoiture: false,
     })
     const [errors,setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)

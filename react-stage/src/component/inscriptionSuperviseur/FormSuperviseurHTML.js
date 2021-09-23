@@ -2,6 +2,7 @@ import React from 'react'
 import useFormSuperviseur from './useFormSuperviseur'
 import validateInfoSuperviseur from './validateInfoSuperviseur';
 import './FormSuperviseur';
+import { Link } from 'react-router-dom';
 
 
 
@@ -85,7 +86,7 @@ const FormSuperviseurHTML = ({submitForm}) => {
                 </div>
 
                 <button className="form-input-btn" type="submit">S'inscrire</button>
-                <span className="form-input-login">Déjà un compte? Login <a href="#">ici</a></span>
+                <span className="form-input-login">Déjà un compte? Login <Link to="/login">ici</Link></span>
             </form>
         </div>
     )

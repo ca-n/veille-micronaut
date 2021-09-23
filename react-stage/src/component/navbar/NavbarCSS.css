@@ -1,0 +1,20 @@
+.nav-item .dropdown-menu {
+    background: #000000;
+    }
+  
+  .nav-item .dropdown-item {
+    color: #ffffff;
+    }
+  
+  .nav-item .dropdown-item:hover {
+    background: #f0ad4e;
+    }
+
+.dropdown-divider{
+      color: #ffffff;
+    }
+
+.App-logo {
+    height: 4vmin;
+    pointer-events: none;
+  }
