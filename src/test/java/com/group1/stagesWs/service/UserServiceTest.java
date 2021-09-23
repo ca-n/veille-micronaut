@@ -1,12 +1,9 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Moniteur;
-import com.group1.stagesWs.model.Superviseur;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
 import com.group1.stagesWs.repositories.SuperviseurRepository;
-import com.group1.stagesWs.model.User;
 import com.group1.stagesWs.repositories.GestionnaireRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -38,36 +37,17 @@ public class UserServiceTest {
     @InjectMocks
     private UserService service;
 
-    private Etudiant etudiant;
-
-
-    @BeforeEach
-    public void initializeStudent(){
-        etudiant = new Etudiant();
-        etudiant.setPrenom("Pascal");
-        etudiant.setNom("Bourgoin");
-        etudiant.setCourriel("test@test.com");
-        etudiant.setPassword("password");
-        etudiant.setNumTelephone("123456789");
-        etudiant.setNumMatricule("1234567");
-        etudiant.setAdresse("addy 123");
-        etudiant.setProgramme("Technique");
-        etudiant.setHasLicense(true);
-        etudiant.setHasVoiture(true);
-    }
-
     @Test
-    public void testAddEtudiant(){
-       //Arrange
-        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(etudiant);
+    public void testAddEtudiant() {
+        //Arrange
+        Etudiant expected = getEtudiant();
+        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(expected);
 
         //Act
-        Optional<Etudiant> etudiantTest = service.addEtudiant(etudiant);
+        Optional<Etudiant> returned = service.addEtudiant(expected);
 
         //Assert
-        assertThat(etudiantTest).isEqualTo(Optional.of(etudiant));
-
-
+        assertThat(returned).isEqualTo(Optional.of(expected));
     }
 
     @Test
@@ -97,16 +77,84 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testLogin(){
+    public void testLoginEtudiant() {
         //Arrange
-        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(etudiant);
-        Optional<Etudiant> addedEtudiant = service.addEtudiant(etudiant);
+        Etudiant expected = getEtudiant();
+        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(expected);
+        Optional<Etudiant> etudiant = service.addEtudiant(expected);
 
         //Act
-        Optional<User> etudiantTest = service.login(etudiant.getCourriel(),etudiant.getPassword());
+        Optional<User> returned = service.login(expected.getCourriel(), expected.getPassword());
 
         //Assert
-        assertThat(etudiantTest).isEqualTo(Optional.of(etudiant));
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    /*
+        @Test
+        public void testLoginGestionnaire() {
+            //Arrange
+            Gestionnaire expected = getGestionnaire();
+            when(gestionnaireRepository.save(any(Gestionnaire.class))).thenReturn(expected);
+            Optional<Gestionnaire> gestionnaire = service.addGestionnaire(expected);
+
+            //Act
+            Optional<User> returned = service.login(expected.getCourriel(), expected.getPassword());
+
+            //Assert
+            assertThat(returned).isEqualTo(Optional.of(expected));
+        }
+    */
+    @Test
+    public void testLoginMoniteur() {
+        //Arrange
+        Moniteur expected = getMoniteur();
+        when(moniteurRepository.save(any(Moniteur.class))).thenReturn(expected);
+        Optional<Moniteur> moniteur = service.addMoniteur(expected);
+
+        //Act
+        Optional<User> returned = service.login(expected.getCourriel(), expected.getPassword());
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    public void testLoginSuperviseur() {
+        //Arrange
+        Superviseur expected = getSuperviseur();
+        when(superviseurRepository.save(any(Superviseur.class))).thenReturn(expected);
+        Optional<Superviseur> superviseur = service.addSuperviseur(expected);
+
+        //Act
+        Optional<User> returned = service.login(expected.getCourriel(), expected.getPassword());
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    private Etudiant getEtudiant() {
+        return new Etudiant(
+                "Pascal",
+                "Bourgoin",
+                "test@test.com",
+                "password",
+                "123456789",
+                "1234567",
+                "addy 123",
+                "Technique",
+                true,
+                true);
+    }
+
+    private Gestionnaire getGestionnaire() {
+        return new Gestionnaire(
+                "John",
+                "McMurffy",
+                "McMurffy@test.com",
+                "password",
+                "123456789",
+                "Informatique");
     }
 
     private Moniteur getMoniteur() {
