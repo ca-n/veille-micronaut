@@ -1,12 +1,12 @@
 package com.group1.stagesWs.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.service.UserService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -35,6 +35,12 @@ public class UserControllerTest {
     private EtudiantRepository etudiantRepository;
 
     private Etudiant etudiant;
+    private static ObjectMapper mapper;
+
+    @BeforeAll
+    static void initializeObjectMapper() {
+        mapper = new ObjectMapper().findAndRegisterModules();
+    }
 
     @Test
     public void saveEtudiantTest() throws Exception{
@@ -90,10 +96,10 @@ public class UserControllerTest {
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/superviseur")
-                .contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(expected))).andReturn();
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert
-        var actualSuperviseur = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Superviseur.class);
+        var actualSuperviseur = mapper.readValue(result.getResponse().getContentAsString(), Superviseur.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(actualSuperviseur).isEqualTo(expected);
     }
