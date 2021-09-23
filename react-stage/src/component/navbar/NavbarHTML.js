@@ -14,7 +14,7 @@ const NavbarHTML = () => {
               <NavDropdown title="Form" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/etudiant">Form Etudiant</NavDropdown.Item>
                 <NavDropdown.Item href="/superviseur">Form Superviseur</NavDropdown.Item>
-                <NavDropdown.Item href="/moniteur">Form moniteur</NavDropdown.Item>
+                <NavDropdown.Item href="/moniteur">Form Moniteur</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/login">Login</NavDropdown.Item>
               </NavDropdown>

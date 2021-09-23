@@ -4,7 +4,6 @@ import validateInfoEtudiant from "./validateInfoEtudiant";
 
 
 
-
 const useFormEtudiant = (callback,validateInfoEtudiant) => {
     const url = ""
     const [values,setValues] = useState({
@@ -29,6 +28,7 @@ const useFormEtudiant = (callback,validateInfoEtudiant) => {
             ...values,
             [name]: value,
         })
+
     }
 
     const handleSubmit = e =>{
@@ -37,6 +37,7 @@ const useFormEtudiant = (callback,validateInfoEtudiant) => {
         setErrors(validateInfoEtudiant(values))
         setIsSubmitting(true)
     }
+
 
 
     useEffect(() => {
