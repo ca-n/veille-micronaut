@@ -53,9 +53,4 @@ public class UserController {
                 .map(superviseur1 -> ResponseEntity.status(HttpStatus.CREATED).body(superviseur1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
-
-    @PostMapping(path= "/stage/superviseur")
-    public Superviseur addSuperviseur(@RequestBody Superviseur superviseur){
-        return service.addSuperviseur(superviseur);
-    }
 }
