@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -98,48 +97,51 @@ public class UserControllerTest {
     void testLoginEtudiant() throws Exception {
         //Arrange
         Etudiant expected = getEtudiant();
-        when(userService.addEtudiant(expected)).thenReturn(Optional.of(expected));
+        when(userService.login(expected.getCourriel(), expected.getPassword())).thenReturn(Optional.of(expected));
+        String url = "/user/" + expected.getCourriel() + "/" + expected.getPassword();
 
         //Act
-        MvcResult result = mockMvc.perform(get("/user/{email}/{password}")
+        MvcResult result = mockMvc.perform(get(url)
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         // Assert
         var actualEtudiant = mapper.readValue(result.getResponse().getContentAsString(), Etudiant.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
         assertThat(actualEtudiant).isEqualTo(expected);
     }
 
-    /*
+
     @Test
     void testLoginGestionnaire() throws Exception {
         //Arrange
         Gestionnaire expected = getGestionnaire();
-        when(userService.addGestionnaire(expected)).thenReturn(Optional.of(expected));
+        when(userService.login(expected.getCourriel(), expected.getPassword())).thenReturn(Optional.of(expected));
+        String url = "/user/" + expected.getCourriel() + "/" + expected.getPassword();
 
         //Act
-        MvcResult result = mockMvc.perform(get("/user/{email}/{password}")
+        MvcResult result = mockMvc.perform(get(url)
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         // Assert
         var actualGestionnaire = mapper.readValue(result.getResponse().getContentAsString(), Gestionnaire.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
         assertThat(actualGestionnaire).isEqualTo(expected);
     }
-*/
+
     @Test
     void testLoginMoniteur() throws Exception {
         //Arrange
         Moniteur expected = getMoniteur();
-        when(userService.addMoniteur(expected)).thenReturn(Optional.of(expected));
+        when(userService.login(expected.getCourriel(), expected.getPassword())).thenReturn(Optional.of(expected));
+        String url = "/user/" + expected.getCourriel() + "/" + expected.getPassword();
 
         //Act
-        MvcResult result = mockMvc.perform(get("/user/{email}/{password}")
+        MvcResult result = mockMvc.perform(get(url)
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         // Assert
         var actualMoniteur = mapper.readValue(result.getResponse().getContentAsString(), Moniteur.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
         assertThat(actualMoniteur).isEqualTo(expected);
     }
 
@@ -147,15 +149,16 @@ public class UserControllerTest {
     void testLoginSuperviseur() throws Exception {
         //Arrange
         Superviseur expected = getSuperviseur();
-        when(userService.addSuperviseur(expected)).thenReturn(Optional.of(expected));
+        when(userService.login(expected.getCourriel(), expected.getPassword())).thenReturn(Optional.of(expected));
+        String url = "/user/" + expected.getCourriel() + "/" + expected.getPassword();
 
         //Act
-        MvcResult result = mockMvc.perform(get("/user/{email}/{password}")
+        MvcResult result = mockMvc.perform(get(url)
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         // Assert
         var actualSuperviseur = mapper.readValue(result.getResponse().getContentAsString(), Superviseur.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
         assertThat(actualSuperviseur).isEqualTo(expected);
     }
 
@@ -167,9 +170,9 @@ public class UserControllerTest {
                 "test@test.com",
                 "password",
                 "123456789",
-                "1234567",
+                "technique",
                 "addy 123",
-                "Technique",
+                "123456",
                 true,
                 true);
     }

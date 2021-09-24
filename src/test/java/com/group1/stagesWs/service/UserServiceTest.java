@@ -2,10 +2,9 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.EtudiantRepository;
+import com.group1.stagesWs.repositories.GestionnaireRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
 import com.group1.stagesWs.repositories.SuperviseurRepository;
-import com.group1.stagesWs.repositories.GestionnaireRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,7 +31,6 @@ public class UserServiceTest {
 
     @Mock
     GestionnaireRepository gestionnaireRepository;
-
 
     @InjectMocks
     private UserService service;
@@ -80,8 +78,8 @@ public class UserServiceTest {
     public void testLoginEtudiant() {
         //Arrange
         Etudiant expected = getEtudiant();
-        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(expected);
-        Optional<Etudiant> etudiant = service.addEtudiant(expected);
+        when(etudiantRepository.findEtudiantByCourrielIgnoreCase(expected.getCourriel())).thenReturn(expected);
+        when(etudiantRepository.findEtudiantByCourrielIgnoreCaseAndPassword(expected.getCourriel(), expected.getPassword())).thenReturn(expected);
 
         //Act
         Optional<User> returned = service.login(expected.getCourriel(), expected.getPassword());
@@ -90,27 +88,26 @@ public class UserServiceTest {
         assertThat(returned).isEqualTo(Optional.of(expected));
     }
 
-    /*
-        @Test
-        public void testLoginGestionnaire() {
-            //Arrange
-            Gestionnaire expected = getGestionnaire();
-            when(gestionnaireRepository.save(any(Gestionnaire.class))).thenReturn(expected);
-            Optional<Gestionnaire> gestionnaire = service.addGestionnaire(expected);
+    @Test
+    public void testLoginGestionnaire() {
+        //Arrange
+        Gestionnaire expected = getGestionnaire();
+        when(gestionnaireRepository.findGestionnaireByCourrielIgnoreCase(expected.getCourriel())).thenReturn(expected);
+        when(gestionnaireRepository.findGestionnaireByCourrielIgnoreCaseAndPassword(expected.getCourriel(), expected.getPassword())).thenReturn(expected);
 
-            //Act
-            Optional<User> returned = service.login(expected.getCourriel(), expected.getPassword());
+        //Act
+        Optional<User> returned = service.login(expected.getCourriel(), expected.getPassword());
 
-            //Assert
-            assertThat(returned).isEqualTo(Optional.of(expected));
-        }
-    */
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
     @Test
     public void testLoginMoniteur() {
         //Arrange
         Moniteur expected = getMoniteur();
-        when(moniteurRepository.save(any(Moniteur.class))).thenReturn(expected);
-        Optional<Moniteur> moniteur = service.addMoniteur(expected);
+        when(moniteurRepository.findMoniteurByCourrielIgnoreCase(expected.getCourriel())).thenReturn(expected);
+        when(moniteurRepository.findMoniteurByCourrielIgnoreCaseAndPassword(expected.getCourriel(), expected.getPassword())).thenReturn(expected);
 
         //Act
         Optional<User> returned = service.login(expected.getCourriel(), expected.getPassword());
@@ -123,8 +120,8 @@ public class UserServiceTest {
     public void testLoginSuperviseur() {
         //Arrange
         Superviseur expected = getSuperviseur();
-        when(superviseurRepository.save(any(Superviseur.class))).thenReturn(expected);
-        Optional<Superviseur> superviseur = service.addSuperviseur(expected);
+        when(superviseurRepository.findSuperviseurByCourrielIgnoreCase(expected.getCourriel())).thenReturn(expected);
+        when(superviseurRepository.findSuperviseurByCourrielIgnoreCaseAndPassword(expected.getCourriel(), expected.getPassword())).thenReturn(expected);
 
         //Act
         Optional<User> returned = service.login(expected.getCourriel(), expected.getPassword());
@@ -140,9 +137,9 @@ public class UserServiceTest {
                 "test@test.com",
                 "password",
                 "123456789",
-                "1234567",
+                "technique",
                 "addy 123",
-                "Technique",
+                "123456",
                 true,
                 true);
     }

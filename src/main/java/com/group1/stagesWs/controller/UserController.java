@@ -13,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
@@ -34,8 +32,10 @@ public class UserController {
 
     //login
     @GetMapping("/user/{email}/{password}")
-    public Optional<User> login(@PathVariable("email") String email, @PathVariable("password") String password) {
-        return service.login(email, password);
+    public ResponseEntity<User> login(@PathVariable("email") String email, @PathVariable("password") String password) {
+        return service.login(email, password)
+                .map(etudiant1 -> ResponseEntity.status(HttpStatus.FOUND).body(etudiant1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
     //Create Moniteur

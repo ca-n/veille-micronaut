@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GestionnaireRepository extends JpaRepository<Gestionnaire, Integer> {
 
-    Gestionnaire findGestionnaireByCourriel(String email);
+    Gestionnaire findGestionnaireByCourrielIgnoreCase(String email);
 
-    Gestionnaire findGestionnaireByCourrielAndPassword(String email, String pwd);
+    Gestionnaire findGestionnaireByCourrielIgnoreCaseAndPassword(String email, String pwd);
 }
