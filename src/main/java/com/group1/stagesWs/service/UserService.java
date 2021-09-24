@@ -44,10 +44,6 @@ public class UserService {
         return Optional.of(superviseurRepository.save(superviseur));
     }
 
-    public Superviseur addSuperviseur(Superviseur superviseur) {
-        return superviseurRepository.save(superviseur);
-    }
-
     public User login(String email, String pwd) {
         if (etudiantRepository.findEtudiantByCourriel(email) != null) {
             return etudiantRepository.findEtudiantByCourrielAndPassword(email, pwd);
