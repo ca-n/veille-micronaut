@@ -22,7 +22,7 @@ public class Etudiant extends User implements Serializable {
     @OneToMany
     private Set<Offre> offres;
 
-    public Etudiant(){
+    public Etudiant() {
 
     }
 
