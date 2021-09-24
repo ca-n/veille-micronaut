@@ -11,7 +11,7 @@ const FormSuperviseurHTML = ({submitForm}) => {
     return (
         <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>
-                <h1>Créez votre compte dès maintenant!</h1>
+                <h1>Créez votre compte superviseur dès maintenant!</h1>
 
                 <div className="form-inputs">
                     <label htmlFor="prenom"

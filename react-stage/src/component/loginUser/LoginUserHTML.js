@@ -10,8 +10,7 @@ const LoginUserHTML = ({submitForm}) => {
     return (
         <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>
-                <h1>Créez votre compte dès maintenant!</h1>
-
+                <h1>Vous pouvez vous connecter ici ↓</h1>
                 <div className="form-inputs">
                     <label htmlFor="courriel"
                     className="form-label">
