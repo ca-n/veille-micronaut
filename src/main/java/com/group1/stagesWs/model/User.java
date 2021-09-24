@@ -16,6 +16,7 @@ public class User implements Serializable {
 
     private String prenom;
     private String nom;
+    @Column(unique = true)
     private String courriel;
     private String password;
     private String numTelephone;
@@ -24,7 +25,7 @@ public class User implements Serializable {
     private LocalDate dateCreation;
 
 
-    public User(){
+    public User() {
         dateCreation = LocalDate.now();
     }
 
