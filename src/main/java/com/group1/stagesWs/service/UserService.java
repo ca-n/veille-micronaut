@@ -31,8 +31,7 @@ public class UserService {
     private SuperviseurRepository superviseurRepository;
 
 
-
-    public Optional<Etudiant> addEtudiant(Etudiant etudiant){
+    public Optional<Etudiant> addEtudiant(Etudiant etudiant) {
         return Optional.of(etudiantRepository.save(etudiant));
     }
 
@@ -44,18 +43,18 @@ public class UserService {
         return Optional.of(superviseurRepository.save(superviseur));
     }
 
-    public User login(String email, String pwd) {
-        if (etudiantRepository.findEtudiantByCourriel(email) != null) {
-            return etudiantRepository.findEtudiantByCourrielAndPassword(email, pwd);
+    public Optional<User> login(String email, String pwd) {
+        if (etudiantRepository.findEtudiantByCourrielIgnoreCase(email) != null) {
+            return Optional.of(etudiantRepository.findEtudiantByCourrielIgnoreCaseAndPassword(email, pwd));
         }
-        if (gestionnaireRepository.findGestionnaireByCourriel(email) != null) {
-            return gestionnaireRepository.findGestionnaireByCourrielAndPassword(email, pwd);
+        if (gestionnaireRepository.findGestionnaireByCourrielIgnoreCase(email) != null) {
+            return Optional.of(gestionnaireRepository.findGestionnaireByCourrielIgnoreCaseAndPassword(email, pwd));
         }
-        if (moniteurRepository.findMoniteurByCourriel(email) != null) {
-            return moniteurRepository.findMoniteurByCourrielAndPassword(email, pwd);
+        if (moniteurRepository.findMoniteurByCourrielIgnoreCase(email) != null) {
+            return Optional.of(moniteurRepository.findMoniteurByCourrielIgnoreCaseAndPassword(email, pwd));
         }
-        if (superviseurRepository.findSuperviseurByCourriel(email) != null) {
-            return superviseurRepository.findSuperviseurByCourrielAndPassword(email, pwd);
+        if (superviseurRepository.findSuperviseurByCourrielIgnoreCase(email) != null) {
+            return Optional.of(superviseurRepository.findSuperviseurByCourrielIgnoreCaseAndPassword(email, pwd));
         }
         return null;
     }

@@ -2,6 +2,7 @@ package com.group1.stagesWs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Gestionnaire;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.repositories.EtudiantRepository;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @WebMvcTest
@@ -34,7 +36,6 @@ public class UserControllerTest {
     @MockBean
     private EtudiantRepository etudiantRepository;
 
-    private Etudiant etudiant;
     private static ObjectMapper mapper;
 
     @BeforeAll
@@ -43,32 +44,20 @@ public class UserControllerTest {
     }
 
     @Test
-    public void saveEtudiantTest() throws Exception{
+    public void testAddEtudiant() throws Exception {
         //Arrange
-        etudiant = new Etudiant();
-        etudiant = new Etudiant();
-        etudiant.setPrenom("Pascal");
-        etudiant.setNom("Bourgoin");
-        etudiant.setCourriel("test@test.com");
-        etudiant.setPassword("password");
-        etudiant.setNumTelephone("123456789");
-        etudiant.setNumMatricule("1234567");
-        etudiant.setAdresse("addy 123");
-        etudiant.setProgramme("Technique");
-        etudiant.setHasLicense(true);
-        etudiant.setHasVoiture(true);
-
-        when(userService.addEtudiant(etudiant)).thenReturn(Optional.of(etudiant));
+        Etudiant expected = getEtudiant();
+        when(userService.addEtudiant(expected)).thenReturn(Optional.of(expected));
 
         // Act
         MvcResult result = mockMvc.perform(post("/stage/etudiant")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(etudiant))).andReturn();
+                .content(mapper.writeValueAsString(expected))).andReturn();
 
         // Assert
         var actualEtudiant = mapper.readValue(result.getResponse().getContentAsString(), Etudiant.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo( HttpStatus.CREATED.value());
-        assertThat(etudiant).isEqualTo(actualEtudiant);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(actualEtudiant).isEqualTo(expected);
     }
 
     @Test
@@ -102,6 +91,100 @@ public class UserControllerTest {
         var actualSuperviseur = mapper.readValue(result.getResponse().getContentAsString(), Superviseur.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(actualSuperviseur).isEqualTo(expected);
+    }
+
+    @Test
+    void testLoginEtudiant() throws Exception {
+        //Arrange
+        Etudiant expected = getEtudiant();
+        when(userService.login(expected.getCourriel(), expected.getPassword())).thenReturn(Optional.of(expected));
+        String url = "/user/" + expected.getCourriel() + "/" + expected.getPassword();
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        // Assert
+        var actualEtudiant = mapper.readValue(result.getResponse().getContentAsString(), Etudiant.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
+        assertThat(actualEtudiant).isEqualTo(expected);
+    }
+
+
+    @Test
+    void testLoginGestionnaire() throws Exception {
+        //Arrange
+        Gestionnaire expected = getGestionnaire();
+        when(userService.login(expected.getCourriel(), expected.getPassword())).thenReturn(Optional.of(expected));
+        String url = "/user/" + expected.getCourriel() + "/" + expected.getPassword();
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        // Assert
+        var actualGestionnaire = mapper.readValue(result.getResponse().getContentAsString(), Gestionnaire.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
+        assertThat(actualGestionnaire).isEqualTo(expected);
+    }
+
+    @Test
+    void testLoginMoniteur() throws Exception {
+        //Arrange
+        Moniteur expected = getMoniteur();
+        when(userService.login(expected.getCourriel(), expected.getPassword())).thenReturn(Optional.of(expected));
+        String url = "/user/" + expected.getCourriel() + "/" + expected.getPassword();
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        // Assert
+        var actualMoniteur = mapper.readValue(result.getResponse().getContentAsString(), Moniteur.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
+        assertThat(actualMoniteur).isEqualTo(expected);
+    }
+
+    @Test
+    void testLoginSuperviseur() throws Exception {
+        //Arrange
+        Superviseur expected = getSuperviseur();
+        when(userService.login(expected.getCourriel(), expected.getPassword())).thenReturn(Optional.of(expected));
+        String url = "/user/" + expected.getCourriel() + "/" + expected.getPassword();
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        // Assert
+        var actualSuperviseur = mapper.readValue(result.getResponse().getContentAsString(), Superviseur.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
+        assertThat(actualSuperviseur).isEqualTo(expected);
+    }
+
+
+    private Etudiant getEtudiant() {
+        return new Etudiant(
+                "Pascal",
+                "Bourgoin",
+                "test@test.com",
+                "password",
+                "123456789",
+                "technique",
+                "addy 123",
+                "123456",
+                true,
+                true);
+    }
+
+    private Gestionnaire getGestionnaire() {
+        return new Gestionnaire(
+                "John",
+                "McMurffy",
+                "McMurffy@test.com",
+                "password",
+                "123456789",
+                "Informatique");
     }
 
     private Moniteur getMoniteur() {
