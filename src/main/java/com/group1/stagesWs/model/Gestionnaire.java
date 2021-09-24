@@ -13,7 +13,7 @@ public class Gestionnaire extends User implements Serializable {
     private String departement;
 
 
-    public Gestionnaire(){
+    public Gestionnaire() {
 
     }
 

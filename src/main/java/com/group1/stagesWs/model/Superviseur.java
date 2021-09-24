@@ -13,7 +13,7 @@ public class Superviseur extends User implements Serializable {
     private String specialite;
 
 
-    public Superviseur(){
+    public Superviseur() {
         super();
     }
 
