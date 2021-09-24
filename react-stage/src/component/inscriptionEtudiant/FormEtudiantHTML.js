@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 const FormEtudiantHTML = ({submitForm}) => {
-    const {handleChange,values, handleSubmit, errors} = useFormEtudiant(submitForm,validateInfoEtudiant);
+    const {handleChange,values, hasLicense, hasVoiture, handleSubmit, handleClickVoiture, handleClickLicense, errors} = useFormEtudiant(submitForm,validateInfoEtudiant);
     return (
         <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>
@@ -99,7 +99,7 @@ const FormEtudiantHTML = ({submitForm}) => {
                     className="form-label">
                         Cochez si vous avez votre permis de conduite
                     </label>
-                    <input id="hasLicense" type="checkbox" name="hasLicense" className="form-input" placeholder="" value={values.hasLicense} onClick={handleChange}></input>
+                    <input id="hasLicense" type="checkbox" name="hasLicense" className="form-input" placeholder="" onClick={handleClickLicense} value={hasLicense}></input>
                     {errors.hasLicense && <p>{errors.hasLicense}</p>}
                 </div>
 
@@ -108,7 +108,7 @@ const FormEtudiantHTML = ({submitForm}) => {
                     className="form-label">
                        Cochez si vous avez une voiture
                     </label>
-                    <input id="hasVoiture" type="checkbox" name="hasVoiture" className="form-input" placeholder="" value={values.hasVoiture} onClick={handleChange}></input>
+                    <input id="hasVoiture" type="checkbox" name="hasVoiture" className="form-input" placeholder="" onClick={handleClickVoiture} value={hasVoiture}></input>
                     {errors.hasVoiture && <p>{errors.hasVoiture}</p>}
                 </div>
 
