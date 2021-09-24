@@ -2,8 +2,11 @@ package com.group1.stagesWs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Moniteur;
+import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.service.UserService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -32,6 +35,12 @@ public class UserControllerTest {
     private EtudiantRepository etudiantRepository;
 
     private Etudiant etudiant;
+    private static ObjectMapper mapper;
+
+    @BeforeAll
+    static void initializeObjectMapper() {
+        mapper = new ObjectMapper().findAndRegisterModules();
+    }
 
     @Test
     public void saveEtudiantTest() throws Exception{
@@ -54,13 +63,66 @@ public class UserControllerTest {
         // Act
         MvcResult result = mockMvc.perform(post("/stage/etudiant")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(etudiant))).andReturn();
+                .content(mapper.writeValueAsString(etudiant))).andReturn();
 
         // Assert
-        var actualEtudiant = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Etudiant.class);
+        var actualEtudiant = mapper.readValue(result.getResponse().getContentAsString(), Etudiant.class);
         assertThat(result.getResponse().getStatus()).isEqualTo( HttpStatus.CREATED.value());
         assertThat(etudiant).isEqualTo(actualEtudiant);
     }
 
+    @Test
+    public void testAddMoniteur() throws Exception {
+        //Arrange
+        Moniteur expected = getMoniteur();
+        when(userService.addMoniteur(expected)).thenReturn(Optional.of(expected));
 
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/moniteur")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualMoniteur = mapper.readValue(result.getResponse().getContentAsString(), Moniteur.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(actualMoniteur).isEqualTo(expected);
+    }
+
+    @Test
+    public void testAddSuperviseur() throws Exception {
+        //Arrange
+        Superviseur expected = getSuperviseur();
+        when(userService.addSuperviseur(expected)).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/superviseur")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualSuperviseur = mapper.readValue(result.getResponse().getContentAsString(), Superviseur.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(actualSuperviseur).isEqualTo(expected);
+    }
+
+    private Moniteur getMoniteur() {
+        return new Moniteur(
+                "John",
+                "Doe",
+                "john.doe@example.com",
+                "pa55w0rd",
+                "000111222",
+                "Example Enterprises",
+                "123 Enterprise Lane");
+    }
+
+    private Superviseur getSuperviseur() {
+        return new Superviseur(
+                "Jane",
+                "Smith",
+                "jane.smith@example.com",
+                "pa55w0rd",
+                "123000322",
+                "Informatique",
+                "Securite");
+    }
 }
