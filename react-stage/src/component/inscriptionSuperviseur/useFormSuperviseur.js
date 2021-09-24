@@ -25,11 +25,6 @@ const useFormSuperviseur = (callback,validateInfoSuperviseur) => {
             ...values,
             [name]: value,
         })
-
-        var request = new XMLHttpRequest();
-        request.open('POST', 'localhost:9191/stage/etudiant', true);
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        request.send(values)
     }
 
     const handleSubmit = e =>{
@@ -44,6 +39,15 @@ const useFormSuperviseur = (callback,validateInfoSuperviseur) => {
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitting) {
             callback();
+
+            var request = new XMLHttpRequest();
+            request.open('POST', 'http://localhost:9191/stage/superviseur', true);
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+
+            const superviseur = JSON.stringify(values);
+
+            request.send(superviseur)
         }
     }, [errors]
     );

@@ -2,6 +2,7 @@ import React from 'react'
 import useFormMoniteur from './useFormMoniteur'
 import validateInfoMoniteur from './validateInfoMoniteur';
 import './FormMoniteur';
+import { Link } from 'react-router-dom';
 
 
 const FormMoniteurHTML = ({submitForm}) => {
@@ -97,7 +98,7 @@ const FormMoniteurHTML = ({submitForm}) => {
                 </div>
 
                 <button className="form-input-btn" type="submit">S'inscrire</button>
-                <span className="form-input-login">Déjà un compte? Login <a href="#">ici</a></span>
+                <span className="form-input-login">Déjà un compte? Login <Link to="/login">ici</Link></span>
             </form>
         </div>
     )

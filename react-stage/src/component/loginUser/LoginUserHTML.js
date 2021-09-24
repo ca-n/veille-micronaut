@@ -30,8 +30,7 @@ const LoginUserHTML = ({submitForm}) => {
                     {errors.password && <p>{errors.password}</p>}
                 </div>
 
-                <button className="form-input-btn" type="submit">S'inscrire</button>
-                <span className="form-input-login">Déjà un compte? Login <a href="#">ici</a></span>
+                <button className="form-input-btn" type="submit">Login</button>
             </form>
         </div>
     )
