@@ -13,7 +13,7 @@ public class Moniteur extends User implements Serializable {
     private String nomEntreprise;
     private String adresseEntreprise;
 
-    public Moniteur(){
+    public Moniteur() {
 
     }
 
