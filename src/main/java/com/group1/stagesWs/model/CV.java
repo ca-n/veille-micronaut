@@ -3,7 +3,6 @@ package com.group1.stagesWs.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDate;
 
