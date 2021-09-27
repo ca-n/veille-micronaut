@@ -16,6 +16,7 @@ public class Offre implements Serializable {
     private String titre;
     private String description;
     private String entreprise;
+    private boolean isValid;
 
     @OneToOne
     private Whitelist visibiliteEtudiant;
