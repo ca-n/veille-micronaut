@@ -4,20 +4,18 @@ import com.group1.stagesWs.model.*;
 
 public class UserFactory {
 
-    public enum UserType{Etudiant, Moniteur, Superviseur, Gestionnaire}
 
-    
     public User getInstance(UserType userType){
-        if(userType == UserType.Etudiant){
+        if(userType == UserType.ETUDIANT){
             return new Etudiant();
         }
-        else if(userType == UserType.Moniteur){
+        else if(userType == UserType.MONITEUR){
             return new Moniteur();
         }
-        else if(userType == UserType.Superviseur){
+        else if(userType == UserType.SUPERVISEUR){
             return new Superviseur();
         }
-        else if(userType == UserType.Gestionnaire){
+        else if(userType == UserType.GESTIONNAIRE){
             return new Gestionnaire();
         }
         else return null;

@@ -14,11 +14,11 @@ public class Moniteur extends User implements Serializable {
     private String adresseEntreprise;
 
     public Moniteur() {
-
+        role = UserType.MONITEUR;
     }
 
     public Moniteur(String prenom, String nom, String courriel, String password, String numTelephone, String nomEntreprise, String adresseEntreprise) {
-        super(prenom, nom, courriel, password, numTelephone);
+        super(prenom, nom, courriel, password, numTelephone, UserType.MONITEUR);
         this.nomEntreprise = nomEntreprise;
         this.adresseEntreprise = adresseEntreprise;
     }
