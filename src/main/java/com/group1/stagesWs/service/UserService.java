@@ -12,6 +12,7 @@ import com.group1.stagesWs.repositories.SuperviseurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,5 +57,9 @@ public class UserService {
             return Optional.of(superviseurRepository.findSuperviseurByCourrielIgnoreCaseAndPassword(email, pwd));
         }
         return null;
+    }
+
+    public List<Etudiant> getAllEtudiants() {
+        return etudiantRepository.findAll();
     }
 }
