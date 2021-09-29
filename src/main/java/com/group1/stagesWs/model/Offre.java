@@ -16,6 +16,7 @@ public class Offre implements Serializable {
     private String titre;
     private String description;
     private String entreprise;
+    private boolean isValid;
 
     @OneToOne
     private Whitelist visibiliteEtudiant;
@@ -23,9 +24,10 @@ public class Offre implements Serializable {
     public Offre() {
     }
 
-    public Offre(String titre, String description, String entreprise) {
+    public Offre(String titre, String description, String entreprise, boolean isValid) {
         this.titre = titre;
         this.description = description;
         this.entreprise = entreprise;
+        this.isValid = isValid;
     }
 }
