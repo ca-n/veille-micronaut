@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
@@ -51,5 +53,10 @@ public class UserController {
         return service.addSuperviseur(superviseur)
                 .map(superviseur1 -> ResponseEntity.status(HttpStatus.CREATED).body(superviseur1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @GetMapping(path = "/stage/etudiants")
+    public ResponseEntity<List<Etudiant>> getAllEtudiants() {
+        return new ResponseEntity<>(service.getAllEtudiants(), HttpStatus.OK);
     }
 }
