@@ -32,20 +32,6 @@ public class StageServiceTest {
     private StageService service;
 
     @Test
-    void testAddWhitelistToOffre() {
-        //Arrange
-        Offre expected = getOffre();
-        Set<Etudiant> whitelisted = getEtudiants();
-        when(offreRepository.save(any(Offre.class))).thenReturn(expected);
-
-        //Act
-        Optional<Offre> returned = service.addWhitelistToOffre(expected, whitelisted);
-
-        //Assert
-        assertThat(returned).isEqualTo(Optional.of(expected));
-    }
-
-    @Test
     void testGetAllOffres() {
         //Arrange
         List<Offre> expected = getOffres();
@@ -69,6 +55,32 @@ public class StageServiceTest {
 
         //Assert
         assertThat(returned).isEqualTo(expected);
+    }
+
+    @Test
+    void testSaveOffre() {
+        //Arrange
+        Offre expected = getOffre();
+        when(offreRepository.save(expected)).thenReturn(expected);
+
+        //Act
+        Optional<Offre> returned = service.saveOffre(expected);
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    void testSaveWhitelist() {
+        //Arrange
+        Whitelist expected = new Whitelist();
+        when(whitelistRepository.save(expected)).thenReturn(expected);
+
+        //Act
+        Optional<Whitelist> returned = service.saveWhitelist(expected);
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
     }
 
     private Offre getOffre() {

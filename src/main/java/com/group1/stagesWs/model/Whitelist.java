@@ -19,8 +19,4 @@ public class Whitelist implements Serializable {
     private Set<Etudiant> whitelistedEtudiant;
 
     public Whitelist() {}
-
-    public Whitelist(Set<Etudiant> whitelisted) {
-        whitelistedEtudiant = whitelisted;
-    }
 }

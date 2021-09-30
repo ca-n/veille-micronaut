@@ -5,7 +5,6 @@ import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
 import com.group1.stagesWs.service.StageService;
-import com.group1.stagesWs.wrapper.OffreWhitelistWrapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,26 +41,6 @@ public class StageControllerTest {
     }
 
     @Test
-    void testAddWhitelistToOffre() throws Exception {
-        //Arrange
-        Offre expected = getOffre();
-        Set<Etudiant> whitelisted = Set.of(new Etudiant());
-        OffreWhitelistWrapper wrapper = new OffreWhitelistWrapper(expected, whitelisted);
-
-        when(service.addWhitelistToOffre(any(Offre.class), any(Set.class))).thenReturn(Optional.of(expected));
-
-        //Act
-        MvcResult result = mockMvc.perform(post("/stage/offre/whitelist")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(wrapper))).andReturn();
-
-        //Assert
-        var actualOffre = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
-        assertThat(actualOffre).isEqualTo(expected);
-    }
-
-    @Test
     void testGetAllOffres() throws Exception {
         //Arrange
         List<Offre> expected = List.of(getOffre(), getOffre(), getOffre());
@@ -93,6 +72,40 @@ public class StageControllerTest {
         var actualOffres = mapper.readValue(result.getResponse().getContentAsString(), List.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualOffres.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testSaveOffre() throws Exception {
+        //Arrange
+        Offre expected = getOffre();
+        when(service.saveOffre(expected)).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/offre")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void testSaveWhitelist() throws Exception {
+        //Arrange
+        Whitelist expected = new Whitelist();
+        when(service.saveWhitelist(expected)).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/whitelist")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), Whitelist.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual).isEqualTo(expected);
     }
 
     private Offre getOffre() {

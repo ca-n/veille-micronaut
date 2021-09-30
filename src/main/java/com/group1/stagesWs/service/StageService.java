@@ -21,13 +21,6 @@ public class StageService {
     @Autowired
     private WhitelistRepository whitelistRepository;
 
-    public Optional<Offre> addWhitelistToOffre(Offre offre, Set<Etudiant> whitelisted) {
-        Whitelist whitelist = new Whitelist(whitelisted);
-        whitelist = whitelistRepository.save(whitelist);
-        offre.setVisibiliteEtudiant(whitelist);
-        return Optional.of(offreRepository.save(offre));
-    }
-
     public List<Offre> getAllOffres() {
         return offreRepository.findAll();
     }
@@ -35,5 +28,13 @@ public class StageService {
     public List<Offre> getEtudiantOffres(Etudiant etudiant) {
         List<Whitelist> whitelists = whitelistRepository.findAllByWhitelistedEtudiant(etudiant);
         return offreRepository.findAllByVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(whitelists);
+    }
+
+    public Optional<Offre> saveOffre(Offre offre) {
+        return Optional.of(offreRepository.save(offre));
+    }
+
+    public Optional<Whitelist> saveWhitelist(Whitelist whitelist) {
+        return Optional.of(whitelistRepository.save(whitelist));
     }
 }
