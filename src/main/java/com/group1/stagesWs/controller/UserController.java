@@ -24,7 +24,7 @@ public class UserController {
 
     @PostMapping(path = "/stage/etudiant")
     public ResponseEntity<Etudiant> createEtudiant(@RequestBody Etudiant etudiant) {
-        logger.info("post - createTodo " + etudiant);
+        logger.info("post - createEtudiant " + etudiant);
         return service.addEtudiant(etudiant)
                 .map(etudiant1 -> ResponseEntity.status(HttpStatus.CREATED).body(etudiant1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
