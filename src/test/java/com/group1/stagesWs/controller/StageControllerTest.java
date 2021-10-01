@@ -86,9 +86,9 @@ public class StageControllerTest {
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert
-        var actual = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
+        var actualOffre = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actualOffre).isEqualTo(expected);
     }
 
     @Test
@@ -109,6 +109,10 @@ public class StageControllerTest {
     }
 
     private Offre getOffre() {
-        return new Offre("Programmeur", "Full-Stack", "Super-Code Plus");
+        return new Offre(
+                "Developpeur Java",
+                "Developpeur Java sur un projet de banque",
+                "Banque NCA",
+                false);
     }
 }

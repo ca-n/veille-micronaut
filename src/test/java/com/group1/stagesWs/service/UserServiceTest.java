@@ -40,7 +40,7 @@ public class UserServiceTest {
     public void testAddEtudiant() {
         //Arrange
         Etudiant expected = getEtudiant();
-        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(expected);
+        when(etudiantRepository.save(expected)).thenReturn(expected);
 
         //Act
         Optional<Etudiant> returned = service.addEtudiant(expected);
