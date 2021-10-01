@@ -86,9 +86,9 @@ public class StageControllerTest {
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert
-        var actual = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
+        var actualOffre = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actualOffre).isEqualTo(expected);
     }
 
     @Test
