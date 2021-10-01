@@ -109,6 +109,10 @@ public class StageControllerTest {
     }
 
     private Offre getOffre() {
-        return new Offre("Programmeur", "Full-Stack", "Super-Code Plus");
+        return new Offre(
+                "Developpeur Java",
+                "Developpeur Java sur un projet de banque",
+                "Banque NCA",
+                false);
     }
 }

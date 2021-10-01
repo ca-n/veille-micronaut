@@ -2,8 +2,6 @@ package com.group1.stagesWs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.repositories.EtudiantRepository;
-import com.group1.stagesWs.repositories.OffreRepository;
 import com.group1.stagesWs.service.OffreService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -22,8 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@WebMvcTest
-@ContextConfiguration(classes = {OffreController.class})
+@WebMvcTest(OffreController.class)
 public class OffreControllerTest {
 
     @Autowired
@@ -44,7 +40,7 @@ public class OffreControllerTest {
     public void testAddOffre() throws Exception {
         //Arrange
         Offre expected = getOffre();
-        when(offreService.addOffre(expected)).thenReturn(Optional.of(expected));
+        when(offreService.saveOffre(expected)).thenReturn(Optional.of(expected));
 
         // Act
         MvcResult result = mockMvc.perform(post("/stage/offre")

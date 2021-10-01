@@ -24,7 +24,7 @@ public class OffreController {
     @PostMapping(path = "/stage/offre")
     public ResponseEntity<Offre> createOffre(@RequestBody Offre offre) {
         logger.info("post - createOffre " + offre);
-        return service.addOffre(offre)
+        return service.saveOffre(offre)
                 .map(offre1 -> ResponseEntity.status(HttpStatus.CREATED).body(offre1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }

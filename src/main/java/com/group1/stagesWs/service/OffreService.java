@@ -13,7 +13,7 @@ public class OffreService {
     @Autowired
     private OffreRepository offreRepository;
 
-    public Optional<Offre> addOffre(Offre offre) {
+    public Optional<Offre> saveOffre(Offre offre) {
         return Optional.of(offreRepository.save(offre));
     }
 }

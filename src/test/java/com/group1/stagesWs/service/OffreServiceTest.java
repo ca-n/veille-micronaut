@@ -30,7 +30,7 @@ public class OffreServiceTest {
         when(offreRepository.save(any(Offre.class))).thenReturn(expected);
 
         //Act
-        Optional<Offre> returned = service.addOffre(expected);
+        Optional<Offre> returned = service.saveOffre(expected);
 
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
