@@ -12,7 +12,7 @@ const NavbarHTML = () => {
 
   const myFunction = () => {
     const url = encodeURIComponent("http://localhost:3000/moniteur");
-    window.open(`mailto:user@example.com?subject=${url}&body=Voici le lien pour vous inscrire`)
+    window.open(`mailto:?subject=${url}&body=Voici le lien pour vous inscrire`)
   }
   
 
