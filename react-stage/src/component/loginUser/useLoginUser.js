@@ -3,6 +3,8 @@ import validateInfoLogin from "./validateInfoLogin";
 import axios from 'axios'
 
 
+const objetLogin = "test";
+
 const useLoginUser = (callback,validateInfoLogin) => {
     const [values,setValues] = useState({
         courriel: "",
@@ -38,7 +40,6 @@ const useLoginUser = (callback,validateInfoLogin) => {
                 return res.json();
             })
             .then(data => {
-                console.log(data)
             })
 
         }
