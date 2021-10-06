@@ -7,9 +7,9 @@ import Axios from 'axios'
 const useFormOffre = (callback,validateInfoOffre) => {
     const url = ""
     const [values,setValues] = useState({
-        prenom: "",
-        nom: "",
-        courriel: "",
+        titre: "",
+        description: "",
+        entreprise: "",
         isValid: false
     })
     const [errors,setErrors] = useState({})
@@ -39,7 +39,6 @@ const useFormOffre = (callback,validateInfoOffre) => {
                 var request = new XMLHttpRequest();
                 request.open('POST', 'http://localhost:9191/stage/offre', true);
                 request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
 
                 const offre = JSON.stringify(values);
 
