@@ -38,7 +38,6 @@ const useLoginUser = (callback,validateInfoLogin) => {
                 return res.json();
             })
             .then(data => {
-                console.log(data)
             })
 
         }

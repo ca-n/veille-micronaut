@@ -3,8 +3,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav ,Navbar, Container, NavDropdown } from 'react-bootstrap'
 import './NavbarCSS.css'
 import logo from './logo.svg'
+import { Link } from 'react-router-dom'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
+
 
 const NavbarHTML = () => {
+
+  const myFunction = () => {
+    const url = encodeURIComponent("http://localhost:3000/moniteur");
+    window.open(`mailto:?subject=${url}&body=Voici le lien pour vous inscrire`)
+  }
+  
+
+
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
           <Navbar.Brand href="/"><img src={logo} className="App-logo" alt="logo" /></Navbar.Brand>
@@ -18,6 +30,11 @@ const NavbarHTML = () => {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/login">Login</NavDropdown.Item>
               </NavDropdown>
+              <NavDropdown title="Url Inscription" id="basic-nav-dropdown">
+              <NavDropdown.Item><button onClick={myFunction}>Email link</button></NavDropdown.Item>
+              <NavDropdown.Item><CopyToClipboard text={"http://localhost:3000/moniteur"}><button>Copy to clipboard</button></CopyToClipboard></NavDropdown.Item>
+              </NavDropdown>
+              
             </Nav>
           </Navbar.Collapse>
       </Navbar>
