@@ -2,6 +2,7 @@ import React from 'react'
 import useLoginUser from './useLoginUser'
 import validateInfoLogin from './validateInfoLogin';
 import './LoginUser';
+import {Link} from 'react-router-dom'
 
 
 
@@ -29,6 +30,7 @@ const LoginUserHTML = ({submitForm}) => {
                     {errors.password && <p>{errors.password}</p>}
                 </div>
 
+                
                 <button className="form-input-btn" type="submit">Login</button>
             </form>
         </div>

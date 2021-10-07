@@ -40,10 +40,6 @@ const useFormEtudiant = (callback,validateInfoEtudiant) => {
         setIsSubmitting(true)
         values.hasLicense  = hasLicense
         values.hasVoiture = hasVoiture
-        console.log(hasLicense + " License value")
-        console.log(hasVoiture + " Voiture value")
-        console.log(values)
-        
 
     }
 
