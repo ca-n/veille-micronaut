@@ -132,7 +132,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testFindUserByEmail() {
+    public void testFindEtudiantByEmail() {
         //Arrange
         Etudiant expected = getEtudiant();
         when(etudiantRepository.findEtudiantByCourrielIgnoreCase(expected.getCourriel())).thenReturn(expected);
@@ -144,6 +144,46 @@ public class UserServiceTest {
         assertThat(returned).isEqualTo(Optional.of(expected));
     }
 
+    @Test
+    public void testFindGestionnaireByEmail() {
+        //Arrange
+        Gestionnaire expected = getGestionnaire();
+        when(gestionnaireRepository.findGestionnaireByCourrielIgnoreCase(expected.getCourriel())).thenReturn(expected);
+
+        //Act
+        Optional<User> returned = service.findUserByCourriel(expected.getCourriel());
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    public void testFindMoniteurByEmail() {
+        //Arrange
+        Moniteur expected = getMoniteur();
+        when(moniteurRepository.findMoniteurByCourrielIgnoreCase(expected.getCourriel())).thenReturn(expected);
+
+        //Act
+        Optional<User> returned = service.findUserByCourriel(expected.getCourriel());
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    public void testFindSuperviseurByEmail() {
+        //Arrange
+        Superviseur expected = getSuperviseur();
+        when(superviseurRepository.findSuperviseurByCourrielIgnoreCase(expected.getCourriel())).thenReturn(expected);
+
+        //Act
+        Optional<User> returned = service.findUserByCourriel(expected.getCourriel());
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
     public void testGetAllEtudiants() {
         //Arrange
         List<Etudiant> expected = getEtudiants();
