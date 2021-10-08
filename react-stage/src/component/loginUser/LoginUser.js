@@ -5,9 +5,9 @@ import './LoginUserCss.css'
 import { Redirect } from 'react-router'
 
 const LoginUser = () => {
-    const [isSubmitted,setIsSubmitted] = useState(false)
+    const [isSubmitted, setIsSubmitted] = useState(false)
 
-    function setSubmitTrue (){
+    function setSubmitTrue() {
         setIsSubmitted(true)
     }
 
@@ -17,9 +17,9 @@ const LoginUser = () => {
                 <div className="form-content-left">
                     <img src="img/img-2.svg" alt="spaceship" className="form-img"></img>
                 </div>
-                {!isSubmitted ? (<LoginUserHTML setSubmitTrue={setSubmitTrue} /> ) : (<Redirect to="/"/>)  }
+                {!isSubmitted ? (<LoginUserHTML setSubmitTrue={setSubmitTrue} />) : (<Redirect to="/" />)}
             </div>
-            
+
         </>
     )
 }
