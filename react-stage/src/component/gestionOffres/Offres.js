@@ -150,7 +150,7 @@ const Offres = () => {
                         </ul>
                     </div>*/}
                     <div className="row text-center">
-                        <input type='button' value='Save' className="center" onClick={onClickSave}></input>
+                        <input type='button' value='Save' onClick={onClickSave}></input>
                     </div>
 
                 </div>
