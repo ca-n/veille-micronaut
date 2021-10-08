@@ -7,7 +7,7 @@
     }
   
   .nav-item .dropdown-item:hover {
-    background: #f0ad4e;
+    background: #23B6FD;
     }
 
 .dropdown-divider{
@@ -18,3 +18,23 @@
     height: 4vmin;
     pointer-events: none;
   }
+
+
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  
+}
+
+a:hover{
+  color: white;
+}
+
+

@@ -12,24 +12,25 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    protected int id;
 
-    private String prenom;
-    private String nom;
+    protected String prenom;
+    protected String nom;
     @Column(unique = true)
-    private String courriel;
-    private String password;
-    private String numTelephone;
+    protected String courriel;
+    protected String password;
+    protected String numTelephone;
+    protected UserType role;
 
-    private boolean isVerifier;
-    private LocalDate dateCreation;
+    protected boolean isVerifier;
+    protected LocalDate dateCreation;
 
 
     public User() {
         dateCreation = LocalDate.now();
     }
 
-    public User(String prenom, String nom, String courriel, String password, String numTelephone) {
+    public User(String prenom, String nom, String courriel, String password, String numTelephone, UserType role) {
         this.prenom = prenom;
         this.nom = nom;
         this.courriel = courriel;
@@ -37,5 +38,6 @@ public class User implements Serializable {
         this.numTelephone = numTelephone;
         this.isVerifier = false;
         this.dateCreation = LocalDate.now();
+        this.role = role;
     }
 }

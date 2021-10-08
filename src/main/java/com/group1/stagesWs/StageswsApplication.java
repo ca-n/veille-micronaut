@@ -1,5 +1,4 @@
 package com.group1.stagesWs;
-
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.OffreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
