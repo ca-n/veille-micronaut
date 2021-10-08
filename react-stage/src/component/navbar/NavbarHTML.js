@@ -45,8 +45,8 @@ const NavbarHTML = () => {
             <Nav.Item>
               <Nav.Link as={Link} to="/account" >Account details</Nav.Link>
             </Nav.Item>
-            :
-            <Redirect to="/"/>
+            : <></>
+            //<Redirect to="/"/>
           }
           {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ?
             <NavDropdown title="Url Inscription" id="basic-nav-dropdown">
