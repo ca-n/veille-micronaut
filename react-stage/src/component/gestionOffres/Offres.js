@@ -144,11 +144,11 @@ const Offres = () => {
                             <label className="form-check-label" htmlFor="valid"> Valid </label>
                         </div>
                     </div>
-                    <div className="row card text-center">
+                    {/*<div className="row card text-center">
                         <ul>
                             {etudiantList}
                         </ul>
-                    </div>
+                    </div>*/}
                     <div className="row text-center">
                         <input type='button' value='Save' className="center" onClick={onClickSave}></input>
                     </div>
