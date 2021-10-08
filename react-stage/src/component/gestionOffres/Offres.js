@@ -41,14 +41,6 @@ const Offres = () => {
         setShowModal(false);
     }
 
-    const offreList = offres.map((offre) =>
-        <tr key={offre.id.toString()}>
-            <td colSpan='3' className='green'>{offre.titre}</td>
-            <td colSpan='3'>{offre.entreprise}</td>
-            <td colSpan='1'>{offre.valid ? <AiOutlineCheckCircle color='green' /> : <AiOutlineCloseCircle color='red' />}</td>
-            <td colSpan='1'><input type='button' onClick={() => onClickOffre(offre)} value='Détails' className='p-1 btn-secondary' /></td>
-        </tr>);
-
     const onToggleValid = () => {
         setCurrentOffre((offre) => ({
             ...offre,
@@ -59,6 +51,36 @@ const Offres = () => {
     useEffect(() => {
         console.log(currentOffre)
     }, [currentOffre])
+    const onClickSave = () => {
+        saveOffre(currentOffre);
+        onClickClose();
+    }
+
+    const saveOffre = async(offre) => {
+        const res = await fetch('http://localhost:9191/stage/offre',
+        {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(offre)
+        });
+        await res.json();
+        updateOffres();
+    }
+
+    const updateOffres = async() => {
+        const dbOffres = await fetchOffres();
+        setOffres(dbOffres)
+    }
+
+    const offreList = offres.map((offre) => 
+    <tr key={offre.id.toString()}>
+        <td colSpan='3'>{offre.titre}</td>
+        <td colSpan='3'>{offre.entreprise}</td>
+        <td colSpan='1'>{offre.valid ? <AiOutlineCheckCircle color='green'/> : <AiOutlineCloseCircle color='red'/>}</td>
+        <td colSpan='1'><input type='button' onClick={() => onClickOffre(offre)} value='Détails' className='p-1 btn-secondary'/></td>
+    </tr>);
 
     return (
         <div className="container" style={{ textAlign: 'center' }}>
@@ -76,10 +98,9 @@ const Offres = () => {
                     {offreList}
                 </tbody>
             </table>
-            <ReactModal isOpen={showModal}>
-
+            <ReactModal isOpen={showModal} ariaHideApp={false}>
                 <div className="container">
-                    <AiOutlineClose color='red' onClick={onClickClose} />
+                    <AiOutlineClose color='red' size='24px' onClick={onClickClose} />
                     <div className="row">
                         <h3 className="col-3">Titre</h3>
                         <h3 className="col-3">Description</h3>
@@ -92,13 +113,12 @@ const Offres = () => {
                         <div className="col-3">{currentOffre.description}</div>
                         <div className="col-3">{currentOffre.entreprise}</div>
                         <div className="col-3 form-check">
-                            <input type='checkbox' name='valid' className="form-check-input"  checked={currentOffre.valid} onClick={onToggleValid} />
+                            <input type='checkbox' name='valid' className="form-check-input"  checked={currentOffre.valid} onChange={onToggleValid} />
                             <label class="form-check-label" for="valid"> Valid </label>
                         </div>
-                        
+                        <input type='button' value='Save' onClick={onClickSave}></input>
                     </div>
                 </div>
-
             </ReactModal>
         </div>
     )
