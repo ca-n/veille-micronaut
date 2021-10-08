@@ -56,14 +56,6 @@ const NavbarHTML = () => {
             :
             null
           }
-          {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ?
-            <NavDropdown title="Url Inscription" id="basic-nav-dropdown">
-              <NavDropdown.Item><button onClick={myFunction}>Email link</button></NavDropdown.Item>
-              <NavDropdown.Item><CopyToClipboard text={"http://localhost:3000/moniteur"}><button>Copy to clipboard</button></CopyToClipboard></NavDropdown.Item>
-            </NavDropdown>
-            :
-            null
-          }
           {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ||  loggedUser.role == "MONITEUR"  ?
           <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
           :
