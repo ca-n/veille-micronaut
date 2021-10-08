@@ -186,6 +186,18 @@ const AccountDetails = () => {
                             </div>
                         </>
                     }
+
+                    {fullUser.role == "GESTIONNAIRE" &&
+                        <>
+                            <div className="form-inputs">
+                                <label htmlFor="departement"
+                                    className="form-label">
+                                    Departement
+                                </label>
+                                <input id="departement" type="text" name="departement" className="form-input" placeholder="Entrez le nom de votre departement" value={fullUser.departement}></input>
+                            </div>
+                        </>
+                    }
                     {/* <button className="form-input-btn" type="submit">S'inscrire</button>
             <span className="form-input-login">Déjà un compte? Login <Link to="/login">ici</Link></span> */}
                 </form>
