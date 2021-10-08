@@ -102,18 +102,18 @@ const Offres = () => {
                 <div className="container">
                     <AiOutlineClose color='red' size='24px' onClick={onClickClose} />
                     <div className="row">
-                        <h3 className="col-3">Titre</h3>
-                        <h3 className="col-3">Description</h3>
-                        <h3 className="col-3">Entreprise</h3>
-                        <h3 className="col-3">Validity</h3>
+                        <h3 className="col-2">Titre</h3>
+                        <h3 className="col-6">Description</h3>
+                        <h3 className="col-2">Entreprise</h3>
+                        <h3 className="col-2">Validity</h3>
                     </div>
 
                     <div className="row mt-4">
-                        <div className="col-3">{currentOffre.titre}</div>
-                        <div className="col-3">{currentOffre.description}</div>
-                        <div className="col-3">{currentOffre.entreprise}</div>
-                        <div className="col-3 form-check">
-                            <input type='checkbox' name='valid' className="form-check-input"  checked={currentOffre.valid} onChange={onToggleValid} />
+                        <div className="col-2">{currentOffre.titre}</div>
+                        <div className="col-6">{currentOffre.description}</div>
+                        <div className="col-2">{currentOffre.entreprise}</div>
+                        <div className="col-2 form-check">
+                            <input type='checkbox' name='valid' className="form-check-input"  checked={currentOffre.valid} onClick={onToggleValid} />
                             <label class="form-check-label" for="valid"> Valid </label>
                         </div>
                         <input type='button' value='Save' onClick={onClickSave}></input>
