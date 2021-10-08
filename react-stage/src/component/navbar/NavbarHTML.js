@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Navbar, Container, NavDropdown } from 'react-bootstrap'
 import './NavbarCSS.css'
 import logo from './logo.svg'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { UserInfoContext } from '../../contexts/UserInfo';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -42,7 +42,7 @@ const NavbarHTML = () => {
               <Nav.Link as={Link} to="/account" >Account details</Nav.Link>
             </Nav.Item>
             :
-            null
+            <Redirect to="/"/>
           }
            {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ?
           <NavDropdown title="Url Inscription" id="basic-nav-dropdown">

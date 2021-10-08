@@ -41,6 +41,7 @@ public class StageswsApplication implements CommandLineRunner {
         etudiant.setProgramme("Informatique");
         etudiant.setAdresse("113 lapierre");
         etudiant.setNumMatricule("1822323");
+        etudiant.setHasLicense(true);
         etudiantRepository.save(etudiant);
 
         Moniteur moniteur = new Moniteur();

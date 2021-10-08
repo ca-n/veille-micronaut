@@ -90,7 +90,7 @@ const AccountDetails = () => {
                     <div className="form-inputs">
                         <label htmlFor="password"
                             className="form-label">
-                            Confirmez le mot de passe
+                            Mot de passe
                         </label>
                         <input id="password" type="text" name="password" className="form-input" placeholder="Confirmez votre mot de passe" value={fullUser.password} readOnly></input>
                     </div>
