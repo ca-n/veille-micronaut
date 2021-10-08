@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Navbar, Container, NavDropdown } from 'react-bootstrap'
 import './NavbarCSS.css'
 import logo from './logo.svg'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { UserInfoContext } from '../../contexts/UserInfo';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -29,13 +29,13 @@ const NavbarHTML = () => {
         <Nav className="me-auto">
 
           <NavDropdown title="Form" id="basic-nav-dropdown">
-            <NavDropdown.Item> <Link to="/etudiant">Form Etudiant</Link></NavDropdown.Item>
+            <NavDropdown.Item><Link to="/etudiant">Form Etudiant</Link></NavDropdown.Item>
             <NavDropdown.Item><Link to="/superviseur">Form Superviseur</Link></NavDropdown.Item>
             <NavDropdown.Item><Link to="/moniteur">Form Moniteur</Link></NavDropdown.Item>
             {(loggedUser.role == "GESTIONNAIRE" || loggedUser.role == "SUPERVISEUR")&& loggedUser.isLoggedIn &&
             <>
-            <NavDropdown.Divider />
-            <NavDropdown.Item><Link to="/offres">Offres</Link></NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item><Link to="/offres">Offres</Link></NavDropdown.Item>
             </>
             }
             <NavDropdown.Divider />
@@ -45,6 +45,14 @@ const NavbarHTML = () => {
             <Nav.Item>
               <Nav.Link as={Link} to="/account" >Account details</Nav.Link>
             </Nav.Item>
+            :
+            <Redirect to="/"/>
+          }
+          {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ?
+            <NavDropdown title="Url Inscription" id="basic-nav-dropdown">
+              <NavDropdown.Item><button onClick={myFunction}>Email link</button></NavDropdown.Item>
+              <NavDropdown.Item><CopyToClipboard text={"http://localhost:3000/moniteur"}><button>Copy to clipboard</button></CopyToClipboard></NavDropdown.Item>
+            </NavDropdown>
             :
             null
           }
@@ -56,6 +64,11 @@ const NavbarHTML = () => {
             :
             null
           }
+          {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ||  loggedUser.role == "MONITEUR"  ?
+          <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
+          :
+          null
+        }
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -6,6 +6,7 @@ import LoginUser from './component/loginUser/LoginUser';
 import Navbar from './component/navbar/NavbarHTML'
 import Home from './component/Home/Home';
 import Offres from './component/gestionOffres/Offres';
+import FormOffre from "./component/deposeOffreDeStage/FormOffre";
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import UserInfo, { UserInfoContext } from './contexts/UserInfo';
 import AccountDetails from './component/AccountDetails/AccountDetails';
@@ -15,8 +16,6 @@ import Offre from './component/gestionOffres/Offre';
 
 function App() {
   return (
-    <>
-
       <Router>
         <div className="App">
           <UserInfo>
@@ -32,6 +31,8 @@ function App() {
         	      <Route exact path="/offres"><Offres/></Route>
                 <Route exact path="/login"><LoginUser /></Route>
 
+                <Route exact path="/newOffre"><FormOffre/></Route>
+
               </Switch>
               {/* <UserInfoContext.Consumer>
         {(user) => (user.isLoggedIn ? <Redirect push to = "/moniteur"/>: null)}
@@ -41,7 +42,6 @@ function App() {
         </div>
 
       </Router>
-    </>
   );
 }
 
