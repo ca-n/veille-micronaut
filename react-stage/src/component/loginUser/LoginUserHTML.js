@@ -1,14 +1,78 @@
 import React from 'react'
 import useLoginUser from './useLoginUser'
 import validateInfoLogin from './validateInfoLogin';
+import { useState, useEffect, useContext, Redirect } from "react";
+import { UserInfoContext } from "../../contexts/UserInfo";
+
 import './LoginUser';
 
 
 
-const LoginUserHTML = ({submitForm}) => {
-    const {handleChange,values, handleSubmit, errors} = useLoginUser(submitForm,validateInfoLogin);
+const LoginUserHTML = ({setSubmitTrue}) => {
+    // const {handleChange,values, handleSubmit, errors} = useLoginUser(submitForm,validateInfoLogin);
+    
+    const [values,setValues] = useState({
+        courriel: "",
+        password: ""
+    })
+    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [errors,setErrors] = useState({})
+    const [isSubmitted, setIsSubmitted] = useState(false)
+
+
+    const handleChange = e => {
+        const {name, value} = e.target
+        setValues({
+            ...values,
+            [name]: value,
+        })
+    }
+
+    const handleSubmit = e =>{
+        e.preventDefault();
+
+        setErrors(validateInfoLogin(values))
+
+        setIsSubmitted(true)
+    }
+
+
+    useEffect(() => {
+        if(Object.keys(errors).length === 0 && isSubmitted) {
+            // callback();
+
+            fetch(`http://localhost:9191/user/${values.courriel}/${values.password}`)
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                console.log(data)
+        
+
+                setLoggedUser({
+                    courriel : data.courriel,
+                    role : data.role,
+                    isLoggedIn : true
+                })
+                console.log(loggedUser, "right after the setter")
+                console.log("Logged user in context")
+                setSubmitTrue()
+            })
+
+        }
+    }, [errors]
+    );
+
+    useEffect(() => {
+        if(loggedUser.isLoggedIn){
+           console.log(loggedUser) 
+        }
+        console.log("aaa")
+        
+    },[loggedUser])
     return (
         <div className="form-content-right">
+            
             <form className="form" onSubmit={handleSubmit}>
                 <h1>Vous pouvez vous connecter ici ↓</h1>
                 <div className="form-inputs">

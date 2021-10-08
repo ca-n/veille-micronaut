@@ -9,7 +9,8 @@ public interface MoniteurRepository extends JpaRepository<Moniteur, Integer> {
 
     Moniteur save(Moniteur moniteur);
 
-    Moniteur findMoniteurByCourrielIgnoreCase(String email);
+    Moniteur findMoniteurByCourrielIgnoreCase(String courriel);
 
-    Moniteur findMoniteurByCourrielIgnoreCaseAndPassword(String email, String pwd);
+    Moniteur findMoniteurByCourrielIgnoreCaseAndPassword(String courriel, String pwd);
+
 }

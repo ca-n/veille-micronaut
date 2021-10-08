@@ -130,6 +130,18 @@ public class UserServiceTest {
         assertThat(returned).isEqualTo(Optional.of(expected));
     }
 
+    @Test
+    public void testFindUserByEmail() {
+        //Arrange
+        Etudiant expected = getEtudiant();
+        when(etudiantRepository.findEtudiantByCourrielIgnoreCase(expected.getCourriel())).thenReturn(expected);
+
+        //Act
+        Optional<User> returned = service.findUserByCourriel(expected.getCourriel());
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
     private Etudiant getEtudiant() {
         return new Etudiant(
                 "Pascal",

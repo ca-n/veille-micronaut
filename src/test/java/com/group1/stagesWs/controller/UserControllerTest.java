@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -99,6 +100,23 @@ public class UserControllerTest {
         Etudiant expected = getEtudiant();
         when(userService.login(expected.getCourriel(), expected.getPassword())).thenReturn(Optional.of(expected));
         String url = "/user/" + expected.getCourriel() + "/" + expected.getPassword();
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        // Assert
+        var actualEtudiant = mapper.readValue(result.getResponse().getContentAsString(), Etudiant.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
+        assertThat(actualEtudiant).isEqualTo(expected);
+    }
+
+    @Test
+    void testFindEtudiantByEmail() throws Exception {
+        //Arrange
+        Etudiant expected = getEtudiant();
+        when(userService.findUserByCourriel(any(String.class))).thenReturn(Optional.of(expected));
+        String url = "/user/" + expected.getCourriel();
 
         //Act
         MvcResult result = mockMvc.perform(get(url)

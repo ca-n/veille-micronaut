@@ -38,6 +38,14 @@ public class UserController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
+    @GetMapping("/user/{email}")
+    public ResponseEntity<User> findUserByEmail(@PathVariable("email") String email) {
+        return service.findUserByCourriel(email)
+                .map(user1 -> ResponseEntity.status(HttpStatus.FOUND).body(user1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+
     //Create Moniteur
     @PostMapping(path = "/stage/moniteur")
     public ResponseEntity<Moniteur> addMoniteur(@RequestBody Moniteur moniteur) {
@@ -52,4 +60,6 @@ public class UserController {
                 .map(superviseur1 -> ResponseEntity.status(HttpStatus.CREATED).body(superviseur1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
+    
+
 }

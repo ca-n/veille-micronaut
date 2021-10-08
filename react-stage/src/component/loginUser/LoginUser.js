@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState } from 'react/cjs/react.development'
 import LoginUserHTML from './LoginUserHTML'
-import LoginUserSuccess from './LoginUserSuccess'
 import './LoginUserCss.css'
+import { Redirect } from 'react-router'
 
 const LoginUser = () => {
-    const [isSbubmitted,setIsSubmitted] = useState(false)
+    const [isSubmitted,setIsSubmitted] = useState(false)
 
-    function submitForm(){
+    function setSubmitTrue (){
         setIsSubmitted(true)
     }
 
@@ -17,7 +17,7 @@ const LoginUser = () => {
                 <div className="form-content-left">
                     <img src="img/img-2.svg" alt="spaceship" className="form-img"></img>
                 </div>
-                {!isSbubmitted ? (<LoginUserHTML submitForm={submitForm} /> ) : (<LoginUserSuccess />)  }
+                {!isSubmitted ? (<LoginUserHTML setSubmitTrue={setSubmitTrue} /> ) : (<Redirect to="/"/>)  }
             </div>
             
         </>
