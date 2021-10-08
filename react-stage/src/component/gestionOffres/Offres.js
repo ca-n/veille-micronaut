@@ -17,14 +17,7 @@ const Offres = () => {
     });
     const [listAllEtudiant, setListAllEtudiant] = useState([])
 
-    const [source, setSource] = useState([])
-
     const [listWhitelisted, setListWhitelisted] = useState([]);
-
-    // const onChangeWhitelist = (e) => {
-    //     setListNotWhitelisted(e.source)
-    //     setListWhitelisted(e.target)
-    // }
 
     useEffect(() => {
         const getOffres = async () => {
@@ -58,8 +51,6 @@ const Offres = () => {
 
     const onClickOffre = (offre) => {
         setCurrentOffre(offre)
-        // setListNotWhitelisted(listAllEtudiant.filter(etudiant =>
-            // !offre.visibiliteEtudiant.whitelistedEtudiant.includes(etudiant)))
         setListWhitelisted(offre.visibiliteEtudiant.whitelistedEtudiant)
         setShowModal(true)
     }
@@ -111,26 +102,9 @@ const Offres = () => {
             <td colSpan='1'><input type='button' onClick={() => onClickOffre(offre)} value='Détails' className='p-1 btn-secondary' /></td>
         </tr>);
 
-    // const etudiantTemplate = (etudiant) => (
-    //     <div className="card">
-    //         <p>{etudiant.nom}, {etudiant.prenom}</p>
-    //     </div>
-    // )
-
-
-    const onChange = (event) => {
-        setSource(event.source);
-        setListWhitelisted(event.listWhitelisted);
-    }
-
-    const etudiantTemplate = (etudiant) => {
-        return (
-            <div className="product-item">
-                <div className="">
-                    <h5 className="p-mb-2">{etudiant.name}</h5>
-                </div>
-            </div>
-    )}
+    const etudiantList = listAllEtudiant.map((etudiant) =>
+        <li><input type="checkbox" checked={false} />{etudiant.nom} {etudiant.prenom}</li>
+    )
 
     return (
         <div className="container" style={{ textAlign: 'center' }}>
@@ -166,13 +140,14 @@ const Offres = () => {
                             <input type='checkbox' name='valid' className="form-check-input" checked={currentOffre.valid} onClick={onToggleValid} />
                             <label class="form-check-label" for="valid"> Valid </label>
                         </div>
-                        <input type='button' value='Save' onClick={onClickSave}></input>
+                    </div>
+                    <div className="row card text-center">
+                        <ul>
+                            {etudiantList}
+                        </ul>
                     </div>
                     <div className="row text-center">
-                        <div>
-                        <PickList source={listAllEtudiant} target={listWhitelisted} etudiantTemplate={etudiantTemplate} onChange={onChange} 
-                            sourceHeader="Etudiants" targetHeader="Whiteliste"/>
-                        </div>
+                        <input type='button' value='Save' className="center" onClick={onClickSave}></input>
                     </div>
                 </div>
             </ReactModal>
