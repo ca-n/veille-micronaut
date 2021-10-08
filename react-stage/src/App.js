@@ -6,6 +6,7 @@ import LoginUser from './component/loginUser/LoginUser';
 import Navbar from './component/navbar/NavbarHTML'
 import Home from './component/Home/Home';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import Offres from './component/gestionOffres/Offres';
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/superviseur"><FormSuperviseur/></Route>
         <Route exact path="/moniteur"><FormMoniteur/></Route>
         <Route exact path="/login"><LoginUser/></Route>
+        <Route exact path="/offres"><Offres/></Route>
       </Switch>
     </div>
     </Router>
