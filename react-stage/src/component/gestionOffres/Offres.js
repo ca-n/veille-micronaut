@@ -3,10 +3,17 @@ import {useState, useEffect} from 'react'
 import {AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClose} from 'react-icons/ai'
 import ReactModal from 'react-modal';
 
+
 const Offres = () => {
     const [offres, setOffres] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [currentOffre, setCurrentOffre] = useState({});
+    const [currentOffre, setCurrentOffre] = useState({
+        titre: String,
+        description: String,
+        entreprise: String,
+        whitelist: Array,
+        valid:Boolean
+    });
 
     useEffect(() => {
         const getOffres = async() => {
@@ -50,13 +57,27 @@ const Offres = () => {
                         <th colSpan='3'>Titre</th>
                         <th colSpan='3'>Entreprise</th>
                         <th colSpan='1'>Valide</th>
+                        <th colSpan='1'>Details</th>
                     </tr>
                 </thead>
                 <tbody>
                     {offreList}
                 </tbody>
             </table>
-            <ReactModal isOpen={showModal}>TEST {currentOffre.description}<AiOutlineClose color='red' onClick={onClickClose} /></ReactModal>
+            <ReactModal isOpen={showModal}>
+                
+                <div className="container">
+                    <div className="row">
+                        <div className="col-3"></div>
+                        <div className="col-3"></div>
+                        <div className="col-3">Validity</div>
+                        {!currentOffre.valid &&
+                        <div className="col-3"><button onClick={() => setCurrentOffre({...currentOffre, valid: true})}>Validate</button></div>
+                        }
+                    </div>
+                </div>
+                <AiOutlineClose color='red'  onClick={onClickClose} />
+            </ReactModal>
         </div>
     )
 }

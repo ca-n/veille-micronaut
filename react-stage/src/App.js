@@ -9,6 +9,7 @@ import Offres from './component/gestionOffres/Offres';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import UserInfo, { UserInfoContext } from './contexts/UserInfo';
 import AccountDetails from './component/AccountDetails/AccountDetails';
+import Offre from './component/gestionOffres/Offre';
 
 
 
@@ -28,7 +29,7 @@ function App() {
                 <Route exact path="/superviseur"><FormSuperviseur /></Route>
                 <Route exact path="/moniteur"><FormMoniteur /></Route>
                 <Route exact path="/account"><AccountDetails /></Route>
-        	<Route exact path="/offres"><Offres/></Route>
+        	      <Route exact path="/offres"><Offres/></Route>
                 <Route exact path="/login"><LoginUser /></Route>
 
               </Switch>

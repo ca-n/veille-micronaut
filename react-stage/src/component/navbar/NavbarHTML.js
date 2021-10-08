@@ -32,8 +32,8 @@ const NavbarHTML = () => {
             <NavDropdown.Item> <Link to="/etudiant">Form Etudiant</Link></NavDropdown.Item>
             <NavDropdown.Item><Link to="/superviseur">Form Superviseur</Link></NavDropdown.Item>
             <NavDropdown.Item><Link to="/moniteur">Form Moniteur</Link></NavDropdown.Item>
-
-
+            <NavDropdown.Divider />
+            <NavDropdown.Item><Link to="/offres">Offres</Link></NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item><Link to="/login">Login</Link></NavDropdown.Item>
           </NavDropdown>

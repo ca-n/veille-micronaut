@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -18,5 +19,7 @@ public class Whitelist implements Serializable {
     @Column(name = "visibilite_etudiant") //Cette ligne ne veut pas renommer la colonne dans la base de donnees - A REVOIR
     private Set<Etudiant> whitelistedEtudiant;
 
-    public Whitelist() {}
+    public Whitelist() {
+        whitelistedEtudiant = new HashSet<>();
+    }
 }
