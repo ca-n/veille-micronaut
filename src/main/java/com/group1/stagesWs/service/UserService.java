@@ -54,7 +54,7 @@ public class UserService {
         if (superviseurRepository.findSuperviseurByCourrielIgnoreCase(email) != null) {
             return Optional.of(superviseurRepository.findSuperviseurByCourrielIgnoreCaseAndPassword(email, pwd));
         }
-        return null;
+        return Optional.empty();
     }
   
     public Optional<User> findUserByCourriel(String email){
@@ -70,7 +70,7 @@ public class UserService {
         if (superviseurRepository.findSuperviseurByCourrielIgnoreCase(email) != null) {
             return Optional.of(superviseurRepository.findSuperviseurByCourrielIgnoreCase(email));
         }
-        return null;
+        return Optional.empty();
     }
   
     public List<Etudiant> getAllEtudiants() {
