@@ -9,6 +9,7 @@ import com.group1.stagesWs.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,7 +56,7 @@ public class UserService {
         }
         return null;
     }
-
+  
     public Optional<User> findUserByCourriel(String email){
         if (etudiantRepository.findEtudiantByCourrielIgnoreCase(email) != null) {
             return Optional.of(etudiantRepository.findEtudiantByCourrielIgnoreCase(email));
@@ -70,5 +71,9 @@ public class UserService {
             return Optional.of(superviseurRepository.findSuperviseurByCourrielIgnoreCase(email));
         }
         return null;
+    }
+  
+    public List<Etudiant> getAllEtudiants() {
+        return etudiantRepository.findAll();
     }
 }

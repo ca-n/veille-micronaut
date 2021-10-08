@@ -5,7 +5,6 @@ import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Gestionnaire;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Superviseur;
-import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.service.UserService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@WebMvcTest
+@WebMvcTest(UserController.class)
 public class UserControllerTest {
 
     @Autowired
@@ -33,9 +33,6 @@ public class UserControllerTest {
 
     @MockBean
     private UserService userService;
-
-    @MockBean
-    private EtudiantRepository etudiantRepository;
 
     private static ObjectMapper mapper;
 
@@ -180,6 +177,22 @@ public class UserControllerTest {
         assertThat(actualSuperviseur).isEqualTo(expected);
     }
 
+    @Test
+    void testGetAllEtudiants() throws Exception {
+        //Arrange
+        List<Etudiant> expected = getEtudiants();
+        when(userService.getAllEtudiants()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/stage/etudiants")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualEtudiants.size()).isEqualTo(expected.size());
+    }
+
 
     private Etudiant getEtudiant() {
         return new Etudiant(
@@ -225,5 +238,9 @@ public class UserControllerTest {
                 "123000322",
                 "Informatique",
                 "Securite");
+    }
+
+    private List<Etudiant> getEtudiants() {
+        return List.of(getEtudiant(), getEtudiant(), getEtudiant());
     }
 }

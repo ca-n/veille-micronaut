@@ -24,9 +24,10 @@ public class Offre implements Serializable {
     public Offre() {
     }
 
-    public Offre(String titre, String description, String entreprise) {
+    public Offre(String titre, String description, String entreprise, boolean isValid) {
         this.titre = titre;
         this.description = description;
         this.entreprise = entreprise;
+        this.isValid = isValid;
     }
 }

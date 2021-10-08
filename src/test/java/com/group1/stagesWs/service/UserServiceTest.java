@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,7 +40,7 @@ public class UserServiceTest {
     public void testAddEtudiant() {
         //Arrange
         Etudiant expected = getEtudiant();
-        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(expected);
+        when(etudiantRepository.save(expected)).thenReturn(expected);
 
         //Act
         Optional<Etudiant> returned = service.addEtudiant(expected);
@@ -142,6 +143,20 @@ public class UserServiceTest {
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
     }
+
+    public void testGetAllEtudiants() {
+        //Arrange
+        List<Etudiant> expected = getEtudiants();
+        when(etudiantRepository.findAll()).thenReturn(expected);
+
+        //Act
+        List<Etudiant> returned = service.getAllEtudiants();
+
+        //Assert
+        assertThat(returned).isEqualTo(expected);
+    }
+
+
     private Etudiant getEtudiant() {
         return new Etudiant(
                 "Pascal",
@@ -186,5 +201,9 @@ public class UserServiceTest {
                 "123000322",
                 "Informatique",
                 "Securite");
+    }
+
+    private List<Etudiant> getEtudiants() {
+        return List.of(getEtudiant(), getEtudiant(), getEtudiant());
     }
 }
