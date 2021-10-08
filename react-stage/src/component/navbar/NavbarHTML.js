@@ -33,18 +33,12 @@ const NavbarHTML = () => {
             <NavDropdown.Item><Link to="/superviseur">Form Superviseur</Link></NavDropdown.Item>
             <NavDropdown.Item><Link to="/moniteur">Form Moniteur</Link></NavDropdown.Item>
 
-
             <NavDropdown.Divider />
             <NavDropdown.Item><Link to="/login">Login</Link></NavDropdown.Item>
-
-            <NavDropdown.Divider />
           </NavDropdown>
           {loggedUser.isLoggedIn ?
             <Nav.Item>
               <Nav.Link as={Link} to="/account" >Account details</Nav.Link>
-              {loggedUser.role == "GESTIONNAIRE" || loggedUser.role == "MONITEUR" &&
-                <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
-              }
             </Nav.Item>
             :
             <Redirect to="/"/>
@@ -57,6 +51,11 @@ const NavbarHTML = () => {
             :
             null
           }
+          {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ||  loggedUser.role == "MONITEUR"  ?
+          <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
+          :
+          null
+        }
         </Nav>
       </Navbar.Collapse>
     </Navbar>
