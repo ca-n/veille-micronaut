@@ -1,8 +1,8 @@
-import { PickList } from "primereact/picklist"
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClose } from 'react-icons/ai'
 import ReactModal from 'react-modal';
+import './PickList.css';
 
 
 const Offres = () => {
@@ -18,6 +18,7 @@ const Offres = () => {
     const [listAllEtudiant, setListAllEtudiant] = useState([])
 
     const [listWhitelisted, setListWhitelisted] = useState([]);
+
 
     useEffect(() => {
         const getOffres = async () => {
@@ -46,6 +47,7 @@ const Offres = () => {
     const fetchAllEtudiants = async () => {
         const res = await fetch('http://localhost:9191/stage/etudiants')
         const data = await res.json()
+        console.log(data)
         return data
     }
 
@@ -106,6 +108,7 @@ const Offres = () => {
         <li><input type="checkbox" checked={false} />{etudiant.nom} {etudiant.prenom}</li>
     )
 
+
     return (
         <div className="container" style={{ textAlign: 'center' }}>
             <h1>Offres</h1>
@@ -137,8 +140,8 @@ const Offres = () => {
                         <div className="col-6">{currentOffre.description}</div>
                         <div className="col-2">{currentOffre.entreprise}</div>
                         <div className="col-2 form-check">
-                            <input type='checkbox' name='valid' className="form-check-input" checked={currentOffre.valid} onClick={onToggleValid} />
-                            <label class="form-check-label" for="valid"> Valid </label>
+                            <input type='checkbox' name='valid' className="form-check-input" checked={currentOffre.valid} onChange={onToggleValid} />
+                            <label className="form-check-label" htmlFor="valid"> Valid </label>
                         </div>
                     </div>
                     <div className="row card text-center">
@@ -149,6 +152,7 @@ const Offres = () => {
                     <div className="row text-center">
                         <input type='button' value='Save' className="center" onClick={onClickSave}></input>
                     </div>
+
                 </div>
             </ReactModal>
         </div>
