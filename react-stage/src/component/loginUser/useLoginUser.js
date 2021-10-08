@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import validateInfoLogin from "./validateInfoLogin";
-import axios from 'axios'
+import axios from 'axios';
+import { UserInfoContext } from "../../contexts/UserInfo";
 
 
 const useLoginUser = (callback,validateInfoLogin) => {
+
     const [values,setValues] = useState({
         courriel: "",
-        password: "",
+        password: ""
     })
-    const [errors,setErrors] = useState({})
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
+    const [errors,setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = e => {
         const {name, value} = e.target
@@ -31,19 +34,36 @@ const useLoginUser = (callback,validateInfoLogin) => {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitting) {
-            callback();
+            // callback();
 
             fetch(`http://localhost:9191/user/${values.courriel}/${values.password}`)
             .then(res => {
                 return res.json();
             })
             .then(data => {
+
+                console.log(data)
+            
+                setLoggedUser({type : "", payload : {
+                    courriel : data.courriel,
+                    role : data.role,
+                    isLoggedIn : true
+                }})
+                console.log(loggedUser)
+                console.log("Logged user in context")
             })
 
         }
     }, [errors]
     );
 
+    useEffect(() => {
+        if(loggedUser.isLoggedIn){
+           console.log(loggedUser) 
+        }
+        console.log()
+        
+    },[loggedUser])
 
     return {handleChange, values, handleSubmit, errors}
 };

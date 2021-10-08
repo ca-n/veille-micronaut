@@ -14,11 +14,11 @@ public class Superviseur extends User implements Serializable {
 
 
     public Superviseur() {
-        super();
+        role = UserType.SUPERVISEUR;
     }
 
     public Superviseur(String prenom, String nom, String courriel, String password, String numTelephone, String departement, String specialite) {
-        super(prenom, nom, courriel, password, numTelephone);
+        super(prenom, nom, courriel, password, numTelephone, UserType.SUPERVISEUR);
         this.departement = departement;
         this.specialite = specialite;
     }

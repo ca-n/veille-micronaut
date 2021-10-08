@@ -1,17 +1,22 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import useFormEtudiant from './useFormEtudiant'
 import validateInfoEtudiant from './validateInfoEtudiant';
 import './FormEtudiant';
 import { Link } from 'react-router-dom';
+import UserInfo, { UserInfoContext } from '../../contexts/UserInfo';
 
 
 
 const FormEtudiantHTML = ({submitForm}) => {
     const {handleChange,values, hasLicense, hasVoiture, handleSubmit, handleClickVoiture, handleClickLicense, errors} = useFormEtudiant(submitForm,validateInfoEtudiant);
+    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    
+    console.log(loggedUser , "Logged user in context")
     return (
         <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>
                 <h1>Créez votre compte étudiant dès maintenant!</h1>
+      
 
                 <div className="form-inputs">
                     <label htmlFor="prenom"

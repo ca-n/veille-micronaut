@@ -5,10 +5,7 @@ import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.model.User;
-import com.group1.stagesWs.repositories.EtudiantRepository;
-import com.group1.stagesWs.repositories.GestionnaireRepository;
-import com.group1.stagesWs.repositories.MoniteurRepository;
-import com.group1.stagesWs.repositories.SuperviseurRepository;
+import com.group1.stagesWs.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +26,7 @@ public class UserService {
 
     @Autowired
     private SuperviseurRepository superviseurRepository;
+
 
 
     public Optional<Etudiant> addEtudiant(Etudiant etudiant) {
@@ -58,7 +56,23 @@ public class UserService {
         }
         return null;
     }
-
+  
+    public Optional<User> findUserByCourriel(String email){
+        if (etudiantRepository.findEtudiantByCourrielIgnoreCase(email) != null) {
+            return Optional.of(etudiantRepository.findEtudiantByCourrielIgnoreCase(email));
+        }
+        if (gestionnaireRepository.findGestionnaireByCourrielIgnoreCase(email) != null) {
+            return Optional.of(gestionnaireRepository.findGestionnaireByCourrielIgnoreCase(email));
+        }
+        if (moniteurRepository.findMoniteurByCourrielIgnoreCase(email) != null) {
+            return Optional.of(moniteurRepository.findMoniteurByCourrielIgnoreCase(email));
+        }
+        if (superviseurRepository.findSuperviseurByCourrielIgnoreCase(email) != null) {
+            return Optional.of(superviseurRepository.findSuperviseurByCourrielIgnoreCase(email));
+        }
+        return null;
+    }
+  
     public List<Etudiant> getAllEtudiants() {
         return etudiantRepository.findAll();
     }
