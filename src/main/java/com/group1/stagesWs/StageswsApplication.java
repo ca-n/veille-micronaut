@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class StageswsApplication implements CommandLineRunner {
 
-    /*@Autowired
+    @Autowired
     OffreRepository offreRepository;
   
     @Autowired
@@ -27,7 +27,7 @@ public class StageswsApplication implements CommandLineRunner {
     GestionnaireRepository gestionnaireRepository;
 
     @Autowired
-    SuperviseurRepository superviseurRepository;*/
+    SuperviseurRepository superviseurRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(StageswsApplication.class, args);
@@ -35,7 +35,7 @@ public class StageswsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*Offre offre1 = new Offre("TITRE1", "DESCRIPTION1", "ENTREPRISE1", true);
+        Offre offre1 = new Offre("TITRE1", "DESCRIPTION1", "ENTREPRISE1", true);
         Offre offre2 = new Offre("TITRE2", "DESCRIPTION2", "ENTREPRISE2", true);
         Offre offre3 = new Offre("TITRE3", "DESCRIPTION3", "ENTREPRISE3", false);
         Offre offre4 = new Offre("TITRE4", "DESCRIPTION4", "ENTREPRISE4", false);
@@ -90,6 +90,6 @@ public class StageswsApplication implements CommandLineRunner {
         superviseur.setRole(UserType.SUPERVISEUR);
         superviseur.setDepartement("Informatique");
         superviseur.setSpecialite("fullstack");
-        superviseurRepository.save(superviseur);*/
+        superviseurRepository.save(superviseur);
     }
 }
