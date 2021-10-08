@@ -50,13 +50,20 @@ const Offres = () => {
                         <th colSpan='3'>Titre</th>
                         <th colSpan='3'>Entreprise</th>
                         <th colSpan='1'>Valide</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {offreList}
                 </tbody>
             </table>
-            <ReactModal isOpen={showModal}>TEST {currentOffre.description}<AiOutlineClose color='red' onClick={onClickClose} /></ReactModal>
+            <ReactModal isOpen={showModal}><AiOutlineClose color='red' size='32px' onClick={onClickClose} />
+                <h2>{currentOffre.titre}</h2>
+                <p>{currentOffre.entreprise}</p>
+                <p>{currentOffre.description}</p>
+                <label for='valid'>Valide </label>
+                <input type='checkbox' checked={currentOffre.valid} name='valid' />
+            </ReactModal>
         </div>
     )
 }
