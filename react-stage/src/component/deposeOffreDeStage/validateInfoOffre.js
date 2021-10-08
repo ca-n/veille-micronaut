@@ -13,5 +13,5 @@ export default function validateInfoOffre(values) {
         errors.entreprise = "Entreprise requis"
     }
 
-    return errors;
+    return errors
 }

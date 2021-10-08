@@ -38,24 +38,25 @@ const NavbarHTML = () => {
             <NavDropdown.Item><Link to="/login">Login</Link></NavDropdown.Item>
 
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/newOffre">Créer offre de stage</NavDropdown.Item>
           </NavDropdown>
-          <Nav.Item href="/newOffre">Créer offre de stage</Nav.Item>
           {loggedUser.isLoggedIn ?
             <Nav.Item>
               <Nav.Link as={Link} to="/account" >Account details</Nav.Link>
+              {loggedUser.role == "GESTIONNAIRE" || loggedUser.role == "MONITEUR" &&
+                <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
+              }
             </Nav.Item>
             :
             null
           }
-           {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ?
-          <NavDropdown title="Url Inscription" id="basic-nav-dropdown">
-            <NavDropdown.Item><button onClick={myFunction}>Email link</button></NavDropdown.Item>
-            <NavDropdown.Item><CopyToClipboard text={"http://localhost:3000/moniteur"}><button>Copy to clipboard</button></CopyToClipboard></NavDropdown.Item>
-          </NavDropdown>
-           :
-           null
-         }
+          {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ?
+            <NavDropdown title="Url Inscription" id="basic-nav-dropdown">
+              <NavDropdown.Item><button onClick={myFunction}>Email link</button></NavDropdown.Item>
+              <NavDropdown.Item><CopyToClipboard text={"http://localhost:3000/moniteur"}><button>Copy to clipboard</button></CopyToClipboard></NavDropdown.Item>
+            </NavDropdown>
+            :
+            null
+          }
         </Nav>
       </Navbar.Collapse>
     </Navbar>
