@@ -1,13 +1,13 @@
 import React from 'react'
-import { useState } from 'react/cjs/react.development'
+import { useContext, useState } from 'react/cjs/react.development'
 import FormEtudiantHTML from './FormEtudiantHTML'
 import FormEtudiantSuccess from './FormEtudiantSuccess'
 import './FormEtudiantCSS.css'
 import { Link } from 'react-router-dom'
+import { UserInfoContext } from '../../contexts/UserInfo'
 
 const FormEtudiant = () => {
     const [isSbubmitted,setIsSubmitted] = useState(false)
-
     function submitForm(){
         setIsSubmitted(true)
     }
