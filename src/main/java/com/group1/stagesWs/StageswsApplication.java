@@ -1,4 +1,6 @@
 package com.group1.stagesWs;
+import com.group1.stagesWs.model.Offre;
+import com.group1.stagesWs.repositories.OffreRepository;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.GestionnaireRepository;
@@ -12,6 +14,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class StageswsApplication implements CommandLineRunner {
 
+    /*@Autowired
+    OffreRepository offreRepository;
+  
     @Autowired
     EtudiantRepository etudiantRepository;
 
@@ -22,7 +27,7 @@ public class StageswsApplication implements CommandLineRunner {
     GestionnaireRepository gestionnaireRepository;
 
     @Autowired
-    SuperviseurRepository superviseurRepository;
+    SuperviseurRepository superviseurRepository;*/
 
     public static void main(String[] args) {
         SpringApplication.run(StageswsApplication.class, args);
@@ -30,6 +35,16 @@ public class StageswsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        /*Offre offre1 = new Offre("TITRE1", "DESCRIPTION1", "ENTREPRISE1", true);
+        Offre offre2 = new Offre("TITRE2", "DESCRIPTION2", "ENTREPRISE2", true);
+        Offre offre3 = new Offre("TITRE3", "DESCRIPTION3", "ENTREPRISE3", false);
+        Offre offre4 = new Offre("TITRE4", "DESCRIPTION4", "ENTREPRISE4", false);
+        Offre offre5 = new Offre("TITRE5", "DESCRIPTION5", "ENTREPRISE5", true);
+        offreRepository.save(offre1);
+        offreRepository.save(offre2);
+        offreRepository.save(offre3);
+        offreRepository.save(offre4);
+        offreRepository.save(offre5);
 
         Etudiant etudiant = new Etudiant();
         etudiant.setPrenom("Mathieu");
@@ -75,7 +90,6 @@ public class StageswsApplication implements CommandLineRunner {
         superviseur.setRole(UserType.SUPERVISEUR);
         superviseur.setDepartement("Informatique");
         superviseur.setSpecialite("fullstack");
-        superviseurRepository.save(superviseur);
-
+        superviseurRepository.save(superviseur);*/
     }
 }
