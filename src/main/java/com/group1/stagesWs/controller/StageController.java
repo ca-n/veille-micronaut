@@ -1,5 +1,6 @@
 package com.group1.stagesWs.controller;
 
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
@@ -41,5 +42,10 @@ public class StageController {
         return service.saveWhitelist(whitelist)
                 .map(whitelist1 -> ResponseEntity.status(HttpStatus.OK).body(whitelist1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PostMapping("/stage/validerCV")
+    public ResponseEntity<CV> validerCV(@RequestBody CV cv) {
+        return service
     }
 }
