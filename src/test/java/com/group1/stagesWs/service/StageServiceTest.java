@@ -88,7 +88,14 @@ public class StageServiceTest {
                 "Developpeur Java",
                 "Developpeur Java sur un projet de banque",
                 "Banque NCA",
-                false);
+                false,
+                "1345 Boul Leger Saint-Jean",
+                "2022-1-05",
+                "2022-4-05",
+                13,
+                "9:00 a 5:00",
+                40,
+                22);
     }
 
     private Set<Etudiant> getEtudiants() {
