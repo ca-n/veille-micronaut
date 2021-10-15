@@ -1,5 +1,6 @@
 package com.group1.stagesWs.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
