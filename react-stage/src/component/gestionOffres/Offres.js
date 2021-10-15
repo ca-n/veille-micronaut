@@ -141,12 +141,12 @@ const Offres = () => {
                         <h3 className="row-2">Entreprise</h3>
                         <h3 className="row-2">Validity</h3>
                         <h3 className="row-2">Adresse</h3>
-                        <h3 className="row-2">dateDebut</h3>
-                        <h3 className="row-2">dateFin</h3>
-                        <h3 className="row-2">nbTotalSemaine</h3>
-                        <h3 className="row-2">horaire</h3>
-                        <h3 className="row-2">nbTotalHeuresParSemaine</h3>
-                        <h3 className="row-2">tauxHoraire</h3>
+                        <h3 className="row-2">Date début</h3>
+                        <h3 className="row-2">Date fin</h3>
+                        <h3 className="row-2">Nombre total de semaine</h3>
+                        <h3 className="row-2">Horaire</h3>
+                        <h3 className="row-2">Nombre total d'heures par semaine</h3>
+                        <h3 className="row-2">Taux horaire</h3>
                     </div>
 
                     <div className="col">
