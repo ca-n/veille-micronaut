@@ -153,7 +153,10 @@ const Offres = () => {
                         <div className="row-2"><h3>{currentOffre.titre}</h3></div>
                         <div className="row-6"><h3>{currentOffre.description}</h3></div>
                         <div className="row-2"><h3>{currentOffre.entreprise}</h3></div>
-                        <div className="row-2"><h3>{currentOffre.valid}</h3></div>
+                        <div className="row-2 form-check">
+                            <input type='checkbox' name='valid' className="form-check-input" checked={currentOffre.valid} onChange={onToggleValid} />
+                            <label className="form-check-label" htmlFor="valid"> <h3>Valid</h3> </label>
+                        </div>
                         <div className="row-2"><h3>{currentOffre.adresse}</h3></div>
                         <div className="row-2"><h3>{currentOffre.dateDebut}</h3></div>
                         <div className="row-2"><h3>{currentOffre.dateFin}</h3></div>
