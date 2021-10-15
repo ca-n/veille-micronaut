@@ -17,8 +17,6 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -113,6 +111,13 @@ public class StageControllerTest {
                 "Developpeur Java",
                 "Developpeur Java sur un projet de banque",
                 "Banque NCA",
-                false);
+                false,
+                "1345 Boul Leger Saint-Jean",
+                "2022-1-05",
+                "2022-4-05",
+                13,
+                "9:00 à 5:00",
+                40,
+                22);
     }
 }
