@@ -13,7 +13,14 @@ const Offres = () => {
         description: String,
         entreprise: String,
         visibiliteEtudiant: Array,
-        valid: Boolean
+        valid: Boolean,
+        adresse: String,
+        dateDebut: String,
+        dateFin: String,
+        nbTotalSemaine: 0,
+        horaire: String,
+        nbTotalHeuresParSemaine: Number,
+        tauxHoraire: Number
     });
     const [listAllEtudiant, setListAllEtudiant] = useState([])
 
@@ -126,23 +133,35 @@ const Offres = () => {
                 </tbody>
             </table>
             <ReactModal isOpen={showModal} ariaHideApp={false}>
-                <div className="container">
+                <div className="container row">
                     <AiOutlineClose color='red' size='24px' onClick={onClickClose} />
-                    <div className="row">
-                        <h3 className="col-2">Titre</h3>
-                        <h3 className="col-6">Description</h3>
-                        <h3 className="col-2">Entreprise</h3>
-                        <h3 className="col-2">Validity</h3>
+                    <div className="col-3">
+                        <h3 className="row-2">Titre</h3>
+                        <h3 className="row-6">Description</h3>
+                        <h3 className="row-2">Entreprise</h3>
+                        <h3 className="row-2">Validity</h3>
+                        <h3 className="row-2">Adresse</h3>
+                        <h3 className="row-2">dateDebut</h3>
+                        <h3 className="row-2">dateFin</h3>
+                        <h3 className="row-2">nbTotalSemaine</h3>
+                        <h3 className="row-2">horaire</h3>
+                        <h3 className="row-2">nbTotalHeuresParSemaine</h3>
+                        <h3 className="row-2">tauxHoraire</h3>
                     </div>
 
-                    <div className="row mt-4">
-                        <div className="col-2">{currentOffre.titre}</div>
-                        <div className="col-6">{currentOffre.description}</div>
-                        <div className="col-2">{currentOffre.entreprise}</div>
-                        <div className="col-2 form-check">
-                            <input type='checkbox' name='valid' className="form-check-input" checked={currentOffre.valid} onChange={onToggleValid} />
-                            <label className="form-check-label" htmlFor="valid"> Valid </label>
-                        </div>
+                    <div className="col-3">
+                        <div className="row-2">{currentOffre.titre}</div>
+                        <div className="row-6">{currentOffre.description}</div>
+                        <div className="row-2">{currentOffre.entreprise}</div>
+                        <div className="row-2">{currentOffre.valid}</div>
+                        <div className="row-2">{currentOffre.adresse}</div>
+                        <div className="row-2">{currentOffre.dateDebut}</div>
+                        <div className="row-2">{currentOffre.dateFin}</div>
+                        <div className="row-2">{currentOffre.nbTotalSemaine}</div>
+                        <div className="row-2">{currentOffre.horaire}</div>
+                        <div className="row-2">{currentOffre.nbTotalHeuresParSemaine}</div>
+                        <div className="row-2">{currentOffre.tauxHoraire}</div>
+                        
                     </div>
                     {/*<div className="row card text-center">
                         <ul>
