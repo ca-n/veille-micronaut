@@ -11,13 +11,13 @@ const useFormOffre = (callback, validateInfoOffre) => {
         description: "",
         entreprise: "",
         isValid: false,
-        adresse:"",
-        dateDebut:"",
-        dateFin:"",
-        nbTotalSemaine:0,
-        horaire:"",
-        nbTotalHeuresParSemaine:0,
-        tauxHoraire:0
+        adresse: "",
+        dateDebut: "",
+        dateFin: "",
+        nbTotalSemaine: 0,
+        horaire: "",
+        nbTotalHeuresParSemaine: 0,
+        tauxHoraire: 0
     })
     const [errors, setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
