@@ -129,6 +129,26 @@
     border: none;
   }
 
+  .form-input[type='date']{
+    display: block;
+    padding-left: 10px;
+    outline: none;
+    border-radius: 2px;
+    height: 40px;
+    width: 100%;
+    border: none;
+  }
+
+  .form-input[type='number']{
+    display: block;
+    padding-left: 10px;
+    outline: none;
+    border-radius: 2px;
+    height: 40px;
+    width: 100%;
+    border: none;
+  }
+
   
   .form-input::placeholder {
     color: #595959;
