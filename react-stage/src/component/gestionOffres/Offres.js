@@ -135,7 +135,7 @@ const Offres = () => {
             <ReactModal isOpen={showModal} ariaHideApp={false}>
                 <div className="container row">
                     <AiOutlineClose color='red' size='24px' onClick={onClickClose} />
-                    <div className="col-3">
+                    <div className="col">
                         <h3 className="row-2">Titre</h3>
                         <h3 className="row-6">Description</h3>
                         <h3 className="row-2">Entreprise</h3>
@@ -149,19 +149,19 @@ const Offres = () => {
                         <h3 className="row-2">tauxHoraire</h3>
                     </div>
 
-                    <div className="col-3">
-                        <div className="row-2">{currentOffre.titre}</div>
-                        <div className="row-6">{currentOffre.description}</div>
-                        <div className="row-2">{currentOffre.entreprise}</div>
-                        <div className="row-2">{currentOffre.valid}</div>
-                        <div className="row-2">{currentOffre.adresse}</div>
-                        <div className="row-2">{currentOffre.dateDebut}</div>
-                        <div className="row-2">{currentOffre.dateFin}</div>
-                        <div className="row-2">{currentOffre.nbTotalSemaine}</div>
-                        <div className="row-2">{currentOffre.horaire}</div>
-                        <div className="row-2">{currentOffre.nbTotalHeuresParSemaine}</div>
-                        <div className="row-2">{currentOffre.tauxHoraire}</div>
-                        
+                    <div className="col">
+                        <div className="row-2"><h3>{currentOffre.titre}</h3></div>
+                        <div className="row-6"><h3>{currentOffre.description}</h3></div>
+                        <div className="row-2"><h3>{currentOffre.entreprise}</h3></div>
+                        <div className="row-2"><h3>{currentOffre.valid}</h3></div>
+                        <div className="row-2"><h3>{currentOffre.adresse}</h3></div>
+                        <div className="row-2"><h3>{currentOffre.dateDebut}</h3></div>
+                        <div className="row-2"><h3>{currentOffre.dateFin}</h3></div>
+                        <div className="row-2"><h3>{currentOffre.nbTotalSemaine}</h3></div>
+                        <div className="row-2"><h3>{currentOffre.horaire}</h3></div>
+                        <div className="row-2"><h3>{currentOffre.nbTotalHeuresParSemaine}</h3></div>
+                        <div className="row-2"><h3>{currentOffre.tauxHoraire}</h3></div>
+
                     </div>
                     {/*<div className="row card text-center">
                         <ul>
