@@ -52,4 +52,8 @@ public class StageService {
         cv.setStatus(CVStatus.REJECTED);
         return Optional.of(cvRepository.save(cv));
     }
+
+    public List<CV> getPendingCVs() {
+        return cvRepository.findAllByStatus(CVStatus.PENDING);
+    }
 }
