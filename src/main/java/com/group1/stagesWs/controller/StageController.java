@@ -1,5 +1,6 @@
 package com.group1.stagesWs.controller;
 
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
@@ -36,10 +37,17 @@ public class StageController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @PostMapping(path = "/stage/whitelist")
-    public ResponseEntity<Whitelist> saveWhitelist(@RequestBody Whitelist whitelist) {
-        return service.saveWhitelist(whitelist)
-                .map(whitelist1 -> ResponseEntity.status(HttpStatus.OK).body(whitelist1))
+    @PostMapping(path = "/stage/cv")
+    public ResponseEntity<CV> saveCV(@RequestBody CV cv){
+        return service.saveCV(cv)
+                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
+
+    @GetMapping(path = "/stage/cv/etudiant/{id}")
+    public ResponseEntity<List<CV>> getAllCVbyEtudiant(@PathVariable("id") int id) {
+        return new ResponseEntity<>(service.getAllCV(id), HttpStatus.OK);
+    }
+
+
 }

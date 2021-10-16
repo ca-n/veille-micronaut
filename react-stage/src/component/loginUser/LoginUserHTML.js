@@ -44,6 +44,7 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
 
             fetch(`http://localhost:9191/user/${values.courriel}/${values.password}`)
                 .then(res => {
+                    console.log(res)
                     return res.json();
                 })
                 .then(data => {
