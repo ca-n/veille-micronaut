@@ -1,8 +1,11 @@
 package com.group1.stagesWs.service;
 
+import com.group1.stagesWs.enums.CVValidity;
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
+import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
 import com.group1.stagesWs.repositories.WhitelistRepository;
 import org.junit.jupiter.api.Test;
@@ -16,6 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -27,6 +31,9 @@ public class StageServiceTest {
 
     @Mock
     private WhitelistRepository whitelistRepository;
+
+    @Mock
+    private CVRepository cvRepository;
 
     @InjectMocks
     private StageService service;
@@ -81,6 +88,38 @@ public class StageServiceTest {
 
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    void testAcceptCV() {
+        //Arrange
+        CV expected = new CV();
+        when(cvRepository.save(any())).thenReturn(expected);
+
+        //Act
+        Optional<CV> returned = service.acceptCV(expected);
+
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+        assertThat(returned.isPresent()).isTrue();
+        assertThat(returned.get().getValidity()).isEqualTo(CVValidity.ACCEPTED);
+    }
+
+    @Test
+    void testRejectCV() {
+        //Arrange
+        CV expected = new CV();
+        when(cvRepository.save(any())).thenReturn(expected);
+
+        //Act
+        Optional<CV> returned = service.rejectCV(expected);
+
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+        assertThat(returned.isPresent()).isTrue();
+        assertThat(returned.get().getValidity()).isEqualTo(CVValidity.REJECTED);
     }
 
     private Offre getOffre() {
