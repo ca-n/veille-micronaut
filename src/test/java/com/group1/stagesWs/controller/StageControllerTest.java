@@ -1,6 +1,8 @@
 package com.group1.stagesWs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.group1.stagesWs.enums.CVValidity;
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
@@ -18,6 +20,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -104,6 +107,42 @@ public class StageControllerTest {
         var actual = mapper.readValue(result.getResponse().getContentAsString(), Whitelist.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void testAcceptCV() throws Exception {
+        //Arrange
+        CV expected = new CV();
+        expected.setValidity(CVValidity.ACCEPTED);
+        when(service.acceptCV(any())).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/acceptCV")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual.getValidity()).isEqualTo(CVValidity.ACCEPTED);
+    }
+
+    @Test
+    void testRejectCV() throws Exception {
+        //Arrange
+        CV expected = new CV();
+        expected.setValidity(CVValidity.REJECTED);
+        when(service.acceptCV(any())).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/acceptCV")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual.getValidity()).isEqualTo(CVValidity.REJECTED);
     }
 
     private Offre getOffre() {
