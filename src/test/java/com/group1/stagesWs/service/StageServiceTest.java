@@ -122,6 +122,19 @@ public class StageServiceTest {
         assertThat(returned.get().getStatus()).isEqualTo(CVStatus.REJECTED);
     }
 
+    @Test
+    void testGetPendingCVs() {
+        //Arrange
+        List<CV> expected = List.of(new CV(), new CV(), new CV());
+        when(cvRepository.findAllByStatus(any())).thenReturn(expected);
+
+        //Act
+        List<CV> returned = service.getPendingCVs();
+
+        //Assert
+        assertThat(returned.size()).isEqualTo(3);
+    }
+
     private Offre getOffre() {
         return new Offre(
                 "Developpeur Java",
