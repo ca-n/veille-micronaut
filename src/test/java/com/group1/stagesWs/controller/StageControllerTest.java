@@ -1,5 +1,6 @@
 package com.group1.stagesWs.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
@@ -117,7 +118,7 @@ public class StageControllerTest {
         when(service.acceptCV(any())).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/acceptCV")
+        MvcResult result = mockMvc.perform(post("/stage/cv/accept")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
@@ -132,10 +133,10 @@ public class StageControllerTest {
         //Arrange
         CV expected = new CV();
         expected.setStatus(CVStatus.REJECTED);
-        when(service.acceptCV(any())).thenReturn(Optional.of(expected));
+        when(service.rejectCV(any())).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/acceptCV")
+        MvcResult result = mockMvc.perform(post("/stage/cv/reject")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
@@ -143,6 +144,23 @@ public class StageControllerTest {
         var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actual.getStatus()).isEqualTo(CVStatus.REJECTED);
+    }
+
+    @Test
+    void testGetPendingCVs() throws Exception {
+        //Arrange
+        List<CV> expected = List.of(new CV(), new CV(), new CV());
+        when(service.getPendingCVs()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/stage/cv/pending")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual.size()).isEqualTo(3);
     }
 
     private Offre getOffre() {
