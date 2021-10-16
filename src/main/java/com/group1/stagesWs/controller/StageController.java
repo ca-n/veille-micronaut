@@ -44,17 +44,22 @@ public class StageController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @PostMapping("/stage/acceptCV")
+    @PostMapping("/stage/cv/accept")
     public ResponseEntity<CV> acceptCV(@RequestBody CV cv) {
         return service.acceptCV(cv)
                 .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
                 .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 
-    @PostMapping("/stage/rejectCV")
+    @PostMapping("/stage/cv/reject")
     public ResponseEntity<CV> rejectCV(@RequestBody CV cv) {
         return service.rejectCV(cv)
                 .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
                 .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
+    }
+
+    @GetMapping("/stage/cv/pending")
+    public ResponseEntity<List<CV>> getPendingCVs() {
+        return new ResponseEntity<>(service.getPendingCVs(), HttpStatus.OK);
     }
 }
