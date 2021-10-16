@@ -1,13 +1,12 @@
 package com.group1.stagesWs.controller;
 
-import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.Whitelist;
+import com.group1.stagesWs.model.*;
+import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.service.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,6 +47,12 @@ public class StageController {
     public ResponseEntity<List<CV>> getAllCVbyEtudiant(@PathVariable("id") int id) {
         return new ResponseEntity<>(service.getAllCV(id), HttpStatus.OK);
     }
+
+    @DeleteMapping(path = "/stage/cv/delete/{id}")
+    void deleteCV(@PathVariable int id) {
+        service.deleteCV(id);
+    }
+
 
 
 }

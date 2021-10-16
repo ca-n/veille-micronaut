@@ -45,7 +45,7 @@ const DropCv = () => {
                             var request = new XMLHttpRequest();
                             request.open('POST', 'http://localhost:9191/stage/cv', true);
                             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-                            let cv = { data: result, etudiant: data, nom : files.name }
+                            let cv = { data: result, etudiant: data, nom: files.name }
                             cv = JSON.stringify(cv);
                             request.send(cv)
                         })
@@ -55,23 +55,24 @@ const DropCv = () => {
 
     }
 
+    const deleteCV = () => {
+        fetch(`http://localhost:9191/stage/cv/delete/${cvs[0].id}`, { method: 'DELETE' })
+        console.log()
+    }
+
+
     const cvList = cvs.map((cv) =>
-        <table>
-            <tr>
-                <th>nom de fichier</th>
-                <th>Date de soumission</th>
-            </tr>
             <tr key={cv.id.toString()}>
                 <td>{cv.nom}</td>
                 <td>{cv.dateSoumission}</td>
-            </tr>
-        </table>);
+                <td><button onClick={deleteCV}>Delete</button></td>
+            </tr>);
 
-    const fetchEtudiant = async () => {
-        const res = await fetch(`http://localhost:9191/user/${loggedUser.courriel}`);
-        const data = await res.json()
-        return data
-    }
+    // const fetchEtudiant = async () => {
+    //     const res = await fetch(`http://localhost:9191/user/${loggedUser.courriel}`);
+    //     const data = await res.json()
+    //     return data
+    // }
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
@@ -86,7 +87,7 @@ const DropCv = () => {
                             return res.json()
                         })
                         .then(data => {
-                            console.log(data)
+                            console.log(data,"bob")
                             setCvs(data)
                         })
                 })
@@ -103,7 +104,14 @@ const DropCv = () => {
                 </div>
                 <button type="submit">Submit</button>
             </form>
+            <table>
+            <tr>
+                <th>nom de fichier</th>
+                <th>Date de soumission</th>
+                <th>delete</th>
+            </tr>
             {cvList}
+            </table>
         </div>
     )
 }

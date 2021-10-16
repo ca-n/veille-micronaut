@@ -10,6 +10,7 @@ import com.group1.stagesWs.repositories.WhitelistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -50,4 +51,10 @@ public class StageService {
     public List<CV> getAllCV(int id) {
         return cvRepository.findALlByEtudiantId(id);
     }
+
+    public void deleteCV(int id) {
+        cvRepository.deleteById(id);
+    }
+
+
 }
