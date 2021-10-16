@@ -1,6 +1,6 @@
 package com.group1.stagesWs.enums;
 
-public enum CVValidity {
+public enum CVStatus {
     PENDING,
     ACCEPTED,
     REJECTED

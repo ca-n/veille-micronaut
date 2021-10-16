@@ -1,6 +1,6 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.enums.CVValidity;
+import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
@@ -103,7 +103,7 @@ public class StageServiceTest {
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
         assertThat(returned.isPresent()).isTrue();
-        assertThat(returned.get().getValidity()).isEqualTo(CVValidity.ACCEPTED);
+        assertThat(returned.get().getStatus()).isEqualTo(CVStatus.ACCEPTED);
     }
 
     @Test
@@ -119,7 +119,7 @@ public class StageServiceTest {
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
         assertThat(returned.isPresent()).isTrue();
-        assertThat(returned.get().getValidity()).isEqualTo(CVValidity.REJECTED);
+        assertThat(returned.get().getStatus()).isEqualTo(CVStatus.REJECTED);
     }
 
     private Offre getOffre() {

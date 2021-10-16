@@ -1,6 +1,6 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.enums.CVValidity;
+import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
@@ -44,12 +44,12 @@ public class StageService {
     }
 
     public Optional<CV> acceptCV(CV cv) {
-        cv.setValidity(CVValidity.ACCEPTED);
+        cv.setStatus(CVStatus.ACCEPTED);
         return Optional.of(cvRepository.save(cv));
     }
 
     public Optional<CV> rejectCV(CV cv) {
-        cv.setValidity(CVValidity.REJECTED);
+        cv.setStatus(CVStatus.REJECTED);
         return Optional.of(cvRepository.save(cv));
     }
 }
