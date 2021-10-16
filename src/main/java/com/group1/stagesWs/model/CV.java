@@ -1,6 +1,6 @@
 package com.group1.stagesWs.model;
 
-import com.group1.stagesWs.enums.CvValidity;
+import com.group1.stagesWs.enums.CVValidity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,7 +16,7 @@ public class CV implements Serializable {
     private int id;
 
     private LocalDate dateSoumission;
-    private CvValidity validity;
+    private CVValidity validity;
 
     @Lob
     private byte[] data;
@@ -26,6 +26,6 @@ public class CV implements Serializable {
 
     public CV() {
         this.dateSoumission = LocalDate.now();
-        validity = CvValidity.PENDING;
+        validity = CVValidity.PENDING;
     }
 }
