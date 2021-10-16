@@ -44,8 +44,17 @@ public class StageController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @PostMapping("/stage/validerCV")
-    public ResponseEntity<CV> validerCV(@RequestBody CV cv) {
-        return service
+    @PostMapping("/stage/acceptCV")
+    public ResponseEntity<CV> acceptCV(@RequestBody CV cv) {
+        return service.acceptCV(cv)
+                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
+                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
+    }
+
+    @PostMapping("/stage/rejectCV")
+    public ResponseEntity<CV> rejectCV(@RequestBody CV cv) {
+        return service.rejectCV(cv)
+                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
+                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 }
