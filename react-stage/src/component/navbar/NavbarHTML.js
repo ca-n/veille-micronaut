@@ -60,6 +60,7 @@ const NavbarHTML = () => {
           :
           null
         }
+         <Nav.Link as={Link} to="/dropCv">Cv</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
