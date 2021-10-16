@@ -14,6 +14,8 @@ public class CV implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String nom;
+
     private LocalDate dateSoumission;
     private boolean isValid;
 

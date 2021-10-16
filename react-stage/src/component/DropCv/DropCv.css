@@ -46,3 +46,14 @@
 button {
     color:black
 }
+
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+  }
+
+table{
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+}

@@ -45,7 +45,7 @@ const DropCv = () => {
                             var request = new XMLHttpRequest();
                             request.open('POST', 'http://localhost:9191/stage/cv', true);
                             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-                            let cv = { data: result, etudiant: data }
+                            let cv = { data: result, etudiant: data, nom : files.name }
                             cv = JSON.stringify(cv);
                             request.send(cv)
                         })
@@ -56,10 +56,16 @@ const DropCv = () => {
     }
 
     const cvList = cvs.map((cv) =>
-        <tr key={cv.id.toString()}>
-            <td colSpan='3'>{cv.id}</td>
-            <td colSpan='3'>{cv.dateSoumission}</td>
-        </tr>);
+        <table>
+            <tr>
+                <th>nom de fichier</th>
+                <th>Date de soumission</th>
+            </tr>
+            <tr key={cv.id.toString()}>
+                <td>{cv.nom}</td>
+                <td>{cv.dateSoumission}</td>
+            </tr>
+        </table>);
 
     const fetchEtudiant = async () => {
         const res = await fetch(`http://localhost:9191/user/${loggedUser.courriel}`);
