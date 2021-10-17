@@ -64,8 +64,17 @@ public class StageController {
     }
 
     @GetMapping(path = "/stage/cv/pdf/{id}")
-        public void generatePDF(@PathVariable("id") int id) {
-        Optional<CV> cv = cvRepository.findById(id);
-            service.generateCVPDF(cv.get().getData(),"C:\\Users\\glitc\\Documents\\byteFile",cv.get().getNom());
+        public void generatePDF(@PathVariable("id") int id, HttpServletResponse response) {
+//        Optional<CV> cv = cvRepository.findById(id);
+//            service.generateCVPDF(cv.get().getData(),cv.get().getNom());
+        try {
+            response.setContentType("application/pdf");
+            Optional<CV> cv = cvRepository.findById(id);
+           InputStream inputStream =  new ByteArrayInputStream(service.generateCVPDF(cv.get().getData(),"test.pdf"));
+           IOUtils.copy(inputStream,response.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+    }
 }

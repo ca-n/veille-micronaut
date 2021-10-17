@@ -65,14 +65,21 @@ public class StageService {
         cvRepository.deleteById(id);
     }
 
-    public void generateCVPDF(byte[] bArray,String filePath,String fileName) {
+    public byte[] generateCVPDF(byte[] bArray,String fileName) {
+//        try {
+//            OutputStream out = new FileOutputStream(fileName);
+//            out.write(bArray);
+//            out.close();
+//        } catch (Exception e) {
+//            System.err.println("Error: " + e.getMessage());
+//        }
+
         try {
-            OutputStream out = new FileOutputStream(filePath + "\\" + fileName);
-            out.write(bArray);
-            out.close();
+            return bArray;
         } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
+        return null;
     }
 
 

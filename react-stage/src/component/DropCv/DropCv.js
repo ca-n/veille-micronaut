@@ -1,6 +1,7 @@
 import { React, useState, useContext, useEffect } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfo';
 import './DropCv.css'
+import { saveAs } from 'file-saver'
 
 const DropCv = () => {
     const [etudiant, setEtudiant] = useState()
@@ -55,18 +56,22 @@ const DropCv = () => {
 
     }
 
-    const deleteCV = () => {
-        fetch(`http://localhost:9191/stage/cv/delete/${cvs[0].id}`, { method: 'DELETE' })
-        console.log()
+    const deleteCV = (cv) => {
+        fetch(`http://localhost:9191/stage/cv/delete/${cv.id}`, { method: 'DELETE' })
+    }
+
+    const download = (cv) => {
+        saveAs(`http://localhost:9191/stage/cv/pdf/${cv.id}`, cv.nom)
     }
 
 
     const cvList = cvs.map((cv) =>
-            <tr key={cv.id.toString()}>
-                <td>{cv.nom}</td>
-                <td>{cv.dateSoumission}</td>
-                <td><button onClick={deleteCV}>Delete</button></td>
-            </tr>);
+        <tr key={cv.id.toString()}>
+            <td>{cv.nom}</td>
+            <td>{cv.dateSoumission}</td>
+            <td><button onClick={() => deleteCV(cv)}>Delete</button></td>
+            <td><button onClick={() => download(cv)}>download</button></td>
+        </tr>);
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
@@ -81,7 +86,7 @@ const DropCv = () => {
                             return res.json()
                         })
                         .then(data => {
-                            console.log(data,"bob")
+                            console.log(data, "bob")
                             setCvs(data)
                         })
                 })
@@ -99,12 +104,13 @@ const DropCv = () => {
                 <button type="submit">Submit</button>
             </form>
             <table>
-            <tr>
-                <th>nom de fichier</th>
-                <th>Date de soumission</th>
-                <th>delete</th>
-            </tr>
-            {cvList}
+                <tr>
+                    <th>nom de fichier</th>
+                    <th>Date de soumission</th>
+                    <th>delete</th>
+                    <th>download</th>
+                </tr>
+                {cvList}
             </table>
         </div>
     )
