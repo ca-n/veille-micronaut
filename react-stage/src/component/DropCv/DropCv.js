@@ -68,12 +68,6 @@ const DropCv = () => {
                 <td><button onClick={deleteCV}>Delete</button></td>
             </tr>);
 
-    // const fetchEtudiant = async () => {
-    //     const res = await fetch(`http://localhost:9191/user/${loggedUser.courriel}`);
-    //     const data = await res.json()
-    //     return data
-    // }
-
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
             fetch(`http://localhost:9191/user/${loggedUser.courriel}`)

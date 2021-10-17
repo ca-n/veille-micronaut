@@ -3,14 +3,21 @@ package com.group1.stagesWs.controller;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.service.StageService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.Document;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -18,6 +25,9 @@ public class StageController {
 
     @Autowired
     private StageService service;
+
+    @Autowired
+    private CVRepository cvRepository;
 
     @GetMapping(path = "/stage/offres")
     public ResponseEntity<List<Offre>> getAllOffres() {
@@ -49,10 +59,13 @@ public class StageController {
     }
 
     @DeleteMapping(path = "/stage/cv/delete/{id}")
-    void deleteCV(@PathVariable int id) {
+    public void deleteCV(@PathVariable int id) {
         service.deleteCV(id);
     }
 
-
-
+    @GetMapping(path = "/stage/cv/pdf/{id}")
+        public void generatePDF(@PathVariable("id") int id) {
+        Optional<CV> cv = cvRepository.findById(id);
+            service.generateCVPDF(cv.get().getData(),"C:\\Users\\glitc\\Documents\\byteFile",cv.get().getNom());
+        }
 }

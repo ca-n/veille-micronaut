@@ -1,15 +1,14 @@
 package com.group1.stagesWs;
 import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.repositories.OffreRepository;
+import com.group1.stagesWs.repositories.*;
 import com.group1.stagesWs.model.*;
-import com.group1.stagesWs.repositories.EtudiantRepository;
-import com.group1.stagesWs.repositories.GestionnaireRepository;
-import com.group1.stagesWs.repositories.MoniteurRepository;
-import com.group1.stagesWs.repositories.SuperviseurRepository;
+import com.group1.stagesWs.service.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.servlet.http.HttpServletResponse;
 
 @SpringBootApplication
 public class StageswsApplication implements CommandLineRunner {
@@ -28,6 +27,12 @@ public class StageswsApplication implements CommandLineRunner {
 
     @Autowired
     SuperviseurRepository superviseurRepository;
+
+    @Autowired
+    CVRepository cvRepository;
+
+    @Autowired
+    StageService service;
 
     public static void main(String[] args) {
         SpringApplication.run(StageswsApplication.class, args);
@@ -91,5 +96,6 @@ public class StageswsApplication implements CommandLineRunner {
         superviseur.setDepartement("Informatique");
         superviseur.setSpecialite("fullstack");
         superviseurRepository.save(superviseur);
+
     }
 }
