@@ -1,5 +1,6 @@
 package com.group1.stagesWs.controller;
 
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
@@ -41,5 +42,24 @@ public class StageController {
         return service.saveWhitelist(whitelist)
                 .map(whitelist1 -> ResponseEntity.status(HttpStatus.OK).body(whitelist1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PostMapping("/stage/cv/accept")
+    public ResponseEntity<CV> acceptCV(@RequestBody CV cv) {
+        return service.acceptCV(cv)
+                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
+                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
+    }
+
+    @PostMapping("/stage/cv/reject")
+    public ResponseEntity<CV> rejectCV(@RequestBody CV cv) {
+        return service.rejectCV(cv)
+                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
+                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
+    }
+
+    @GetMapping("/stage/cv/pending")
+    public ResponseEntity<List<CV>> getPendingCVs() {
+        return new ResponseEntity<>(service.getPendingCVs(), HttpStatus.OK);
     }
 }

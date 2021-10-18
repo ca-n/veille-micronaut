@@ -1,6 +1,9 @@
 package com.group1.stagesWs.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.group1.stagesWs.enums.CVStatus;
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
@@ -18,6 +21,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -104,6 +108,59 @@ public class StageControllerTest {
         var actual = mapper.readValue(result.getResponse().getContentAsString(), Whitelist.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void testAcceptCV() throws Exception {
+        //Arrange
+        CV expected = new CV();
+        expected.setStatus(CVStatus.ACCEPTED);
+        when(service.acceptCV(any())).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/cv/accept")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual.getStatus()).isEqualTo(CVStatus.ACCEPTED);
+    }
+
+    @Test
+    void testRejectCV() throws Exception {
+        //Arrange
+        CV expected = new CV();
+        expected.setStatus(CVStatus.REJECTED);
+        when(service.rejectCV(any())).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/cv/reject")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual.getStatus()).isEqualTo(CVStatus.REJECTED);
+    }
+
+    @Test
+    void testGetPendingCVs() throws Exception {
+        //Arrange
+        List<CV> expected = List.of(new CV(), new CV(), new CV());
+        when(service.getPendingCVs()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/stage/cv/pending")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual.size()).isEqualTo(3);
     }
 
     private Offre getOffre() {
