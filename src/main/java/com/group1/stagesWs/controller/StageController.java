@@ -62,4 +62,11 @@ public class StageController {
     public ResponseEntity<List<CV>> getPendingCVs() {
         return new ResponseEntity<>(service.getPendingCVs(), HttpStatus.OK);
     }
+
+    @GetMapping("/stage/cv/{id}")
+    public ResponseEntity<CV> getCV(@PathVariable int id) {
+        return service.getCV(id)
+                .map(cv -> ResponseEntity.status(HttpStatus.OK).body(cv))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
 }
