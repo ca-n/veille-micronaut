@@ -7,6 +7,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,12 +21,19 @@ public class EmailService {
     public void sendGestionnaireEmailCVAjouter() {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("noreply@baeldung.com");
-        List<Gestionnaire> gestionnaireList = gestionnaireRepository.findAll();
-        for (Gestionnaire gestionnaire : gestionnaireList) {
-            message.setTo(gestionnaire.getCourriel());
-        }
+        String[] emailArray = getAllGestionnairesEmail().toArray(new String[0]);
+        message.setTo(emailArray);
         message.setSubject("Un nouveau CV à été ajouté");
         message.setText("Un nouveau CV à été ajouté. Veuillez vous connecter a l'application pour voir les CV.");
         emailSender.send(message);
+    }
+
+    private List<String> getAllGestionnairesEmail(){
+        List<Gestionnaire> gestionnaireList = gestionnaireRepository.findAll();
+        List<String> emailList = new ArrayList<>();
+        for (Gestionnaire gestionnaire : gestionnaireList) {
+            emailList.add(gestionnaire.getCourriel());
+        }
+        return emailList;
     }
 }
