@@ -24,7 +24,7 @@ public class EmailService {
         String[] emailArray = getAllGestionnairesEmail().toArray(new String[0]);
         message.setTo(emailArray);
         message.setSubject("Un nouveau CV à été ajouté");
-        message.setText("Un nouveau CV à été ajouté. Veuillez vous connecter a l'application pour voir les CV.");
+        message.setText("Un nouveau CV a été ajouté. Veuillez vous connecter à l'application pour voir les CV.");
         emailSender.send(message);
     }
 
