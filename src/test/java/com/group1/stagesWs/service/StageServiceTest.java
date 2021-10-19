@@ -135,6 +135,20 @@ public class StageServiceTest {
         assertThat(returned.size()).isEqualTo(3);
     }
 
+    @Test
+    void testGetCV() {
+        //Arrange
+        CV expected = new CV();
+        expected.setId(1);
+        when(cvRepository.findById(1)).thenReturn(Optional.of(expected));
+
+        //Act
+        Optional<CV> returned = service.getCV(expected.getId());
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
     private Offre getOffre() {
         return new Offre(
                 "Developpeur Java",

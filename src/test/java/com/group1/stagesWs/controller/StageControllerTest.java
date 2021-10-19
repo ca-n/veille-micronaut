@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -153,14 +154,28 @@ public class StageControllerTest {
         when(service.getPendingCVs()).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(get("/stage/cv/pending")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(expected))).andReturn();
+        MvcResult result = mockMvc.perform(get("/stage/cv/pending")).andReturn();
 
         //Assert
         var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actual.size()).isEqualTo(3);
+    }
+
+    @Test
+    void testGetCV() throws Exception {
+        //Arrange
+        CV expected = new CV();
+        expected.setId(1);
+        when(service.getCV(1)).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/stage/cv/" + expected.getId())).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual).isEqualTo(expected);
     }
 
     private Offre getOffre() {
