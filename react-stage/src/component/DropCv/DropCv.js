@@ -38,17 +38,22 @@ const DropCv = () => {
                         .then(res => {
                             return res.json();
                         })
-                        .then(data => {
+                        .then(async(data) => {
                             console.log(data, "data")
                             console.log(data.id)
                             setEtudiant(data)
 
-                            var request = new XMLHttpRequest();
-                            request.open('POST', 'http://localhost:9191/stage/cv', true);
-                            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
                             let cv = { data: result, etudiant: data, nom: files.name }
-                            cv = JSON.stringify(cv);
-                            request.send(cv)
+
+                            const res = await fetch('http://localhost:9191/stage/cv', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-type': 'application/json',
+                                },
+                                body: JSON.stringify(cv)
+                            })
+                            await res.json()
+                            updateCvs()
                         })
                 }
             }
@@ -56,12 +61,23 @@ const DropCv = () => {
 
     }
 
-    const deleteCV = (cv) => {
-        fetch(`http://localhost:9191/stage/cv/delete/${cv.id}`, { method: 'DELETE' })
+    const updateCvs = async() => {
+        fetch(`http://localhost:9191/stage/cv/etudiant/${etudiant.id}`)
+                        .then(res => {
+                            return res.json()
+                        })
+                        .then(data => {
+                            setCvs(data)
+                        })
+    }
+
+    const deleteCV = async(cv) => {
+        const res = await fetch(`http://localhost:9191/stage/cv/delete/${cv.id}`, { method: 'DELETE' })
+        await res.json().then(updateCvs())
     }
 
     const download = (cv) => {
-        saveAs(`http://localhost:9191/stage/cv/pdf/${cv.id}`, cv.nom)
+        saveAs(`http://localhost:9191/stage/cv/pdf/${cv.id}`)
     }
 
 
@@ -86,7 +102,6 @@ const DropCv = () => {
                             return res.json()
                         })
                         .then(data => {
-                            console.log(data, "bob")
                             setCvs(data)
                         })
                 })

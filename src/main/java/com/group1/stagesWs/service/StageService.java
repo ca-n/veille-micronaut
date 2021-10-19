@@ -66,14 +66,6 @@ public class StageService {
     }
 
     public byte[] generateCVPDF(byte[] bArray,String fileName) {
-//        try {
-//            OutputStream out = new FileOutputStream(fileName);
-//            out.write(bArray);
-//            out.close();
-//        } catch (Exception e) {
-//            System.err.println("Error: " + e.getMessage());
-//        }
-
         try {
             return bArray;
         } catch (Exception e) {
