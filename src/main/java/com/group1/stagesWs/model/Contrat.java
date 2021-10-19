@@ -2,10 +2,7 @@ package com.group1.stagesWs.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -23,9 +20,16 @@ public class Contrat implements Serializable {
     private boolean isEtudiantConfirmed;
     private boolean isGestionnaireConfirmed;
 
-    private LocalDate dateConfirmationMoniteur;
-    private LocalDate dateConfirmationEtudiant;
-    private LocalDate dateConfirmationGestionnaire;
+    private LocalDate dateSignatureMoniteur;
+    private LocalDate dateSignatureEtudiant;
+    private LocalDate dateSignatureGestionnaire;
+
+    @ManyToOne
+    private Offre offre;
+
+    private String collegeSengageA;
+    private String entrepriseSengageA;
+    private String etudiantSengageA;
 
     public Contrat() {
     }
