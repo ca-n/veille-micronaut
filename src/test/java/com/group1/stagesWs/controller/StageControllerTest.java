@@ -1,12 +1,12 @@
 package com.group1.stagesWs.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
+import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.StageService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,10 @@ public class StageControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private StageService service;
+    private StageService stageService;
+
+    @MockBean
+    private CVService cvService;
 
     private static ObjectMapper mapper;
 
@@ -47,7 +50,7 @@ public class StageControllerTest {
     void testGetAllOffres() throws Exception {
         //Arrange
         List<Offre> expected = List.of(getOffre(), getOffre(), getOffre());
-        when(service.getAllOffres()).thenReturn(expected);
+        when(stageService.getAllOffres()).thenReturn(expected);
 
         //Act
         MvcResult result = mockMvc.perform(get("/stage/offres")
@@ -64,7 +67,7 @@ public class StageControllerTest {
     void testGetEtudiantOffres() throws Exception {
         //Arrange
         List<Offre> expected = List.of(getOffre(), getOffre(), getOffre());
-        when(service.getEtudiantOffres(any(Etudiant.class))).thenReturn(expected);
+        when(stageService.getEtudiantOffres(any(Etudiant.class))).thenReturn(expected);
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/offres/etudiant")
@@ -81,7 +84,7 @@ public class StageControllerTest {
     void testSaveOffre() throws Exception {
         //Arrange
         Offre expected = getOffre();
-        when(service.saveOffre(expected)).thenReturn(Optional.of(expected));
+        when(stageService.saveOffre(expected)).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/offre")
@@ -98,7 +101,7 @@ public class StageControllerTest {
     void testSaveWhitelist() throws Exception {
         //Arrange
         Whitelist expected = new Whitelist();
-        when(service.saveWhitelist(expected)).thenReturn(Optional.of(expected));
+        when(stageService.saveWhitelist(expected)).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/whitelist")
@@ -116,7 +119,7 @@ public class StageControllerTest {
         //Arrange
         CV expected = new CV();
         expected.setStatus(CVStatus.ACCEPTED);
-        when(service.acceptCV(any())).thenReturn(Optional.of(expected));
+        when(stageService.acceptCV(any())).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/cv/accept")
@@ -134,7 +137,7 @@ public class StageControllerTest {
         //Arrange
         CV expected = new CV();
         expected.setStatus(CVStatus.REJECTED);
-        when(service.rejectCV(any())).thenReturn(Optional.of(expected));
+        when(stageService.rejectCV(any())).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/cv/reject")
@@ -151,7 +154,7 @@ public class StageControllerTest {
     void testGetAllCVs() throws Exception {
         //Arrange
         List<CV> expected = List.of(new CV(), new CV(), new CV());
-        when(service.getAllCVs()).thenReturn(expected);
+        when(stageService.getAllCVs()).thenReturn(expected);
 
         //Act
         MvcResult result = mockMvc.perform(get("/stage/cv")).andReturn();
@@ -167,7 +170,7 @@ public class StageControllerTest {
         //Arrange
         CV expected = new CV();
         expected.setId(1);
-        when(service.getCV(1)).thenReturn(Optional.of(expected));
+        when(stageService.getCV(1)).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(get("/stage/cv/" + expected.getId())).andReturn();

@@ -3,11 +3,12 @@ import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.*;
 import com.group1.stagesWs.model.*;
+import com.group1.stagesWs.service.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class StageswsApplication implements CommandLineRunner {
 
     @Autowired
     CVRepository cvRepository;
+
+    @Autowired
+    StageService service;
 
     public static void main(String[] args) {
         SpringApplication.run(StageswsApplication.class, args);
