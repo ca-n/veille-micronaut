@@ -1,6 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from 'react-icons/ai'
 import CVService from '../../services/CVService'
+import './VerificationCV.css'
 
 const VerificationCVList = () => {
     const [cvList, setCVList] = useState([])
@@ -14,20 +17,34 @@ const VerificationCVList = () => {
         getAllCVs();
     }, [])
 
+    const getStatusIcon = (status) => {
+        switch(status) {
+            case "PENDING":
+                return <AiOutlineClockCircle color="gold" size="48px"/>
+            case "ACCEPTED":
+                return <AiOutlineCheckCircle color="green" size="48px"/>
+            case "REJECTED":
+                return <AiOutlineCloseCircle color="red" size="48px"/>
+            default:
+                return;
+        }
+    }
+
     return (
         <div className="container">
-            <div className="row">
-                <div className="col">Nom d'étudiant</div>
-                <div className="col">Nom de fichier</div>
-                <div className="col">Statut du CV</div>
-            </div>
-            <div className="row">
-                {cvList.map(cv => 
-                <div key={cv.id} className="row border">
-                    <div className="col">{cv.etudiant.nom}, {cv.etudiant.prenom}</div>
-                    <div className="col">{cv.nom}</div>
-                    <div className="col">{cv.status}</div>
-                </div>)}
+            <h1 className="center">Liste des CV des étudiants</h1>
+            <div className="table">
+                <div className="border row container">
+                    <div className="col-5 bold auto">Nom d'étudiant</div>
+                    <div className="col-5 bold auto">Date soumission</div>
+                    <div className="col-2 bold right">Statut du CV</div>
+                </div>
+                {cvList.length === 0 ? <div className="col center">Aucun CV à afficher</div> : cvList.map(cv =>
+                    <Link key={cv.id} className="row border container cvitem" to={`/gestion/cv/${cv.id}`}>
+                        <div className="col-5 auto">{cv.etudiant.nom}, {cv.etudiant.prenom}</div>
+                        <div className="col-5 auto">{cv.dateSoumission}</div>
+                        <div className="col-2 right">{getStatusIcon(cv.status)}</div>
+                    </Link>)}
             </div>
         </div>
     )

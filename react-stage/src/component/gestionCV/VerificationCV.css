@@ -1,0 +1,26 @@
+.bold {
+    font-weight: bolder;
+}
+
+.cvitem {
+    text-decoration: none;
+    color: black;
+}
+
+.cvitem:hover {
+    color: black;
+    background-color: #eee;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    margin:auto 0 auto auto;
+    text-align: right;
+}
+
+.auto {
+    margin: auto;
+}
