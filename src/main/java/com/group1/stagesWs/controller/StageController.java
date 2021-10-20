@@ -42,4 +42,11 @@ public class StageController {
                 .map(whitelist1 -> ResponseEntity.status(HttpStatus.OK).body(whitelist1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
+
+    @GetMapping(path = "/stage/offre/whitelist/{idOffre}")
+    public ResponseEntity<Whitelist> getOffreWhitelist(@PathVariable Integer idOffre){
+        return service.getOffreWhitelist(idOffre)
+                .map(whitelist -> ResponseEntity.status(HttpStatus.OK).body(whitelist))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
 }

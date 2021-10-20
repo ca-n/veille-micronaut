@@ -16,7 +16,6 @@ public class Whitelist implements Serializable {
     private int id;
 
     @OneToMany
-    @Column(name = "visibilite_etudiant") //Cette ligne ne veut pas renommer la colonne dans la base de donnees - A REVOIR
     private Set<Etudiant> whitelistedEtudiant = new HashSet<>();
 
     public Whitelist() {

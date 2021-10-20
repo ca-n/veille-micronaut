@@ -108,6 +108,29 @@ public class StageControllerTest {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @Test
+    void testGetOffreWhitelist() throws Exception{
+        //Arrange
+        int offreId = 1;
+        Offre expected = getOffre();
+        Whitelist expectedWhitelist = new Whitelist();
+        expected.setVisibiliteEtudiant(expectedWhitelist);
+
+        when(service.getOffreWhitelist(any(Integer.class))).thenReturn(Optional.of(expectedWhitelist));
+        String url = "/stage/offre/whitelist/" + offreId;
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expectedWhitelist))).andReturn();
+
+        // Assert
+        var actualWhitelist = mapper.readValue(result.getResponse().getContentAsString(), Whitelist.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualWhitelist).isEqualTo(expectedWhitelist);
+    }
+
+
+
     private Offre getOffre() {
         return new Offre(
                 "Developpeur Java",

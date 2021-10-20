@@ -37,4 +37,8 @@ public class StageService {
     public Optional<Whitelist> saveWhitelist(Whitelist whitelist) {
         return Optional.of(whitelistRepository.save(whitelist));
     }
+
+    public Optional<Whitelist> getOffreWhitelist(int idOffre){
+        return Optional.of(offreRepository.findById(idOffre).get().getVisibiliteEtudiant());
+    }
 }

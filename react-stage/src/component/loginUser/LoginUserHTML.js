@@ -1,6 +1,4 @@
 import React from 'react'
-import useLoginUser from './useLoginUser'
-import validateInfoLogin from './validateInfoLogin';
 import { useState, useEffect, useContext, Redirect, useRef } from "react";
 import { UserInfoContext } from "../../contexts/UserInfo";
 
@@ -70,9 +68,8 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
                 fetch(`http://localhost:9191/user/${values.courriel}/${values.password}`)
                     .then(res => {
                         console.log(res, "resultat res")
-                        console.log(res.status, "status")
 
-                        if (res.status == 302) {
+                        if (res.ok) {
                             loginValid.current = true 
                             return res.json()
                         }
