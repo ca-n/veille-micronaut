@@ -101,12 +101,15 @@ public class StageswsApplication implements CommandLineRunner {
 
         CV cv1 = new CV(); // pending
         cv1.setEtudiant(etudiant);
+        cv1.setNom("cv-pending.pdf");
         CV cv2 = new CV(); // accepted
         cv2.setStatus(CVStatus.ACCEPTED);
         cv2.setEtudiant(etudiant);
+        cv2.setNom("cv-accepted.pdf");
         CV cv3 = new CV(); // rejected
         cv3.setStatus(CVStatus.REJECTED);
         cv3.setEtudiant(etudiant);
+        cv3.setNom("cv-rejected.pdf");
         cvRepository.saveAll(List.of(cv1, cv2, cv3));
     }
 }
