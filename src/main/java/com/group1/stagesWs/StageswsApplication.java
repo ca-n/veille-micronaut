@@ -1,17 +1,15 @@
 package com.group1.stagesWs;
+import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.repositories.OffreRepository;
+import com.group1.stagesWs.repositories.*;
 import com.group1.stagesWs.model.*;
-import com.group1.stagesWs.repositories.EtudiantRepository;
-import com.group1.stagesWs.repositories.GestionnaireRepository;
-import com.group1.stagesWs.repositories.MoniteurRepository;
-import com.group1.stagesWs.repositories.SuperviseurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class StageswsApplication implements CommandLineRunner {
@@ -30,6 +28,9 @@ public class StageswsApplication implements CommandLineRunner {
 
     @Autowired
     SuperviseurRepository superviseurRepository;
+
+    @Autowired
+    CVRepository cvRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(StageswsApplication.class, args);
@@ -93,5 +94,12 @@ public class StageswsApplication implements CommandLineRunner {
         superviseur.setDepartement("Informatique");
         superviseur.setSpecialite("fullstack");
         superviseurRepository.save(superviseur);
+
+        CV cv1 = new CV(); // pending
+        CV cv2 = new CV(); // accepted
+        cv2.setStatus(CVStatus.ACCEPTED);
+        CV cv3 = new CV(); // rejected
+        cv3.setStatus(CVStatus.REJECTED);
+        cvRepository.saveAll(List.of(cv1, cv2, cv3));
     }
 }
