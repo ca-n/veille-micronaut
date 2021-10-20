@@ -96,10 +96,13 @@ public class StageswsApplication implements CommandLineRunner {
         superviseurRepository.save(superviseur);
 
         CV cv1 = new CV(); // pending
+        cv1.setEtudiant(etudiant);
         CV cv2 = new CV(); // accepted
         cv2.setStatus(CVStatus.ACCEPTED);
+        cv2.setEtudiant(etudiant);
         CV cv3 = new CV(); // rejected
         cv3.setStatus(CVStatus.REJECTED);
+        cv3.setEtudiant(etudiant);
         cvRepository.saveAll(List.of(cv1, cv2, cv3));
     }
 }
