@@ -1,6 +1,7 @@
+const url = 'http://localhost:9191/stage/cv'
 const CVService = {
     acceptCV: async (cv) => {
-        const res = await fetch('http://localhost:9191/stage/cv/accept',
+        const res = await fetch(url + '/accept',
         {
             method: 'POST',
             headers: {
@@ -13,7 +14,7 @@ const CVService = {
     },
 
     rejectCV: async (cv) => {
-        const res = await fetch('http://localhost:9191/stage/cv/reject',
+        const res = await fetch(url + '/reject',
         {
             method: 'POST',
             headers: {
@@ -25,8 +26,14 @@ const CVService = {
         return data
     },
 
-    getPendingCVs: async () => {
-        const res = await fetch('http://localhost:9191/stage/cv/pending')
+    getAllCVs: async () => {
+        const res = await fetch(url)
+        const data = await res.json()
+        return data
+    },
+
+    getCV: async (id) => {
+        const res = await fetch(url + '/' + id)
         const data = await res.json()
         return data
     }

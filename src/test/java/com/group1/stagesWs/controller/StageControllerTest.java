@@ -148,13 +148,13 @@ public class StageControllerTest {
     }
 
     @Test
-    void testGetPendingCVs() throws Exception {
+    void testGetAllCVs() throws Exception {
         //Arrange
         List<CV> expected = List.of(new CV(), new CV(), new CV());
-        when(service.getPendingCVs()).thenReturn(expected);
+        when(service.getAllCVs()).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(get("/stage/cv/pending")).andReturn();
+        MvcResult result = mockMvc.perform(get("/stage/cv")).andReturn();
 
         //Assert
         var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);

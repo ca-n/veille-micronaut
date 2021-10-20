@@ -6,7 +6,6 @@ import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
 import com.group1.stagesWs.repositories.WhitelistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,11 +53,11 @@ public class StageService {
         return Optional.of(cvRepository.save(cv));
     }
 
-    public List<CV> getPendingCVs() {
-        return cvRepository.findAllByStatus(CVStatus.PENDING);
-    }
-
     public Optional<CV> getCV(int id) {
         return cvRepository.findById(id);
+    }
+
+    public List<CV> getAllCVs() {
+        return cvRepository.findAll();
     }
 }

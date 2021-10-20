@@ -123,13 +123,13 @@ public class StageServiceTest {
     }
 
     @Test
-    void testGetPendingCVs() {
+    void testGetAllCVs() {
         //Arrange
         List<CV> expected = List.of(new CV(), new CV(), new CV());
-        when(cvRepository.findAllByStatus(any())).thenReturn(expected);
+        when(cvRepository.findAll()).thenReturn(expected);
 
         //Act
-        List<CV> returned = service.getPendingCVs();
+        List<CV> returned = service.getAllCVs();
 
         //Assert
         assertThat(returned.size()).isEqualTo(3);
