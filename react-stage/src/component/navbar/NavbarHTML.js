@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, Navbar, Container, NavDropdown } from 'react-bootstrap'
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import './NavbarCSS.css'
 import logo from './logo.svg'
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { UserInfoContext } from '../../contexts/UserInfo';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -41,7 +41,7 @@ const NavbarHTML = () => {
             :
             null
           }
-          {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ?
+          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
             <NavDropdown title="Url Inscription" id="basic-nav-dropdown">
               <NavDropdown.Item><button onClick={myFunction}>Email link</button></NavDropdown.Item>
               <NavDropdown.Item><CopyToClipboard text={"http://localhost:3000/moniteur"}><button>Copy to clipboard</button></CopyToClipboard></NavDropdown.Item>
@@ -49,18 +49,18 @@ const NavbarHTML = () => {
             :
             null
           }
-          {(loggedUser.role == "GESTIONNAIRE" || loggedUser.role == "SUPERVISEUR")&& loggedUser.isLoggedIn &&
+          {(loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "SUPERVISEUR" || loggedUser.role === "ETUDIANT")&& loggedUser.isLoggedIn &&
             <>
               <Nav.Link as={Link} to="/offres">Offres</Nav.Link>
             </>
             }
 
-          {loggedUser.isLoggedIn && loggedUser.role == "GESTIONNAIRE" ||  loggedUser.role == "MONITEUR"  ?
+          {loggedUser.isLoggedIn && (loggedUser.role === "GESTIONNAIRE" ||  loggedUser.role === "MONITEUR")  ?
           <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
           :
           null
         }
-        {loggedUser.isLoggedIn && loggedUser.role == "ETUDIANT" ?
+        {loggedUser.isLoggedIn && loggedUser.role === "ETUDIANT" ?
           <Nav.Link as={Link} to="/dropCv" >Ajouter ou voir cv</Nav.Link>
           :
           null
