@@ -94,18 +94,24 @@ public class StageController {
 
     @PostMapping("/stage/cv/accept")
     public ResponseEntity<CV> acceptCV(@RequestBody CV cv) {
-        emailService.sendEtudiantEmailCVAccepted(cv);
-        return stageService.acceptCV(cv)
-                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
-                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
+        Optional<CV> cvOptional = stageService.acceptCV(cv);
+        if (cvOptional.isPresent()) {
+            emailService.sendEtudiantEmailCVAccepted(cv);
+            return ResponseEntity.ok(cvOptional.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PostMapping("/stage/cv/reject")
     public ResponseEntity<CV> rejectCV(@RequestBody CV cv) {
-        emailService.sendEtudiantEmailCVRejected(cv);
-        return stageService.rejectCV(cv)
-                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
-                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
+        Optional<CV> cvOptional = stageService.rejectCV(cv);
+        if (cvOptional.isPresent()) {
+            emailService.sendEtudiantEmailCVRejected(cv);
+            return ResponseEntity.ok(cvOptional.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/stage/cv")
