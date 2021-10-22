@@ -62,7 +62,7 @@ public class StageServiceTest {
         List<Offre> expected = getOffres();
         when(etudiantRepository.findEtudiantByCourrielIgnoreCase(any(String.class))).thenReturn(expectedEtudiant);
         when(whitelistRepository.findAllByWhitelistedEtudiant(any(Etudiant.class))).thenReturn(List.of(expectedWhitelist));
-        when(offreRepository.findAllByVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(any(List.class))).thenReturn(expected);
+        when(offreRepository.findAllByisValidTrueAndVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(any(List.class))).thenReturn(expected);
 
         //Act
         List<Offre> returned = service.getEtudiantOffres(expectedEtudiant.getCourriel());

@@ -111,7 +111,7 @@ public class StageswsApplication implements CommandLineRunner {
         Offre offre3 = new Offre("TITRE3", "DESCRIPTION3", "ENTREPRISE3", false, "2055 route 206 Laval", "2022-1-05", "2022-4-05", 13, "9:00 à 5:00", 40, 17.50);
         Offre offre4 = new Offre("TITRE4", "DESCRIPTION4", "ENTREPRISE4", false, "1052 montee saint-claude Laprairie", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 25);
         Offre offre5 = new Offre("TITRE5", "DESCRIPTION5", "ENTREPRISE5", true, "10 boul dagenais Montreal", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 18.75);
-        offre1.getVisibiliteEtudiant().setWhitelistedEtudiant(Set.of(etudiant));
+//        offre1.getVisibiliteEtudiant().setWhitelistedEtudiant(Set.of(etudiant));
         offreRepository.save(offre1);
         offreRepository.save(offre2);
         offreRepository.save(offre3);

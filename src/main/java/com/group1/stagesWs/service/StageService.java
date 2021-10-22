@@ -9,19 +9,9 @@ import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
 import com.group1.stagesWs.repositories.WhitelistRepository;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.crypto.spec.PSource;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,10 +40,13 @@ public class StageService {
     public List<Offre> getEtudiantOffres(String etudiantEmail) {
         Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
         List<Whitelist> whitelists = whitelistRepository.findAllByWhitelistedEtudiant(etudiant);
-        return offreRepository.findAllByVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(whitelists);
+        return offreRepository.findAllByisValidTrueAndVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(whitelists);
     }
 
     public Optional<Offre> saveOffre(Offre offre) {
+        if(offre.getVisibiliteEtudiant() != null) {
+            whitelistRepository.save(offre.getVisibiliteEtudiant());
+        }
         return Optional.of(offreRepository.save(offre));
     }
 

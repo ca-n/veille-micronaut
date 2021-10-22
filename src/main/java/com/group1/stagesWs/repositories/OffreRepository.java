@@ -13,5 +13,5 @@ public interface OffreRepository extends JpaRepository<Offre, Integer> {
 
     Offre save(Offre offre);
 
-    List<Offre> findAllByVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(List<Whitelist> whitelists);
+    List<Offre> findAllByisValidTrueAndVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(List<Whitelist> whitelists);
 }
