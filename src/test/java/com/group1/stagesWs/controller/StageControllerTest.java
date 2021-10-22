@@ -1,5 +1,6 @@
 package com.group1.stagesWs.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
@@ -137,6 +138,20 @@ public class StageControllerTest {
     }
 
     @Test
+    void testAcceptCVFail() throws Exception {
+        //Arrange
+        when(stageService.acceptCV(any())).thenReturn(Optional.empty());
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/cv/accept")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(new CV()))).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
+    @Test
     void testRejectCV() throws Exception {
         //Arrange
         CV expected = new CV();
@@ -152,6 +167,20 @@ public class StageControllerTest {
         var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actual.getStatus()).isEqualTo(CVStatus.REJECTED);
+    }
+
+    @Test
+    void testRejectCVFail() throws Exception {
+        //Arrange
+        when(stageService.rejectCV(any())).thenReturn(Optional.empty());
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/stage/cv/reject")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(new CV()))).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     @Test

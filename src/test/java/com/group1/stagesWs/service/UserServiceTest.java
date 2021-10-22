@@ -132,6 +132,17 @@ public class UserServiceTest {
     }
 
     @Test
+    void testLoginUserFail() {
+        //Arrange
+
+        //Act
+        Optional<User> returned = service.login("", "");
+
+        //Assert
+        assertThat(returned).isEmpty();
+    }
+
+    @Test
     public void testFindEtudiantByEmail() {
         //Arrange
         Etudiant expected = getEtudiant();
@@ -181,6 +192,17 @@ public class UserServiceTest {
 
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    public void testFindUserByEmailNotFound() {
+        //Arrange
+
+        //Act
+        Optional<User> returned = service.findUserByCourriel("");
+
+        //Assert
+        assertThat(returned).isEmpty();
     }
 
     @Test
