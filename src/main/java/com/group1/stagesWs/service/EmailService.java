@@ -40,23 +40,21 @@ public class EmailService {
 
     public void sendEtudiantEmailCVAccepted(CV cv) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@baeldung.com");
         message.setTo(getEtudiantEmailByCV(cv));
         message.setSubject("Votre CV à été accepté sur la plateforme OSEVM");
-        message.setText("Votre CV a été accepté. Veuillez vous connecter à l'application OSE version meilleur pour voir le statut de votre CV.");
+        message.setText("Votre CV " + cv.getNom() + " a été accepté. Veuillez vous connecter à l'application OSE version meilleur pour voir le statut de votre CV.");
         emailSender.send(message);
     }
 
     public void sendEtudiantEmailCVRejected(CV cv) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@baeldung.com");
         message.setTo(getEtudiantEmailByCV(cv));
         message.setSubject("Votre CV à été rejeté sur la plateforme OSEVM");
-        message.setText("Votre CV a été rejeté. Veuillez vous connecter à l'application OSE version meilleur pour voir le statut de votre CV.");
+        message.setText("Votre CV " + cv.getNom() + " a été rejeté. Veuillez vous connecter à l'application OSE version meilleur pour voir le statut de votre CV.");
         emailSender.send(message);
     }
 
-    private List<String> getAllGestionnairesEmail(){
+    private List<String> getAllGestionnairesEmail() {
         List<Gestionnaire> gestionnaireList = gestionnaireRepository.findAll();
         List<String> emailList = new ArrayList<>();
         for (Gestionnaire gestionnaire : gestionnaireList) {
@@ -65,7 +63,7 @@ public class EmailService {
         return emailList;
     }
 
-    private String getEtudiantEmailByCV(CV cv){
+    private String getEtudiantEmailByCV(CV cv) {
         return cv.getEtudiant().getCourriel();
     }
 }
