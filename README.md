@@ -24,3 +24,22 @@ Projet de gestion stages du cours projet 2021
 # Jérémie
 # Bien été : Bien fait les démos (tester par autres personnes)
 # Moins bien été : Deux tâches trop similaire (donc mettre ensemble), inégalité des tâches
+
+# Sprint 3
+
+# Pascal
+# Bien été :  organisation des taches, terminer sprint, communication bonne, reassignation des taches
+# Moins bien été : temps du sprint, trop gros commit
+
+# Mathieu
+# Bien été : bonne communication
+# Moins bien été : gros commit
+
+# Neil
+# Bien été : 
+# Moins bien été : pull request reste la pour trop longtemp, code review pas bon
+
+
+# Jérémie
+# Bien été : communication statue des autres 
+# Moins bien été : mauvaise evaluation des subtask
