@@ -11,6 +11,9 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import UserInfo, { UserInfoContext } from './contexts/UserInfo';
 import AccountDetails from './component/AccountDetails/AccountDetails';
 import Offre from './component/gestionOffres/Offre';
+import VerificationCV from './component/gestionCV/VerificationCV';
+import VerificationCVList from './component/gestionCV/VerificationCVList';
+
 import DropCv from './component/DropCv/DropCv';
 
 
@@ -31,6 +34,8 @@ function App() {
               <Route exact path="/login"><LoginUser /></Route>
               <Route exact path="/newOffre"><FormOffre /></Route>
               <Route exact path="/dropCv"><DropCv/></Route>
+              <Route exact path="/gestion/cv"><VerificationCVList/></Route>
+              <Route exact path="/gestion/cv/:id"><VerificationCV/></Route>
 
             </Switch>
             {/* <UserInfoContext.Consumer>
