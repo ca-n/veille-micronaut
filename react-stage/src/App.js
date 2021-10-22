@@ -5,8 +5,8 @@ import FormMoniteur from './component/inscriptionMoniteur/FormMoniteur'
 import LoginUser from './component/loginUser/LoginUser';
 import Navbar from './component/navbar/NavbarHTML'
 import Home from './component/Home/Home';
-import Offres from './component/gestionOffres/Offres';
 import FormOffre from "./component/deposeOffreDeStage/FormOffre";
+import Offres from './component/Offres/Offres';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import UserInfo, { UserInfoContext } from './contexts/UserInfo';
 import AccountDetails from './component/AccountDetails/AccountDetails';
@@ -15,6 +15,7 @@ import VerificationCV from './component/gestionCV/VerificationCV';
 import VerificationCVList from './component/gestionCV/VerificationCVList';
 
 import DropCv from './component/DropCv/DropCv';
+
 
 
 function App() {
@@ -38,9 +39,6 @@ function App() {
               <Route exact path="/gestion/cv/:id"><VerificationCV/></Route>
 
             </Switch>
-            {/* <UserInfoContext.Consumer>
-        {(user) => (user.isLoggedIn ? <Redirect push to = "/moniteur"/>: null)}
-        </UserInfoContext.Consumer> */}
           </div>
         </UserInfo>
       </div>

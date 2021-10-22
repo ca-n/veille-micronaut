@@ -1,5 +1,6 @@
 package com.group1.stagesWs.model;
 
+
 import com.group1.stagesWs.enums.CVStatus;
 import lombok.Data;
 

@@ -36,14 +36,14 @@ public class UserController {
     @GetMapping("/user/{email}/{password}")
     public ResponseEntity<User> login(@PathVariable("email") String email, @PathVariable("password") String password) {
         return service.login(email, password)
-                .map(etudiant1 -> ResponseEntity.status(HttpStatus.FOUND).body(etudiant1))
+                .map(etudiant1 -> ResponseEntity.status(HttpStatus.OK).body(etudiant1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
     @GetMapping("/user/{email}")
     public ResponseEntity<User> findUserByEmail(@PathVariable("email") String email) {
         return service.findUserByCourriel(email)
-                .map(user1 -> ResponseEntity.status(HttpStatus.FOUND).body(user1))
+                .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 

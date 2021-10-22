@@ -70,13 +70,13 @@ public class StageControllerTest {
     @Test
     void testGetEtudiantOffres() throws Exception {
         //Arrange
+        Etudiant etudiant = getEtudiant();
         List<Offre> expected = List.of(getOffre(), getOffre(), getOffre());
-        when(stageService.getEtudiantOffres(any(Etudiant.class))).thenReturn(expected);
 
+        when(stageService.getEtudiantOffres(any(String.class))).thenReturn(expected);
+        String url = "/stage/offres/etudiant/" + etudiant.getCourriel();
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/offres/etudiant")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(new Etudiant()))).andReturn();
+        MvcResult result = mockMvc.perform(get(url)).andReturn();
 
         //Assert
         var actualOffres = mapper.readValue(result.getResponse().getContentAsString(), List.class);
@@ -101,11 +101,12 @@ public class StageControllerTest {
         assertThat(actualOffre).isEqualTo(expected);
     }
 
+
     @Test
     void testSaveWhitelist() throws Exception {
         //Arrange
         Whitelist expected = new Whitelist();
-        when(stageService.saveWhitelist(expected)).thenReturn(Optional.of(expected));
+        when(stageService.saveWhitelist(any(Whitelist.class))).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/whitelist")
@@ -113,10 +114,11 @@ public class StageControllerTest {
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert
-        var actual = mapper.readValue(result.getResponse().getContentAsString(), Whitelist.class);
+        var actualWhitelist = mapper.readValue(result.getResponse().getContentAsString(), Whitelist.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actualWhitelist).isEqualTo(expected);
     }
+
 
     @Test
     void testAcceptCV() throws Exception {
@@ -198,5 +200,19 @@ public class StageControllerTest {
                 "9:00 a 5:00",
                 40,
                 22);
+    }
+
+    private Etudiant getEtudiant() {
+        return new Etudiant(
+                "Pascal",
+                "Bourgoin",
+                "test@test.com",
+                "password",
+                "123456789",
+                "technique",
+                "addy 123",
+                "123456",
+                true,
+                true);
     }
 }

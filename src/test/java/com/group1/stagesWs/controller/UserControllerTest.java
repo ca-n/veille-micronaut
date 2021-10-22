@@ -104,7 +104,7 @@ public class UserControllerTest {
 
         // Assert
         var actualEtudiant = mapper.readValue(result.getResponse().getContentAsString(), Etudiant.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualEtudiant).isEqualTo(expected);
     }
 
@@ -121,7 +121,7 @@ public class UserControllerTest {
 
         // Assert
         var actualEtudiant = mapper.readValue(result.getResponse().getContentAsString(), Etudiant.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualEtudiant).isEqualTo(expected);
     }
 
@@ -139,7 +139,7 @@ public class UserControllerTest {
 
         // Assert
         var actualGestionnaire = mapper.readValue(result.getResponse().getContentAsString(), Gestionnaire.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualGestionnaire).isEqualTo(expected);
     }
 
@@ -156,7 +156,7 @@ public class UserControllerTest {
 
         // Assert
         var actualMoniteur = mapper.readValue(result.getResponse().getContentAsString(), Moniteur.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualMoniteur).isEqualTo(expected);
     }
 
@@ -173,7 +173,7 @@ public class UserControllerTest {
 
         // Assert
         var actualSuperviseur = mapper.readValue(result.getResponse().getContentAsString(), Superviseur.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.FOUND.value());
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualSuperviseur).isEqualTo(expected);
     }
 

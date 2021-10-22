@@ -1,7 +1,5 @@
 import React from 'react'
-import useLoginUser from './useLoginUser'
-import validateInfoLogin from './validateInfoLogin';
-import { useState, useEffect, useContext, Redirect } from "react";
+import { useState, useEffect, useContext, Redirect, useRef } from "react";
 import { UserInfoContext } from "../../contexts/UserInfo";
 
 import './LoginUser';
@@ -16,6 +14,9 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
         courriel: "",
         password: ""
     })
+
+    const firstUpdate = useRef(true)
+    const loginValid = useRef(false)
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
     const [errors, setErrors] = useState({})
     const [isSubmitted, setIsSubmitted] = useState(false)
@@ -29,6 +30,21 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
         })
     }
 
+    function validateInfoLogin(values) {
+        let errors = {}
+
+        if (!values.courriel) {
+            errors.courriel = "Courriel requis"
+        }
+
+        if (!values.password) {
+            errors.password = "Mot de passe requis"
+        }
+
+
+        return errors;
+    }
+
     const handleSubmit = e => {
         e.preventDefault();
 
@@ -37,31 +53,55 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
         setIsSubmitted(true)
     }
 
+    useEffect(() => {
+        console.log(errors, "errors")
+    }, [errors]
+    )
+
 
     useEffect(() => {
-        if (Object.keys(errors).length === 0 && isSubmitted) {
-            // callback();
+        if (firstUpdate.current) {
+            firstUpdate.current = false
+        } else {
+            if (Object.keys(errors).length === 0 && isSubmitted) {
+                // callback();
+                fetch(`http://localhost:9191/user/${values.courriel}/${values.password}`)
+                    .then(res => {
+                        console.log(res, "resultat res")
 
-            fetch(`http://localhost:9191/user/${values.courriel}/${values.password}`)
-                .then(res => {
-                    console.log(res)
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data)
+                        if (res.ok) {
+                            loginValid.current = true 
+                            return res.json()
+                        }
+                        throw res
 
-
-                    setLoggedUser({
-                        courriel: data.courriel,
-                        role: data.role,
-                        isLoggedIn: true
                     })
-                    console.log(loggedUser, "right after the setter")
-                    console.log("Logged user in context")
-                    setSubmitTrue()
-                })
+                    .then(data => {
 
+                        if (loginValid.current) {
+                            console.log(data, "Objet de retour data")
+
+
+                            setLoggedUser({
+                                courriel: data.courriel,
+                                role: data.role,
+                                isLoggedIn: true
+                            })
+                            console.log(loggedUser, "right after the setter")
+                            console.log("Logged user in context")
+                            setSubmitTrue()
+                        }
+                    })
+                    .catch(error => {
+                        alert("Le login est invalide")
+                    })
+
+            }
         }
+
+
+
+
     }, [errors]
     );
 

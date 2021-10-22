@@ -11,6 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
 
+import java.util.Set;
+
+
 @SpringBootApplication
 public class StageswsApplication implements CommandLineRunner {
 
@@ -41,16 +44,7 @@ public class StageswsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Offre offre1 = new Offre("TITRE1", "DESCRIPTION1", "ENTREPRISE1", true, "1 rue de la riviere Brossard", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 21);
-        Offre offre2 = new Offre("TITRE2", "DESCRIPTION2", "ENTREPRISE2", true, "6 boul lachine Montreal", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 20);
-        Offre offre3 = new Offre("TITRE3", "DESCRIPTION3", "ENTREPRISE3", false, "2055 route 206 Laval", "2022-1-05", "2022-4-05", 13, "9:00 à 5:00", 40, 17.50);
-        Offre offre4 = new Offre("TITRE4", "DESCRIPTION4", "ENTREPRISE4", false, "1052 montee saint-claude Laprairie", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 25);
-        Offre offre5 = new Offre("TITRE5", "DESCRIPTION5", "ENTREPRISE5", true, "10 boul dagenais Montreal", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 18.75);
-        offreRepository.save(offre1);
-        offreRepository.save(offre2);
-        offreRepository.save(offre3);
-        offreRepository.save(offre4);
-        offreRepository.save(offre5);
+
 
         Etudiant etudiant = new Etudiant();
         etudiant.setPrenom("Mathieu");
@@ -64,6 +58,20 @@ public class StageswsApplication implements CommandLineRunner {
         etudiant.setNumMatricule("1822323");
         etudiant.setHasLicense(true);
         etudiantRepository.save(etudiant);
+
+        Etudiant etudiant1 = new Etudiant();
+        etudiant1.setPrenom("Patrick");
+        etudiant1.setNom("Star");
+        etudiant1.setCourriel("pat@gmail.com");
+        etudiant1.setPassword("Password1");
+        etudiant1.setNumTelephone("123145676");
+        etudiant1.setRole(UserType.ETUDIANT);
+        etudiant1.setProgramme("Info");
+        etudiant1.setAdresse("113 lapierre");
+        etudiant1.setNumMatricule("12345678");
+        etudiant1.setHasLicense(true);
+        etudiant1.setHasVoiture(true);
+        etudiantRepository.save(etudiant1);
 
         Moniteur moniteur = new Moniteur();
         moniteur.setPrenom("Pascal");
@@ -110,5 +118,17 @@ public class StageswsApplication implements CommandLineRunner {
         cv3.setEtudiant(etudiant);
         cv3.setNom("cv-rejected.pdf");
         cvRepository.saveAll(List.of(cv1, cv2, cv3));
+
+        Offre offre1 = new Offre("TITRE1", "DESCRIPTION1", "ENTREPRISE1", true, "1 rue de la riviere Brossard", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 21);
+        Offre offre2 = new Offre("TITRE2", "DESCRIPTION2", "ENTREPRISE2", true, "6 boul lachine Montreal", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 20);
+        Offre offre3 = new Offre("TITRE3", "DESCRIPTION3", "ENTREPRISE3", false, "2055 route 206 Laval", "2022-1-05", "2022-4-05", 13, "9:00 à 5:00", 40, 17.50);
+        Offre offre4 = new Offre("TITRE4", "DESCRIPTION4", "ENTREPRISE4", false, "1052 montee saint-claude Laprairie", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 25);
+        Offre offre5 = new Offre("TITRE5", "DESCRIPTION5", "ENTREPRISE5", true, "10 boul dagenais Montreal", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 18.75);
+//        offre1.getVisibiliteEtudiant().setWhitelistedEtudiant(Set.of(etudiant));
+        offreRepository.save(offre1);
+        offreRepository.save(offre2);
+        offreRepository.save(offre3);
+        offreRepository.save(offre4);
+        offreRepository.save(offre5);
     }
 }

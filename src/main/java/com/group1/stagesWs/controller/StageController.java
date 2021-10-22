@@ -39,9 +39,9 @@ public class StageController {
         return new ResponseEntity<>(stageService.getAllOffres(), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/stage/offres/etudiant")
-    public ResponseEntity<List<Offre>> getEtudiantOffres(@RequestBody Etudiant etudiant) {
-        return new ResponseEntity<>(stageService.getEtudiantOffres(etudiant), HttpStatus.OK);
+    @GetMapping(path = "/stage/offres/etudiant/{etudiantEmail}")
+    public ResponseEntity<List<Offre>> getEtudiantOffres(@PathVariable String etudiantEmail) {
+        return ResponseEntity.ok(stageService.getEtudiantOffres(etudiantEmail));
     }
 
     @PostMapping(path = "/stage/offre")
@@ -50,6 +50,7 @@ public class StageController {
                 .map(offre1 -> ResponseEntity.status(HttpStatus.OK).body(offre1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
+
 
     @PostMapping(path = "/stage/whitelist")
     public ResponseEntity<Whitelist> saveWhitelist(@RequestBody Whitelist whitelist) {
