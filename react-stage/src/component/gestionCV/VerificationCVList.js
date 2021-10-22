@@ -1,20 +1,25 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from 'react-icons/ai'
+import { UserInfoContext } from '../../contexts/UserInfo';
 import CVService from '../../services/CVService'
 import './VerificationCV.css'
 
 const VerificationCVList = () => {
     const [cvList, setCVList] = useState([])
+    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const history = useHistory()
 
     useEffect(() => {
+        if (!loggedUser.isLoggedIn || loggedUser.role !== "GESTIONNAIRE") history.push("/login")
+
         const getAllCVs = async () => {
             const cvs = await CVService.getAllCVs()
             setCVList(cvs);
         }
         getAllCVs();
-    }, [])
+    }, [loggedUser, history])
 
     const getStatusIcon = (status) => {
         switch(status) {

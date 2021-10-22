@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+import { UserInfoContext } from '../../contexts/UserInfo';
 import CVService from '../../services/CVService.js'
 import './VerificationCV.css'
 
 const VerificationCV = () => {
+    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
     const [cv, setCV] = useState()
     const [numPages, setNumPages] = useState(0)
     const [page, setPage] = useState(1)
@@ -13,12 +15,14 @@ const VerificationCV = () => {
     const history = useHistory()
 
     useEffect(() => {
+        if (!loggedUser.isLoggedIn || loggedUser.role !== "GESTIONNAIRE") history.push("/login")
+
         const getCV = async () => {
             const cv = await CVService.getCV(id)
             setCV(cv)
         }
         getCV()
-    }, [id])
+    }, [id, loggedUser, history])
 
     const onDocumentLoad = ({ numPages }) => {
         setNumPages(numPages)
