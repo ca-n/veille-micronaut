@@ -48,6 +48,10 @@ const VerificationCV = () => {
         history.push("/gestion/cv")
     }
 
+    const onCancel = async () => {
+        history.push("/gestion/cv")
+    }
+
     const renderPageControls = (
         <div className="container">
             <div className="row center">
@@ -58,25 +62,26 @@ const VerificationCV = () => {
         </div>
     )
 
-    const renderScaleControls = (
-        <div className="container">
-            <div className="row center">
-                <button className="btn btn-danger col-1 prevPage" onClick={onReject}>Rejeter</button>
-                <div className="col-1" />
-                <button className="btn btn-secondary btn-sm col-1" onClick={() => setPdfScale(scale => scale - 0.5)}>-</button>
-                <div className="col-1 pages">{pdfScale * 100}%</div>
-                <button className="btn btn-secondary btn-sm col-1" onClick={() => setPdfScale(scale => scale + 0.5)}>+</button>
-                <div className="col-1" />
-                <button className="btn btn-success col-1 nextPage" onClick={onAccept}>Accepter</button>
-            </div>
-        </div>
+    const renderControls = (
+        <>
+            <div className="col"></div>
+            <button className="btn btn-secondary btn-sm col-1" onClick={() => setPdfScale(scale => scale - 0.5)}>-</button>
+            <div className="col pages">{pdfScale * 100}%</div>
+            <button className="btn btn-secondary btn-sm col-1" onClick={() => setPdfScale(scale => scale + 0.5)}>+</button>
+            <button className="btn btn-danger col prevPage" onClick={onReject}>Rejeter</button>
+            <button className="btn btn-success col nextPage" onClick={onAccept}>Accepter</button>
+        </>
     )
 
     return (
-        <div className="dark">
+        <div className="dark h-100 pb-auto mb-auto">
             {!cv ? '' :
                 <div>
-                    {renderScaleControls}
+                    <div className="container">
+                        <div className="row center">
+                            <button className="btn btn-secondary col ml-0 mr-auto" onClick={onCancel}>Annuler</button>{renderControls}
+                            </div>
+                        </div>
                     <Document file={`data:application/pdf;base64,${cv.data}`} onLoadSuccess={onDocumentLoad}>
                         <Page pageNumber={page} scale={pdfScale} renderAnnotationLayer={false} />
                     </Document>
