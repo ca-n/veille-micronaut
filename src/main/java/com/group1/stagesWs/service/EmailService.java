@@ -1,5 +1,6 @@
 package com.group1.stagesWs.service;
 
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Gestionnaire;
 import com.group1.stagesWs.repositories.GestionnaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,32 @@ public class EmailService {
         emailSender.send(message);
     }
 
-    private List<String> getAllGestionnairesEmail(){
+    public void sendEtudiantEmailCVAccepted(CV cv) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(getEtudiantEmailByCV(cv));
+        message.setSubject("Votre CV à été accepté sur la plateforme OSEVM");
+        message.setText("Votre CV " + cv.getNom() + " a été accepté. Veuillez vous connecter à l'application OSE version meilleur pour voir le statut de votre CV.");
+        emailSender.send(message);
+    }
+
+    public void sendEtudiantEmailCVRejected(CV cv) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(getEtudiantEmailByCV(cv));
+        message.setSubject("Votre CV à été rejeté sur la plateforme OSEVM");
+        message.setText("Votre CV " + cv.getNom() + " a été rejeté. Veuillez vous connecter à l'application OSE version meilleur pour voir le statut de votre CV.");
+        emailSender.send(message);
+    }
+
+    private List<String> getAllGestionnairesEmail() {
         List<Gestionnaire> gestionnaireList = gestionnaireRepository.findAll();
         List<String> emailList = new ArrayList<>();
         for (Gestionnaire gestionnaire : gestionnaireList) {
             emailList.add(gestionnaire.getCourriel());
         }
         return emailList;
+    }
+
+    private String getEtudiantEmailByCV(CV cv) {
+        return cv.getEtudiant().getCourriel();
     }
 }
