@@ -1,6 +1,7 @@
 import { React, useState, useContext, useEffect } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfo';
 import './DropCv.css'
+import { saveAs } from 'file-saver'
 
 const DropCv = () => {
     const [etudiant, setEtudiant] = useState()
@@ -37,17 +38,22 @@ const DropCv = () => {
                         .then(res => {
                             return res.json();
                         })
-                        .then(data => {
+                        .then(async(data) => {
                             console.log(data, "data")
                             console.log(data.id)
                             setEtudiant(data)
 
-                            var request = new XMLHttpRequest();
-                            request.open('POST', 'http://localhost:9191/stage/cv', true);
-                            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-                            let cv = { data: result, etudiant: data }
-                            cv = JSON.stringify(cv);
-                            request.send(cv)
+                            let cv = { data: result, etudiant: data, nom: files.name }
+
+                            const res = await fetch('http://localhost:9191/stage/cv', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-type': 'application/json',
+                                },
+                                body: JSON.stringify(cv)
+                            })
+                            await res.json()
+                            updateCvs()
                         })
                 }
             }
@@ -55,17 +61,33 @@ const DropCv = () => {
 
     }
 
+    const updateCvs = async() => {
+        fetch(`http://localhost:9191/stage/cv/etudiant/${etudiant.id}`)
+                        .then(res => {
+                            return res.json()
+                        })
+                        .then(data => {
+                            setCvs(data)
+                        })
+    }
+
+    const deleteCV = async(cv) => {
+        const res = await fetch(`http://localhost:9191/stage/cv/delete/${cv.id}`, { method: 'DELETE' })
+        await res.json().then(updateCvs())
+    }
+
+    const download = (cv) => {
+        saveAs(`http://localhost:9191/stage/cv/pdf/${cv.id}`)
+    }
+
+
     const cvList = cvs.map((cv) =>
         <tr key={cv.id.toString()}>
-            <td colSpan='3'>{cv.id}</td>
-            <td colSpan='3'>{cv.dateSoumission}</td>
+            <td>{cv.nom}</td>
+            <td>{cv.dateSoumission}</td>
+            <td><button onClick={() => deleteCV(cv)}>Delete</button></td>
+            <td><button onClick={() => download(cv)}>download</button></td>
         </tr>);
-
-    const fetchEtudiant = async () => {
-        const res = await fetch(`http://localhost:9191/user/${loggedUser.courriel}`);
-        const data = await res.json()
-        return data
-    }
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
@@ -80,7 +102,6 @@ const DropCv = () => {
                             return res.json()
                         })
                         .then(data => {
-                            console.log(data)
                             setCvs(data)
                         })
                 })
@@ -97,7 +118,15 @@ const DropCv = () => {
                 </div>
                 <button type="submit">Submit</button>
             </form>
-            {cvList}
+            <table>
+                <tr>
+                    <th>nom de fichier</th>
+                    <th>Date de soumission</th>
+                    <th>delete</th>
+                    <th>download</th>
+                </tr>
+                {cvList}
+            </table>
         </div>
     )
 }

@@ -60,7 +60,11 @@ const NavbarHTML = () => {
           :
           null
         }
-         <Nav.Link as={Link} to="/dropCv">Cv</Nav.Link>
+        {loggedUser.isLoggedIn && loggedUser.role == "ETUDIANT" ?
+          <Nav.Link as={Link} to="/dropCv" >Ajouter ou voir cv</Nav.Link>
+          :
+          null
+        }
         </Nav>
       </Navbar.Collapse>
     </Navbar>
