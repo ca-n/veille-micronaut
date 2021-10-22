@@ -8,21 +8,29 @@ const DropCv = () => {
     const [cvs, setCvs] = useState([]);
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
     const [files, setFile] = useState(null)
-    const OnInputChange = (e) => {
 
-        console.log(e.target.files)
+
+
+    const OnInputChange = (e) => {
         setFile(e.target.files[0])
+
     }
 
     const fileToBase64 = (file, cb) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = function () {
-            cb(null, reader.result)
+        if (file == null) {
+            window.alert("Veuillez choisir un fichier s'il-vous-plaît")
         }
-        reader.onerror = function (error) {
-            cb(error, null)
+        else if (file != null) {
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = function () {
+                cb(null, reader.result)
+            }
+            reader.onerror = function (error) {
+                cb(error, null)
+            }
         }
+
     }
 
     const OnSubmit = (e) => {
@@ -31,14 +39,13 @@ const DropCv = () => {
         fileToBase64(files, (err, result) => {
             if (result) {
                 result = result.substring(28)
-                console.log(result)
 
                 if (loggedUser.isLoggedIn) {
                     fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
                         .then(res => {
                             return res.json();
                         })
-                        .then(async(data) => {
+                        .then(async (data) => {
                             console.log(data, "data")
                             console.log(data.id)
                             setEtudiant(data)
@@ -58,20 +65,20 @@ const DropCv = () => {
                 }
             }
         })
-
     }
 
-    const updateCvs = async() => {
+
+    const updateCvs = async () => {
         fetch(`http://localhost:9191/stage/cv/etudiant/${etudiant.id}`)
-                        .then(res => {
-                            return res.json()
-                        })
-                        .then(data => {
-                            setCvs(data)
-                        })
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                setCvs(data)
+            })
     }
 
-    const deleteCV = async(cv) => {
+    const deleteCV = async (cv) => {
         const res = await fetch(`http://localhost:9191/stage/cv/delete/${cv.id}`, { method: 'DELETE' })
         await res.json().then(updateCvs())
     }
@@ -85,8 +92,8 @@ const DropCv = () => {
         <tr key={cv.id.toString()}>
             <td>{cv.nom}</td>
             <td>{cv.dateSoumission}</td>
-            <td><button onClick={() => deleteCV(cv)}>Delete</button></td>
-            <td><button onClick={() => download(cv)}>download</button></td>
+            <td><button onClick={() => deleteCV(cv)}>effacer</button></td>
+            <td><button onClick={() => download(cv)}>télécharger</button></td>
         </tr>);
 
     useEffect(() => {
@@ -113,20 +120,19 @@ const DropCv = () => {
             <form method="post" action="#" id="#" onSubmit={OnSubmit}>
 
                 <div class="form-group files">
-                    <label>Upload Your File </label>
-                    <input type="file" onChange={OnInputChange} class="form-control" multiple="" />
+                    <input type="file" onChange={OnInputChange} class="form-control" id="fileName" name="fileName" multiple=""  />
                 </div>
                 <button type="submit">Submit</button>
             </form>
-            <table>
+            {cvs.length > 0 ? <table>
                 <tr>
-                    <th>nom de fichier</th>
+                    <th>nom du fichier</th>
                     <th>Date de soumission</th>
-                    <th>delete</th>
-                    <th>download</th>
+                    <th>effacer</th>
+                    <th>télécarger</th>
                 </tr>
                 {cvList}
-            </table>
+                    </table> :  null }
         </div>
     )
 }
