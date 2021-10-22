@@ -78,7 +78,7 @@ public class StageswsApplication implements CommandLineRunner {
         Gestionnaire gestionnaire = new Gestionnaire();
         gestionnaire.setPrenom("Neil");
         gestionnaire.setNom("Carrie");
-        gestionnaire.setCourriel("neil@gmail.com");
+        gestionnaire.setCourriel("jaymunger10@live.ca");
         gestionnaire.setPassword("Password1");
         gestionnaire.setNumTelephone("879382378");
         gestionnaire.setRole(UserType.GESTIONNAIRE);
