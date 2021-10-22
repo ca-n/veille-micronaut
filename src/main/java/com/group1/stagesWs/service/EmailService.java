@@ -1,10 +1,7 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Gestionnaire;
-import com.group1.stagesWs.repositories.CVRepository;
-import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.GestionnaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -21,12 +18,6 @@ public class EmailService {
 
     @Autowired
     private GestionnaireRepository gestionnaireRepository;
-
-    @Autowired
-    private CVRepository cvRepository;
-
-    @Autowired
-    private EtudiantRepository etudiantRepository;
 
     public void sendGestionnaireEmailCVAjouter() {
         SimpleMailMessage message = new SimpleMailMessage();
