@@ -60,10 +60,13 @@ public class StageController {
 
     @PostMapping(path = "/stage/cv")
     public ResponseEntity<CV> saveCV(@RequestBody CV cv) {
-        emailService.sendGestionnaireEmailCVAjouter();
-        return stageService.saveCV(cv)
-                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
-                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+        Optional<CV> cvOptional = stageService.saveCV(cv);
+        if (cvOptional.isPresent()) {
+            emailService.sendGestionnaireEmailCVAjouter();
+            return ResponseEntity.ok(cvOptional.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 
     @GetMapping(path = "/stage/cv/etudiant/{id}")

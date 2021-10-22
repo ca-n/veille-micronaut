@@ -21,7 +21,6 @@ public class EmailService {
 
     public void sendGestionnaireEmailCVAjouter() {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@baeldung.com");
         String[] emailArray = getAllGestionnairesEmail().toArray(new String[0]);
         message.setTo(emailArray);
         message.setSubject("Un nouveau CV à été ajouté sur la plateforme OSEVM");
