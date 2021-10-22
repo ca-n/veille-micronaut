@@ -10,7 +10,6 @@ import Offres from './component/Offres/Offres';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import UserInfo, { UserInfoContext } from './contexts/UserInfo';
 import AccountDetails from './component/AccountDetails/AccountDetails';
-import Offre from './component/gestionOffres/Offre';
 import VerificationCV from './component/gestionCV/VerificationCV';
 import VerificationCVList from './component/gestionCV/VerificationCVList';
 
