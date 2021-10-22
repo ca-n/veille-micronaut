@@ -5,6 +5,7 @@ import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
 import com.group1.stagesWs.service.CVService;
+import com.group1.stagesWs.service.EmailService;
 import com.group1.stagesWs.service.StageService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class StageController {
 
     @Autowired
     private CVService cvService;
+
+    @Autowired
+    private EmailService emailService;
 
 
     @GetMapping(path = "/stage/offres")
@@ -56,9 +60,13 @@ public class StageController {
 
     @PostMapping(path = "/stage/cv")
     public ResponseEntity<CV> saveCV(@RequestBody CV cv) {
-        return stageService.saveCV(cv)
-                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
-                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+        Optional<CV> cvOptional = stageService.saveCV(cv);
+        if (cvOptional.isPresent()) {
+            emailService.sendGestionnaireEmailCVAjouter();
+            return ResponseEntity.ok(cvOptional.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 
     @GetMapping(path = "/stage/cv/etudiant/{id}")
