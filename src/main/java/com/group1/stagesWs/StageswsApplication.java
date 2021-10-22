@@ -1,15 +1,14 @@
 package com.group1.stagesWs;
+
 import com.group1.stagesWs.enums.CVStatus;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.repositories.*;
 import com.group1.stagesWs.model.*;
+import com.group1.stagesWs.repositories.*;
 import com.group1.stagesWs.service.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
+
 import java.util.List;
 
 @SpringBootApplication
@@ -17,7 +16,7 @@ public class StageswsApplication implements CommandLineRunner {
 
     @Autowired
     OffreRepository offreRepository;
-  
+
     @Autowired
     EtudiantRepository etudiantRepository;
 
@@ -56,7 +55,7 @@ public class StageswsApplication implements CommandLineRunner {
         Etudiant etudiant = new Etudiant();
         etudiant.setPrenom("Mathieu");
         etudiant.setNom("Felton");
-        etudiant.setCourriel("mat@gmail.com");
+        etudiant.setCourriel("jaymunger10@live.ca");
         etudiant.setPassword("Password1");
         etudiant.setNumTelephone("2323232323");
         etudiant.setRole(UserType.ETUDIANT);
@@ -80,7 +79,7 @@ public class StageswsApplication implements CommandLineRunner {
         Gestionnaire gestionnaire = new Gestionnaire();
         gestionnaire.setPrenom("Neil");
         gestionnaire.setNom("Carrie");
-        gestionnaire.setCourriel("neil@gmail.com");
+        gestionnaire.setCourriel("jaymunk2041@live.fr");
         gestionnaire.setPassword("Password1");
         gestionnaire.setNumTelephone("879382378");
         gestionnaire.setRole(UserType.GESTIONNAIRE);
