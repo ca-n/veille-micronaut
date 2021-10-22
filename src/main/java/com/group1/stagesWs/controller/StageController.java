@@ -24,9 +24,9 @@ public class StageController {
         return new ResponseEntity<>(service.getAllOffres(), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/stage/offres/etudiant")
-    public ResponseEntity<List<Offre>> getEtudiantOffres(@RequestBody Etudiant etudiant) {
-        return new ResponseEntity<>(service.getEtudiantOffres(etudiant), HttpStatus.OK);
+    @GetMapping(path = "/stage/offres/etudiant/{etudiantEmail}")
+    public ResponseEntity<List<Offre>> getEtudiantOffres(@PathVariable String etudiantEmail) {
+        return ResponseEntity.ok(service.getEtudiantOffres(etudiantEmail));
     }
 
     @PostMapping(path = "/stage/offre")
@@ -36,17 +36,6 @@ public class StageController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @PostMapping(path = "/stage/whitelist")
-    public ResponseEntity<Whitelist> saveWhitelist(@RequestBody Whitelist whitelist) {
-        return service.saveWhitelist(whitelist)
-                .map(whitelist1 -> ResponseEntity.status(HttpStatus.OK).body(whitelist1))
-                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
-    }
 
-    @GetMapping(path = "/stage/offre/whitelist/{idOffre}")
-    public ResponseEntity<Whitelist> getOffreWhitelist(@PathVariable Integer idOffre){
-        return service.getOffreWhitelist(idOffre)
-                .map(whitelist -> ResponseEntity.status(HttpStatus.OK).body(whitelist))
-                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
-    }
+
 }

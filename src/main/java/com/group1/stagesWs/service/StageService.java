@@ -3,6 +3,7 @@ package com.group1.stagesWs.service;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
+import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
 import com.group1.stagesWs.repositories.WhitelistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class StageService {
@@ -19,13 +19,17 @@ public class StageService {
     private OffreRepository offreRepository;
 
     @Autowired
+    private EtudiantRepository etudiantRepository;
+
+    @Autowired
     private WhitelistRepository whitelistRepository;
 
     public List<Offre> getAllOffres() {
         return offreRepository.findAll();
     }
 
-    public List<Offre> getEtudiantOffres(Etudiant etudiant) {
+    public List<Offre> getEtudiantOffres(String etudiantEmail) {
+        Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
         List<Whitelist> whitelists = whitelistRepository.findAllByWhitelistedEtudiant(etudiant);
         return offreRepository.findAllByVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(whitelists);
     }
@@ -34,11 +38,5 @@ public class StageService {
         return Optional.of(offreRepository.save(offre));
     }
 
-    public Optional<Whitelist> saveWhitelist(Whitelist whitelist) {
-        return Optional.of(whitelistRepository.save(whitelist));
-    }
 
-    public Optional<Whitelist> getOffreWhitelist(int idOffre){
-        return Optional.of(offreRepository.findById(idOffre).get().getVisibiliteEtudiant());
-    }
 }

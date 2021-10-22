@@ -8,7 +8,7 @@ const OffreService = {
 
     // getEtudiantOffres [GET] /stage/offres/{etudiantCourriel}
     getEtudiantOffres: async (etudiantCourriel) => {
-        const res = await fetch('http://localhost:9191/stage/offres/' + etudiantCourriel)
+        const res = await fetch('http://localhost:9191/stage/offres/etudiant/' + etudiantCourriel)
         const data = await res.json()
         return data
     },
@@ -27,19 +27,19 @@ const OffreService = {
         return data
     },
 
-    // saveWhitelist [POST] /stage/whitelist
-    saveWhitelist: async (whitelist) => {
-        const res = await fetch('http://localhost:9191/stage/whitelist', 
-        {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(whitelist)
-        })
-        const data = await res.json()
-        return data
-    }
+    // // saveWhitelist [POST] /stage/whitelist
+    // saveWhitelist: async (whitelist) => {
+    //     const res = await fetch('http://localhost:9191/stage/whitelist', 
+    //     {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(whitelist)
+    //     })
+    //     const data = await res.json()
+    //     return data
+    // }
 }
 
 export default OffreService

@@ -32,9 +32,6 @@ function App() {
                 <Route exact path="/newOffre"><FormOffre/></Route>
 
               </Switch>
-              {/* <UserInfoContext.Consumer>
-        {(user) => (user.isLoggedIn ? <Redirect push to = "/moniteur"/>: null)}
-        </UserInfoContext.Consumer> */}
             </div>
           </UserInfo>
         </div>

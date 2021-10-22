@@ -3,6 +3,7 @@ package com.group1.stagesWs.service;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.model.Whitelist;
+import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
 import com.group1.stagesWs.repositories.WhitelistRepository;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,8 @@ public class StageServiceTest {
     private OffreRepository offreRepository;
 
     @Mock
+    private EtudiantRepository etudiantRepository;
+    @Mock
     private WhitelistRepository whitelistRepository;
 
     @InjectMocks
@@ -47,11 +50,15 @@ public class StageServiceTest {
     @Test
     void testGetEtudiantOffres() {
         //Arrange
+        Etudiant expectedEtudiant = getEtudiant();
+        Whitelist expectedWhitelist = getWhitelist();
         List<Offre> expected = getOffres();
+        when(etudiantRepository.findEtudiantByCourrielIgnoreCase(any(String.class))).thenReturn(expectedEtudiant);
+        when(whitelistRepository.findAllByWhitelistedEtudiant(any(Etudiant.class))).thenReturn(List.of(expectedWhitelist));
         when(offreRepository.findAllByVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(any(List.class))).thenReturn(expected);
 
         //Act
-        List<Offre> returned = service.getEtudiantOffres(new Etudiant());
+        List<Offre> returned = service.getEtudiantOffres(expectedEtudiant.getCourriel());
 
         //Assert
         assertThat(returned).isEqualTo(expected);
@@ -70,18 +77,7 @@ public class StageServiceTest {
         assertThat(returned).isEqualTo(Optional.of(expected));
     }
 
-    @Test
-    void testSaveWhitelist() {
-        //Arrange
-        Whitelist expected = new Whitelist();
-        when(whitelistRepository.save(expected)).thenReturn(expected);
 
-        //Act
-        Optional<Whitelist> returned = service.saveWhitelist(expected);
-
-        //Assert
-        assertThat(returned).isEqualTo(Optional.of(expected));
-    }
 
     private Offre getOffre() {
         return new Offre(
@@ -91,9 +87,27 @@ public class StageServiceTest {
                 false);
     }
 
-    private Set<Etudiant> getEtudiants() {
-        return Set.of(new Etudiant());
+
+    private Etudiant getEtudiant() {
+        return new Etudiant(
+                "Pascal",
+                "Bourgoin",
+                "test@test.com",
+                "password",
+                "123456789",
+                "technique",
+                "addy 123",
+                "123456",
+                true,
+                true);
     }
+
+    private Whitelist getWhitelist(){
+        Whitelist whitelist = new Whitelist();
+        whitelist.setWhitelistedEtudiant(Set.of(new Etudiant()));
+        return whitelist;
+    }
+
 
     private List<Offre> getOffres() {
         return List.of(getOffre(), getOffre(), getOffre());

@@ -49,7 +49,7 @@ const NavbarHTML = () => {
             :
             null
           }
-          {(loggedUser.role == "GESTIONNAIRE" || loggedUser.role == "SUPERVISEUR")&& loggedUser.isLoggedIn &&
+          {(loggedUser.role !== "MONITEUR")&& loggedUser.isLoggedIn &&
             <>
               <Nav.Link as={Link} to="/offres">Offres</Nav.Link>
             </>

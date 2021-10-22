@@ -60,13 +60,13 @@ public class StageControllerTest {
     @Test
     void testGetEtudiantOffres() throws Exception {
         //Arrange
+        Etudiant etudiant = getEtudiant();
         List<Offre> expected = List.of(getOffre(), getOffre(), getOffre());
-        when(service.getEtudiantOffres(any(Etudiant.class))).thenReturn(expected);
 
+        when(service.getEtudiantOffres(any(String.class))).thenReturn(expected);
+        String url = "/stage/offres/etudiant/" + etudiant.getCourriel();
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/offres/etudiant")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(new Etudiant()))).andReturn();
+        MvcResult result = mockMvc.perform(get(url)).andReturn();
 
         //Assert
         var actualOffres = mapper.readValue(result.getResponse().getContentAsString(), List.class);
@@ -91,44 +91,6 @@ public class StageControllerTest {
         assertThat(actualOffre).isEqualTo(expected);
     }
 
-    @Test
-    void testSaveWhitelist() throws Exception {
-        //Arrange
-        Whitelist expected = new Whitelist();
-        when(service.saveWhitelist(expected)).thenReturn(Optional.of(expected));
-
-        //Act
-        MvcResult result = mockMvc.perform(post("/stage/whitelist")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(expected))).andReturn();
-
-        //Assert
-        var actual = mapper.readValue(result.getResponse().getContentAsString(), Whitelist.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    void testGetOffreWhitelist() throws Exception{
-        //Arrange
-        int offreId = 1;
-        Offre expected = getOffre();
-        Whitelist expectedWhitelist = new Whitelist();
-        expected.setVisibiliteEtudiant(expectedWhitelist);
-
-        when(service.getOffreWhitelist(any(Integer.class))).thenReturn(Optional.of(expectedWhitelist));
-        String url = "/stage/offre/whitelist/" + offreId;
-
-        //Act
-        MvcResult result = mockMvc.perform(get(url)
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expectedWhitelist))).andReturn();
-
-        // Assert
-        var actualWhitelist = mapper.readValue(result.getResponse().getContentAsString(), Whitelist.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualWhitelist).isEqualTo(expectedWhitelist);
-    }
-
 
 
     private Offre getOffre() {
@@ -137,5 +99,19 @@ public class StageControllerTest {
                 "Developpeur Java sur un projet de banque",
                 "Banque NCA",
                 false);
+    }
+
+    private Etudiant getEtudiant() {
+        return new Etudiant(
+                "Pascal",
+                "Bourgoin",
+                "test@test.com",
+                "password",
+                "123456789",
+                "technique",
+                "addy 123",
+                "123456",
+                true,
+                true);
     }
 }
