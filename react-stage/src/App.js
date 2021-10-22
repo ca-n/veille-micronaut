@@ -11,37 +11,41 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import UserInfo, { UserInfoContext } from './contexts/UserInfo';
 import AccountDetails from './component/AccountDetails/AccountDetails';
 import Offre from './component/gestionOffres/Offre';
+import VerificationCV from './component/gestionCV/VerificationCV';
+import VerificationCVList from './component/gestionCV/VerificationCVList';
 
+import DropCv from './component/DropCv/DropCv';
 
 
 function App() {
   return (
-      <Router>
-        <div className="App">
-          <UserInfo>
-            <Navbar />
-            <div>
-              <Switch>
+    <Router>
+      <div className="App">
+        <UserInfo>
+          <Navbar />
+          <div>
+            <Switch>
+              <Route exact path="/"><Home /></Route>
+              <Route exact path="/etudiant"><FormEtudiant /></Route>
+              <Route exact path="/superviseur"><FormSuperviseur /></Route>
+              <Route exact path="/moniteur"><FormMoniteur /></Route>
+              <Route exact path="/account"><AccountDetails /></Route>
+              <Route exact path="/offres"><Offres /></Route>
+              <Route exact path="/login"><LoginUser /></Route>
+              <Route exact path="/newOffre"><FormOffre /></Route>
+              <Route exact path="/dropCv"><DropCv/></Route>
+              <Route exact path="/gestion/cv"><VerificationCVList/></Route>
+              <Route exact path="/gestion/cv/:id"><VerificationCV/></Route>
 
-                <Route exact path="/"><Home /></Route>
-                <Route exact path="/etudiant"><FormEtudiant /></Route>
-                <Route exact path="/superviseur"><FormSuperviseur /></Route>
-                <Route exact path="/moniteur"><FormMoniteur /></Route>
-                <Route exact path="/account"><AccountDetails /></Route>
-        	      <Route exact path="/offres"><Offres/></Route>
-                <Route exact path="/login"><LoginUser /></Route>
-
-                <Route exact path="/newOffre"><FormOffre/></Route>
-
-              </Switch>
-              {/* <UserInfoContext.Consumer>
+            </Switch>
+            {/* <UserInfoContext.Consumer>
         {(user) => (user.isLoggedIn ? <Redirect push to = "/moniteur"/>: null)}
         </UserInfoContext.Consumer> */}
-            </div>
-          </UserInfo>
-        </div>
+          </div>
+        </UserInfo>
+      </div>
 
-      </Router>
+    </Router>
   );
 }
 
