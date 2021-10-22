@@ -36,8 +36,71 @@ const FormOffreHTML = ({ submitForm }) => {
                         className="form-label">
                         Entreprise
                     </label>
-                    <input id="entreprise" type="text" name="entreprise" className="form-input" placeholder="Entrez votre entreprise" value={values.email} onChange={handleChange}></input>
+                    <input id="entreprise" type="text" name="entreprise" className="form-input" placeholder="Entrez votre entreprise" value={values.entreprise} onChange={handleChange}></input>
                     {errors.entreprise && <p>{errors.entreprise}</p>}
+                </div>
+
+                <div className="form-inputs">
+                    <label htmlFor="adresse"
+                        className="form-label">
+                        Adresse
+                    </label>
+                    <input id="adresse" type="text" name="adresse" className="form-input" placeholder="Entrez l'adresse de votre entreprise" value={values.adresse} onChange={handleChange}></input>
+                    {errors.adresse && <p>{errors.adresse}</p>}
+                </div>
+
+                <div className="form-inputs">
+                    <label htmlFor="dateDebut"
+                        className="form-label">
+                        Date début
+                    </label>
+                    <input id="dateDebut" type="date" name="dateDebut" className="form-input" placeholder="Entrez la date de début" value={values.dateDebut} onChange={handleChange}></input>
+                    {errors.dateDebut && <p>{errors.dateDebut}</p>}
+                </div>
+
+                <div className="form-inputs">
+                    <label htmlFor="dateFin"
+                        className="form-label">
+                        Date fin
+                    </label>
+                    <input id="dateFin" type="date" name="dateFin" className="form-input" placeholder="Entrez la date de fin" value={values.dateFin} onChange={handleChange}></input>
+                    {errors.dateFin && <p>{errors.dateFin}</p>}
+                </div>
+
+                <div className="form-inputs">
+                    <label htmlFor="nbTotalSemaine"
+                        className="form-label">
+                        Nombre total de semaine
+                    </label>
+                    <input id="nbTotalSemaine" type="number" name="nbTotalSemaine" className="form-input" placeholder="Entrez le nombre total de semaine" value={values.nbTotalSemaine} onChange={handleChange}></input>
+                    {errors.nbTotalSemaine && <p>{errors.nbTotalSemaine}</p>}
+                </div>
+
+                <div className="form-inputs">
+                    <label htmlFor="horaire"
+                        className="form-label">
+                        L'horaire
+                    </label>
+                    <input id="horaire" type="text" name="horaire" className="form-input" placeholder="9:00 à 17:00" value={values.horaire} onChange={handleChange}></input>
+                    {errors.horaire && <p>{errors.horaire}</p>}
+                </div>
+
+                <div className="form-inputs">
+                    <label htmlFor="nbTotalHeuresParSemaine"
+                        className="form-label">
+                        Nombre total d'heure par semaine
+                    </label>
+                    <input id="nbTotalHeuresParSemaine" type="number" name="nbTotalHeuresParSemaine" className="form-input" placeholder="Entrez le nombre total d'heure par semaine" value={values.nbTotalHeuresParSemaine} onChange={handleChange}></input>
+                    {errors.nbTotalHeuresParSemaine && <p>{errors.nbTotalHeuresParSemaine}</p>}
+                </div>
+
+                <div className="form-inputs">
+                    <label htmlFor="tauxHoraire"
+                        className="form-label">
+                        Taux horaire
+                    </label>
+                    <input id="tauxHoraire" type="number" name="tauxHoraire" className="form-input" placeholder="Entrez le taux horaire" value={values.tauxHoraire} onChange={handleChange}></input>
+                    {errors.tauxHoraire && <p>{errors.tauxHoraire}</p>}
                 </div>
 
                 <button className="form-input-btn" type="submit">Soumettre l'offre</button>
