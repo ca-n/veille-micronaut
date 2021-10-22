@@ -84,7 +84,11 @@ public class StageService {
         return Optional.of(cvRepository.save(cv));
     }
 
-    public List<CV> getPendingCVs() {
-        return cvRepository.findAllByStatus(CVStatus.PENDING);
+    public Optional<CV> getCV(int id) {
+        return cvRepository.findById(id);
+    }
+
+    public List<CV> getAllCVs() {
+        return cvRepository.findAll();
     }
 }

@@ -1,4 +1,5 @@
 package com.group1.stagesWs;
+import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.*;
 import com.group1.stagesWs.model.*;
@@ -9,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class StageswsApplication implements CommandLineRunner {
@@ -97,5 +99,17 @@ public class StageswsApplication implements CommandLineRunner {
         superviseur.setSpecialite("fullstack");
         superviseurRepository.save(superviseur);
 
+        CV cv1 = new CV(); // pending
+        cv1.setEtudiant(etudiant);
+        cv1.setNom("cv-pending.pdf");
+        CV cv2 = new CV(); // accepted
+        cv2.setStatus(CVStatus.ACCEPTED);
+        cv2.setEtudiant(etudiant);
+        cv2.setNom("cv-accepted.pdf");
+        CV cv3 = new CV(); // rejected
+        cv3.setStatus(CVStatus.REJECTED);
+        cv3.setEtudiant(etudiant);
+        cv3.setNom("cv-rejected.pdf");
+        cvRepository.saveAll(List.of(cv1, cv2, cv3));
     }
 }

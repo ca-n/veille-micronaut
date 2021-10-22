@@ -98,8 +98,15 @@ public class StageController {
                 .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 
-    @GetMapping("/stage/cv/pending")
-    public ResponseEntity<List<CV>> getPendingCVs() {
-        return new ResponseEntity<>(stageService.getPendingCVs(), HttpStatus.OK);
+    @GetMapping("/stage/cv")
+    public ResponseEntity<List<CV>> getAllCVs() {
+        return new ResponseEntity<List<CV>>(stageService.getAllCVs(), HttpStatus.OK);
+    }
+
+    @GetMapping("/stage/cv/{id}")
+    public ResponseEntity<CV> getCV(@PathVariable int id) {
+        return stageService.getCV(id)
+                .map(cv -> ResponseEntity.status(HttpStatus.OK).body(cv))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 }
