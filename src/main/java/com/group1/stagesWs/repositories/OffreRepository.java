@@ -10,8 +10,5 @@ import java.util.List;
 
 @Repository
 public interface OffreRepository extends JpaRepository<Offre, Integer> {
-
-    Offre save(Offre offre);
-
     List<Offre> findAllByisValidTrueAndVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(List<Whitelist> whitelists);
 }

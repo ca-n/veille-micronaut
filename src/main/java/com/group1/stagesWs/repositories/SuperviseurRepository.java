@@ -6,9 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SuperviseurRepository extends JpaRepository<Superviseur, Integer> {
-
-    Superviseur save(Superviseur superviseur);
-
     Superviseur findSuperviseurByCourrielIgnoreCase(String courriel);
 
     Superviseur findSuperviseurByCourrielIgnoreCaseAndPassword(String courriel, String pwd);

@@ -6,9 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EtudiantRepository extends JpaRepository<Etudiant, Integer> {
-
-    Etudiant save(Etudiant etudiant);
-
     Etudiant findEtudiantByCourrielIgnoreCase(String courriel);
 
     Etudiant findEtudiantByCourrielIgnoreCaseAndPassword(String courriel, String pwd);

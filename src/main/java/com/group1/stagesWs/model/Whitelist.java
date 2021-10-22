@@ -16,8 +16,9 @@ public class Whitelist implements Serializable {
     private int id;
 
     @OneToMany
-    private Set<Etudiant> whitelistedEtudiant = new HashSet<>();
+    private Set<Etudiant> whitelistedEtudiant;
 
     public Whitelist() {
+        whitelistedEtudiant = new HashSet<>();
     }
 }
