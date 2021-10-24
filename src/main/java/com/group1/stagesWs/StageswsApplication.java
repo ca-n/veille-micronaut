@@ -49,7 +49,7 @@ public class StageswsApplication implements CommandLineRunner {
         Etudiant etudiant = new Etudiant();
         etudiant.setPrenom("Mathieu");
         etudiant.setNom("Felton");
-        etudiant.setCourriel("jaymunger10@live.ca");
+        etudiant.setCourriel("mathieu@gmail.com");
         etudiant.setPassword("Password1");
         etudiant.setNumTelephone("2323232323");
         etudiant.setRole(UserType.ETUDIANT);
@@ -87,7 +87,7 @@ public class StageswsApplication implements CommandLineRunner {
         Gestionnaire gestionnaire = new Gestionnaire();
         gestionnaire.setPrenom("Neil");
         gestionnaire.setNom("Carrie");
-        gestionnaire.setCourriel("jaymunk2041@live.fr");
+        gestionnaire.setCourriel("neil@gmail.com");
         gestionnaire.setPassword("Password1");
         gestionnaire.setNumTelephone("879382378");
         gestionnaire.setRole(UserType.GESTIONNAIRE);
