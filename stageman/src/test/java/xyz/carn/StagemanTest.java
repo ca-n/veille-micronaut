@@ -15,7 +15,7 @@ class StagemanTest {
 
     @Test
     void testItWorks() {
-        //Assertions.assertTrue(application.isRunning());
+        Assertions.assertTrue(application.isRunning());
     }
 
 }
