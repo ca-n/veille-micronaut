@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: xyz.carn
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [ annotation-api, app-name, data, data-jpa, h2, http-client, java, java-application, jdbc-hikari, junit, log4j2, lombok, maven, mockito, properties, readme, shade, tomcat-server ]
