@@ -3,10 +3,7 @@ package com.group1.stagesWs.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.enums.CVStatus;
-import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.Whitelist;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.EmailService;
 import com.group1.stagesWs.service.StageService;
@@ -21,8 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
@@ -216,6 +215,24 @@ public class StageControllerTest {
         assertThat(actual).isEqualTo(expected);
     }
 
+    /*
+    @Test
+    void testGetContratByEtudiantCourriel() throws Exception {
+        //Arrange
+        Etudiant etudiant = getEtudiant();
+        Contrat expected = getContrat();
+        when(stageService.getContratByEtudiantCourriel(etudiant.getCourriel())).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/stage/contrat/" + etudiant.getCourriel())).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), Contrat.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual).isEqualTo(expected);
+    }
+     */
+
     private Offre getOffre() {
         return new Offre(
                 "Developpeur Java",
@@ -243,5 +260,20 @@ public class StageControllerTest {
                 "123456",
                 true,
                 true);
+    }
+
+    private Moniteur getMoniteur() {
+        return new Moniteur(
+                "John",
+                "Doe",
+                "john.doe@example.com",
+                "pa55w0rd",
+                "000111222",
+                "Example Enterprises",
+                "123 Enterprise Lane");
+    }
+
+    private Contrat getContrat() {
+        return new Contrat(LocalDate.of(2021,10,27), getEtudiant(), getMoniteur());
     }
 }

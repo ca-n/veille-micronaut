@@ -91,8 +91,10 @@ public class StageService {
         return cvRepository.findAll(Sort.by(Sort.Order.asc("status"), Sort.Order.desc("dateSoumission")));
     }
 
+    /*
     public Optional<Contrat>  getContratByEtudiantCourriel(String courriel) {
         Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(courriel);
-        return Optional.of(contratRepository.findContratByEtudiantId(etudiant.getId()));
+        return Optional.of(contratRepository.findContratByEtudiant(etudiant));
     }
+    */
 }

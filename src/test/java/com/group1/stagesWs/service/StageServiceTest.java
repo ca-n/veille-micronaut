@@ -1,10 +1,7 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.enums.CVStatus;
-import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.Whitelist;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
@@ -16,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -146,6 +144,23 @@ public class StageServiceTest {
         assertThat(returned).isEqualTo(Optional.of(expected));
     }
 
+    /*
+    @Test
+    void testGetContratByEtudiantCourriel() {
+        //Arrange
+        Etudiant etudiant = getEtudiant();
+        Contrat expected = getContrat();
+        when(etudiantRepository.findEtudiantByCourrielIgnoreCase(any(String.class))).thenReturn(etudiant);
+        when(service.getContratByEtudiantCourriel(any(String.class))).thenReturn(Optional.of(expected));
+
+        //Act
+        Optional<Contrat> returned = service.getContratByEtudiantCourriel(etudiant.getCourriel());
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+    */
+
     private Offre getOffre() {
         return new Offre(
                 "Developpeur Java",
@@ -186,4 +201,18 @@ public class StageServiceTest {
     private List<Offre> getOffres() {
         return List.of(getOffre(), getOffre(), getOffre());
     }
-}
+
+    private Moniteur getMoniteur() {
+        return new Moniteur(
+                "John",
+                "Doe",
+                "john.doe@example.com",
+                "pa55w0rd",
+                "000111222",
+                "Example Enterprises",
+                "123 Enterprise Lane");
+    }
+
+    private Contrat getContrat() {
+        return new Contrat(LocalDate.of(2021,10,27), getEtudiant(), getMoniteur());
+    }}
