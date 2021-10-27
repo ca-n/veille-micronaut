@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import { UserInfoContext } from '../../contexts/UserInfo'
+import EtudiantDashboard from '../etudiantDashboard/EtudiantDashboard'
 
 
-const Dashboard = ()  => {
+const Dashboard = () => {
+    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    console.log(loggedUser)
     return (
-        <div>
-            <h1>Dashboard</h1>
-        </div>
+        <>
+            {
+                loggedUser.role === "ETUDIANT" ?
+                    < EtudiantDashboard />
+                    :
+                    null
+            }
+        </>
     )
 }
 
