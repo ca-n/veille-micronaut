@@ -27,6 +27,12 @@ public class Contrat implements Serializable {
     @ManyToOne
     private Offre offre;
 
+    @OneToOne
+    private Etudiant etudiant;
+
+    @ManyToOne
+    private Moniteur moniteur;
+
     private String collegeSengageA;
     private String entrepriseSengageA;
     private String etudiantSengageA;
