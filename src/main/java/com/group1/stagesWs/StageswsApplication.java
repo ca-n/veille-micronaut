@@ -11,8 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
 
-import java.util.Set;
-
 
 @SpringBootApplication
 public class StageswsApplication implements CommandLineRunner {
@@ -44,20 +42,6 @@ public class StageswsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-
-        Etudiant etudiant = new Etudiant();
-        etudiant.setPrenom("Mathieu");
-        etudiant.setNom("Felton");
-        etudiant.setCourriel("mathieu@gmail.com");
-        etudiant.setPassword("Password1");
-        etudiant.setNumTelephone("2323232323");
-        etudiant.setRole(UserType.ETUDIANT);
-        etudiant.setProgramme("Informatique");
-        etudiant.setAdresse("113 lapierre");
-        etudiant.setNumMatricule("1822323");
-        etudiant.setHasLicense(true);
-        etudiantRepository.save(etudiant);
 
         Etudiant etudiant1 = new Etudiant();
         etudiant1.setPrenom("Patrick");
@@ -94,6 +78,19 @@ public class StageswsApplication implements CommandLineRunner {
         gestionnaire.setDepartement("Informatique");
         gestionnaireRepository.save(gestionnaire);
 
+        Etudiant etudiant = new Etudiant();
+        etudiant.setPrenom("Mathieu");
+        etudiant.setNom("Felton");
+        etudiant.setCourriel("mathieu@gmail.com");
+        etudiant.setPassword("Password1");
+        etudiant.setNumTelephone("2323232323");
+        etudiant.setRole(UserType.ETUDIANT);
+        etudiant.setProgramme("Informatique");
+        etudiant.setAdresse("113 lapierre");
+        etudiant.setNumMatricule("1822323");
+        etudiant.setHasLicense(true);
+        etudiant.setGestionnaire(gestionnaire);
+        etudiantRepository.save(etudiant);
 
         Superviseur superviseur = new Superviseur();
         superviseur.setPrenom("Jeremie");
