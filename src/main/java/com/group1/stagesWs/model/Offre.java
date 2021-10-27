@@ -30,6 +30,9 @@ public class Offre implements Serializable {
     @ManyToOne
     private Gestionnaire gestionnaire;
 
+    @ManyToOne
+    private Moniteur moniteur;
+
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToOne
     private Whitelist visibiliteEtudiant;
