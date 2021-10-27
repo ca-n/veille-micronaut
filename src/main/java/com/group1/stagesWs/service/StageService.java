@@ -1,14 +1,8 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.Whitelist;
-import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.*;
-import com.group1.stagesWs.repositories.CVRepository;
-import com.group1.stagesWs.repositories.OffreRepository;
-import com.group1.stagesWs.repositories.WhitelistRepository;
+import com.group1.stagesWs.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -30,6 +24,9 @@ public class StageService {
 
     @Autowired
     private CVRepository cvRepository;
+
+    @Autowired
+    private ContratRepository contratRepository;
 
     @Autowired
     private UserService userService;
@@ -92,5 +89,10 @@ public class StageService {
 
     public List<CV> getAllCVs() {
         return cvRepository.findAll(Sort.by(Sort.Order.asc("status"), Sort.Order.desc("dateSoumission")));
+    }
+
+    public Optional<Contrat>  getContratByEtudiantCourriel(String courriel) {
+        Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(courriel);
+        return Optional.of(contratRepository.findContratByEtudiantId(etudiant.getId()));
     }
 }

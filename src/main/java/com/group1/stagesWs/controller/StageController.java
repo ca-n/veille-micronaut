@@ -1,9 +1,6 @@
 package com.group1.stagesWs.controller;
 
-import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.Whitelist;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.EmailService;
 import com.group1.stagesWs.service.StageService;
@@ -124,6 +121,13 @@ public class StageController {
     public ResponseEntity<CV> getCV(@PathVariable int id) {
         return stageService.getCV(id)
                 .map(cv -> ResponseEntity.status(HttpStatus.OK).body(cv))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @GetMapping("/stage/contrat/courriel")
+    public ResponseEntity<Contrat> getContratByEtudiant(@PathVariable String courriel) {
+        return stageService.getContratByEtudiantCourriel(courriel)
+                .map(etudiant -> ResponseEntity.status(HttpStatus.OK).body(etudiant))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 }
