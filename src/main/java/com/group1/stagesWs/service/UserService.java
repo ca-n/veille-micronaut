@@ -1,12 +1,9 @@
 package com.group1.stagesWs.service;
-
-
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.model.User;
 import com.group1.stagesWs.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,19 +12,17 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
-    private EtudiantRepository etudiantRepository;
+    private final EtudiantRepository etudiantRepository;
+    private final GestionnaireRepository gestionnaireRepository;
+    private final MoniteurRepository moniteurRepository;
+    private final SuperviseurRepository superviseurRepository;
 
-    @Autowired
-    private GestionnaireRepository gestionnaireRepository;
-
-    @Autowired
-    private MoniteurRepository moniteurRepository;
-
-    @Autowired
-    private SuperviseurRepository superviseurRepository;
-
-
+    public UserService(EtudiantRepository etudiantRepository, GestionnaireRepository gestionnaireRepository, MoniteurRepository moniteurRepository, SuperviseurRepository superviseurRepository) {
+        this.etudiantRepository = etudiantRepository;
+        this.gestionnaireRepository = gestionnaireRepository;
+        this.moniteurRepository = moniteurRepository;
+        this.superviseurRepository = superviseurRepository;
+    }
 
     public Optional<Etudiant> addEtudiant(Etudiant etudiant) {
         return Optional.of(etudiantRepository.save(etudiant));

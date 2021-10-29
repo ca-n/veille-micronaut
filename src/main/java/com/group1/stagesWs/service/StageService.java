@@ -17,8 +17,11 @@ import java.util.Optional;
 @Service
 public class StageService {
 
-    @Autowired
-    private CVRepository cvRepository;
+    private final CVRepository cvRepository;
+
+    public StageService(CVRepository cvRepository) {
+        this.cvRepository = cvRepository;
+    }
 
     public Optional<CV> saveCV(CV cv) {
         return Optional.of(cvRepository.save(cv));

@@ -37,7 +37,7 @@ const Offres = () => {
 
 
     useEffect(() => {
-        if (!loggedUser.isLoggedIn || (loggedUser.role !== "GESTIONNAIRE" || loggedUser.role !== "ETUDIANT")) history.push("/login")
+        // if (!loggedUser.isLoggedIn || (loggedUser.role !== "GESTIONNAIRE" || loggedUser.role !== "ETUDIANT")) history.push("/login")
         const getOffres = async () => {
             const dbOffres = loggedUser.role === "ETUDIANT" ?
                 await OffreService.getEtudiantOffres(loggedUser.courriel) :

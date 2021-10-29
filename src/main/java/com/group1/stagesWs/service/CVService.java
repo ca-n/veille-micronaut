@@ -10,8 +10,11 @@ import java.util.Optional;
 @Service
 public class CVService {
 
-    @Autowired
-    private CVRepository cvRepository;
+    private final CVRepository cvRepository;
+
+    public CVService(CVRepository cvRepository) {
+        this.cvRepository = cvRepository;
+    }
 
     public Optional<CV> getCVById(int id) {
         return Optional.of(cvRepository.findCvById(id));

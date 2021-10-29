@@ -25,7 +25,7 @@ public class OffreService {
 
     public List<Offre> getEtudiantOffres(String etudiantEmail) {
         Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
-        return offreRepository.findAllByisValidTrueAndWhitelistContains(etudiant);
+        return offreRepository.findAllByWhitelistContainsAndIsValidTrue(etudiant);
     }
 
     public Optional<Offre> saveOffre(Offre offre) {

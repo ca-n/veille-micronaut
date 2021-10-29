@@ -1,12 +1,10 @@
 package com.group1.stagesWs.controller;
 
 import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.EmailService;
 import com.group1.stagesWs.service.StageService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +18,17 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class StageController {
+public class CVController {
 
-    @Autowired
-    private StageService stageService;
+    private final StageService stageService;
+    private final CVService cvService;
+    private final EmailService emailService;
 
-    @Autowired
-    private CVService cvService;
-
-    @Autowired
-    private EmailService emailService;
+    public CVController(StageService stageService, CVService cvService, EmailService emailService) {
+        this.stageService = stageService;
+        this.cvService = cvService;
+        this.emailService = emailService;
+    }
 
     @PostMapping(path = "/stage/cv")
     public ResponseEntity<CV> saveCV(@RequestBody CV cv) {

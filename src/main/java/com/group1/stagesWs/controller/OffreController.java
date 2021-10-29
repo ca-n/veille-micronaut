@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/offres")
 public class OffreController {
 
-    OffreService service;
+    private final OffreService service;
 
     public OffreController(OffreService service) {
         this.service = service;

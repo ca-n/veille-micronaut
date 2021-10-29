@@ -24,8 +24,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-@WebMvcTest(StageController.class)
-public class StageControllerTest {
+@WebMvcTest(CVController.class)
+public class CVControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

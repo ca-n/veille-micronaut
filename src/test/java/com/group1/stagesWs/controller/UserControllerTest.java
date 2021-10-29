@@ -28,18 +28,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
 
+    private final ObjectMapper mapper;
+
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private UserService userService;
 
-    private static ObjectMapper mapper;
-
-    @BeforeAll
-    static void initializeObjectMapper() {
+    public UserControllerTest(){
         mapper = new ObjectMapper().findAndRegisterModules();
     }
+
+
 
     @Test
     public void testAddEtudiant() throws Exception {

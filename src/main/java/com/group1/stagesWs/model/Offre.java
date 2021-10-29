@@ -1,10 +1,9 @@
 package com.group1.stagesWs.model;
 
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -38,8 +37,8 @@ public class Offre implements Serializable {
     private Set<Etudiant> applicants;
 
     public Offre() {
-        whitelist = Set.of();
-        applicants = Set.of();
+        whitelist = new HashSet<>();
+        applicants = new HashSet<>();
     }
 
     public Offre(String titre, String description, String entreprise, boolean isValid, String adresse, String dateDebut, String dateFin, int nbTotalSemaine, String horaire, double nbTotalHeuresParSemaine, double tauxHoraire) {

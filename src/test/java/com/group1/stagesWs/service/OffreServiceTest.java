@@ -47,7 +47,7 @@ public class OffreServiceTest {
         Etudiant expectedEtudiant = getEtudiant();
         List<Offre> expected = getOffres();
         when(etudiantRepository.findEtudiantByCourrielIgnoreCase(any(String.class))).thenReturn(expectedEtudiant);
-        when(offreRepository.findAllByisValidTrueAndWhitelistContains(any(Etudiant.class))).thenReturn(expected);
+        when(offreRepository.findAllByWhitelistContainsAndIsValidTrue(any(Etudiant.class))).thenReturn(expected);
 
         //Act
         List<Offre> returned = service.getEtudiantOffres(expectedEtudiant.getCourriel());

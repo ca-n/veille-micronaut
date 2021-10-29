@@ -25,15 +25,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @WebMvcTest(OffreController.class)
 public class OffreControllerTests {
-    private final MockMvc mockMvc;
+
     private final ObjectMapper mapper;
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @MockBean
     private OffreService service;
 
-    @Autowired
-    public OffreControllerTests(MockMvc mockMvc) {
-        this.mockMvc = mockMvc;
+    public OffreControllerTests() {
         this.mapper = new ObjectMapper().findAndRegisterModules();
     }
 
