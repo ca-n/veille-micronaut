@@ -4,39 +4,34 @@ import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.*;
 import com.group1.stagesWs.service.StageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
 
-import java.util.Set;
 
 
 @SpringBootApplication
-public class StageswsApplication implements CommandLineRunner {
+public class StageswsApplication implements CommandLineRunner{
 
-    @Autowired
-    OffreRepository offreRepository;
+    private final OffreRepository offreRepository;
+    private final EtudiantRepository etudiantRepository;
+    private final MoniteurRepository moniteurRepository;
+    private final GestionnaireRepository gestionnaireRepository;
+    private final SuperviseurRepository superviseurRepository;
+    private final CVRepository cvRepository;
+    private final StageService service;
 
-    @Autowired
-    EtudiantRepository etudiantRepository;
-
-    @Autowired
-    MoniteurRepository moniteurRepository;
-
-    @Autowired
-    GestionnaireRepository gestionnaireRepository;
-
-    @Autowired
-    SuperviseurRepository superviseurRepository;
-
-    @Autowired
-    CVRepository cvRepository;
-
-    @Autowired
-    StageService service;
+    public StageswsApplication(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, GestionnaireRepository gestionnaireRepository, SuperviseurRepository superviseurRepository, CVRepository cvRepository, StageService service) {
+        this.offreRepository = offreRepository;
+        this.etudiantRepository = etudiantRepository;
+        this.moniteurRepository = moniteurRepository;
+        this.gestionnaireRepository = gestionnaireRepository;
+        this.superviseurRepository = superviseurRepository;
+        this.cvRepository = cvRepository;
+        this.service = service;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(StageswsApplication.class, args);

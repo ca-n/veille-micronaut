@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useContext, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClose } from 'react-icons/ai'
 import { UserInfoContext } from '../../contexts/UserInfo'
 import ReactModal from 'react-modal'
@@ -9,6 +10,7 @@ import UserService from "../../services/UserService.js"
 import { MultiSelect } from "react-multi-select-component"
 
 const Offres = () => {
+    const history = useHistory()
     const [listOffres, setListOffres] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [currentOffre, setCurrentOffre] = useState({
@@ -22,7 +24,8 @@ const Offres = () => {
         horaire: String,
         nbTotalHeuresParSemaine: Number,
         tauxHoraire: Number,
-        visibiliteEtudiant: Array,
+        whitelist: Array,
+        applicants: Array,
         valid: Boolean
     })
 
@@ -34,6 +37,7 @@ const Offres = () => {
 
 
     useEffect(() => {
+        // if (!loggedUser.isLoggedIn || (loggedUser.role !== "GESTIONNAIRE" || loggedUser.role !== "ETUDIANT")) history.push("/login")
         const getOffres = async () => {
             const dbOffres = loggedUser.role === "ETUDIANT" ?
                 await OffreService.getEtudiantOffres(loggedUser.courriel) :
@@ -87,7 +91,7 @@ const Offres = () => {
 
     const onClickOffre = (offre) => {
         setCurrentOffre(offre)
-        setListWhitelistedEtudiant(getOptionsEtudiant(offre.visibiliteEtudiant.whitelistedEtudiant))
+        setListWhitelistedEtudiant(getOptionsEtudiant(offre.whitelist))
         setShowModal(true)
 
     }
@@ -111,7 +115,7 @@ const Offres = () => {
 
     const onClickSave = async () => {
         const updatedOffre = currentOffre
-        updatedOffre.visibiliteEtudiant.whitelistedEtudiant = getListEtudiantFromOptions(listWhitelistedEtudiant)
+        updatedOffre.whitelist = getListEtudiantFromOptions(listWhitelistedEtudiant)
         setCurrentOffre(updatedOffre)
         console.log(updatedOffre, "UPDATED OFFRE")
         saveOffre(updatedOffre)
@@ -122,7 +126,7 @@ const Offres = () => {
 
 
     const saveOffre = async (offre) => {
-        const res = await fetch('http://localhost:9191/stage/offre',
+        const res = await fetch('http://localhost:9191/offres',
             {
                 method: 'POST',
                 headers: {
