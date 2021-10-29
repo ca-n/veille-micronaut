@@ -5,7 +5,6 @@ import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.EmailService;
-import com.group1.stagesWs.service.StageService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +24,10 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @WebMvcTest(CVController.class)
-public class CVControllerTest {
+public class CVControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
-    private StageService stageService;
 
     @MockBean
     private CVService cvService;
@@ -51,7 +47,7 @@ public class CVControllerTest {
         //Arrange
         CV expected = new CV();
         expected.setStatus(CVStatus.ACCEPTED);
-        when(stageService.acceptCV(any())).thenReturn(Optional.of(expected));
+        when(cvService.acceptCV(any())).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/cv/accept")
@@ -67,7 +63,7 @@ public class CVControllerTest {
     @Test
     void testAcceptCVFail() throws Exception {
         //Arrange
-        when(stageService.acceptCV(any())).thenReturn(Optional.empty());
+        when(cvService.acceptCV(any())).thenReturn(Optional.empty());
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/cv/accept")
@@ -83,7 +79,7 @@ public class CVControllerTest {
         //Arrange
         CV expected = new CV();
         expected.setStatus(CVStatus.REJECTED);
-        when(stageService.rejectCV(any())).thenReturn(Optional.of(expected));
+        when(cvService.rejectCV(any())).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/cv/reject")
@@ -99,7 +95,7 @@ public class CVControllerTest {
     @Test
     void testRejectCVFail() throws Exception {
         //Arrange
-        when(stageService.rejectCV(any())).thenReturn(Optional.empty());
+        when(cvService.rejectCV(any())).thenReturn(Optional.empty());
 
         //Act
         MvcResult result = mockMvc.perform(post("/stage/cv/reject")
@@ -114,7 +110,7 @@ public class CVControllerTest {
     void testGetAllCVs() throws Exception {
         //Arrange
         List<CV> expected = List.of(new CV(), new CV(), new CV());
-        when(stageService.getAllCVs()).thenReturn(expected);
+        when(cvService.getAllCVs()).thenReturn(expected);
 
         //Act
         MvcResult result = mockMvc.perform(get("/stage/cv")).andReturn();
@@ -130,7 +126,7 @@ public class CVControllerTest {
         //Arrange
         CV expected = new CV();
         expected.setId(1);
-        when(stageService.getCV(1)).thenReturn(Optional.of(expected));
+        when(cvService.getCV(1)).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(get("/stage/cv/" + expected.getId())).andReturn();
