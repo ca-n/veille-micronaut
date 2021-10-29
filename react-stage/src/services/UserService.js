@@ -9,6 +9,18 @@ const UserService = {
         const res = await fetch('http://localhost:9191/stage/etudiants')
         const data = await res.json()
         return data
+    },
+
+    getMoniteur: async () => {
+        const res = await fetch('http://localhost:9191/stage/etudiants')
+        const data = await res.json()
+        return data
+    },
+
+    getSuperviseur: async () => {
+        const res = await fetch('http://localhost:9191/stage/etudiants')
+        const data = await res.json()
+        return data
     }
 }
 
