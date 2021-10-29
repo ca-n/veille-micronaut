@@ -3,6 +3,8 @@ package com.group1.stagesWs.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
+import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.EmailService;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,11 +19,12 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @WebMvcTest(CVController.class)
 public class CVControllerTests {
@@ -135,5 +138,30 @@ public class CVControllerTests {
         var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actual).isEqualTo(expected);
+    }
+
+    private Etudiant getEtudiant() {
+        return new Etudiant(
+                "Pascal",
+                "Bourgoin",
+                "test@test.com",
+                "password",
+                "123456789",
+                "technique",
+                "addy 123",
+                "123456",
+                true,
+                true);
+    }
+
+    private Moniteur getMoniteur() {
+        return new Moniteur(
+                "John",
+                "Doe",
+                "john.doe@example.com",
+                "pa55w0rd",
+                "000111222",
+                "Example Enterprises",
+                "123 Enterprise Lane");
     }
 }

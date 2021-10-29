@@ -40,10 +40,12 @@ public class Contrat implements Serializable {
     public Contrat() {
     }
 
-    public Contrat(LocalDate dateCreation) {
+    public Contrat(LocalDate dateCreation, Etudiant etudiant, Moniteur moniteur) {
         this.dateCreation = dateCreation;
         this.isEtudiantConfirmed = false;
         this.isGestionnaireConfirmed = false;
         this.isMoniteurConfirmed = false;
+        this.etudiant = etudiant;
+        this.moniteur = moniteur;
     }
 }

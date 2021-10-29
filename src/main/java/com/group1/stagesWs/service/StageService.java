@@ -1,13 +1,8 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.enums.CVStatus;
-import com.group1.stagesWs.model.*;
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.repositories.CVRepository;
-import com.group1.stagesWs.repositories.OffreRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 

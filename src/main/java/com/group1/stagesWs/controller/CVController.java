@@ -1,6 +1,6 @@
 package com.group1.stagesWs.controller;
 
-import com.group1.stagesWs.model.CV;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.EmailService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
