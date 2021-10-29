@@ -94,13 +94,4 @@ public class CVController {
                 .map(cv -> ResponseEntity.status(HttpStatus.OK).body(cv))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-
-    /*
-    @GetMapping("/stage/contrat/courriel")
-    public ResponseEntity<Contrat> getContratByEtudiantCourriel(@PathVariable String courriel) {
-        return stageService.getContratByEtudiantCourriel(courriel)
-                .map(etudiant -> ResponseEntity.status(HttpStatus.OK).body(etudiant))
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-    }
-     */
 }

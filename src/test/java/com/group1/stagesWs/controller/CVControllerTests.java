@@ -2,7 +2,9 @@ package com.group1.stagesWs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.enums.CVStatus;
-import com.group1.stagesWs.model.*;
+import com.group1.stagesWs.model.CV;
+import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.EmailService;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,10 +21,10 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @WebMvcTest(CVController.class)
 public class CVControllerTests {
@@ -138,39 +140,6 @@ public class CVControllerTests {
         assertThat(actual).isEqualTo(expected);
     }
 
-    /*
-    @Test
-    void testGetContratByEtudiantCourriel() throws Exception {
-        //Arrange
-        Etudiant etudiant = getEtudiant();
-        Contrat expected = getContrat();
-        when(stageService.getContratByEtudiantCourriel(etudiant.getCourriel())).thenReturn(Optional.of(expected));
-
-        //Act
-        MvcResult result = mockMvc.perform(get("/stage/contrat/" + etudiant.getCourriel())).andReturn();
-
-        //Assert
-        var actual = mapper.readValue(result.getResponse().getContentAsString(), Contrat.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actual).isEqualTo(expected);
-    }
-     */
-
-    private Offre getOffre() {
-        return new Offre(
-                "Developpeur Java",
-                "Developpeur Java sur un projet de banque",
-                "Banque NCA",
-                false,
-                "1345 Boul Leger Saint-Jean",
-                "2022-1-05",
-                "2022-4-05",
-                13,
-                "9:00 a 5:00",
-                40,
-                22);
-    }
-
     private Etudiant getEtudiant() {
         return new Etudiant(
                 "Pascal",
@@ -194,9 +163,5 @@ public class CVControllerTests {
                 "000111222",
                 "Example Enterprises",
                 "123 Enterprise Lane");
-    }
-
-    private Contrat getContrat() {
-        return new Contrat(LocalDate.of(2021,10,27), getEtudiant(), getMoniteur());
     }
 }

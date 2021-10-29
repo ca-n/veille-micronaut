@@ -1,7 +1,7 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.enums.CVStatus;
-import com.group1.stagesWs.model.*;
+import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
