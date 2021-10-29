@@ -51,6 +51,13 @@ public class UserController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
+    @GetMapping("/user/superviser/{id}")
+    public ResponseEntity<User> findSuperviseurByEtudiantId(@PathVariable("id") int id) {
+        return service.findSuperviseurByEtudiantId(id)
+                .map(superviser1 -> ResponseEntity.status(HttpStatus.OK).body(superviser1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
 
     //Create Moniteur
     @PostMapping(path = "/stage/moniteur")
