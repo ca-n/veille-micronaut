@@ -1,9 +1,7 @@
 package com.group1.stagesWs.controller;
 
 import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.Whitelist;
 import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.EmailService;
 import com.group1.stagesWs.service.StageService;
@@ -32,32 +30,6 @@ public class StageController {
 
     @Autowired
     private EmailService emailService;
-
-
-    @GetMapping(path = "/stage/offres")
-    public ResponseEntity<List<Offre>> getAllOffres() {
-        return new ResponseEntity<>(stageService.getAllOffres(), HttpStatus.OK);
-    }
-
-    @GetMapping(path = "/stage/offres/etudiant/{etudiantEmail}")
-    public ResponseEntity<List<Offre>> getEtudiantOffres(@PathVariable String etudiantEmail) {
-        return ResponseEntity.ok(stageService.getEtudiantOffres(etudiantEmail));
-    }
-
-    @PostMapping(path = "/stage/offre")
-    public ResponseEntity<Offre> saveOffre(@RequestBody Offre offre) {
-        return stageService.saveOffre(offre)
-                .map(offre1 -> ResponseEntity.status(HttpStatus.OK).body(offre1))
-                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
-    }
-
-
-    @PostMapping(path = "/stage/whitelist")
-    public ResponseEntity<Whitelist> saveWhitelist(@RequestBody Whitelist whitelist) {
-        return stageService.saveWhitelist(whitelist)
-                .map(whitelist1 -> ResponseEntity.status(HttpStatus.OK).body(whitelist1))
-                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
-    }
 
     @PostMapping(path = "/stage/cv")
     public ResponseEntity<CV> saveCV(@RequestBody CV cv) {
