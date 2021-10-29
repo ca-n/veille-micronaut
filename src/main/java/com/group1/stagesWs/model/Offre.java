@@ -1,10 +1,10 @@
 package com.group1.stagesWs.model;
 
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -33,12 +33,15 @@ public class Offre implements Serializable {
     @ManyToOne
     private Moniteur moniteur;
 
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @OneToOne
-    private Whitelist visibiliteEtudiant;
+    @ManyToMany
+    private Set<Etudiant> whitelist;
+
+    @ManyToMany
+    private Set<Etudiant> applicants;
 
     public Offre() {
-        visibiliteEtudiant = new Whitelist();
+        whitelist = new HashSet<>();
+        applicants = new HashSet<>();
     }
 
     public Offre(String titre, String description, String entreprise, boolean isValid, String adresse, String dateDebut, String dateFin, int nbTotalSemaine, String horaire, double nbTotalHeuresParSemaine, double tauxHoraire) {
@@ -53,6 +56,7 @@ public class Offre implements Serializable {
         this.horaire = horaire;
         this.nbTotalHeuresParSemaine = nbTotalHeuresParSemaine;
         this.tauxHoraire = tauxHoraire;
-        visibiliteEtudiant = new Whitelist();
+        whitelist = Set.of();
+        applicants = Set.of();
     }
 }

@@ -13,11 +13,14 @@ import java.util.List;
 
 @Service
 public class EmailService {
-    @Autowired
-    private JavaMailSender emailSender;
 
-    @Autowired
-    private GestionnaireRepository gestionnaireRepository;
+    private final JavaMailSender emailSender;
+    private final GestionnaireRepository gestionnaireRepository;
+
+    public EmailService(JavaMailSender emailSender, GestionnaireRepository gestionnaireRepository) {
+        this.emailSender = emailSender;
+        this.gestionnaireRepository = gestionnaireRepository;
+    }
 
     public void sendGestionnaireEmailCVAjouter() {
         SimpleMailMessage message = new SimpleMailMessage();

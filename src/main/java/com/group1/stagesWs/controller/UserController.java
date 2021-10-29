@@ -21,8 +21,12 @@ public class UserController {
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-    private UserService service;
+
+    private final UserService service;
+
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @PostMapping(path = "/stage/etudiant")
     public ResponseEntity<Etudiant> createEtudiant(@RequestBody Etudiant etudiant) {

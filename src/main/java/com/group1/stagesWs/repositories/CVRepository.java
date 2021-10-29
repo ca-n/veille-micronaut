@@ -14,5 +14,4 @@ public interface CVRepository extends JpaRepository<CV, Integer> {
 
     CV findCvById(int id);
 
-    List<CV> findAllByStatus(CVStatus status);
 }

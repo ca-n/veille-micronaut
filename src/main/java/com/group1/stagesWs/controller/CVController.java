@@ -1,14 +1,9 @@
 package com.group1.stagesWs.controller;
 
 import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.Whitelist;
 import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.EmailService;
-import com.group1.stagesWs.service.StageService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,46 +17,19 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class StageController {
+public class CVController {
 
-    @Autowired
-    private StageService stageService;
+    private final CVService cvService;
+    private final EmailService emailService;
 
-    @Autowired
-    private CVService cvService;
-
-    @Autowired
-    private EmailService emailService;
-
-
-    @GetMapping(path = "/stage/offres")
-    public ResponseEntity<List<Offre>> getAllOffres() {
-        return new ResponseEntity<>(stageService.getAllOffres(), HttpStatus.OK);
-    }
-
-    @GetMapping(path = "/stage/offres/etudiant/{etudiantEmail}")
-    public ResponseEntity<List<Offre>> getEtudiantOffres(@PathVariable String etudiantEmail) {
-        return ResponseEntity.ok(stageService.getEtudiantOffres(etudiantEmail));
-    }
-
-    @PostMapping(path = "/stage/offre")
-    public ResponseEntity<Offre> saveOffre(@RequestBody Offre offre) {
-        return stageService.saveOffre(offre)
-                .map(offre1 -> ResponseEntity.status(HttpStatus.OK).body(offre1))
-                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
-    }
-
-
-    @PostMapping(path = "/stage/whitelist")
-    public ResponseEntity<Whitelist> saveWhitelist(@RequestBody Whitelist whitelist) {
-        return stageService.saveWhitelist(whitelist)
-                .map(whitelist1 -> ResponseEntity.status(HttpStatus.OK).body(whitelist1))
-                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    public CVController(CVService cvService, EmailService emailService) {
+        this.cvService = cvService;
+        this.emailService = emailService;
     }
 
     @PostMapping(path = "/stage/cv")
     public ResponseEntity<CV> saveCV(@RequestBody CV cv) {
-        Optional<CV> cvOptional = stageService.saveCV(cv);
+        Optional<CV> cvOptional = cvService.saveCV(cv);
         if (cvOptional.isPresent()) {
             emailService.sendGestionnaireEmailCVAjouter();
             return ResponseEntity.ok(cvOptional.get());
@@ -72,12 +40,12 @@ public class StageController {
 
     @GetMapping(path = "/stage/cv/etudiant/{id}")
     public ResponseEntity<List<CV>> getAllCVbyEtudiant(@PathVariable("id") int id) {
-        return new ResponseEntity<>(stageService.getAllCV(id), HttpStatus.OK);
+        return new ResponseEntity<>(cvService.getAllCV(id), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/stage/cv/delete/{id}")
     public void deleteCV(@PathVariable int id) {
-        stageService.deleteCV(id);
+        cvService.deleteCV(id);
     }
 
     @GetMapping(path = "/stage/cv/pdf/{id}")
@@ -86,7 +54,7 @@ public class StageController {
             response.setContentType("application/pdf");
             Optional<CV> cv = cvService.getCVById(id);
             InputStream inputStream = new ByteArrayInputStream(
-                    stageService.generateCVPDF(cv.get().getData(), cv.get().getNom()));
+                    cvService.generateCVPDF(cv.get().getData(), cv.get().getNom()));
             IOUtils.copy(inputStream, response.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,7 +63,7 @@ public class StageController {
 
     @PostMapping("/stage/cv/accept")
     public ResponseEntity<CV> acceptCV(@RequestBody CV cv) {
-        Optional<CV> cvOptional = stageService.acceptCV(cv);
+        Optional<CV> cvOptional = cvService.acceptCV(cv);
         if (cvOptional.isPresent()) {
             emailService.sendEtudiantEmailCVAccepted(cv);
             return ResponseEntity.ok(cvOptional.get());
@@ -106,7 +74,7 @@ public class StageController {
 
     @PostMapping("/stage/cv/reject")
     public ResponseEntity<CV> rejectCV(@RequestBody CV cv) {
-        Optional<CV> cvOptional = stageService.rejectCV(cv);
+        Optional<CV> cvOptional = cvService.rejectCV(cv);
         if (cvOptional.isPresent()) {
             emailService.sendEtudiantEmailCVRejected(cv);
             return ResponseEntity.ok(cvOptional.get());
@@ -117,12 +85,12 @@ public class StageController {
 
     @GetMapping("/stage/cv")
     public ResponseEntity<List<CV>> getAllCVs() {
-        return new ResponseEntity<List<CV>>(stageService.getAllCVs(), HttpStatus.OK);
+        return new ResponseEntity<List<CV>>(cvService.getAllCVs(), HttpStatus.OK);
     }
 
     @GetMapping("/stage/cv/{id}")
     public ResponseEntity<CV> getCV(@PathVariable int id) {
-        return stageService.getCV(id)
+        return cvService.getCV(id)
                 .map(cv -> ResponseEntity.status(HttpStatus.OK).body(cv))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

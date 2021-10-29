@@ -2,13 +2,11 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.model.Whitelist;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
-import com.group1.stagesWs.repositories.WhitelistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -19,40 +17,10 @@ import java.util.Optional;
 @Service
 public class StageService {
 
-    @Autowired
-    private OffreRepository offreRepository;
+    private final CVRepository cvRepository;
 
-    @Autowired
-    private EtudiantRepository etudiantRepository;
-
-    @Autowired
-    private WhitelistRepository whitelistRepository;
-
-    @Autowired
-    private CVRepository cvRepository;
-
-    @Autowired
-    private UserService userService;
-
-    public List<Offre> getAllOffres() {
-        return offreRepository.findAll();
-    }
-
-    public List<Offre> getEtudiantOffres(String etudiantEmail) {
-        Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
-        List<Whitelist> whitelists = whitelistRepository.findAllByWhitelistedEtudiant(etudiant);
-        return offreRepository.findAllByisValidTrueAndVisibiliteEtudiantIsNullOrVisibiliteEtudiantIn(whitelists);
-    }
-
-    public Optional<Offre> saveOffre(Offre offre) {
-        if(offre.getVisibiliteEtudiant() != null) {
-            whitelistRepository.save(offre.getVisibiliteEtudiant());
-        }
-        return Optional.of(offreRepository.save(offre));
-    }
-
-    public Optional<Whitelist> saveWhitelist(Whitelist whitelist) {
-        return Optional.of(whitelistRepository.save(whitelist));
+    public StageService(CVRepository cvRepository) {
+        this.cvRepository = cvRepository;
     }
 
     public Optional<CV> saveCV(CV cv) {
