@@ -7,6 +7,7 @@ const DashboardGestionnaire = () => {
   const [listAcceptedCV, setListAcceptedCV] = useState("0");
   const [listRejectedCV, setListRejectedCV] = useState("0");
   const [nombreEtudiants, setnombreEtudiants] = useState("0");
+  const [etudiants, setEtudiants] = useState([]);
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [cvs, setCVs] = useState();
 
@@ -26,8 +27,9 @@ const DashboardGestionnaire = () => {
           return res.json();
         })
         .then((etudiants) => {
-          console.log(etudiants.length, "etudiants");
+          console.log(etudiants, "etudiants");
           setnombreEtudiants(etudiants.length);
+          setEtudiants(etudiants);
         });
     }
   }, []);
@@ -57,35 +59,49 @@ const DashboardGestionnaire = () => {
     setListRejectedCV(rejectedCVS.length);
   };
 
+  const etudiantsList = etudiants.map((etudiant) => (
+    <tr key={etudiant.id.toString()}>
+      <td>{etudiant.prenom}</td>
+      <td>{etudiant.nom}</td>
+    </tr>
+  ));
+
   return (
-    <table>
-      <tr>
-        <th colSpan="2">CV</th>
-      </tr>
-      <tr>
-        <td>Le status du cv</td>
-        <td>Le nombre de cv relié à ce statut</td>
-      </tr>
-      <tr>
-        <td>Le nombre de cv accepté</td>
-        <td>{listAcceptedCV}</td>
-      </tr>
-      <tr>
-        <td>Le nombre de cv refusé</td>
-        <td>{listRejectedCV}</td>
-      </tr>
-      <tr>
-        <td>Le nombre de cv en attente</td>
-        <td>{listPendingCV}</td>
-      </tr>
-      <tr>
-        <th colSpan="2">Étudiants</th>
-      </tr>
-      <tr>
-        <td>Le nombre d'étudiants inscrient</td>
-        <td>{nombreEtudiants}</td>
-      </tr>
-    </table>
+    <>
+      <table>
+        <tr>
+          <th colSpan="2">CV</th>
+        </tr>
+        <tr>
+          <td>Le status du cv</td>
+          <td>Le nombre de cv relié à ce statut</td>
+        </tr>
+        <tr>
+          <td>Le nombre de cv accepté</td>
+          <td>{listAcceptedCV}</td>
+        </tr>
+        <tr>
+          <td>Le nombre de cv refusé</td>
+          <td>{listRejectedCV}</td>
+        </tr>
+        <tr>
+          <td>Le nombre de cv en attente</td>
+          <td>{listPendingCV}</td>
+        </tr>
+        <tr>
+          <th colSpan="2">Étudiants</th>
+        </tr>
+        <tr>
+          <td>Prénom</td>
+          <td>Nom</td>
+        </tr>
+        <tr>
+          <td>Le nombre d'étudiants inscrient</td>
+          <td>{nombreEtudiants}</td>
+        </tr>
+        {etudiantsList}
+      </table>
+    </>
   );
 };
 
