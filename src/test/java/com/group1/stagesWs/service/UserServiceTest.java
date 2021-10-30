@@ -218,6 +218,20 @@ public class UserServiceTest {
         assertThat(returned).isEqualTo(expected);
     }
 
+    @Test
+    public void testFindSuperviseurByEtudiantId() {
+        //Arrange
+        Etudiant expected = getEtudiant();
+        expected.setSuperviseur(getSuperviseur());
+        when(etudiantRepository.findEtudiantById(expected.getId())).thenReturn(expected);
+
+        //Act
+        Optional<User> returned = service.findSuperviseurByEtudiantId(expected.getId());
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected.getSuperviseur()));
+    }
+
 
     private Etudiant getEtudiant() {
         return new Etudiant(
