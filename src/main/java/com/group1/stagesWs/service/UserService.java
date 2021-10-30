@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.DoubleStream;
 
 @Service
 public class UserService {
@@ -70,5 +71,10 @@ public class UserService {
   
     public List<Etudiant> getAllEtudiants() {
         return etudiantRepository.findAll();
+    }
+
+    public Optional<User> findSuperviseurByEtudiantId(int id) {
+        Etudiant etudiant = etudiantRepository.findEtudiantById(id);
+        return Optional.of(etudiant.getSuperviseur());
     }
 }

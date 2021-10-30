@@ -9,4 +9,6 @@ public interface EtudiantRepository extends JpaRepository<Etudiant, Integer> {
     Etudiant findEtudiantByCourrielIgnoreCase(String courriel);
 
     Etudiant findEtudiantByCourrielIgnoreCaseAndPassword(String courriel, String pwd);
+
+    Etudiant findEtudiantById(int id);
 }

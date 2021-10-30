@@ -1,12 +1,12 @@
 package com.group1.stagesWs.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Gestionnaire;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.service.UserService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -38,6 +38,7 @@ public class UserControllerTests {
 
     public UserControllerTests(){
         mapper = new ObjectMapper().findAndRegisterModules();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);;
     }
 
 
@@ -192,6 +193,25 @@ public class UserControllerTests {
         var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualEtudiants.size()).isEqualTo(expected.size());
+    }
+
+    //FAIL
+    @Test
+    void testFindSuperviseurByEtudiantId() throws Exception {
+        //Arrange
+        Etudiant expected = getEtudiant();
+        expected.setSuperviseur(getSuperviseur());
+        when(userService.findSuperviseurByEtudiantId(expected.getId())).thenReturn(Optional.of(expected));
+        String url = "/user/superviseur/"+ expected.getId();
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected.getSuperviseur()))).andReturn();
+
+        // Assert
+        var actualSuperviseur = mapper.readValue(result.getResponse().getContentAsString(), Superviseur.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualSuperviseur).isEqualTo(expected.getSuperviseur());
     }
 
 
