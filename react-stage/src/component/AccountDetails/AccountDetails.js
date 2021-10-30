@@ -3,7 +3,11 @@ import { UserInfoContext } from '../../contexts/UserInfo'
 import './AccountDetailsCSS.css'
 
 const AccountDetails = () => {
+    const [listPendingCV, setListPendingCV] = useState('0')
+    const [listAcceptedCV, setListAcceptedCV] = useState('0')
+    const [listRejectedCV, setListRejectedCV] = useState('0')
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [cvs, setCVs] = useState()
     const [fullUser, setFullUser] = useState({
         id: Number,
         prenom: String,
@@ -37,11 +41,19 @@ const AccountDetails = () => {
         }
     }, []);
 
+
+    
+
+
+
     useEffect(() => {
         if (fullUser.courriel != null) {
             console.log(fullUser, "LOGGING FULLUSER")
         }
     }, [fullUser]);
+
+
+
 
 
     return (
@@ -200,6 +212,7 @@ const AccountDetails = () => {
                     }
                     {/* <button className="form-input-btn" type="submit">S'inscrire</button>
             <span className="form-input-login">Déjà un compte? Login <Link to="/login">ici</Link></span> */}
+
                 </form>
             </div>
         </div>

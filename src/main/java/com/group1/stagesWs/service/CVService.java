@@ -62,3 +62,4 @@ public class CVService {
         return cvRepository.findAll(Sort.by(Sort.Order.asc("status"), Sort.Order.desc("dateSoumission")));
     }
 }
+
