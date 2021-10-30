@@ -2,11 +2,7 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Offre;
-import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.CVRepository;
-import com.group1.stagesWs.repositories.OffreRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,13 +19,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class StageServiceTest {
+public class CVServiceTest {
 
     @Mock
     private CVRepository cvRepository;
 
     @InjectMocks
-    private StageService service;
+    private CVService cvService;
 
     @Test
     void testAcceptCV() {
@@ -38,7 +34,7 @@ public class StageServiceTest {
         when(cvRepository.save(any())).thenReturn(expected);
 
         //Act
-        Optional<CV> returned = service.acceptCV(expected);
+        Optional<CV> returned = cvService.acceptCV(expected);
 
 
         //Assert
@@ -54,7 +50,7 @@ public class StageServiceTest {
         when(cvRepository.save(any())).thenReturn(expected);
 
         //Act
-        Optional<CV> returned = service.rejectCV(expected);
+        Optional<CV> returned = cvService.rejectCV(expected);
 
 
         //Assert
@@ -70,7 +66,7 @@ public class StageServiceTest {
         when(cvRepository.findAll(any(Sort.class))).thenReturn(expected);
 
         //Act
-        List<CV> returned = service.getAllCVs();
+        List<CV> returned = cvService.getAllCVs();
 
         //Assert
         assertThat(returned.size()).isEqualTo(3);
@@ -84,7 +80,7 @@ public class StageServiceTest {
         when(cvRepository.findById(1)).thenReturn(Optional.of(expected));
 
         //Act
-        Optional<CV> returned = service.getCV(expected.getId());
+        Optional<CV> returned = cvService.getCV(expected.getId());
 
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));

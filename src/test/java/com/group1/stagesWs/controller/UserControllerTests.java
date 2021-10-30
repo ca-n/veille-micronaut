@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @WebMvcTest(UserController.class)
-public class UserControllerTest {
+public class UserControllerTests {
 
     private final ObjectMapper mapper;
 
@@ -36,7 +36,7 @@ public class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    public UserControllerTest(){
+    public UserControllerTests(){
         mapper = new ObjectMapper().findAndRegisterModules();
     }
 
