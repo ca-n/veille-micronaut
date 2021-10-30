@@ -114,8 +114,8 @@ const EtudiantDashboard = () => {
                     </tr>
                     <tr>
                         <td>Moniteur</td>
-                        <td>moniteur.prenom moniteur.nom</td>
-                        <td>moniteur.courriel</td>
+                        <td>{moniteur.prenom} {moniteur.nom}</td>
+                        <td>{moniteur.courriel}</td>
                     </tr>
                 </table>
             </div>
