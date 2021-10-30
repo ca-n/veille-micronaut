@@ -8,7 +8,6 @@ import com.group1.stagesWs.model.User;
 import com.group1.stagesWs.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,10 +53,19 @@ public class UserController {
     @GetMapping("/user/superviseur/{id}")
     public ResponseEntity<User> findSuperviseurByEtudiantId(@PathVariable("id") int id) {
         return service.findSuperviseurByEtudiantId(id)
-                .map(superviser1 -> ResponseEntity.status(HttpStatus.OK).body(superviser1))
+                .map(superviseur1 -> ResponseEntity.status(HttpStatus.OK).body(superviseur1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
+    /*
+    IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR
+        @GetMapping("/user/moniteur/{id}")
+        public ResponseEntity<User> findMoniteurByEtudiantId(@PathVariable("id") int id) {
+            return service.findMoniteurByEtudiantId(id)
+                    .map(moniteur1 -> ResponseEntity.status(HttpStatus.OK).body(moniteur1))
+                    .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+        }
+    */
     //Create Moniteur
     @PostMapping(path = "/stage/moniteur")
     public ResponseEntity<Moniteur> addMoniteur(@RequestBody Moniteur moniteur) {

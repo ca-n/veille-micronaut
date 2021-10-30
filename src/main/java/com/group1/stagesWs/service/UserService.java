@@ -1,4 +1,5 @@
 package com.group1.stagesWs.service;
+
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Superviseur;
@@ -52,8 +53,8 @@ public class UserService {
         }
         return Optional.empty();
     }
-  
-    public Optional<User> findUserByCourriel(String email){
+
+    public Optional<User> findUserByCourriel(String email) {
         if (etudiantRepository.findEtudiantByCourrielIgnoreCase(email) != null) {
             return Optional.of(etudiantRepository.findEtudiantByCourrielIgnoreCase(email));
         }
@@ -68,7 +69,7 @@ public class UserService {
         }
         return Optional.empty();
     }
-  
+
     public List<Etudiant> getAllEtudiants() {
         return etudiantRepository.findAll();
     }
@@ -77,4 +78,13 @@ public class UserService {
         Etudiant etudiant = etudiantRepository.findEtudiantById(id);
         return Optional.of(etudiant.getSuperviseur());
     }
+
+/*
+IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR
+    public Optional<User> findMoniteurByEtudiantId(int id) {
+        Etudiant etudiant = etudiantRepository.findEtudiantById(id);
+        return Optional.of(etudiant.get());
+    }
+
+ */
 }
