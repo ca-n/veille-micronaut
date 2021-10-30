@@ -56,7 +56,7 @@ const EtudiantDashboard = () => {
 
     useEffect(() => {
         const getCV = async () => {
-            const cv = await CVService.getCV(fullUser.id)
+            //const cv = await CVService.getCVByEtudiantId(fullUser.id)
             setCV(cv)
         }
         getCV()
@@ -65,6 +65,7 @@ const EtudiantDashboard = () => {
     useEffect(() => {
         const getSuperviseur = async () => {
             const superviseur = await UserService.getSuperviseur(fullUser.id)
+            console.log(superviseur, "superviseur")
             setSuperviseur(superviseur)
         }
         getSuperviseur()
@@ -113,8 +114,8 @@ const EtudiantDashboard = () => {
                     </tr>
                     <tr>
                         <td>Moniteur</td>
-                        <td>{moniteur.prenom} {moniteur.nom}</td>
-                        <td>{moniteur.courriel}</td>
+                        <td>moniteur.prenom moniteur.nom</td>
+                        <td>moniteur.courriel</td>
                     </tr>
                 </table>
             </div>
