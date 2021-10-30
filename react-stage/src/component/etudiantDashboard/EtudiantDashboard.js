@@ -48,6 +48,7 @@ const EtudiantDashboard = () => {
                 })
                 .then(data => {
                     console.log(data, "data")
+                    //could acces superviseur par ici
                     setFullUser(data)
                 })
 
