@@ -73,7 +73,7 @@ const EtudiantDashboard = () => {
 
     useEffect(() => {
         const getMoniteur = async () => {
-            const moniteur = await UserService.getMoniteur(fullUser.id)
+            //const moniteur = await UserService.getMoniteur(fullUser.id)
             setMoniteur(moniteur)
         }
         getMoniteur()
@@ -95,7 +95,7 @@ const EtudiantDashboard = () => {
         <>
             <div>
                 <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
-                </div>
+            </div>
             <div>
                 <h1>CV state</h1>
             </div>
@@ -112,11 +112,15 @@ const EtudiantDashboard = () => {
                         <td>{superviseur.prenom} {superviseur.nom}</td>
                         <td>{superviseur.courriel}</td>
                     </tr>
-                    <tr>
-                        <td>Moniteur</td>
-                        <td>{moniteur.prenom} {moniteur.nom}</td>
-                        <td>{moniteur.courriel}</td>
-                    </tr>
+                    {contrat != null ?
+                        <tr>
+                            <td>Moniteur</td>
+                            <td>moniteur.prenom moniteur.nom</td>
+                            <td>moniteur.courriel</td>
+                        </tr>
+                        :
+                        null
+                    }
                 </table>
             </div>
             {contrat != null ?

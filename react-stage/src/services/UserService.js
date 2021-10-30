@@ -12,7 +12,7 @@ const UserService = {
     },
 
     getMoniteur: async (id) => {
-       const res = await fetch('http://localhost:9191/user/moniteur/' + id)
+       //const res = await fetch('http://localhost:9191/user/moniteur/' + id)
        const data = await res.json()
        return data
     },
