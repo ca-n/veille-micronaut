@@ -25,7 +25,7 @@ public class Etudiant extends User implements Serializable {
     }
 
     public Etudiant(String prenom, String nom, String courriel, String password, String numTelephone, String programme, String adresse, String numMatricule, boolean hasLicense, boolean hasVoiture) {
-        super(prenom, nom, courriel, password, numTelephone, UserType.ETUDIANT, SessionManager.CURRENT_SESSION);
+        super(prenom, nom, courriel, password, numTelephone, UserType.ETUDIANT);
         this.programme = programme;
         this.adresse = adresse;
         this.numMatricule = numMatricule;

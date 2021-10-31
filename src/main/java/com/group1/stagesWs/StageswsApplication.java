@@ -43,7 +43,7 @@ public class StageswsApplication implements CommandLineRunner{
         Etudiant etudiant = new Etudiant();
         etudiant.setPrenom("Mathieu");
         etudiant.setNom("Felton");
-        etudiant.setCourriel("mathieu@gmail.com");
+        etudiant.setCourriel("mat@gmail.com");
         etudiant.setPassword("Password1");
         etudiant.setNumTelephone("2323232323");
         etudiant.setRole(UserType.ETUDIANT);

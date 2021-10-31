@@ -39,7 +39,7 @@ public class CVController {
         }
     }
 
-    @GetMapping(path = "/stage/cv/etudiant/{id}")
+    @GetMapping(path = "/etudiant/{id}")
     public ResponseEntity<List<CV>> getAllCVbyEtudiant(@PathVariable("id") int id) {
         return new ResponseEntity<>(cvService.getAllCVEtudiant(id), HttpStatus.OK);
     }
@@ -57,8 +57,10 @@ public class CVController {
             InputStream inputStream = new ByteArrayInputStream(
                     cvService.generateCVPDF(cv.get().getData(), cv.get().getNom()));
             IOUtils.copy(inputStream, response.getOutputStream());
+            ResponseEntity.status(HttpStatus.OK).build();
         } catch (IOException e) {
             e.printStackTrace();
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

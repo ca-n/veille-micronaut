@@ -21,7 +21,7 @@ public class Gestionnaire extends User implements Serializable {
     }
 
     public Gestionnaire(String prenom, String nom, String courriel, String password, String numTelephone, String departement) {
-        super(prenom, nom, courriel, password, numTelephone, UserType.GESTIONNAIRE, SessionManager.CURRENT_SESSION);
+        super(prenom, nom, courriel, password, numTelephone, UserType.GESTIONNAIRE);
         this.departement = departement;
     }
 }

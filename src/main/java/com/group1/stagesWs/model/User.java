@@ -1,5 +1,6 @@
 package com.group1.stagesWs.model;
 
+import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.enums.UserType;
 import lombok.Data;
@@ -31,9 +32,10 @@ public class User implements Serializable {
 
     public User() {
         dateCreation = LocalDate.now();
+        this.session = SessionManager.CURRENT_SESSION;
     }
 
-    public User(String prenom, String nom, String courriel, String password, String numTelephone, UserType role, Session session) {
+    public User(String prenom, String nom, String courriel, String password, String numTelephone, UserType role) {
         this.prenom = prenom;
         this.nom = nom;
         this.courriel = courriel;
@@ -42,6 +44,6 @@ public class User implements Serializable {
         this.isVerifier = false;
         this.dateCreation = LocalDate.now();
         this.role = role;
-        this.session = session;
+        this.session = SessionManager.CURRENT_SESSION;
     }
 }
