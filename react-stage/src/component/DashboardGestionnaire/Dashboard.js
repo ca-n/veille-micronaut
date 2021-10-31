@@ -1,8 +1,14 @@
 import React from "react";
 import Cvs from "./Cvs";
+import Etudiants from "./Etudiants";
 
 const Dashboard = () => {
-  return <Cvs />;
+  return (
+    <>
+      <Cvs />
+      <Etudiants />
+    </>
+  );
 };
 
 export default Dashboard;
