@@ -1,6 +1,7 @@
 package com.group1.stagesWs.model;
 
 
+import com.group1.stagesWs.SessionManager;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -21,10 +22,11 @@ public class Etudiant extends User implements Serializable {
 
     public Etudiant() {
         role = UserType.ETUDIANT;
+        session = SessionManager.CURRENT_SESSION;
     }
 
     public Etudiant(String prenom, String nom, String courriel, String password, String numTelephone, String programme, String adresse, String numMatricule, boolean hasLicense, boolean hasVoiture) {
-        super(prenom, nom, courriel, password, numTelephone, UserType.ETUDIANT);
+        super(prenom, nom, courriel, password, numTelephone, UserType.ETUDIANT, SessionManager.CURRENT_SESSION);
         this.programme = programme;
         this.adresse = adresse;
         this.numMatricule = numMatricule;

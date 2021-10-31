@@ -1,6 +1,7 @@
 package com.group1.stagesWs.model;
 
 
+import com.group1.stagesWs.SessionManager;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -15,10 +16,11 @@ public class Gestionnaire extends User implements Serializable {
 
     public Gestionnaire() {
         role = UserType.GESTIONNAIRE;
+        session = SessionManager.CURRENT_SESSION;
     }
 
     public Gestionnaire(String prenom, String nom, String courriel, String password, String numTelephone, String departement) {
-        super(prenom, nom, courriel, password, numTelephone, UserType.GESTIONNAIRE);
+        super(prenom, nom, courriel, password, numTelephone, UserType.GESTIONNAIRE, SessionManager.CURRENT_SESSION);
         this.departement = departement;
     }
 }
