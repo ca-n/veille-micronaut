@@ -1,6 +1,7 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.enums.CVStatus;
+import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.repositories.CVRepository;
@@ -67,14 +68,35 @@ public class CVServiceTest {
     @Test
     void testGetAllCVs() {
         //Arrange
-        List<CV> expected = List.of(new CV(), new CV(), new CV());
-        when(cvRepository.findAll(any(Sort.class))).thenReturn(expected);
+        CV cv1 = getCV(); //Constructeur met leur session par defaut a la session actuelle
+        CV cv2 = getCV(); //Constructeur met leur session par defaut a la session actuelle
+        CV cv3 = getCV();
+        cv3.setSession(Session.AUTOMNE_2021); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
+        List<CV> listCV = List.of(cv1, cv2, cv3);
+        when(cvRepository.findAll(any(Sort.class))).thenReturn(listCV);
 
         //Act
         List<CV> returned = cvService.getAllCVs();
 
         //Assert
-        assertThat(returned.size()).isEqualTo(3);
+        assertThat(returned.size()).isEqualTo(2); //Retout des CV de la session actuelle seulement donc 2/3
+    }
+
+    @Test
+    void testGetAllCVsToutSession() {
+        //Arrange
+        CV cv1 = getCV(); //Constructeur met leur session par defaut a la session actuelle
+        CV cv2 = getCV(); //Constructeur met leur session par defaut a la session actuelle
+        CV cv3 = getCV();
+        cv3.setSession(Session.AUTOMNE_2021); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
+        List<CV> expected = List.of(cv1, cv2, cv3);
+        when(cvRepository.findAll(any(Sort.class))).thenReturn(expected);
+
+        //Act
+        List<CV> returned = cvService.getAllCVsAllSession();
+
+        //Assert
+        assertThat(returned.size()).isEqualTo(3); //Retour des CV de tous les sessions donc 3/3
     }
 
     @Test
@@ -127,6 +149,9 @@ public class CVServiceTest {
         expected.setEtudiant(expectedEtudiant);
         CV expected2 = getCV();
         expected2.setEtudiant(expectedEtudiant);
+        CV expected3 = getCV();
+        expected3.setEtudiant(expectedEtudiant);
+        expected3.setSession(Session.AUTOMNE_2021); //Pour tester qu'on retourne juste les CV a l'etudiant pour la session actuelle
         when(cvRepository.findCVByEtudiantId(any(Integer.class))).thenReturn(List.of(expected, expected2));
 
         //Act

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CVService {
+public class CVService implements SessionManager<CV>{
 
     private final CVRepository cvRepository;
 
@@ -26,7 +26,8 @@ public class CVService {
     }
 
     public List<CV> getAllCVEtudiant(int id) {
-        return cvRepository.findCVByEtudiantId(id);
+        List<CV> listCVEtudiantCurrentSession = cvRepository.findCVByEtudiantId(id);
+        return getListForCurrentSession(listCVEtudiantCurrentSession);
     }
 
 
@@ -58,6 +59,22 @@ public class CVService {
     }
 
     public List<CV> getAllCVs() {
+        List<CV> listAllCV = cvRepository.findAll(Sort.by(Sort.Order.asc("status"), Sort.Order.desc("dateSoumission")));
+        return getListForCurrentSession(listAllCV);
+    }
+
+    public List<CV> getAllCVsAllSession() {
         return cvRepository.findAll(Sort.by(Sort.Order.asc("status"), Sort.Order.desc("dateSoumission")));
+    }
+
+    @Override
+    public List<CV> getListForCurrentSession(List<CV> listCV) {
+        List<CV> listCVCurrentSession = new ArrayList<>();
+        for(CV cv : listCV){
+            if(cv.getSession() == SessionManager.CURRENT_SESSION){
+                listCVCurrentSession.add(cv);
+            }
+        }
+        return listCVCurrentSession;
     }
 }

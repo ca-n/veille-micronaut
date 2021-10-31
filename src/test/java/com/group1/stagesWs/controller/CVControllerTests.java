@@ -126,7 +126,7 @@ public class CVControllerTests {
         //Arrange
         CV expected = new CV();
         expected.setId(1);
-        when(cvService.getCVById(1)).thenReturn(Optional.of(expected));
+        when(cvService.getCVById(any(Integer.class))).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(get("/stage/cv/" + expected.getId())).andReturn();
@@ -136,4 +136,36 @@ public class CVControllerTests {
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void testDeleteCV() throws Exception {
+        //Arrange
+        CV expected = new CV();
+        expected.setId(1);
+        when(cvService.deleteCV(any(Integer.class))).thenReturn(true);
+
+        //Act
+        MvcResult result = mockMvc.perform(delete("/stage/cv/delete/" + expected.getId())).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), Boolean.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    void testGetAllCVsAllSession() throws Exception {
+        //Arrange
+        List<CV> expected = List.of(new CV(), new CV(), new CV());
+        when(cvService.getAllCVsAllSession()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/stage/cv/allSession")).andReturn();
+
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual.size()).isEqualTo(3);
+    }
+
 }
