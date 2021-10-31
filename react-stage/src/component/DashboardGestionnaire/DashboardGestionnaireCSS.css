@@ -10,7 +10,7 @@ table {
   position: fixed;
   top: 0;
   left: 0;
-  padding-top: 70px;
+  margin-top: 70px;
 }
 
 .topLeft table {
@@ -22,7 +22,7 @@ table {
   position: fixed;
   top: 0;
   right: 0;
-  padding-top: 70px;
+  margin-top: 70px;
 }
 
 .topRight table {
