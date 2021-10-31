@@ -1,0 +1,64 @@
+table {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 1000px;
+  text-align: center;
+}
+
+.topLeft {
+  width: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 70px;
+}
+
+.topLeft table {
+  width: 50%;
+}
+
+.topRight {
+  width: 50%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding-top: 70px;
+}
+
+.topRight table {
+  width: 50%;
+}
+
+.center {
+  width: 1000px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.bottomLeft {
+  width: 50%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 50px;
+}
+
+.bottomLeft table {
+  width: 50%;
+}
+
+.bottomRight {
+  width: 50%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-right: 50px;
+  margin-bottom: 50px;
+}
+
+.bottomRight table {
+  width: 50%;
+}
