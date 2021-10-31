@@ -1,13 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
 import { UserInfoContext } from "../contexts/UserInfo";
 
 const DashboardGestionnaire = () => {
   const [listPendingCV, setListPendingCV] = useState("0");
   const [listAcceptedCV, setListAcceptedCV] = useState("0");
   const [listRejectedCV, setListRejectedCV] = useState("0");
-  const [nombreEtudiants, setnombreEtudiants] = useState("0");
   const [etudiants, setEtudiants] = useState([]);
+  const [moniteurs, setMoniteurs] = useState([]);
+  const [superviseurs, setSuperviseurs] = useState([]);
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [cvs, setCVs] = useState();
 
@@ -27,9 +27,23 @@ const DashboardGestionnaire = () => {
           return res.json();
         })
         .then((etudiants) => {
-          console.log(etudiants, "etudiants");
-          setnombreEtudiants(etudiants.length);
           setEtudiants(etudiants);
+        });
+
+      fetch(`http://localhost:9191/stage/moniteurs`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((moniteurs) => {
+          setMoniteurs(moniteurs);
+        });
+
+      fetch(`http://localhost:9191/stage/superviseurs`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((superviseurs) => {
+          setSuperviseurs(superviseurs);
         });
     }
   }, []);
@@ -66,6 +80,13 @@ const DashboardGestionnaire = () => {
     </tr>
   ));
 
+  const superviseursList = superviseurs.map((superviseur) => (
+    <tr key={superviseur.id.toString()}>
+      <td>{superviseur.prenom}</td>
+      <td>{superviseur.nom}</td>
+    </tr>
+  ));
+
   return (
     <>
       <table>
@@ -97,9 +118,17 @@ const DashboardGestionnaire = () => {
         </tr>
         <tr>
           <td>Le nombre d'étudiants inscrient</td>
-          <td>{nombreEtudiants}</td>
+          <td>{etudiants.length}</td>
         </tr>
         {etudiantsList}
+        <tr>
+          <th colSpan="2">superviseurs</th>
+        </tr>
+        <tr>
+          <td>Le nombre de supervieurs inscrient</td>
+          <td>{superviseurs.length}</td>
+        </tr>
+        {superviseursList}
       </table>
     </>
   );
