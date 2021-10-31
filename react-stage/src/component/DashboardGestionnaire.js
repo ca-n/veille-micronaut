@@ -87,6 +87,13 @@ const DashboardGestionnaire = () => {
     </tr>
   ));
 
+  const moniteursList = moniteurs.map((moniteur) => (
+    <tr key={moniteur.id.toString()}>
+      <td>{moniteur.prenom}</td>
+      <td>{moniteur.nom}</td>
+    </tr>
+  ));
+
   return (
     <>
       <table>
@@ -129,6 +136,14 @@ const DashboardGestionnaire = () => {
           <td>{superviseurs.length}</td>
         </tr>
         {superviseursList}
+        <tr>
+          <th colSpan="2">moniteurs</th>
+        </tr>
+        <tr>
+          <td>Le nombre de moniteurs inscrient</td>
+          <td>{moniteurs.length}</td>
+        </tr>
+        {moniteursList}
       </table>
     </>
   );
