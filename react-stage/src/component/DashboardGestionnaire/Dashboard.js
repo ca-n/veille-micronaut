@@ -2,6 +2,7 @@ import React from "react";
 import Cvs from "./Cvs";
 import Etudiants from "./Etudiants";
 import Moniteurs from "./Moniteurs";
+import Offres from "./Offres";
 import Superviseurs from "./Superviseurs";
 
 const Dashboard = () => {
@@ -11,6 +12,7 @@ const Dashboard = () => {
       <Etudiants />
       <Moniteurs />
       <Superviseurs />
+      <Offres />
     </>
   );
 };

@@ -7,7 +7,7 @@ const Cvs = () => {
   const [listPendingCV, setListPendingCV] = useState("0");
   const [listAcceptedCV, setListAcceptedCV] = useState("0");
   const [listRejectedCV, setListRejectedCV] = useState("0");
-  const [cvs, setCVs] = useState();
+  const [cvs, setCVs] = useState([]);
 
   useEffect(() => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
