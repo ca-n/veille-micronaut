@@ -1,5 +1,7 @@
 package com.group1.stagesWs.model;
 
+import com.group1.stagesWs.SessionManager;
+import com.group1.stagesWs.enums.Session;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,14 +26,19 @@ public class Contrat implements Serializable {
     private LocalDate dateSignatureEtudiant;
     private LocalDate dateSignatureGestionnaire;
 
-    @ManyToOne
-    private Offre offre;
-
     private String collegeSengageA;
     private String entrepriseSengageA;
     private String etudiantSengageA;
 
+    private Session session;
+
+    @ManyToOne
+    private Offre offre;
+
+
+
     public Contrat() {
+        this.session = SessionManager.CURRENT_SESSION;
     }
 
     public Contrat(LocalDate dateCreation) {
@@ -39,5 +46,6 @@ public class Contrat implements Serializable {
         this.isEtudiantConfirmed = false;
         this.isGestionnaireConfirmed = false;
         this.isMoniteurConfirmed = false;
+        this.session = SessionManager.CURRENT_SESSION;
     }
 }
