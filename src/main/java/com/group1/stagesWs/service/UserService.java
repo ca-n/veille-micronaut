@@ -71,4 +71,12 @@ public class UserService {
     public List<Etudiant> getAllEtudiants() {
         return etudiantRepository.findAll();
     }
+
+    public List<Superviseur> getAllSuperviseurs() {
+        return superviseurRepository.findAll();
+    }
+
+    public List<Moniteur> getAllMoniteurs() {
+        return moniteurRepository.findAll();
+    }
 }

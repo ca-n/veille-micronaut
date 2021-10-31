@@ -71,4 +71,14 @@ public class UserController {
     public ResponseEntity<List<Etudiant>> getAllEtudiants() {
         return new ResponseEntity<>(service.getAllEtudiants(), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/stage/superviseurs")
+    public ResponseEntity<List<Superviseur>> getAllSuperviseurs() {
+        return new ResponseEntity<>(service.getAllSuperviseurs(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/stage/moniteurs")
+    public ResponseEntity<List<Moniteur>> getAllMoniteurs() {
+        return new ResponseEntity<>(service.getAllMoniteurs(), HttpStatus.OK);
+    }
 }
