@@ -30,6 +30,10 @@ const Moniteurs = () => {
           <th colSpan="2">Moniteurs</th>
         </tr>
         <tr>
+          <td>Le nombres de moniteurs inscrient</td>
+          <td>{moniteurs.length}</td>
+        </tr>
+        <tr>
           <th>Prénom</th>
           <th>Nom</th>
         </tr>

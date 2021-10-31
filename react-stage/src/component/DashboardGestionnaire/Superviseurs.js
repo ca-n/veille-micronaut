@@ -31,6 +31,10 @@ const Superviseurs = () => {
           <th colSpan="2">Superviseurs</th>
         </tr>
         <tr>
+          <td>Le nombres de superviseur inscrient</td>
+          <td>{superviseurs.length}</td>
+        </tr>
+        <tr>
           <th>Prénom</th>
           <th>Nom</th>
         </tr>

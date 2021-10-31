@@ -54,6 +54,10 @@ const Cvs = () => {
           <th colSpan="2">CV</th>
         </tr>
         <tr>
+          <td>Le nombres de cvs totals</td>
+          <td>{cvs.length}</td>
+        </tr>
+        <tr>
           <th>Le status du cv</th>
           <th>Le nombre de cv relié à ce statut</th>
         </tr>
