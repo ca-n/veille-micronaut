@@ -2,7 +2,9 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
+import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.repositories.CVRepository;
+import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,13 +26,16 @@ public class CVServiceTest {
     @Mock
     private CVRepository cvRepository;
 
+    @Mock
+    private EtudiantRepository etudiantRepository;
+
     @InjectMocks
     private CVService cvService;
 
     @Test
     void testAcceptCV() {
         //Arrange
-        CV expected = new CV();
+        CV expected = getCV();
         when(cvRepository.save(any())).thenReturn(expected);
 
         //Act
@@ -46,7 +51,7 @@ public class CVServiceTest {
     @Test
     void testRejectCV() {
         //Arrange
-        CV expected = new CV();
+        CV expected = getCV();
         when(cvRepository.save(any())).thenReturn(expected);
 
         //Act
@@ -73,16 +78,71 @@ public class CVServiceTest {
     }
 
     @Test
-    void testGetCV() {
+    void testGetCVById() {
         //Arrange
-        CV expected = new CV();
+        CV expected = getCV();
         expected.setId(1);
         when(cvRepository.findById(1)).thenReturn(Optional.of(expected));
 
         //Act
-        Optional<CV> returned = cvService.getCV(expected.getId());
+        Optional<CV> returned = cvService.getCVById(expected.getId());
 
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
     }
+
+    @Test
+    void testSaveCV(){
+        //Arrange
+        CV expected = getCV();
+        when(cvRepository.save(any(CV.class))).thenReturn(expected);
+
+        //Act
+        Optional<CV> returned = cvService.saveCV(expected);
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    void testDeleteCV(){
+        //Arrange
+        CV expected = getCV();
+        expected.setId(1);
+        when(cvRepository.deleteCVById(any(Integer.class))).thenReturn(true);
+
+        //Act
+        boolean result = cvService.deleteCV(expected.getId());
+
+        //Assert
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void testGetAllCVEtudiant(){
+        //Arrange
+        Etudiant expectedEtudiant = new Etudiant();
+        expectedEtudiant.setId(1);
+        CV expected = getCV();
+        expected.setEtudiant(expectedEtudiant);
+        CV expected2 = getCV();
+        expected2.setEtudiant(expectedEtudiant);
+        when(cvRepository.findCVByEtudiantId(any(Integer.class))).thenReturn(List.of(expected, expected2));
+
+        //Act
+        List<CV> returnedList = cvService.getAllCVEtudiant(expectedEtudiant.getId());
+
+        //Arrange
+        assertThat(returnedList).hasSize(2);
+    }
+
+    private CV getCV() {
+        CV cv =  new CV();
+        cv.setNom("cvTest.pdf");
+        return cv;
+    }
+
+
+
+
 }

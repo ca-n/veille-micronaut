@@ -126,7 +126,7 @@ public class CVControllerTests {
         //Arrange
         CV expected = new CV();
         expected.setId(1);
-        when(cvService.getCV(1)).thenReturn(Optional.of(expected));
+        when(cvService.getCVById(1)).thenReturn(Optional.of(expected));
 
         //Act
         MvcResult result = mockMvc.perform(get("/stage/cv/" + expected.getId())).andReturn();

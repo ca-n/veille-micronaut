@@ -40,12 +40,12 @@ public class CVController {
 
     @GetMapping(path = "/stage/cv/etudiant/{id}")
     public ResponseEntity<List<CV>> getAllCVbyEtudiant(@PathVariable("id") int id) {
-        return new ResponseEntity<>(cvService.getAllCV(id), HttpStatus.OK);
+        return new ResponseEntity<>(cvService.getAllCVEtudiant(id), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/stage/cv/delete/{id}")
-    public void deleteCV(@PathVariable int id) {
-        cvService.deleteCV(id);
+    public ResponseEntity<Boolean> deleteCV(@PathVariable int id) {
+        return new ResponseEntity<>(cvService.deleteCV(id), HttpStatus.OK);
     }
 
     @GetMapping(path = "/stage/cv/pdf/{id}")
@@ -90,7 +90,7 @@ public class CVController {
 
     @GetMapping("/stage/cv/{id}")
     public ResponseEntity<CV> getCV(@PathVariable int id) {
-        return cvService.getCV(id)
+        return cvService.getCVById(id)
                 .map(cv -> ResponseEntity.status(HttpStatus.OK).body(cv))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

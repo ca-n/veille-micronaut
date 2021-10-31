@@ -1,12 +1,14 @@
 package com.group1.stagesWs.service;
 
+import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.repositories.CVRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,20 +21,17 @@ public class CVService {
         this.cvRepository = cvRepository;
     }
 
-    public Optional<CV> getCVById(int id) {
-        return Optional.of(cvRepository.findCvById(id));
-    }
-
     public Optional<CV> saveCV(CV cv) {
         return Optional.of(cvRepository.save(cv));
     }
 
-    public List<CV> getAllCV(int id) {
-        return cvRepository.findALlByEtudiantId(id);
+    public List<CV> getAllCVEtudiant(int id) {
+        return cvRepository.findCVByEtudiantId(id);
     }
 
-    public void deleteCV(int id) {
-        cvRepository.deleteById(id);
+
+    public Boolean deleteCV(int id) {
+        return cvRepository.deleteCVById(id);
     }
 
     public byte[] generateCVPDF(byte[] bArray, String fileName) {
@@ -54,7 +53,7 @@ public class CVService {
         return Optional.of(cvRepository.save(cv));
     }
 
-    public Optional<CV> getCV(int id) {
+    public Optional<CV> getCVById(int id) {
         return cvRepository.findById(id);
     }
 
