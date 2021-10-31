@@ -1,5 +1,6 @@
 package com.group1.stagesWs.service;
 
+import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.EtudiantRepository;
@@ -31,14 +32,29 @@ public class OffreServiceTest {
     @Test
     void testGetAllOffres() {
         //Arrange
-        List<Offre> expected = getOffres();
+        List<Offre> expected = getOffres(); // Les offres de bases contienne la session actuelle
+        expected.get(0).setSession(Session.AUTOMNE_2021); //Changement de la session a une sesion differente que la session actuelle
         when(offreRepository.findAll()).thenReturn(expected);
 
         //Act
         List<Offre> returned = service.getAllOffres();
 
         //Assert
-        assertThat(returned).isEqualTo(expected);
+        assertThat(returned).hasSize(expected.size() - 1); //Retour de la liste sans l'offre qui n'est pas dans la session actuelle
+    }
+
+    @Test
+    void testGetAllOffresAllSession() {
+        //Arrange
+        List<Offre> expected = getOffres(); // Les offres de bases contienne la session actuelle
+        expected.get(0).setSession(Session.AUTOMNE_2021); //Changement de la session a une sesion differente que la session actuelle
+        when(offreRepository.findAll()).thenReturn(expected);
+
+        //Act
+        List<Offre> returned = service.getAllOffresAllSession();
+
+        //Assert
+        assertThat(returned).isEqualTo(expected); //Retour de la liste sans l'offre qui n'est pas dans la session actuelle
     }
 
     @Test

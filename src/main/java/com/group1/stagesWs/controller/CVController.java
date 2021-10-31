@@ -94,4 +94,9 @@ public class CVController {
                 .map(cv -> ResponseEntity.status(HttpStatus.OK).body(cv))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
+
+    @GetMapping("/stage/cv/allSession")
+    public ResponseEntity<List<CV>> getAllCVsAllSession() {
+        return new ResponseEntity<List<CV>>(cvService.getAllCVsAllSession(), HttpStatus.OK);
+    }
 }
