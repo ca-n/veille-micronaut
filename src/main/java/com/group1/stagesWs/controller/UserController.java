@@ -67,17 +67,17 @@ public class UserController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @GetMapping(path = "/stage/etudiants")
+    @GetMapping(path = "/user/etudiants")
     public ResponseEntity<List<Etudiant>> getAllEtudiants() {
         return new ResponseEntity<>(service.getAllEtudiants(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/stage/superviseurs")
+    @GetMapping(path = "/user/superviseurs")
     public ResponseEntity<List<Superviseur>> getAllSuperviseurs() {
         return new ResponseEntity<>(service.getAllSuperviseurs(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/stage/moniteurs")
+    @GetMapping(path = "/user/moniteurs")
     public ResponseEntity<List<Moniteur>> getAllMoniteurs() {
         return new ResponseEntity<>(service.getAllMoniteurs(), HttpStatus.OK);
     }
