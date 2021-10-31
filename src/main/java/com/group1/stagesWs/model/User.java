@@ -1,6 +1,7 @@
 package com.group1.stagesWs.model;
 
 import com.group1.stagesWs.enums.Session;
+import com.group1.stagesWs.enums.UserType;
 import lombok.Data;
 
 import javax.persistence.*;

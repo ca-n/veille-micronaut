@@ -2,12 +2,11 @@ package com.group1.stagesWs.model;
 
 
 import com.group1.stagesWs.SessionManager;
+import com.group1.stagesWs.enums.UserType;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.Set;
 
 @Data
 @Entity
