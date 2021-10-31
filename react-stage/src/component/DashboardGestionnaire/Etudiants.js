@@ -7,7 +7,7 @@ const Etudiants = () => {
 
   useEffect(() => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
-      fetch(`http://localhost:9191/stage/etudiants`)
+      fetch(`http://localhost:9191/user/etudiants`)
         .then((res) => {
           return res.json();
         })

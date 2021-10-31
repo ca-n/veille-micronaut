@@ -7,7 +7,7 @@ const Superviseurs = () => {
 
   useEffect(() => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
-      fetch(`http://localhost:9191/stage/superviseurs`)
+      fetch(`http://localhost:9191/user/superviseurs`)
         .then((res) => {
           return res.json();
         })
