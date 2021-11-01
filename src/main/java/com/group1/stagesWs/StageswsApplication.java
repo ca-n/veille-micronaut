@@ -40,20 +40,6 @@ public class StageswsApplication implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
 
-
-        Etudiant etudiant = new Etudiant();
-        etudiant.setPrenom("Mathieu");
-        etudiant.setNom("Felton");
-        etudiant.setCourriel("mathieu@gmail.com");
-        etudiant.setPassword("Password1");
-        etudiant.setNumTelephone("2323232323");
-        etudiant.setRole(UserType.ETUDIANT);
-        etudiant.setProgramme("Informatique");
-        etudiant.setAdresse("113 lapierre");
-        etudiant.setNumMatricule("1822323");
-        etudiant.setHasLicense(true);
-        etudiantRepository.save(etudiant);
-
         Etudiant etudiant1 = new Etudiant();
         etudiant1.setPrenom("Patrick");
         etudiant1.setNom("Star");
@@ -100,6 +86,20 @@ public class StageswsApplication implements CommandLineRunner{
         superviseur.setDepartement("Informatique");
         superviseur.setSpecialite("fullstack");
         superviseurRepository.save(superviseur);
+
+        Etudiant etudiant = new Etudiant();
+        etudiant.setPrenom("Mathieu");
+        etudiant.setNom("Felton");
+        etudiant.setCourriel("mathieu@gmail.com");
+        etudiant.setPassword("Password1");
+        etudiant.setNumTelephone("2323232323");
+        etudiant.setRole(UserType.ETUDIANT);
+        etudiant.setProgramme("Informatique");
+        etudiant.setAdresse("113 lapierre");
+        etudiant.setNumMatricule("1822323");
+        etudiant.setHasLicense(true);
+        etudiant.setSuperviseur(superviseur);
+        etudiantRepository.save(etudiant);
 
         CV cv1 = new CV(); // pending
         cv1.setEtudiant(etudiant);

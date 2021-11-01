@@ -31,10 +31,12 @@ const SuperviseurDashboard = () => {
         courriel: String
     })
 
+    //SAME BUG
     useEffect(() => {
+        console.log(fullUser.id, "fullUser.id")
         const getEtudiants = async () => {
             const dbEtudiants =
-                await UserService.getEtudiantOffres(loggedUser.id)
+                await UserService.getEtudiantsForSuperviseur(fullUser.id)
             console.log(dbEtudiants, "dbEtudiants")
             setListEtudiants(dbEtudiants)
         }
