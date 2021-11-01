@@ -4,6 +4,7 @@ package com.group1.stagesWs.model;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Set;
@@ -18,6 +19,9 @@ public class Etudiant extends User implements Serializable {
 
     private boolean hasLicense;
     private boolean hasVoiture;
+
+    @ManyToOne
+    private Superviseur superviseur;
 
     public Etudiant() {
         role = UserType.ETUDIANT;
