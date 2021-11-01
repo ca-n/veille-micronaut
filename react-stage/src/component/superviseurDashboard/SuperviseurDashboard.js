@@ -25,11 +25,6 @@ const SuperviseurDashboard = () => {
     })
 
     const [listEtudiants, setListEtudiants] = useState([])
-    const [currentEtudiant, setCurrentEtudiant] = useState({
-        prenom: String,
-        nom: String,
-        courriel: String
-    })
 
     //SAME BUG
     useEffect(() => {
