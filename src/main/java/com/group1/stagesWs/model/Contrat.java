@@ -26,9 +26,9 @@ public class Contrat implements Serializable {
     private LocalDate dateSignatureEtudiant;
     private LocalDate dateSignatureGestionnaire;
 
-    private String collegeSengageA;
-    private String entrepriseSengageA;
-    private String etudiantSengageA;
+    private String collegeEngagement;
+    private String entrepriseEngagement;
+    private String etudiantEngagement;
 
     private Session session;
 
