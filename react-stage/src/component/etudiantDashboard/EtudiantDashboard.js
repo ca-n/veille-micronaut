@@ -1,10 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfo'
 import Offres from '../Offres/Offres'
-import ContratService from '../../services/ContratService'
 import UserService from '../../services/UserService'
 import Contrat from '../contrat/Contrat'
-import CVService from '../../services/CVService.js'
+import VoirCVState from './VoirCVState'
 
 
 const EtudiantDashboard = () => {
@@ -99,6 +98,7 @@ const EtudiantDashboard = () => {
             </div>
             <div>
                 <h1>CV state</h1>
+                <VoirCVState />
             </div>
             <div>
                 <h1>Contact</h1>
