@@ -71,4 +71,8 @@ public class UserService {
     public List<Etudiant> getAllEtudiants() {
         return etudiantRepository.findAll();
     }
+
+    public List<Etudiant> getAllEtudiantsForSuperviseur(int idSuperviseur) {
+        return etudiantRepository.findAllBySuperviseurId(idSuperviseur);
+    }
 }

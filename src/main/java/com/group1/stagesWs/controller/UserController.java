@@ -71,4 +71,9 @@ public class UserController {
     public ResponseEntity<List<Etudiant>> getAllEtudiants() {
         return new ResponseEntity<>(service.getAllEtudiants(), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/stage/etudiants/{idSuperviseur}")
+    public ResponseEntity<List<Etudiant>> getAllEtudiantsForSuperviseur(@PathVariable("idSuperviseur") int idSuperviseur) {
+        return new ResponseEntity<>(service.getAllEtudiantsForSuperviseur(idSuperviseur), HttpStatus.OK);
+    }
 }
