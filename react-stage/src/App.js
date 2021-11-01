@@ -12,8 +12,8 @@ import UserInfo, { UserInfoContext } from './contexts/UserInfo';
 import AccountDetails from './component/AccountDetails/AccountDetails';
 import VerificationCV from './component/gestionCV/VerificationCV';
 import VerificationCVList from './component/gestionCV/VerificationCVList';
-
 import DropCv from './component/DropCv/DropCv';
+import Dashboard from './component/dashboard/Dashboard';
 
 
 
@@ -36,6 +36,7 @@ function App() {
               <Route exact path="/dropCv"><DropCv/></Route>
               <Route exact path="/gestion/cv"><VerificationCVList/></Route>
               <Route exact path="/gestion/cv/:id"><VerificationCV/></Route>
+              <Route exact path="/dashboard"><Dashboard/></Route>
 
             </Switch>
           </div>
