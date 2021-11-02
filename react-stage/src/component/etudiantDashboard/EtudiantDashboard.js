@@ -40,6 +40,7 @@ const EtudiantDashboard = () => {
     const [cv, setCV] = useState()
 
     useEffect(() => {
+        console.log("alloAAAAAAAAAAAAA")
         if (loggedUser.isLoggedIn) {
             fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
                 .then(res => {
@@ -49,6 +50,7 @@ const EtudiantDashboard = () => {
                     console.log(data, "data")
                     //could acces superviseur par ici
                     setFullUser(data)
+                    setSuperviseur(data.superviseur)
                 })
 
         }
@@ -68,7 +70,7 @@ const EtudiantDashboard = () => {
             console.log(superviseur, "superviseur")
             setSuperviseur(superviseur)
         }
-        getSuperviseur()
+        //getSuperviseur()
     }, [])
 
     useEffect(() => {
@@ -76,7 +78,7 @@ const EtudiantDashboard = () => {
             //const moniteur = await UserService.getMoniteur(fullUser.id)
             setMoniteur(moniteur)
         }
-        getMoniteur()
+        //getMoniteur()
     }, [])
 
     /*
