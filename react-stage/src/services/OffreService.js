@@ -14,11 +14,26 @@ const OffreService = {
         return data
     },
 
-    // saveOffre [POST] /offres
-    saveOffre: async (offre) => {
+    // addOffre [POST] /offres
+    addOffre: async (offre, email) => {
         const res = await fetch(offresUrl, 
         {
             method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'email': email
+            },
+            body: JSON.stringify(offre)
+        })
+        const data = await res.json()
+        return data
+    },
+
+    // updateOffre [PUT] /offres/{id}
+    updateOffre: async (offre) => {
+        const res = await(fetch(offresUrl + '/' + offre.id),
+        {
+            method: 'PUT',
             headers: {
                 'Content-type': 'application/json'
             },

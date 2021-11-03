@@ -37,7 +37,7 @@ const Offres = () => {
 
 
     useEffect(() => {
-        // if (!loggedUser.isLoggedIn || (loggedUser.role !== "GESTIONNAIRE" || loggedUser.role !== "ETUDIANT")) history.push("/login")
+        if (!loggedUser.isLoggedIn || !(loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "ETUDIANT" || loggedUser.role === "MONITEUR")) history.push("/login")
         const getOffres = async () => {
             const dbOffres = loggedUser.role === "ETUDIANT" ?
                 await OffreService.getEtudiantOffres(loggedUser.courriel) :
@@ -126,9 +126,9 @@ const Offres = () => {
 
 
     const saveOffre = async (offre) => {
-        const res = await fetch('http://localhost:9191/offres',
+        const res = await fetch('http://localhost:9191/offres' + offre.id,
             {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-type': 'application/json',
                 },
