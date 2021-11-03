@@ -50,12 +50,13 @@ const useFormOffre = (callback, validateInfoOffre) => {
             var request = new XMLHttpRequest()
             request.open('POST', 'http://localhost:9191/offres', true)
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
+            request.setRequestHeader('email', loggedUser.courriel)
 
             const offre = JSON.stringify(values)
 
             request.send(offre)
         }
-    }, [errors]
+    }, [errors, loggedUser]
     );
 
 
