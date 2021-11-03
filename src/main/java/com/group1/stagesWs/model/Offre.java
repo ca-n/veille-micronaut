@@ -56,8 +56,4 @@ public class Offre implements Serializable {
         whitelist = new HashSet<>();
         applicants = new HashSet<>();
     }
-
-    public void apply(Etudiant etudiant) {
-        applicants.add(etudiant);
-    }
 }
