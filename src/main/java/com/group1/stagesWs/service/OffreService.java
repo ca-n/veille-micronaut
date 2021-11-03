@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class OffreService {
@@ -43,7 +44,9 @@ public class OffreService {
         Offre offre = offreOptional.get();
         Etudiant etudiant = etudiantOptional.get();
 
-        offre.apply(etudiant);
+        Set<Etudiant> applicants = offre.getApplicants();
+        applicants.add(etudiant);
+        offre.setApplicants(applicants);
         return Optional.of(offreRepository.save(offre));
     }
 }
