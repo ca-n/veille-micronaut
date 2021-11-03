@@ -1,8 +1,9 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Offre;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.EtudiantRepository;
+import com.group1.stagesWs.repositories.GestionnaireRepository;
+import com.group1.stagesWs.repositories.MoniteurRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,12 @@ import java.util.Optional;
 public class OffreService {
     private final OffreRepository offreRepository;
     private final EtudiantRepository etudiantRepository;
+    private final UserService userService;
 
-    public OffreService(OffreRepository offreRepository, EtudiantRepository etudiantRepository) {
+    public OffreService(OffreRepository offreRepository, EtudiantRepository etudiantRepository, UserService userService) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
+        this.userService = userService;
     }
 
     public List<Offre> getAllOffres() {
@@ -29,7 +32,21 @@ public class OffreService {
         return offreRepository.findAllByWhitelistContainsAndIsValidTrue(etudiant);
     }
 
-    public Optional<Offre> saveOffre(Offre offre) {
+    public Optional<Offre> addOffre(Offre offre, String email) {
+        var userOptional = userService.findUserByCourriel(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (user instanceof Moniteur) offre.setMoniteur((Moniteur) user);
+            else if (user instanceof Gestionnaire) offre.setGestionnaire((Gestionnaire) user);
+        }
+
+        return Optional.of(offreRepository.save(offre));
+    }
+
+    public Optional<Offre> updateOffre(int id, Offre offre) {
+        var offreOptional = offreRepository.findById(id);
+        if (offreOptional.isEmpty()) return offreOptional;
+        if (offre.getId() != id) offre.setId(id);
         return Optional.of(offreRepository.save(offre));
     }
 
