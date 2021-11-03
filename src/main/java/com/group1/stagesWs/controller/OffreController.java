@@ -31,10 +31,17 @@ public class OffreController {
     }
 
     @PostMapping
-    public ResponseEntity<Offre> saveOffre(@RequestBody Offre offre) {
-        return service.saveOffre(offre)
+    public ResponseEntity<Offre> addOffre(@RequestBody Offre offre, @RequestHeader String email) {
+        return service.addOffre(offre, email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Offre> updateOffre(@PathVariable int id, @RequestBody Offre offre) {
+        return service.updateOffre(id, offre)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/{id}/apply")
