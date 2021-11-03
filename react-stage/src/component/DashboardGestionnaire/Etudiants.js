@@ -27,19 +27,23 @@ const Etudiants = () => {
   return (
     <>
       <table>
-        <tr>
-          <th colSpan="2">Étudiants</th>
-        </tr>
-        <tr>
-          <td>Le nombre d'étudiants inscrient</td>
-          <td>{etudiants.length}</td>
-        </tr>
-        <tr>
-          <th>Prénom</th>
-          <th>Nom</th>
-        </tr>
+        <thead>
+          <tr>
+            <th colSpan="2">Étudiants</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Le nombre d'étudiants inscrient</td>
+            <td>{etudiants.length}</td>
+          </tr>
+          <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+          </tr>
 
-        {etudiantsList}
+          {etudiantsList}
+        </tbody>
       </table>
     </>
   );

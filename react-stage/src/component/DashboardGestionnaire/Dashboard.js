@@ -7,7 +7,7 @@ import Superviseurs from "./Superviseurs";
 import "./DashboardGestionnaireCSS.css";
 const Dashboard = () => {
   return (
-    <>
+    <body>
       <div className="topLeft">
         <Etudiants />
       </div>
@@ -23,7 +23,7 @@ const Dashboard = () => {
       <div className="bottomRight">
         <Superviseurs />
       </div>
-    </>
+    </body>
   );
 };
 
