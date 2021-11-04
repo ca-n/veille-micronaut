@@ -56,7 +56,7 @@ public class Offre implements Serializable {
         this.horaire = horaire;
         this.nbTotalHeuresParSemaine = nbTotalHeuresParSemaine;
         this.tauxHoraire = tauxHoraire;
-        whitelist = Set.of();
-        applicants = Set.of();
+        whitelist = new HashSet<>();
+        applicants = new HashSet<>();
     }
 }
