@@ -1,5 +1,6 @@
 package com.group1.stagesWs.model.factory;
 
+import com.group1.stagesWs.enums.UserType;
 import com.group1.stagesWs.model.*;
 
 public class UserFactory {

@@ -1,5 +1,6 @@
 package com.group1.stagesWs.service;
 
+import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.GestionnaireRepository;
@@ -208,14 +209,27 @@ public class UserServiceTest {
     @Test
     public void testGetAllEtudiants() {
         //Arrange
-        List<Etudiant> expected = getEtudiants();
+        List<Etudiant> expected = getEtudiants();   //List etudiant qui ont la session actuelle par defaut
+        expected.get(0).setSession(Session.AUTOMNE_2021); //Changer un des etudiants a une session differente
         when(etudiantRepository.findAll()).thenReturn(expected);
 
         //Act
         List<Etudiant> returned = service.getAllEtudiants();
 
         //Assert
-        assertThat(returned).isEqualTo(expected);
+        assertThat(returned).hasSize(expected.size() -1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+    }
+    @Test
+    public void testGetAllEtudiantsAllSession() {
+        //Arrange
+        List<Etudiant> expected = getEtudiants();   //List etudiant qui ont la session actuelle par defaut
+        when(etudiantRepository.findAll()).thenReturn(expected);
+
+        //Act
+        List<Etudiant> returned = service.getAllEtudiantsAllSession();
+
+        //Assert
+        assertThat(returned).isEqualTo(expected); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
 
 

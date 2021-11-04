@@ -1,5 +1,8 @@
 package com.group1.stagesWs.model;
 
+import com.group1.stagesWs.SessionManager;
+import com.group1.stagesWs.enums.Session;
+import com.group1.stagesWs.enums.UserType;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,10 +27,12 @@ public class User implements Serializable {
 
     protected boolean isVerifier;
     protected LocalDate dateCreation;
+    protected Session session;
 
 
     public User() {
         dateCreation = LocalDate.now();
+        this.session = SessionManager.CURRENT_SESSION;
     }
 
     public User(String prenom, String nom, String courriel, String password, String numTelephone, UserType role) {
@@ -39,5 +44,6 @@ public class User implements Serializable {
         this.isVerifier = false;
         this.dateCreation = LocalDate.now();
         this.role = role;
+        this.session = SessionManager.CURRENT_SESSION;
     }
 }

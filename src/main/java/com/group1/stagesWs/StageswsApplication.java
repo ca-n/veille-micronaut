@@ -1,15 +1,15 @@
 package com.group1.stagesWs;
 
 import com.group1.stagesWs.enums.CVStatus;
+import com.group1.stagesWs.enums.Session;
+import com.group1.stagesWs.enums.UserType;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.*;
-import com.group1.stagesWs.service.StageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
-
 
 
 @SpringBootApplication
@@ -21,16 +21,15 @@ public class StageswsApplication implements CommandLineRunner{
     private final GestionnaireRepository gestionnaireRepository;
     private final SuperviseurRepository superviseurRepository;
     private final CVRepository cvRepository;
-    private final StageService service;
 
-    public StageswsApplication(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, GestionnaireRepository gestionnaireRepository, SuperviseurRepository superviseurRepository, CVRepository cvRepository, StageService service) {
+
+    public StageswsApplication(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, GestionnaireRepository gestionnaireRepository, SuperviseurRepository superviseurRepository, CVRepository cvRepository) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
         this.moniteurRepository = moniteurRepository;
         this.gestionnaireRepository = gestionnaireRepository;
         this.superviseurRepository = superviseurRepository;
         this.cvRepository = cvRepository;
-        this.service = service;
     }
 
     public static void main(String[] args) {
@@ -44,7 +43,7 @@ public class StageswsApplication implements CommandLineRunner{
         Etudiant etudiant = new Etudiant();
         etudiant.setPrenom("Mathieu");
         etudiant.setNom("Felton");
-        etudiant.setCourriel("mathieu@gmail.com");
+        etudiant.setCourriel("mat@gmail.com");
         etudiant.setPassword("Password1");
         etudiant.setNumTelephone("2323232323");
         etudiant.setRole(UserType.ETUDIANT);
@@ -112,7 +111,14 @@ public class StageswsApplication implements CommandLineRunner{
         cv3.setStatus(CVStatus.REJECTED);
         cv3.setEtudiant(etudiant);
         cv3.setNom("cv-rejected.pdf");
-        cvRepository.saveAll(List.of(cv1, cv2, cv3));
+//
+        CV cv4 = new CV(); // accepted
+        cv4.setStatus(CVStatus.ACCEPTED);
+        cv4.setEtudiant(etudiant);
+        cv4.setSession(Session.AUTOMNE_2021);
+        cv4.setNom("cv-accepted.pdf");
+//
+        cvRepository.saveAll(List.of(cv1, cv2, cv3, cv4));
 
         Offre offre1 = new Offre("TITRE1", "DESCRIPTION1", "ENTREPRISE1", true, "1 rue de la riviere Brossard", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 21);
         Offre offre2 = new Offre("TITRE2", "DESCRIPTION2", "ENTREPRISE2", true, "6 boul lachine Montreal", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 20);
