@@ -28,7 +28,7 @@ const Offres = () => {
   };
 
   const nextPage = () => {
-    if (offresPerPage * (pageNumber + 1) > offres.length) return;
+    if (offresPerPage * (pageNumber + 1) >= offres.length) return;
     updateListeOffres(pageNumber + 1);
     setPageNumber(pageNumber + 1);
   };
@@ -52,16 +52,18 @@ const Offres = () => {
         <tr>
           <th colSpan="2">Offres</th>
         </tr>
-        <tr>
-          <td>Le nombre d'offres totales</td>
-          <td>{offres.length}</td>
-        </tr>
-        <tr>
-          <th>Titre</th>
-          <th>Description</th>
-        </tr>
+        <tbody>
+          <tr>
+            <td>Le nombre d'offres totales</td>
+            <td>{offres.length}</td>
+          </tr>
+          <tr>
+            <th>Titre</th>
+            <th>Description</th>
+          </tr>
 
-        {offresList}
+          {offresList}
+        </tbody>
         <tr>
           <td>
             <button onClick={previousPage} className="button">

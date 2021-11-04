@@ -4,6 +4,9 @@ import { UserInfoContext } from "../../contexts/UserInfo";
 const Superviseurs = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [superviseurs, setSuperviseurs] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [superviseursVisible, setMoniteursVisible] = useState([]);
+  const superviseursPerPage = 3;
 
   useEffect(() => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
@@ -13,11 +16,32 @@ const Superviseurs = () => {
         })
         .then((superviseurs) => {
           setSuperviseurs(superviseurs);
+          setMoniteursVisible(superviseurs.slice(0, superviseursPerPage));
         });
     }
   }, []);
 
-  const superviseursList = superviseurs.map((superviseur) => (
+  const updateListeMoniteurs = (pageNumber) => {
+    let offset = superviseursPerPage * pageNumber;
+
+    setMoniteursVisible(
+      superviseurs.slice(0 + offset, superviseursPerPage + offset)
+    );
+  };
+
+  const nextPage = () => {
+    if (superviseursPerPage * (pageNumber + 1) >= superviseurs.length) return;
+    updateListeMoniteurs(pageNumber + 1);
+    setPageNumber(pageNumber + 1);
+  };
+
+  const previousPage = () => {
+    if (pageNumber === 0) return;
+    updateListeMoniteurs(pageNumber - 1);
+    setPageNumber(pageNumber - 1);
+  };
+
+  const superviseursList = superviseursVisible.map((superviseur) => (
     <tr key={superviseur.id.toString()}>
       <td>{superviseur.prenom}</td>
       <td>{superviseur.nom}</td>
@@ -39,6 +63,18 @@ const Superviseurs = () => {
           <th>Nom</th>
         </tr>
         {superviseursList}
+        <tr>
+          <td>
+            <button onClick={previousPage} className="button">
+              «
+            </button>
+          </td>
+          <td>
+            <button onClick={nextPage} className="button">
+              »
+            </button>
+          </td>
+        </tr>
       </table>
     </>
   );

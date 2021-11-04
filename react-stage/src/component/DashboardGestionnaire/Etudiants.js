@@ -28,7 +28,7 @@ const Etudiants = () => {
   };
 
   const nextPage = () => {
-    if (etudiantsPerPage * (pageNumber + 1) > etudiants.length) return;
+    if (etudiantsPerPage * (pageNumber + 1) >= etudiants.length) return;
     updateListeEtudiants(pageNumber + 1);
     setPageNumber(pageNumber + 1);
   };

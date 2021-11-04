@@ -28,7 +28,7 @@ const Moniteurs = () => {
   };
 
   const nextPage = () => {
-    if (moniteursPerPage * (pageNumber + 1) > moniteurs.length) return;
+    if (moniteursPerPage * (pageNumber + 1) >= moniteurs.length) return;
     updateListeMoniteurs(pageNumber + 1);
     setPageNumber(pageNumber + 1);
   };
