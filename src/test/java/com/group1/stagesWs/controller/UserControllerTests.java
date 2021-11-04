@@ -219,7 +219,7 @@ public class UserControllerTests {
             etudiant.setSuperviseur(superviseur);
         }
         when(userService.getAllEtudiantsForSuperviseur(superviseur.getId())).thenReturn(expected);
-        String url = "/stage/etudiants/" + superviseur.getId();
+        String url = "/user/etudiants/" + superviseur.getId();
 
         //Act
         MvcResult result = mockMvc.perform(get(url)
