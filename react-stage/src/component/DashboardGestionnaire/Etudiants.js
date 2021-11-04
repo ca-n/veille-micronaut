@@ -49,33 +49,31 @@ const Etudiants = () => {
   return (
     <>
       <table>
-        <thead>
-          <tr>
-            <th colSpan="2">Étudiants</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Le nombre d'étudiants inscrient</td>
-            <td>{etudiants.length}</td>
-          </tr>
-          <tr>
-            <th>Prénom</th>
-            <th>Nom</th>
-          </tr>
+        <tr>
+          <th colSpan="2">Étudiants</th>
+        </tr>
+        <tr>
+          <td>Le nombre d'étudiants inscrient</td>
+          <td>{etudiants.length}</td>
+        </tr>
+        <tr>
+          <th>Prénom</th>
+          <th>Nom</th>
+        </tr>
 
-          {etudiantsList}
-          <tr>
-            <button onClick={nextPage} colSpan="2">
-              next page
+        {etudiantsList}
+        <tr>
+          <td>
+            <button onClick={previousPage} className="button">
+              «
             </button>
-          </tr>
-          <tr>
-            <button onClick={previousPage} colSpan="2">
-              previous page
+          </td>
+          <td>
+            <button onClick={nextPage} className="button">
+              »
             </button>
-          </tr>
-        </tbody>
+          </td>
+        </tr>
       </table>
     </>
   );
