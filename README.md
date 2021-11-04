@@ -6,7 +6,7 @@ Projet de gestion stages du cours projet 2021
 # Assigner les tâches dès le début du sprint
 
 
-# Points d'action
+# Points d'action SPRINT 4
 1. Faire des daily aux deux jours
 2. Gérer les pr plus souvent pour rendre les tâches done
 
