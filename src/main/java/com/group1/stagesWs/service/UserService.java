@@ -1,4 +1,5 @@
 package com.group1.stagesWs.service;
+
 import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.*;
@@ -50,8 +51,8 @@ public class UserService implements SessionManager<User> {
         }
         return Optional.empty();
     }
-  
-    public Optional<User> findUserByCourriel(String email){
+
+    public Optional<User> findUserByCourriel(String email) {
         if (etudiantRepository.findEtudiantByCourrielIgnoreCase(email) != null) {
             return Optional.of(etudiantRepository.findEtudiantByCourrielIgnoreCase(email));
         }
@@ -66,21 +67,25 @@ public class UserService implements SessionManager<User> {
         }
         return Optional.empty();
     }
-  
+
     public List<Etudiant> getAllEtudiants() {
         List<Etudiant> listAllEtudiant = etudiantRepository.findAll();
-        return (List<Etudiant>)(List<?>) getListForCurrentSession((List<User>)(List<?>)listAllEtudiant);
+        return (List<Etudiant>) (List<?>) getListForCurrentSession((List<User>) (List<?>) listAllEtudiant);
     }
 
     public List<Etudiant> getAllEtudiantsAllSession() {
         return etudiantRepository.findAll();
     }
 
+    public List<Etudiant> getAllEtudiantsForSuperviseur(int idSuperviseur) {
+        return etudiantRepository.findAllBySuperviseurId(idSuperviseur);
+    }
+
     @Override
     public List<User> getListForCurrentSession(List<User> listUser) {
         List<User> listUserCurrentSession = new ArrayList<>();
-        for(User user : listUser){
-            if(user.getSession() == SessionManager.CURRENT_SESSION){
+        for (User user : listUser) {
+            if (user.getSession() == SessionManager.CURRENT_SESSION) {
                 listUserCurrentSession.add(user);
             }
         }

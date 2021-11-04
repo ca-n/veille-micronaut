@@ -36,10 +36,9 @@ public class UserControllerTests {
     @MockBean
     private UserService userService;
 
-    public UserControllerTests(){
+    public UserControllerTests() {
         mapper = new ObjectMapper().findAndRegisterModules();
     }
-
 
 
     @Test
@@ -202,6 +201,27 @@ public class UserControllerTests {
 
         //Act
         MvcResult result = mockMvc.perform(get("/user/etudiants/allSession")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualEtudiants.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetAllEtudiantsForSuperviseur() throws Exception {
+        //Arrange
+        List<Etudiant> expected = getEtudiants();
+        Superviseur superviseur = getSuperviseur();
+        for (Etudiant etudiant : expected) {
+            etudiant.setSuperviseur(superviseur);
+        }
+        when(userService.getAllEtudiantsForSuperviseur(superviseur.getId())).thenReturn(expected);
+        String url = "/user/superviseur/" + superviseur.getId() + "/etudiants";
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert
