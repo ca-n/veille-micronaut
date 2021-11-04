@@ -52,25 +52,22 @@ const Offres = () => {
         <tr>
           <th colSpan="2">Offres</th>
         </tr>
-        <tbody>
-          <tr>
-            <td>Le nombre d'offres totales</td>
-            <td>{offres.length}</td>
-          </tr>
-          <tr>
-            <th>Titre</th>
-            <th>Description</th>
-          </tr>
-
-          {offresList}
-        </tbody>
         <tr>
-          <td>
+          <td>Le nombre d'offres totales</td>
+          <td>{offres.length}</td>
+        </tr>
+        <tr>
+          <th>Titre</th>
+          <th>Description</th>
+        </tr>
+        <tbody>{offresList}</tbody>
+        <tr>
+          <td className="hoverButton">
             <button onClick={previousPage} className="button">
               «
             </button>
           </td>
-          <td>
+          <td className="hoverButton">
             <button onClick={nextPage} className="button">
               »
             </button>

@@ -60,15 +60,14 @@ const Etudiants = () => {
           <th>Prénom</th>
           <th>Nom</th>
         </tr>
-
-        {etudiantsList}
+        <tbody>{etudiantsList}</tbody>
         <tr>
-          <td>
+          <td className="hoverButton">
             <button onClick={previousPage} className="button">
               «
             </button>
           </td>
-          <td>
+          <td className="hoverButton">
             <button onClick={nextPage} className="button">
               »
             </button>

@@ -59,14 +59,14 @@ const Moniteurs = () => {
           <th>Prénom</th>
           <th>Nom</th>
         </tr>
-        {moniteursList}
+        <tbody>{moniteursList}</tbody>
         <tr>
-          <td>
+          <td className="hoverButton">
             <button onClick={previousPage} className="button">
               «
             </button>
           </td>
-          <td>
+          <td className="hoverButton">
             <button onClick={nextPage} className="button">
               »
             </button>

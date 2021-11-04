@@ -80,8 +80,8 @@ table tr:nth-child(even) {
   color: black;
 }
 
-table tr:hover {
-  background-color: cyan;
+table tbody tr:hover {
+  background-color: #23b6fd;
 }
 
 table th {
@@ -101,4 +101,8 @@ td {
 .button {
   height: 100%;
   width: 100%;
+}
+
+.hoverButton:hover {
+  background-color: lightgray;
 }
