@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -67,6 +68,24 @@ public class OffreServiceTest {
 
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    void testApplyForOffre() {
+        //Arrange
+        Etudiant etudiant = getEtudiant();
+        Offre expected = getOffre();
+        when(offreRepository.findById(any(Integer.class))).thenReturn(Optional.of(expected));
+        when(etudiantRepository.findEtudiantByCourrielIgnoreCase(any(String.class))).thenReturn(etudiant);
+        when(offreRepository.save(any(Offre.class))).thenReturn(expected);
+
+        //Act
+        Optional<Offre> returned = service.applyForOffre(expected.getId(), etudiant.getCourriel());
+
+        //Assert
+        assertThat(returned).isPresent();
+        var actual = returned.get();
+        assertThat(actual.getApplicants()).contains(etudiant);
     }
 
     private Offre getOffre() {

@@ -36,4 +36,11 @@ public class OffreController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
+
+    @PostMapping("/{id}/apply")
+    public ResponseEntity<Offre> applyForOffre(@PathVariable int id, @RequestBody String email) {
+        return service.applyForOffre(id, email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.internalServerError().build());
+    }
 }
