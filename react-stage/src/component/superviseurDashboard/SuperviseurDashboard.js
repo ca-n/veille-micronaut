@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfo'
 import UserService from '../../services/UserService'
-
+import './SuperviseurDashboard.css'
 
 const SuperviseurDashboard = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
@@ -61,7 +61,7 @@ const SuperviseurDashboard = () => {
             </div>
             {listEtudiants.length > 0 ?
                 <div>
-                    <h1>List étudiant</h1>
+                    <h1>Liste étudiants</h1>
                     <table>
                         <tr>
                             <th>Nom</th>
