@@ -68,6 +68,50 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant1.setHasVoiture(true);
         etudiantRepository.save(etudiant1);
 
+        Etudiant etudiant2 = new Etudiant();
+        etudiant2.setPrenom("bob");
+        etudiant2.setNom("Star");
+        etudiant2.setCourriel("bob@gmail.com");
+        etudiant2.setPassword("Password1");
+        etudiant2.setNumTelephone("123145676");
+        etudiant2.setRole(UserType.ETUDIANT);
+        etudiant2.setProgramme("Info");
+        etudiant2.setAdresse("113 lapierre");
+        etudiant2.setNumMatricule("12345678");
+        etudiant2.setHasLicense(true);
+        etudiant2.setHasVoiture(true);
+        etudiantRepository.save(etudiant2);
+
+        Etudiant etudiant3 = new Etudiant();
+        etudiant3.setPrenom("bub");
+        etudiant3.setNom("Star");
+        etudiant3.setCourriel("bub@gmail.com");
+        etudiant3.setPassword("Password1");
+        etudiant3.setNumTelephone("123145676");
+        etudiant3.setRole(UserType.ETUDIANT);
+        etudiant3.setProgramme("Info");
+        etudiant3.setAdresse("113 lapierre");
+        etudiant3.setNumMatricule("12345678");
+        etudiant3.setHasLicense(true);
+        etudiant3.setHasVoiture(true);
+        etudiantRepository.save(etudiant3);
+
+        Etudiant etudiant4 = new Etudiant();
+        etudiant4.setPrenom("rick");
+        etudiant4.setNom("Star");
+        etudiant4.setCourriel("rick@gmail.com");
+        etudiant4.setPassword("Password1");
+        etudiant4.setNumTelephone("123145676");
+        etudiant4.setRole(UserType.ETUDIANT);
+        etudiant4.setProgramme("Info");
+        etudiant4.setAdresse("113 lapierre");
+        etudiant4.setNumMatricule("12345678");
+        etudiant4.setHasLicense(true);
+        etudiant4.setHasVoiture(true);
+        etudiantRepository.save(etudiant4);
+
+
+
         Moniteur moniteur = new Moniteur();
         moniteur.setPrenom("Pascal");
         moniteur.setNom("Bourgoin");
