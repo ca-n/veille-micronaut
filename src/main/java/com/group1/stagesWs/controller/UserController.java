@@ -1,6 +1,5 @@
 package com.group1.stagesWs.controller;
 
-
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Superviseur;
@@ -17,10 +16,10 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/user")
 public class UserController {
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
-
 
     private final UserService service;
 
@@ -28,53 +27,54 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping(path = "/stage/etudiant")
+    @PostMapping(path = "/etudiant")
     public ResponseEntity<Etudiant> createEtudiant(@RequestBody Etudiant etudiant) {
         logger.info("post - createEtudiant " + etudiant);
-        return service.addEtudiant(etudiant)
-                .map(etudiant1 -> ResponseEntity.status(HttpStatus.CREATED).body(etudiant1))
+        return service.addEtudiant(etudiant).map(etudiant1 -> ResponseEntity.status(HttpStatus.CREATED).body(etudiant1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    //login
-    @GetMapping("/user/{email}/{password}")
+    // login
+    @GetMapping("/{email}/{password}")
     public ResponseEntity<User> login(@PathVariable("email") String email, @PathVariable("password") String password) {
-        return service.login(email, password)
-                .map(etudiant1 -> ResponseEntity.status(HttpStatus.OK).body(etudiant1))
+        return service.login(email, password).map(etudiant1 -> ResponseEntity.status(HttpStatus.OK).body(etudiant1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @GetMapping("/user/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<User> findUserByEmail(@PathVariable("email") String email) {
-        return service.findUserByCourriel(email)
-                .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
+        return service.findUserByCourriel(email).map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-
-    //Create Moniteur
-    @PostMapping(path = "/stage/moniteur")
+    // Create Moniteur
+    @PostMapping(path = "/moniteur")
     public ResponseEntity<Moniteur> addMoniteur(@RequestBody Moniteur moniteur) {
-        return service.addMoniteur(moniteur)
-                .map(moniteur1 -> ResponseEntity.status(HttpStatus.CREATED).body(moniteur1))
+        return service.addMoniteur(moniteur).map(moniteur1 -> ResponseEntity.status(HttpStatus.CREATED).body(moniteur1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @PostMapping("/stage/superviseur")
+    @PostMapping("/superviseur")
     public ResponseEntity<Superviseur> addSuperviseur(@RequestBody Superviseur superviseur) {
         return service.addSuperviseur(superviseur)
                 .map(superviseur1 -> ResponseEntity.status(HttpStatus.CREATED).body(superviseur1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @GetMapping(path = "/stage/etudiants")
+    @GetMapping(path = "/etudiants")
     public ResponseEntity<List<Etudiant>> getAllEtudiants() {
         return new ResponseEntity<>(service.getAllEtudiants(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/stage/etudiants/{idSuperviseur}")
-    public ResponseEntity<List<Etudiant>> getAllEtudiantsForSuperviseur(@PathVariable("idSuperviseur") int idSuperviseur) {
+    public ResponseEntity<List<Etudiant>> getAllEtudiantsForSuperviseur(
+            @PathVariable("idSuperviseur") int idSuperviseur) {
         logger.info("get - getAllEtudiantsForSuperviseur " + idSuperviseur);
         return new ResponseEntity<>(service.getAllEtudiantsForSuperviseur(idSuperviseur), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/etudiants/allSession")
+    public ResponseEntity<List<Etudiant>> getAllEtudiantsAllSession() {
+        return new ResponseEntity<>(service.getAllEtudiantsAllSession(), HttpStatus.OK);
     }
 }

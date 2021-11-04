@@ -52,7 +52,7 @@ const DropCv = () => {
 
                             let cv = { data: result, etudiant: data, nom: files.name }
 
-                            const res = await fetch('http://localhost:9191/stage/cv', {
+                            const res = await fetch('http://localhost:9191/cv', {
                                 method: 'POST',
                                 headers: {
                                     'Content-type': 'application/json',
@@ -69,7 +69,7 @@ const DropCv = () => {
 
 
     const updateCvs = async () => {
-        fetch(`http://localhost:9191/stage/cv/etudiant/${etudiant.id}`)
+        fetch(`http://localhost:9191/cv/etudiant/${etudiant.id}`)
             .then(res => {
                 return res.json()
             })
@@ -79,12 +79,23 @@ const DropCv = () => {
     }
 
     const deleteCV = async (cv) => {
-        const res = await fetch(`http://localhost:9191/stage/cv/delete/${cv.id}`, { method: 'DELETE' })
+        const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`, { method: 'DELETE' })
         await res.json().then(updateCvs())
     }
 
-    const download = (cv) => {
-        saveAs(`http://localhost:9191/stage/cv/pdf/${cv.id}`)
+    const download = async (cv) => {
+        await fetch(`http://localhost:9191/cv/pdf/${cv.id}`)
+                        .then(res => {
+                            console.log(res)
+                            if (res.ok){
+                                saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
+                            }
+                            throw res
+                        })
+                        .catch(error =>{
+                            alert("Le fichier n'est pas disponible")
+                        })
+        
     }
 
 
@@ -104,7 +115,7 @@ const DropCv = () => {
                 })
                 .then(data => {
                     setEtudiant(data)
-                    fetch(`http://localhost:9191/stage/cv/etudiant/${data.id}`)
+                    fetch(`http://localhost:9191/cv/etudiant/${data.id}`)
                         .then(res => {
                             return res.json()
                         })

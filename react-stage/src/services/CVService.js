@@ -1,7 +1,7 @@
-const url = 'http://localhost:9191/stage/cv'
+const urlBase = 'http://localhost:9191/cv'
 const CVService = {
     acceptCV: async (cv) => {
-        const res = await fetch(url + '/accept',
+        const res = await fetch(urlBase + '/accept',
         {
             method: 'POST',
             headers: {
@@ -14,7 +14,7 @@ const CVService = {
     },
 
     rejectCV: async (cv) => {
-        const res = await fetch(url + '/reject',
+        const res = await fetch(urlBase + '/reject',
         {
             method: 'POST',
             headers: {
@@ -27,13 +27,13 @@ const CVService = {
     },
 
     getAllCVs: async () => {
-        const res = await fetch(url)
+        const res = await fetch(urlBase)
         const data = await res.json()
         return data
     },
 
     getCV: async (id) => {
-        const res = await fetch(url + '/' + id)
+        const res = await fetch(urlBase + '/' + id)
         const data = await res.json()
         return data
     }

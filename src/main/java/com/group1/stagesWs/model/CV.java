@@ -1,7 +1,9 @@
 package com.group1.stagesWs.model;
 
 
+import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.enums.CVStatus;
+import com.group1.stagesWs.enums.Session;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,6 +22,7 @@ public class CV implements Serializable {
 
     private LocalDate dateSoumission;
     private CVStatus status;
+    private Session session;
 
     @Lob
     private byte[] data;
@@ -29,6 +32,7 @@ public class CV implements Serializable {
 
     public CV() {
         this.dateSoumission = LocalDate.now();
-        status = CVStatus.PENDING;
+        this.status = CVStatus.PENDING;
+        this.session = SessionManager.CURRENT_SESSION;
     }
 }
