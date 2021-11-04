@@ -4,6 +4,7 @@ import Offres from '../Offres/Offres'
 import UserService from '../../services/UserService'
 import Contrat from '../contrat/Contrat'
 import VoirCVState from './VoirCVState'
+import './EtudiantDashboard.css'
 
 
 const EtudiantDashboard = () => {
