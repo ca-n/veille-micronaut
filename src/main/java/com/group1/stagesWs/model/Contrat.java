@@ -35,14 +35,8 @@ public class Contrat implements Serializable {
     @ManyToOne
     private Offre offre;
 
-
-
     public Contrat() {
-        this.session = SessionManager.CURRENT_SESSION;
-    }
-
-    public Contrat(LocalDate dateCreation) {
-        this.dateCreation = dateCreation;
+        this.dateCreation = LocalDate.now();
         this.isEtudiantConfirmed = false;
         this.isGestionnaireConfirmed = false;
         this.isMoniteurConfirmed = false;
