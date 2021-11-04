@@ -16,7 +16,7 @@ const UserService = {
     getEtudiantsForSuperviseur: async (idSuperviseur) => {
         console.log(urlBase + 'etudiants/' + idSuperviseur)
         const res = await fetch(urlBase + 'etudiants/' + idSuperviseur)
-        const data = await JSON.stringify(res)
+        const data = await res.json()
         console.log(data, "getEtudiantsForSuperviseur")
         return data
     }

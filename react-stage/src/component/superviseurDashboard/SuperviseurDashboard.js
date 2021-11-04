@@ -34,7 +34,6 @@ const SuperviseurDashboard = () => {
                 })
                 .then(data => {
                     console.log(data, "data")
-                    //could acces superviseur par ici
                     getEtudiants(data.id)
                     setFullUser(data)
                 })
@@ -46,40 +45,15 @@ const SuperviseurDashboard = () => {
         const dbEtudiants =
             await UserService.getEtudiantsForSuperviseur(id)
         console.log(dbEtudiants, "dbEtudiants")
-        setListEtudiants(getOptionsEtudiant(dbEtudiants))
+        setListEtudiants(dbEtudiants)
     }
 
-    const getOptionsEtudiant = (listEtudiant) => {
-        return listEtudiant.map(etudiant => {
-            // console.log(etudiant)
-            let etudiantOption = {}
-            etudiantOption.label = etudiant.prenom + " " + etudiant.nom
-            etudiantOption.value = etudiant
-            return etudiantOption
-        })
-    }
+    const etudiantsList = listEtudiants.map((etudiant) =>
+        <tr key={etudiant.id.toString()}>
+            <td>{etudiant.prenom} {etudiant.nom}</td>
+            <td>{etudiant.courriel}</td>
+        </tr>);
 
-    //SAME BUG
-    /*
-    useEffect(() => {
-        console.log(fullUser.id, "fullUser.id")
-        const getEtudiants = async () => {
-            const dbEtudiants =
-                await UserService.getEtudiantsForSuperviseur(fullUser.id)
-            console.log(dbEtudiants, "dbEtudiants")
-            setListEtudiants(dbEtudiants)
-        }
-        getEtudiants()
-    }, [])
-    */
-
-    /*
-        const etudiantsList = listEtudiants.map((etudiant) =>
-            <tr key={etudiant.id.toString()}>
-                <td>{etudiant.prenom} {etudiant.nom}</td>
-                <td>{etudiant.courriel}</td>
-            </tr>);
-    */
     return (
         <>
             <div>
@@ -94,12 +68,7 @@ const SuperviseurDashboard = () => {
                             <th>Courriel</th>
                         </tr>
 
-                        {listEtudiants.map((etudiant) =>
-                            <tr key={etudiant.id.toString()}>
-                                <td>{etudiant.prenom} {etudiant.nom}</td>
-                                <td>{etudiant.courriel}</td>
-                            </tr>
-                        )}
+                        {etudiantsList}
                     </table>
                 </div>
                 : null}
