@@ -26,6 +26,11 @@ const UserService = {
             return data
         }
     */
+    getEtudiantsForSuperviseur: async (idSuperviseur) => {
+        const res = await fetch(urlBase + '/superviseur/' + idSuperviseur + '/etudiants')
+        const data = await res.json()
+        return data
+    }
 }
 
 export default UserService

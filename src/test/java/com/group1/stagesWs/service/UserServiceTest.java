@@ -230,21 +230,23 @@ public class UserServiceTest {
         //Assert
         assertThat(returned).isEqualTo(expected); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
-/*
+
     @Test
-    public void testFindSuperviseurByEtudiantId() {
+    public void testGetAllEtudiantsForSuperviseur() {
         //Arrange
-        Etudiant expected = getEtudiant();
-        expected.setSuperviseur(getSuperviseur());
-        when(etudiantRepository.findEtudiantById(expected.getId())).thenReturn(expected);
+        List<Etudiant> expected = getEtudiants();
+        Superviseur superviseur = getSuperviseur();
+        for (Etudiant etudiant:expected) {
+            etudiant.setSuperviseur(superviseur);
+        }
+        when(etudiantRepository.findAllBySuperviseurId(superviseur.getId())).thenReturn(expected);
 
         //Act
-        Optional<User> returned = service.findSuperviseurByEtudiantId(expected.getId());
+        List<Etudiant> returned = service.getAllEtudiantsForSuperviseur(superviseur.getId());
 
         //Assert
-        assertThat(returned).isEqualTo(Optional.of(expected.getSuperviseur()));
+        assertThat(returned).isEqualTo(expected);
     }
-*/
 
     private Etudiant getEtudiant() {
         return new Etudiant(

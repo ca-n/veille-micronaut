@@ -76,7 +76,7 @@ public class UserService implements SessionManager<User> {
 
     public List<Etudiant> getAllEtudiants() {
         List<Etudiant> listAllEtudiant = etudiantRepository.findAll();
-        return (List<Etudiant>)(List<?>) getListForCurrentSession((List<User>)(List<?>)listAllEtudiant);
+        return (List<Etudiant>) (List<?>) getListForCurrentSession((List<User>) (List<?>) listAllEtudiant);
     }
 
     public List<Etudiant> getAllEtudiantsAllSession() {
@@ -94,13 +94,16 @@ IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR
         Etudiant etudiant = etudiantRepository.findEtudiantById(id);
         return Optional.of(etudiant.get());
     }
+*/
+    public List<Etudiant> getAllEtudiantsForSuperviseur(int idSuperviseur) {
+        return etudiantRepository.findAllBySuperviseurId(idSuperviseur);
+    }
 
- */
     @Override
     public List<User> getListForCurrentSession(List<User> listUser) {
         List<User> listUserCurrentSession = new ArrayList<>();
-        for(User user : listUser){
-            if(user.getSession() == SessionManager.CURRENT_SESSION){
+        for (User user : listUser) {
+            if (user.getSession() == SessionManager.CURRENT_SESSION) {
                 listUserCurrentSession.add(user);
             }
         }
