@@ -1,20 +1,21 @@
+
 const urlBase = 'http://localhost:9191/offres'
 const OffreService = {
-    // getAllOffres [GET] /stage/offres
+    // getAllOffres [GET] /offres
     getAllOffres: async () => {
         const res = await fetch(urlBase)
         const data = await res.json()
         return data
     },
 
-    // getEtudiantOffres [GET] /stage/offres/{etudiantCourriel}
+    // getEtudiantOffres [GET] /offres/{etudiantCourriel}
     getEtudiantOffres: async (etudiantCourriel) => {
         const res = await fetch(urlBase + '/etudiant/' + etudiantCourriel)
         const data = await res.json()
         return data
     },
 
-    // saveOffre [POST] /stage/offre
+    // saveOffre [POST] /offres
     saveOffre: async (offre) => {
         const res = await fetch(urlBase, 
         {
@@ -23,6 +24,21 @@ const OffreService = {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(offre)
+        })
+        const data = await res.json()
+        return data
+    },
+
+    // applyForOffre [POST] /offres/{id}/apply 
+    // body: email
+    applyForOffre: async (id, email) => {
+        const res = await fetch(`${offresUrl}/${id}/apply`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-type': 'text/plain'
+            },
+            body: email
         })
         const data = await res.json()
         return data

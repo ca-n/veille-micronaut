@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -106,6 +107,25 @@ public class OffreControllerTests {
         assertThat(actualOffre).isEqualTo(expected);
     }
 
+    @Test
+    void testApplyForOffre() throws Exception {
+        //Arrange
+        Etudiant etudiant = getEtudiant();
+        Offre expected = getOffre();
+        expected.setApplicants(Set.of(etudiant));
+        when(service.applyForOffre(any(Integer.class), any(String.class))).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/offres/"+expected.getId()+"/apply")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(etudiant.getCourriel())).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
+        assertThat(actual.getApplicants()).contains(etudiant);
+    }
+
     private Offre getOffre() {
         return new Offre(
                 "Developpeur Java",
@@ -119,5 +139,19 @@ public class OffreControllerTests {
                 "9:00 a 5:00",
                 40,
                 22);
+    }
+
+    private Etudiant getEtudiant() {
+        return new Etudiant(
+                "Pascal",
+                "Bourgoin",
+                "test@test.com",
+                "password",
+                "123456789",
+                "technique",
+                "addy 123",
+                "123456",
+                true,
+                true);
     }
 }

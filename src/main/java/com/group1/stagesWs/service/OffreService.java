@@ -6,11 +6,13 @@ import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class OffreService implements SessionManager<Offre> {
@@ -51,5 +53,21 @@ public class OffreService implements SessionManager<Offre> {
             }
         }
         return listOffreCurrentSession;
+    }
+  
+    public Optional<Offre> applyForOffre(int id, String email) {
+        Optional<Offre> offreOptional = offreRepository.findById(id);
+        if (offreOptional.isEmpty()) return offreOptional;
+
+        Optional<Etudiant> etudiantOptional = Optional.ofNullable(etudiantRepository.findEtudiantByCourrielIgnoreCase(email));
+        if (etudiantOptional.isEmpty()) return Optional.empty();
+
+        Offre offre = offreOptional.get();
+        Etudiant etudiant = etudiantOptional.get();
+
+        Set<Etudiant> applicants = offre.getApplicants();
+        applicants.add(etudiant);
+        offre.setApplicants(applicants);
+        return Optional.of(offreRepository.save(offre));
     }
 }
