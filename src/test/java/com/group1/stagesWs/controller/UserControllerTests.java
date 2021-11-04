@@ -36,10 +36,9 @@ public class UserControllerTests {
     @MockBean
     private UserService userService;
 
-    public UserControllerTests(){
+    public UserControllerTests() {
         mapper = new ObjectMapper().findAndRegisterModules();
     }
-
 
 
     @Test
@@ -215,11 +214,11 @@ public class UserControllerTests {
         //Arrange
         List<Etudiant> expected = getEtudiants();
         Superviseur superviseur = getSuperviseur();
-        for (Etudiant etudiant:expected) {
+        for (Etudiant etudiant : expected) {
             etudiant.setSuperviseur(superviseur);
         }
         when(userService.getAllEtudiantsForSuperviseur(superviseur.getId())).thenReturn(expected);
-        String url = "/user/etudiants/" + superviseur.getId();
+        String url = "/user/superviseur/" + superviseur.getId() + "/etudiants";
 
         //Act
         MvcResult result = mockMvc.perform(get(url)
