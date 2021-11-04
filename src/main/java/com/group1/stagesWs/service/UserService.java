@@ -76,6 +76,12 @@ public class UserService implements SessionManager<User> {
         return etudiantRepository.findAll();
     }
 
+
+    public List<Etudiant> getAllEtudiantsWithoutSuperviseur(){
+        List<Etudiant> etudiantListe = etudiantRepository.findAllEtudiantBySuperviseurNull();
+        return (List<Etudiant>)(List<?>) getListForCurrentSession((List<User>)(List<?>)etudiantListe);
+    }
+
     @Override
     public List<User> getListForCurrentSession(List<User> listUser) {
         List<User> listUserCurrentSession = new ArrayList<>();
@@ -85,5 +91,16 @@ public class UserService implements SessionManager<User> {
             }
         }
         return listUserCurrentSession;
+    }
+
+    public Optional<Superviseur> addListeEtudiantSuperviseur(int superviseurId, List<Etudiant> listeEtudiants) {
+        if(!superviseurRepository.findById(superviseurId).equals(Optional.empty())){
+            Optional<Superviseur> superviseur = superviseurRepository.findById(superviseurId);
+            superviseur.get().setEtudiantSupervise(listeEtudiants);
+            return superviseurRepository.save(superviseur);
+        }
+
+        return Optional.empty();
+
     }
 }

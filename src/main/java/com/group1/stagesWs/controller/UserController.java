@@ -77,4 +77,16 @@ public class UserController {
     public ResponseEntity<List<Etudiant>> getAllEtudiantsAllSession() {
         return new ResponseEntity<>(service.getAllEtudiantsAllSession(), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/etudiants/nosuperviseur")
+    public ResponseEntity<List<Etudiant>> getAllEtudiantsWithoutSuperviseur(){
+        return new ResponseEntity<>(service.getAllEtudiantsWithoutSuperviseur(), HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/superviseur/{id}/etudiants")
+    public ResponseEntity<Superviseur> saveListeEtudiantsSuperviseur(@RequestBody List<Etudiant> listeEtudiants, @PathVariable int superviseurId) {
+        return service.addListeEtudiantSuperviseur(superviseurId, listeEtudiants)
+                .map(superviseur1 -> ResponseEntity.status(HttpStatus.CREATED).body(superviseur1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
 }

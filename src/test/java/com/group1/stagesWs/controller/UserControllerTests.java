@@ -210,6 +210,23 @@ public class UserControllerTests {
         assertThat(actualEtudiants.size()).isEqualTo(expected.size());
     }
 
+    @Test
+    void testGetAllEtudiantsWithoutSuperviseur() throws Exception {
+        //Arrange
+        List<Etudiant> expected = getEtudiants();
+        when(userService.getAllEtudiantsWithoutSuperviseur()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/user/etudiants/nosuperviseur")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualEtudiants.size()).isEqualTo(expected.size());
+    }
+
+
 
     private Etudiant getEtudiant() {
         return new Etudiant(

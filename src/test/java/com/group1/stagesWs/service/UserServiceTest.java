@@ -232,6 +232,20 @@ public class UserServiceTest {
         assertThat(returned).isEqualTo(expected); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
 
+    @Test
+    public void testGetAllEtudiantsWithoutSuperviseur() {
+        //Arrange
+        List<Etudiant> expected = getEtudiants();   //List etudiant qui ont la session actuelle par defaut
+        expected.get(0).setSession(Session.AUTOMNE_2021); //Changer un des etudiants a une session differente pour assurer que la fonction retourne juste les etudiants de la session actuelle
+        when(etudiantRepository.findAllEtudiantBySuperviseurNull()).thenReturn(expected);
+
+        //Act
+        List<Etudiant> returned = service.getAllEtudiantsWithoutSuperviseur();
+
+        //Assert
+        assertThat(returned).hasSize(expected.size() -1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+    }
+
 
     private Etudiant getEtudiant() {
         return new Etudiant(
