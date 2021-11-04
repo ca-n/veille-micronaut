@@ -17,8 +17,7 @@ public class UserService implements SessionManager<User> {
     private final MoniteurRepository moniteurRepository;
     private final SuperviseurRepository superviseurRepository;
 
-    public UserService(EtudiantRepository etudiantRepository, GestionnaireRepository gestionnaireRepository,
-            MoniteurRepository moniteurRepository, SuperviseurRepository superviseurRepository) {
+    public UserService(EtudiantRepository etudiantRepository, GestionnaireRepository gestionnaireRepository, MoniteurRepository moniteurRepository, SuperviseurRepository superviseurRepository) {
         this.etudiantRepository = etudiantRepository;
         this.gestionnaireRepository = gestionnaireRepository;
         this.moniteurRepository = moniteurRepository;
