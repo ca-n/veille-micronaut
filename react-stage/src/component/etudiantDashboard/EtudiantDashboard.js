@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfo'
 import Offres from '../Offres/Offres'
-import UserService from '../../services/UserService'
 import Contrat from '../contrat/Contrat'
 import VoirCVState from './VoirCVState'
 import './EtudiantDashboard.css'
+import UserService from '../../services/UserService'
+import ContratService from '../../services/ContratService'
 
 
 const EtudiantDashboard = () => {
@@ -38,10 +39,8 @@ const EtudiantDashboard = () => {
         nom: String,
         courriel: String
     })
-    const [cv, setCV] = useState()
 
     useEffect(() => {
-        console.log("alloAAAAAAAAAAAAA")
         if (loggedUser.isLoggedIn) {
             fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
                 .then(res => {
@@ -49,50 +48,26 @@ const EtudiantDashboard = () => {
                 })
                 .then(data => {
                     console.log(data, "data")
-                    //could acces superviseur par ici
                     setFullUser(data)
                     setSuperviseur(data.superviseur)
+                    getMoniteur(data.id)
+                    getContrat(data.id)
                 })
 
         }
     }, []);
 
-    useEffect(() => {
-        const getCV = async () => {
-            //const cv = await CVService.getCVByEtudiantId(fullUser.id)
-            setCV(cv)
-        }
-        getCV()
-    }, [])
+    const getMoniteur = async (id) => {
+        const moniteur = await UserService.getMoniteur(id)
+        setMoniteur(moniteur)
+    }
 
-    useEffect(() => {
-        const getSuperviseur = async () => {
-            const superviseur = await UserService.getSuperviseur(fullUser.id)
-            console.log(superviseur, "superviseur")
-            setSuperviseur(superviseur)
-        }
-        //getSuperviseur()
-    }, [])
+    const getContrat = async (id) => {
+        const dbContrat = await ContratService.getContrat(id)
+        console.log(dbContrat, "dbContrat")
+        setContrat(dbContrat)
+    }
 
-    useEffect(() => {
-        const getMoniteur = async () => {
-            //const moniteur = await UserService.getMoniteur(fullUser.id)
-            setMoniteur(moniteur)
-        }
-        //getMoniteur()
-    }, [])
-
-    /*
-    useEffect(() => {
-        const getContrat = async () => {
-            const dbContrat=
-                await ContratService.getContrat(loggedUser.courriel)
-            console.log(dbContrat, "dbContrat")
-            setContrat(dbContrat)
-        }
-        //getContrat()
-    }, [])
-    */
     console.log(loggedUser)
     return (
         <>

@@ -60,7 +60,7 @@ public class UserController {
 
     /*
     IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR
-        @GetMapping("/user/moniteur/{id}")
+        @GetMapping("/moniteur/{id}")
         public ResponseEntity<User> findMoniteurByEtudiantId(@PathVariable("id") int id) {
             return service.findMoniteurByEtudiantId(id)
                     .map(moniteur1 -> ResponseEntity.status(HttpStatus.OK).body(moniteur1))
