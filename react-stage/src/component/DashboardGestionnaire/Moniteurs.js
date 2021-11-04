@@ -4,6 +4,9 @@ import { UserInfoContext } from "../../contexts/UserInfo";
 const Moniteurs = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   const [moniteurs, setMoniteurs] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [moniteursVisible, setMoniteursVisible] = useState([]);
+  const moniteursPerPage = 3;
 
   useEffect(() => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
@@ -13,11 +16,30 @@ const Moniteurs = () => {
         })
         .then((moniteurs) => {
           setMoniteurs(moniteurs);
+          setMoniteursVisible(moniteurs.slice(0, moniteursPerPage));
         });
     }
   }, []);
 
-  const moniteursList = moniteurs.map((moniteur) => (
+  const updateListeMoniteurs = (pageNumber) => {
+    let offset = moniteursPerPage * pageNumber;
+
+    setMoniteursVisible(moniteurs.slice(0 + offset, moniteursPerPage + offset));
+  };
+
+  const nextPage = () => {
+    if (moniteursPerPage * (pageNumber + 1) > moniteurs.length) return;
+    updateListeMoniteurs(pageNumber + 1);
+    setPageNumber(pageNumber + 1);
+  };
+
+  const previousPage = () => {
+    if (pageNumber === 0) return;
+    updateListeMoniteurs(pageNumber - 1);
+    setPageNumber(pageNumber - 1);
+  };
+
+  const moniteursList = moniteursVisible.map((moniteur) => (
     <tr key={moniteur.id.toString()}>
       <td>{moniteur.prenom}</td>
       <td>{moniteur.nom}</td>
@@ -38,6 +60,18 @@ const Moniteurs = () => {
           <th>Nom</th>
         </tr>
         {moniteursList}
+        <tr>
+          <td>
+            <button onClick={previousPage} className="button">
+              «
+            </button>
+          </td>
+          <td>
+            <button onClick={nextPage} className="button">
+              »
+            </button>
+          </td>
+        </tr>
       </table>
     </>
   );
