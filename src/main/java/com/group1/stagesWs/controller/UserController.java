@@ -50,14 +50,14 @@ public class UserController {
                 .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
-
+    /*
     @GetMapping("/user/superviseur/{id}")
     public ResponseEntity<User> findSuperviseurByEtudiantId(@PathVariable("id") int id) {
         return service.findSuperviseurByEtudiantId(id)
                 .map(superviseur1 -> ResponseEntity.status(HttpStatus.OK).body(superviseur1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
-
+    */
     /*
     IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR
         @GetMapping("/moniteur/{id}")

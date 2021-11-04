@@ -1,13 +1,19 @@
 package com.group1.stagesWs.service;
+
 import com.group1.stagesWs.SessionManager;
-import com.group1.stagesWs.model.*;
-import com.group1.stagesWs.repositories.*;
+import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Moniteur;
+import com.group1.stagesWs.model.Superviseur;
+import com.group1.stagesWs.model.User;
+import com.group1.stagesWs.repositories.EtudiantRepository;
+import com.group1.stagesWs.repositories.GestionnaireRepository;
+import com.group1.stagesWs.repositories.MoniteurRepository;
+import com.group1.stagesWs.repositories.SuperviseurRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.DoubleStream;
 
 @Service
 public class UserService implements SessionManager<User> {
@@ -76,12 +82,12 @@ public class UserService implements SessionManager<User> {
     public List<Etudiant> getAllEtudiantsAllSession() {
         return etudiantRepository.findAll();
     }
-
+/*
     public Optional<User> findSuperviseurByEtudiantId(int id) {
         Etudiant etudiant = etudiantRepository.findEtudiantById(id);
         return Optional.of(etudiant.getSuperviseur());
     }
-
+*/
 /*
 IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR
     public Optional<User> findMoniteurByEtudiantId(int id) {
