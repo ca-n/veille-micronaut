@@ -39,6 +39,25 @@ const VoirCVState = () => {
                 return;
         }
     }
+    
+    useEffect(() => {
+        if (loggedUser.isLoggedIn) {
+            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
+                .then(res => {
+                    return res.json();
+                })
+                .then(data => {
+                    setEtudiant(data)
+                    fetch(`http://localhost:9191/cv/etudiant/${data.id}`)
+                        .then(res => {
+                            return res.json()
+                        })
+                        .then(data => {
+                            setCvs(data)
+                        })
+                })
+        }
+    }, [])
 
     const cvList = cvs.map((cv) =>
         <tr key={cv.id.toString()}>
@@ -49,24 +68,6 @@ const VoirCVState = () => {
             <td>{getStatusIcon(cv.status)}</td>
         </tr>);
 
-    useEffect(() => {
-        if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    setEtudiant(data)
-                    fetch(`http://localhost:9191/stage/cv/etudiant/${data.id}`)
-                        .then(res => {
-                            return res.json()
-                        })
-                        .then(data => {
-                            setCvs(data)
-                        })
-                })
-        }
-    }, [])
 
     return (
         <div>
