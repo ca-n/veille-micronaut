@@ -1,8 +1,8 @@
-const urlBase = 'http://localhost:9191/user'
+const urlBase = 'http://localhost:9191/user/'
 
 const UserService = {
     getUserByEmail: async (email) => {
-        const res = await fetch(urlBase + '/' + email)
+        const res = await fetch(urlBase + email)
         const data = await res.json()
         return data
     },
@@ -14,8 +14,10 @@ const UserService = {
     },
 
     getEtudiantsForSuperviseur: async (idSuperviseur) => {
-        const res = await fetch('http://localhost:9191/stage/etudiants/' + idSuperviseur)
-        const data = await res.json()
+        console.log(urlBase + 'etudiants/' + idSuperviseur)
+        const res = await fetch(urlBase + 'etudiants/' + idSuperviseur)
+        const data = await JSON.stringify(res)
+        console.log(data, "getEtudiantsForSuperviseur")
         return data
     }
 }

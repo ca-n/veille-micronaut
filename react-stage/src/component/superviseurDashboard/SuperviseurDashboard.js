@@ -26,7 +26,41 @@ const SuperviseurDashboard = () => {
 
     const [listEtudiants, setListEtudiants] = useState([])
 
+    useEffect(() => {
+        if (loggedUser.isLoggedIn) {
+            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
+                .then(res => {
+                    return res.json();
+                })
+                .then(data => {
+                    console.log(data, "data")
+                    //could acces superviseur par ici
+                    getEtudiants(data.id)
+                    setFullUser(data)
+                })
+
+        }
+    }, []);
+
+    const getEtudiants = async (id) => {
+        const dbEtudiants =
+            await UserService.getEtudiantsForSuperviseur(id)
+        console.log(dbEtudiants, "dbEtudiants")
+        setListEtudiants(getOptionsEtudiant(dbEtudiants))
+    }
+
+    const getOptionsEtudiant = (listEtudiant) => {
+        return listEtudiant.map(etudiant => {
+            // console.log(etudiant)
+            let etudiantOption = {}
+            etudiantOption.label = etudiant.prenom + " " + etudiant.nom
+            etudiantOption.value = etudiant
+            return etudiantOption
+        })
+    }
+
     //SAME BUG
+    /*
     useEffect(() => {
         console.log(fullUser.id, "fullUser.id")
         const getEtudiants = async () => {
@@ -37,28 +71,15 @@ const SuperviseurDashboard = () => {
         }
         getEtudiants()
     }, [])
+    */
 
-    useEffect(() => {
-        if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data, "data")
-                    //could acces superviseur par ici
-                    setFullUser(data)
-                })
-
-        }
-    }, []);
-
-    const etudiantsList = listEtudiants.map((etudiant) =>
-        <tr key={etudiant.id.toString()}>
-            <td>{etudiant.prenom} {etudiant.nom}</td>
-            <td>{etudiant.courriel}</td>
-        </tr>);
-
+    /*
+        const etudiantsList = listEtudiants.map((etudiant) =>
+            <tr key={etudiant.id.toString()}>
+                <td>{etudiant.prenom} {etudiant.nom}</td>
+                <td>{etudiant.courriel}</td>
+            </tr>);
+    */
     return (
         <>
             <div>
@@ -73,8 +94,12 @@ const SuperviseurDashboard = () => {
                             <th>Courriel</th>
                         </tr>
 
-
-                        {etudiantsList}
+                        {listEtudiants.map((etudiant) =>
+                            <tr key={etudiant.id.toString()}>
+                                <td>{etudiant.prenom} {etudiant.nom}</td>
+                                <td>{etudiant.courriel}</td>
+                            </tr>
+                        )}
                     </table>
                 </div>
                 : null}

@@ -32,7 +32,7 @@ const OffreService = {
     // applyForOffre [POST] /offres/{id}/apply 
     // body: email
     applyForOffre: async (id, email) => {
-        const res = await fetch(`${offresUrl}/${id}/apply`,
+        const res = await fetch(`${urlBase}/${id}/apply`,
         {
             method: 'POST',
             headers: {
