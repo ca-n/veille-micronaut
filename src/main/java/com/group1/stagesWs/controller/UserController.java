@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/user")
 public class UserController {
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -27,7 +28,7 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping(path = "/stage/etudiant")
+    @PostMapping(path = "/etudiant")
     public ResponseEntity<Etudiant> createEtudiant(@RequestBody Etudiant etudiant) {
         logger.info("post - createEtudiant " + etudiant);
         return service.addEtudiant(etudiant)
@@ -36,14 +37,14 @@ public class UserController {
     }
 
     //login
-    @GetMapping("/user/{email}/{password}")
+    @GetMapping("/{email}/{password}")
     public ResponseEntity<User> login(@PathVariable("email") String email, @PathVariable("password") String password) {
         return service.login(email, password)
                 .map(etudiant1 -> ResponseEntity.status(HttpStatus.OK).body(etudiant1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @GetMapping("/user/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<User> findUserByEmail(@PathVariable("email") String email) {
         return service.findUserByCourriel(email)
                 .map(user1 -> ResponseEntity.status(HttpStatus.OK).body(user1))
@@ -67,22 +68,27 @@ public class UserController {
         }
     */
     //Create Moniteur
-    @PostMapping(path = "/stage/moniteur")
+    @PostMapping(path = "/moniteur")
     public ResponseEntity<Moniteur> addMoniteur(@RequestBody Moniteur moniteur) {
         return service.addMoniteur(moniteur)
                 .map(moniteur1 -> ResponseEntity.status(HttpStatus.CREATED).body(moniteur1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @PostMapping("/stage/superviseur")
+    @PostMapping("/superviseur")
     public ResponseEntity<Superviseur> addSuperviseur(@RequestBody Superviseur superviseur) {
         return service.addSuperviseur(superviseur)
                 .map(superviseur1 -> ResponseEntity.status(HttpStatus.CREATED).body(superviseur1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @GetMapping(path = "/stage/etudiants")
+    @GetMapping(path = "/etudiants")
     public ResponseEntity<List<Etudiant>> getAllEtudiants() {
         return new ResponseEntity<>(service.getAllEtudiants(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/etudiants/allSession")
+    public ResponseEntity<List<Etudiant>> getAllEtudiantsAllSession() {
+        return new ResponseEntity<>(service.getAllEtudiantsAllSession(), HttpStatus.OK);
     }
 }

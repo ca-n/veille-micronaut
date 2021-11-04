@@ -53,7 +53,7 @@ public class CVControllerTests {
         when(cvService.acceptCV(any())).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/cv/accept")
+        MvcResult result = mockMvc.perform(post("/cv/accept")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
@@ -69,7 +69,7 @@ public class CVControllerTests {
         when(cvService.acceptCV(any())).thenReturn(Optional.empty());
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/cv/accept")
+        MvcResult result = mockMvc.perform(post("/cv/accept")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(new CV()))).andReturn();
 
@@ -85,7 +85,7 @@ public class CVControllerTests {
         when(cvService.rejectCV(any())).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/cv/reject")
+        MvcResult result = mockMvc.perform(post("/cv/reject")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
@@ -101,7 +101,7 @@ public class CVControllerTests {
         when(cvService.rejectCV(any())).thenReturn(Optional.empty());
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/cv/reject")
+        MvcResult result = mockMvc.perform(post("/cv/reject")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(new CV()))).andReturn();
 
@@ -116,7 +116,7 @@ public class CVControllerTests {
         when(cvService.getAllCVs()).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(get("/stage/cv")).andReturn();
+        MvcResult result = mockMvc.perform(get("/cv")).andReturn();
 
         //Assert
         var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
@@ -129,10 +129,10 @@ public class CVControllerTests {
         //Arrange
         CV expected = new CV();
         expected.setId(1);
-        when(cvService.getCV(1)).thenReturn(Optional.of(expected));
+        when(cvService.getCVById(any(Integer.class))).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(get("/stage/cv/" + expected.getId())).andReturn();
+        MvcResult result = mockMvc.perform(get("/cv/" + expected.getId())).andReturn();
 
         //Assert
         var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
@@ -140,6 +140,37 @@ public class CVControllerTests {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @Test
+    void testDeleteCV() throws Exception {
+        //Arrange
+        CV expected = new CV();
+        expected.setId(1);
+        when(cvService.deleteCV(any(Integer.class))).thenReturn(true);
+        
+        //Act
+        MvcResult result = mockMvc.perform(delete("/cv/delete/" + expected.getId())).andReturn();
+        
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), Boolean.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual).isTrue();
+    }
+    
+    @Test
+    void testGetAllCVsAllSession() throws Exception {
+        //Arrange
+        List<CV> expected = List.of(new CV(), new CV(), new CV());
+        when(cvService.getAllCVsAllSession()).thenReturn(expected);
+        
+        //Act
+        MvcResult result = mockMvc.perform(get("/cv/allSession")).andReturn();
+        
+        //Assert
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actual.size()).isEqualTo(3);
+    }
+    
     private Etudiant getEtudiant() {
         return new Etudiant(
                 "Pascal",
@@ -153,7 +184,7 @@ public class CVControllerTests {
                 true,
                 true);
     }
-
+    
     private Moniteur getMoniteur() {
         return new Moniteur(
                 "John",

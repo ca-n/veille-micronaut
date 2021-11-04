@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/cv")
 public class CVController {
 
     private final CVService cvService;
@@ -27,7 +28,7 @@ public class CVController {
         this.emailService = emailService;
     }
 
-    @PostMapping(path = "/stage/cv")
+    @PostMapping
     public ResponseEntity<CV> saveCV(@RequestBody CV cv) {
         Optional<CV> cvOptional = cvService.saveCV(cv);
         if (cvOptional.isPresent()) {
@@ -38,17 +39,17 @@ public class CVController {
         }
     }
 
-    @GetMapping(path = "/stage/cv/etudiant/{id}")
+    @GetMapping(path = "/etudiant/{id}")
     public ResponseEntity<List<CV>> getAllCVbyEtudiant(@PathVariable("id") int id) {
-        return new ResponseEntity<>(cvService.getAllCV(id), HttpStatus.OK);
+        return new ResponseEntity<>(cvService.getAllCVEtudiant(id), HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/stage/cv/delete/{id}")
-    public void deleteCV(@PathVariable int id) {
-        cvService.deleteCV(id);
+    @DeleteMapping(path = "/delete/{id}")
+    public ResponseEntity<Boolean> deleteCV(@PathVariable int id) {
+        return new ResponseEntity<>(cvService.deleteCV(id), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/stage/cv/pdf/{id}")
+    @GetMapping(path = "/pdf/{id}")
     public void generatePDF(@PathVariable("id") int id, HttpServletResponse response) {
         try {
             response.setContentType("application/pdf");
@@ -56,12 +57,14 @@ public class CVController {
             InputStream inputStream = new ByteArrayInputStream(
                     cvService.generateCVPDF(cv.get().getData(), cv.get().getNom()));
             IOUtils.copy(inputStream, response.getOutputStream());
+            ResponseEntity.status(HttpStatus.OK).build();
         } catch (IOException e) {
             e.printStackTrace();
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    @PostMapping("/stage/cv/accept")
+    @PostMapping("/accept")
     public ResponseEntity<CV> acceptCV(@RequestBody CV cv) {
         Optional<CV> cvOptional = cvService.acceptCV(cv);
         if (cvOptional.isPresent()) {
@@ -72,7 +75,7 @@ public class CVController {
         }
     }
 
-    @PostMapping("/stage/cv/reject")
+    @PostMapping("/reject")
     public ResponseEntity<CV> rejectCV(@RequestBody CV cv) {
         Optional<CV> cvOptional = cvService.rejectCV(cv);
         if (cvOptional.isPresent()) {
@@ -83,15 +86,20 @@ public class CVController {
         }
     }
 
-    @GetMapping("/stage/cv")
+    @GetMapping
     public ResponseEntity<List<CV>> getAllCVs() {
         return new ResponseEntity<List<CV>>(cvService.getAllCVs(), HttpStatus.OK);
     }
 
-    @GetMapping("/stage/cv/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CV> getCV(@PathVariable int id) {
-        return cvService.getCV(id)
+        return cvService.getCVById(id)
                 .map(cv -> ResponseEntity.status(HttpStatus.OK).body(cv))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @GetMapping("/allSession")
+    public ResponseEntity<List<CV>> getAllCVsAllSession() {
+        return new ResponseEntity<List<CV>>(cvService.getAllCVsAllSession(), HttpStatus.OK);
     }
 }

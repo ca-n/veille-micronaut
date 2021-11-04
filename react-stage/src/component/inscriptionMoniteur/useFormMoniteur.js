@@ -36,7 +36,7 @@ const useFormMoniteur = (callback, validateInfoMoniteur) => {
             callback();
 
             var request = new XMLHttpRequest();
-            request.open('POST', 'http://localhost:9191/stage/moniteur', true);
+            request.open('POST', 'http://localhost:9191/user/moniteur', true);
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
 
