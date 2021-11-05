@@ -142,7 +142,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant3.setRole(UserType.ETUDIANT);
         etudiant3.setProgramme("Informatique");
         etudiant3.setAdresse("113 lapierre");
-        etudiant3.setNumMatricule("1822323");
+        etudiant3.setNumMatricule("18223243");
         etudiant3.setHasLicense(true);
         etudiantRepository.save(etudiant3);
 
@@ -155,7 +155,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant4.setRole(UserType.ETUDIANT);
         etudiant4.setProgramme("Informatique");
         etudiant4.setAdresse("113 lapierre");
-        etudiant4.setNumMatricule("1822323");
+        etudiant4.setNumMatricule("18422323");
         etudiant4.setHasLicense(true);
         etudiantRepository.save(etudiant4);
 
@@ -168,7 +168,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant5.setRole(UserType.ETUDIANT);
         etudiant5.setProgramme("Informatique");
         etudiant5.setAdresse("113 lapierre");
-        etudiant5.setNumMatricule("1822323");
+        etudiant5.setNumMatricule("18224323");
         etudiant5.setHasLicense(true);
         etudiantRepository.save(etudiant5);
 
@@ -181,7 +181,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant6.setRole(UserType.ETUDIANT);
         etudiant6.setProgramme("Informatique");
         etudiant6.setAdresse("113 lapierre");
-        etudiant6.setNumMatricule("1822323");
+        etudiant6.setNumMatricule("18223234");
         etudiant6.setHasLicense(true);
         etudiantRepository.save(etudiant6);
       
@@ -299,7 +299,9 @@ public class StageswsApplication implements CommandLineRunner{
         offre3.setMoniteur(moniteur);
         offre4.setMoniteur(moniteur);
         offre5.setMoniteur(moniteur);
-        offre1.setApplicants(Set.of(etudiant, etudiant1));
+        offre1.setApplicants(Set.of(etudiant, etudiant2, etudiant3));
+        offre2.setApplicants(Set.of(etudiant4, etudiant5));
+        offre3.setApplicants(Set.of(etudiant6));
         Offre offre6 = new Offre("TITRE6", "DESCRIPTION6", "ENTREPRISE6", true, "113 lapierre Montreal", "2022-12-05", "2023-3-05", 13, "9:00 à 5:00", 40, 20.75);
         offre1.setWhitelist(Set.of(etudiant));
         offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
