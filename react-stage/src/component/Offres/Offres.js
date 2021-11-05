@@ -25,7 +25,7 @@ const Offres = () => {
         nbTotalHeuresParSemaine: Number,
         tauxHoraire: Number,
         whitelist: Array,
-        applicants: Array,
+        applicants: [],
         valid: Boolean
     })
 
@@ -39,9 +39,20 @@ const Offres = () => {
     useEffect(() => {
         if (!loggedUser.isLoggedIn || !(loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "ETUDIANT" || loggedUser.role === "MONITEUR")) history.push("/login")
         const getOffres = async () => {
-            const dbOffres = loggedUser.role === "ETUDIANT" ?
-                await OffreService.getEtudiantOffres(loggedUser.courriel) :
-                await OffreService.getAllOffres()
+            let dbOffres
+            switch (loggedUser.role) {
+                case "GESTIONNAIRE":
+                    dbOffres = await OffreService.getAllOffres()
+                    break
+                case "MONITEUR":
+                    dbOffres = await OffreService.getMoniteurOffres(loggedUser.courriel)
+                    break
+                case "ETUDIANT":
+                    dbOffres = await OffreService.getEtudiantOffres(loggedUser.courriel)
+                    break
+                default:
+                    break
+            }
             console.log(dbOffres, "dbOffres")
             setListOffres(dbOffres)
         }
@@ -90,6 +101,7 @@ const Offres = () => {
 
 
     const onClickOffre = (offre) => {
+        console.log(offre)
         setCurrentOffre(offre)
         setListWhitelistedEtudiant(getOptionsEtudiant(offre.whitelist))
         setShowModal(true)
@@ -144,6 +156,10 @@ const Offres = () => {
             await OffreService.getAllOffres()
         console.log(dbOffres, "dbOffres in update offres")
         setListOffres(dbOffres)
+    }
+
+    const getBoolIcon = (bool) => {
+        return bool ? <AiOutlineCheckCircle color="green"/> : <AiOutlineCloseCircle color="red"/>
     }
 
 
@@ -231,7 +247,7 @@ const Offres = () => {
 
                     </div>
 
-                    {loggedUser.role !== "ETUDIANT" &&
+                    {loggedUser.role === "GESTIONNAIRE" &&
                         <div className="mt-4">
                             <div className="row">
                                 <div className="col-6">
@@ -255,6 +271,29 @@ const Offres = () => {
                                 <input type='button' value='Save' onClick={onClickSave}></input>
                             </div>
                         </div>
+                    }
+
+                    {loggedUser.role === "MONITEUR" && 
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom d'étudiant</th>
+                                <th scope="col">Courriel</th>
+                                <th scope="col">Permis</th>
+                                <th scope="col">Voiture</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {showModal && currentOffre.applicants.map(etudiant => 
+                            <tr key={etudiant.id}>
+                                <td>{etudiant.prenom} {etudiant.nom}</td>
+                                <td>{etudiant.courriel}</td>
+                                <td>{getBoolIcon(etudiant.hasLicense)}</td>
+                                <td>{getBoolIcon(etudiant.hasVoiture)}</td>
+                            </tr>
+                            )}
+                        </tbody>
+                    </table>
                     }
 
                 </div>
