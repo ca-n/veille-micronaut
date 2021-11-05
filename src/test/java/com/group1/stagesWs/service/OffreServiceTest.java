@@ -1,8 +1,10 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.EtudiantRepository;
+import com.group1.stagesWs.repositories.MoniteurRepository;
 import com.group1.stagesWs.repositories.OffreRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +28,9 @@ public class OffreServiceTest {
 
     @Mock
     private EtudiantRepository etudiantRepository;
+
+    @Mock
+    private MoniteurRepository moniteurRepository;
 
     @Mock
     private UserService userService;
@@ -59,6 +64,21 @@ public class OffreServiceTest {
 
         //Assert
         assertThat(returned).isEqualTo(expected);
+    }
+
+    @Test
+    void testGetMoniteurOffres() {
+        //Arrange
+        Moniteur moniteur = new Moniteur();
+        List<Offre> expected = getOffres();
+        when(moniteurRepository.findMoniteurByCourrielIgnoreCase(any(String.class))).thenReturn(moniteur);
+        when(offreRepository.findAllByMoniteur(any(Moniteur.class))).thenReturn(expected);
+
+        //Act
+        List<Offre> returned = service.getMoniteurOffres("moniteur@example.com");
+
+        //Assert
+        assertThat(returned.size()).isEqualTo(3);
     }
 
     @Test
