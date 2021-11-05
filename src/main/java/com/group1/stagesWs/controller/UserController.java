@@ -95,4 +95,31 @@ public class UserController {
     public ResponseEntity<List<Etudiant>> getAllEtudiantsAllSession() {
         return new ResponseEntity<>(service.getAllEtudiantsAllSession(), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/superviseurs")
+    public ResponseEntity<List<Superviseur>> getAllSuperviseurs() {
+        return new ResponseEntity<>(service.getAllSuperviseurs(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/superviseurs/allSession")
+    public ResponseEntity<List<Superviseur>> getAllSuperviseursAllSession() {
+        return new ResponseEntity<>(service.getAllSuperviseursAllSession(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/etudiants/nosuperviseur")
+    public ResponseEntity<List<Etudiant>> getAllEtudiantsWithoutSuperviseur(){
+        return new ResponseEntity<>(service.getAllEtudiantsWithoutSuperviseur(), HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/superviseur/{superviseurId}/etudiants")
+    public ResponseEntity<Superviseur> saveListeEtudiantsSuperviseur(@RequestBody List<Etudiant> listeEtudiants, @PathVariable int superviseurId) {
+        return service.addListeEtudiantSuperviseur(superviseurId, listeEtudiants)
+                .map(superviseur1 -> ResponseEntity.status(HttpStatus.OK).body(superviseur1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @GetMapping(path = "/superviseur/etudiants/{idSuperviseur}")
+    public ResponseEntity<List<Etudiant>> getAllEtudiantBySuperviseur(@PathVariable int idSuperviseur){
+        return new ResponseEntity<>(service.getAllEtudiantsBySuperviseur(idSuperviseur), HttpStatus.OK);
+    }
 }

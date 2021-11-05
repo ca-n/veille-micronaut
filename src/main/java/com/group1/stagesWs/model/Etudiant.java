@@ -6,8 +6,9 @@ import com.group1.stagesWs.enums.UserType;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -38,6 +39,10 @@ public class Etudiant extends User implements Serializable {
         this.hasLicense = hasLicense;
         this.hasVoiture = hasVoiture;
     }
+
+    @ManyToOne
+    @JoinColumn(name="superviseur_id")
+    private Superviseur superviseur;
 
 
 }

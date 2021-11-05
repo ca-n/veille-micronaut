@@ -228,25 +228,99 @@ public class UserServiceTest {
         List<Etudiant> returned = service.getAllEtudiantsAllSession();
 
         //Assert
+//        assertThat(returned).isEqualTo(expected); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+        assertThat(returned).hasSize(3); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+
+    }
+
+    @Test
+    public void testGetAllSuperviseurs() {
+        //Arrange
+        List<Superviseur> expected = List.of(getSuperviseur(), getSuperviseur(), getSuperviseur());  //List etudiant qui ont la session actuelle par defaut
+        expected.get(0).setSession(Session.AUTOMNE_2021); //Changer un des etudiants a une session differente
+        when(superviseurRepository.findAll()).thenReturn(expected);
+
+        //Act
+        List<Superviseur> returned = service.getAllSuperviseurs();
+
+        //Assert
+        assertThat(returned).hasSize(expected.size() -1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+    }
+
+    @Test
+    public void testGetAllSuperviseurAllSession() {
+        //Arrange
+        List<Superviseur> expected = List.of(getSuperviseur(), getSuperviseur(), getSuperviseur());   //List etudiant qui ont la session actuelle par defaut
+        when(superviseurRepository.findAll()).thenReturn(expected);
+
+        //Act
+        List<Superviseur> returned = service.getAllSuperviseursAllSession();
+
+        //Assert
         assertThat(returned).isEqualTo(expected); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
 
     @Test
-    public void testGetAllEtudiantsForSuperviseur() {
+    public void testGetAllEtudiantsWithoutSuperviseur() {
         //Arrange
-        List<Etudiant> expected = getEtudiants();
-        Superviseur superviseur = getSuperviseur();
-        for (Etudiant etudiant:expected) {
-            etudiant.setSuperviseur(superviseur);
-        }
-        when(etudiantRepository.findAllBySuperviseurId(superviseur.getId())).thenReturn(expected);
+        List<Etudiant> expected = getEtudiants();   //List etudiant qui ont la session actuelle par defaut
+        expected.get(0).setSession(Session.AUTOMNE_2021); //Changer un des etudiants a une session differente pour assurer que la fonction retourne juste les etudiants de la session actuelle
+        when(etudiantRepository.findAllEtudiantBySuperviseurNull()).thenReturn(expected);
 
         //Act
-        List<Etudiant> returned = service.getAllEtudiantsForSuperviseur(superviseur.getId());
+        List<Etudiant> returned = service.getAllEtudiantsWithoutSuperviseur();
 
         //Assert
-        assertThat(returned).isEqualTo(expected);
+        assertThat(returned).hasSize(expected.size() -1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
+
+    @Test
+    public void testAddListeEtudiantSuperviseur() {
+        //Arrange
+        Superviseur superviseur = getSuperviseur();
+        superviseur.setId(1);
+        List<Etudiant> listEtudiants = getEtudiants();
+        List<Etudiant> listEtudiantTestRemove = List.of(getEtudiant());
+        listEtudiantTestRemove.get(0).setSuperviseur(superviseur); //Set superviseur to remove
+        when(superviseurRepository.findById(any(Integer.class))).thenReturn(Optional.of(superviseur));
+        when(etudiantRepository.saveAll(any(List.class))).thenReturn(listEtudiants);
+        when(etudiantRepository.findAllEtudiantBySuperviseurId(any(Integer.class))).thenReturn(listEtudiantTestRemove);
+
+        //Act
+        Optional<Superviseur> returned = service.addListeEtudiantSuperviseur(superviseur.getId(), listEtudiants);
+        Optional<Superviseur> returnedTestRemove = service.addListeEtudiantSuperviseur(superviseur.getId(), List.of());
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(superviseur));
+        assertThat(returnedTestRemove).isEqualTo(Optional.of(superviseur));
+
+        assertThat(listEtudiants.get(0).getSuperviseur()).isEqualTo(superviseur);
+        assertThat(listEtudiants.get(1).getSuperviseur()).isEqualTo(superviseur);
+        assertThat(listEtudiants.get(2).getSuperviseur()).isEqualTo(superviseur);
+
+        assertThat(listEtudiantTestRemove.get(0).getSuperviseur()).isEqualTo(null);
+    }
+
+    @Test
+    public void testGetAllEtudiantsBySuperviseur() {
+        //Arrange
+        Superviseur superviseur = getSuperviseur();
+        superviseur.setId(1);
+        List<Etudiant> listEtudiants = getEtudiants();
+        when(etudiantRepository.findAllEtudiantBySuperviseurId(any(Integer.class))).thenReturn(listEtudiants);
+
+        //Act
+        List<Etudiant> returned = service.getAllEtudiantsBySuperviseur(superviseur.getId());
+
+        //Assert
+        assertThat(returned).isEqualTo(listEtudiants);
+
+    }
+
+
+
+
+
 
     private Etudiant getEtudiant() {
         return new Etudiant(
