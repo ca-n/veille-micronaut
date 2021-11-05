@@ -77,6 +77,14 @@ public class UserService implements SessionManager<User> {
         return etudiantRepository.findAll();
     }
 
+    public List<Superviseur> getAllSuperviseurs() {
+        return superviseurRepository.findAll();
+    }
+
+    public List<Moniteur> getAllMoniteurs() {
+        return moniteurRepository.findAll();
+    }
+  
     public List<Etudiant> getAllEtudiantsForSuperviseur(int idSuperviseur) {
         return etudiantRepository.findAllBySuperviseurId(idSuperviseur);
     }
