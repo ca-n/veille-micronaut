@@ -299,7 +299,7 @@ public class StageswsApplication implements CommandLineRunner{
         offre3.setMoniteur(moniteur);
         offre4.setMoniteur(moniteur);
         offre5.setMoniteur(moniteur);
-        offre1.setApplicants(Set.of(etudiant, etudiant1));
+        offre1.setApplicants(Set.of(etudiant, etudiant2));
         Offre offre6 = new Offre("TITRE6", "DESCRIPTION6", "ENTREPRISE6", true, "113 lapierre Montreal", "2022-12-05", "2023-3-05", 13, "9:00 à 5:00", 40, 20.75);
         offre1.setWhitelist(Set.of(etudiant));
         offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
