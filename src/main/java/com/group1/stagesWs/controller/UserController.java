@@ -1,9 +1,6 @@
 package com.group1.stagesWs.controller;
 
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Moniteur;
-import com.group1.stagesWs.model.Superviseur;
-import com.group1.stagesWs.model.User;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,5 +113,10 @@ public class UserController {
     @GetMapping(path = "/superviseur/etudiants/{idSuperviseur}")
     public ResponseEntity<List<Etudiant>> getAllEtudiantBySuperviseur(@PathVariable int idSuperviseur){
         return new ResponseEntity<>(service.getAllEtudiantsBySuperviseur(idSuperviseur), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/gestionnaires")
+    public ResponseEntity<List<Gestionnaire>> getGestionnaire(){
+        return new ResponseEntity<>(service.getAllGestionnaires(), HttpStatus.OK);
     }
 }

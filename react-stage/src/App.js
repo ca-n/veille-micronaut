@@ -1,7 +1,7 @@
 import "./App.css";
-import FormEtudiant from "./component/inscriptionEtudiant/FormEtudiant";
-import FormSuperviseur from "./component/inscriptionSuperviseur/FormSuperviseur";
-import FormMoniteur from "./component/inscriptionMoniteur/FormMoniteur";
+import FormEtudiant from "./component/inscription/inscriptionEtudiant/FormEtudiant"
+import FormSuperviseur from "./component/inscription/inscriptionSuperviseur/FormSuperviseur";
+import FormMoniteur from "./component/inscription/inscriptionMoniteur/FormMoniteur";
 import LoginUser from "./component/loginUser/LoginUser";
 import Navbar from "./component/navbar/NavbarHTML";
 import Home from "./component/Home/Home";

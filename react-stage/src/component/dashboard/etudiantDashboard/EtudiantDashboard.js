@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { UserInfoContext } from '../../contexts/UserInfo'
-import Offres from '../Offres/Offres'
-import Contrat from '../contrat/Contrat'
+import { UserInfoContext } from '../../../contexts/UserInfo'
+import Offres from '../../Offres/Offres'
+import Contrat from '../../contrat/Contrat'
 import VoirCVState from './VoirCVState'
 import './EtudiantDashboard.css'
-import UserService from '../../services/UserService'
-import ContratService from '../../services/ContratService'
+import UserService from '../../../services/UserService'
+import ContratService from '../../../services/ContratService'
 
 
 const EtudiantDashboard = () => {

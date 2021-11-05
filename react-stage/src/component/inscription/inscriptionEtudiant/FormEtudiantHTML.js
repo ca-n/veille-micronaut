@@ -3,7 +3,7 @@ import useFormEtudiant from './useFormEtudiant'
 import validateInfoEtudiant from './validateInfoEtudiant';
 import './FormEtudiant';
 import { Link } from 'react-router-dom';
-import UserInfo, { UserInfoContext } from '../../contexts/UserInfo';
+import UserInfo, { UserInfoContext } from '../../../contexts/UserInfo';
 
 
 

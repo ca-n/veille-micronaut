@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { UserInfoContext } from '../../contexts/UserInfo'
-import UserService from '../../services/UserService'
+import { UserInfoContext } from '../../../contexts/UserInfo'
+import UserService from '../../../services/UserService'
 import './SuperviseurDashboard.css'
 
 const SuperviseurDashboard = () => {

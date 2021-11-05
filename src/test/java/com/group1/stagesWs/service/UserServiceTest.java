@@ -217,8 +217,9 @@ public class UserServiceTest {
         List<Etudiant> returned = service.getAllEtudiants();
 
         //Assert
-        assertThat(returned).hasSize(expected.size() -1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+        assertThat(returned).hasSize(expected.size() - 1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
+
     @Test
     public void testGetAllEtudiantsAllSession() {
         //Arrange
@@ -245,7 +246,7 @@ public class UserServiceTest {
         List<Superviseur> returned = service.getAllSuperviseurs();
 
         //Assert
-        assertThat(returned).hasSize(expected.size() -1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+        assertThat(returned).hasSize(expected.size() - 1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
 
     @Test
@@ -272,7 +273,7 @@ public class UserServiceTest {
         List<Etudiant> returned = service.getAllEtudiantsWithoutSuperviseur();
 
         //Assert
-        assertThat(returned).hasSize(expected.size() -1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+        assertThat(returned).hasSize(expected.size() - 1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
 
     @Test
@@ -318,9 +319,19 @@ public class UserServiceTest {
 
     }
 
+    @Test
+    public void testGetAllGestionnaires() {
+        //Arrange
+        List<Gestionnaire> expected = getGestionnaires();
+        expected.get(0).setSession(Session.AUTOMNE_2021);
+        when(gestionnaireRepository.findAll()).thenReturn(expected);
 
+        //Act
+        List<Gestionnaire> returned = service.getAllGestionnaires();
 
-
+        //Assert
+        assertThat(returned).hasSize(expected.size());
+    }
 
 
     private Etudiant getEtudiant() {
@@ -371,5 +382,9 @@ public class UserServiceTest {
 
     private List<Etudiant> getEtudiants() {
         return List.of(getEtudiant(), getEtudiant(), getEtudiant());
+    }
+
+    private List<Gestionnaire> getGestionnaires() {
+        return List.of(getGestionnaire(), getGestionnaire(), getGestionnaire());
     }
 }

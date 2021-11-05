@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { UserInfoContext } from "../../contexts/UserInfo";
+import { UserInfoContext } from "../../../contexts/UserInfo";
 
 const Offres = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);

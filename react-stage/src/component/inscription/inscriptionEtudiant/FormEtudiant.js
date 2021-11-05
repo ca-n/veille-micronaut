@@ -4,7 +4,7 @@ import FormEtudiantHTML from './FormEtudiantHTML'
 import FormEtudiantSuccess from './FormEtudiantSuccess'
 import './FormEtudiantCSS.css'
 import { Link } from 'react-router-dom'
-import { UserInfoContext } from '../../contexts/UserInfo'
+import { UserInfoContext } from '../../../contexts/UserInfo'
 
 const FormEtudiant = () => {
     const [isSbubmitted,setIsSubmitted] = useState(false)

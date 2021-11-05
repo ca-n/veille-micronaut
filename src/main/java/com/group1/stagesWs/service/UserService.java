@@ -1,10 +1,7 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Moniteur;
-import com.group1.stagesWs.model.Superviseur;
-import com.group1.stagesWs.model.User;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.GestionnaireRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.DoubleStream;
 
 @Service
 public class UserService implements SessionManager<User> {
@@ -24,7 +22,7 @@ public class UserService implements SessionManager<User> {
     private final SuperviseurRepository superviseurRepository;
 
     public UserService(EtudiantRepository etudiantRepository, GestionnaireRepository gestionnaireRepository,
-            MoniteurRepository moniteurRepository, SuperviseurRepository superviseurRepository) {
+                       MoniteurRepository moniteurRepository, SuperviseurRepository superviseurRepository) {
         this.etudiantRepository = etudiantRepository;
         this.gestionnaireRepository = gestionnaireRepository;
         this.moniteurRepository = moniteurRepository;
@@ -86,7 +84,7 @@ public class UserService implements SessionManager<User> {
 
     public List<Superviseur> getAllSuperviseurs() {
         List<Superviseur> listAllSuperviseur = superviseurRepository.findAll();
-        return (List<Superviseur>)(List<?>) getListForCurrentSession((List<User>)(List<?>)listAllSuperviseur);
+        return (List<Superviseur>) (List<?>) getListForCurrentSession((List<User>) (List<?>) listAllSuperviseur);
     }
 
     public List<Superviseur> getAllSuperviseursAllSession() {
@@ -94,21 +92,20 @@ public class UserService implements SessionManager<User> {
     }
 
 
-    public List<Etudiant> getAllEtudiantsWithoutSuperviseur(){
+    public List<Etudiant> getAllEtudiantsWithoutSuperviseur() {
         List<Etudiant> etudiantListe = etudiantRepository.findAllEtudiantBySuperviseurNull();
-        return (List<Etudiant>)(List<?>) getListForCurrentSession((List<User>)(List<?>)etudiantListe);
+        return (List<Etudiant>) (List<?>) getListForCurrentSession((List<User>) (List<?>) etudiantListe);
     }
 
     public Optional<Superviseur> addListeEtudiantSuperviseur(int superviseurId, List<Etudiant> listeEtudiants) {
         Optional<Superviseur> superviseur = superviseurRepository.findById(superviseurId);
-        if(!superviseur.equals(Optional.empty())) {
-            if (!listeEtudiants.isEmpty()){
+        if (!superviseur.equals(Optional.empty())) {
+            if (!listeEtudiants.isEmpty()) {
                 for (Etudiant etudiant : listeEtudiants) {
                     etudiant.setSuperviseur(superviseur.get());
                 }
                 etudiantRepository.saveAll(listeEtudiants);
-            }
-            else{
+            } else {
                 listeEtudiants = etudiantRepository.findAllEtudiantBySuperviseurId(superviseurId);
                 for (Etudiant etudiant : listeEtudiants) {
                     etudiant.setSuperviseur(null);
@@ -134,10 +131,9 @@ public class UserService implements SessionManager<User> {
      */
 
 
-    public List<Moniteur> getAllMoniteurs(){
+    public List<Moniteur> getAllMoniteurs() {
         return moniteurRepository.findAll();
     }
-      
 
 
     @Override
@@ -152,4 +148,7 @@ public class UserService implements SessionManager<User> {
     }
 
 
+    public List<Gestionnaire> getAllGestionnaires() {
+        return gestionnaireRepository.findAll();
+    }
 }
