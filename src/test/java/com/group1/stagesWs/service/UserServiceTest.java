@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -248,7 +247,6 @@ public class UserServiceTest {
         //Assert
         assertThat(returned).isEqualTo(expected);
     }
-
 
     private Etudiant getEtudiant() {
         return new Etudiant(

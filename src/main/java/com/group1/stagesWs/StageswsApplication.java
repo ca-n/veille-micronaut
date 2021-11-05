@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
+import java.util.Set;
 
 
 @SpringBootApplication
@@ -288,13 +289,12 @@ public class StageswsApplication implements CommandLineRunner{
         cv3.setStatus(CVStatus.REJECTED);
         cv3.setEtudiant(etudiant2);
         cv3.setNom("cv-rejected.pdf");
-//
         CV cv4 = new CV(); // accepted
         cv4.setStatus(CVStatus.ACCEPTED);
         cv4.setEtudiant(etudiant2);
         cv4.setSession(Session.AUTOMNE_2021);
         cv4.setNom("cv-accepted.pdf");
-//
+      
         cvRepository.saveAll(List.of(cv1, cv2, cv3, cv4));
 
         Offre offre1 = new Offre("TITRE1", "DESCRIPTION1", "ENTREPRISE1", true, "1 rue de la riviere Brossard", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 21);
@@ -303,8 +303,7 @@ public class StageswsApplication implements CommandLineRunner{
         Offre offre4 = new Offre("TITRE4", "DESCRIPTION4", "ENTREPRISE4", false, "1052 montee saint-claude Laprairie", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 25);
         Offre offre5 = new Offre("TITRE5", "DESCRIPTION5", "ENTREPRISE5", true, "10 boul dagenais Montreal", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 18.75);
         Offre offre6 = new Offre("TITRE6", "DESCRIPTION6", "ENTREPRISE6", true, "113 lapierre Montreal", "2022-12-05", "2023-3-05", 13, "9:00 à 5:00", 40, 20.75);
-
-//        offre1.getVisibiliteEtudiant().setWhitelistedEtudiant(Set.of(etudiant2));
+        offre1.setWhitelist(Set.of(etudiant));
         offreRepository.save(offre1);
         offreRepository.save(offre2);
         offreRepository.save(offre3);

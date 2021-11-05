@@ -33,6 +33,9 @@ public class Offre implements Serializable {
     @ManyToOne
     private Gestionnaire gestionnaire;
 
+    @ManyToOne
+    private Moniteur moniteur;
+
     @ManyToMany
     private Set<Etudiant> whitelist;
 
