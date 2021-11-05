@@ -11,7 +11,7 @@ const Cvs = () => {
 
   useEffect(() => {
     if (loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE") {
-      fetch(`http://localhost:9191/stage/cv`)
+      fetch(`http://localhost:9191/cv`)
         .then((res) => {
           return res.json();
         })
