@@ -17,14 +17,14 @@ const OffreService = {
 
     // getMoniteurOffres [GET] /offres/moniteur/{moniteurCourriel}
     getMoniteurOffres: async (moniteurCourriel) => {
-        const res = await fetch(offresUrl + '/moniteur/' + moniteurCourriel)
+        const res = await fetch(urlBase + '/moniteur/' + moniteurCourriel)
         const data = await res.json()
         return data
     },
 
     // addOffre [POST] /offres/{authorEmail}
     addOffre: async (offre, authorEmail) => {
-        const res = await fetch(offresUrl + '/' + authorEmail,
+        const res = await fetch(urlBase + '/' + authorEmail,
         {
             method: 'POST',
             headers: {
@@ -38,7 +38,7 @@ const OffreService = {
 
     // updateOffre [PUT] /offres/{id}
     updateOffre: async (offre) => {
-        const res = await(fetch(offresUrl + '/' + offre.id),
+        const res = await(fetch(urlBase + '/' + offre.id),
         {
             method: 'PUT',
             headers: {
