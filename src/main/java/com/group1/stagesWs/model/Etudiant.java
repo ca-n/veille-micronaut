@@ -36,6 +36,7 @@ public class Etudiant extends User implements Serializable {
     }
 
     @ManyToOne
+    @JoinColumn(name="superviseur_id")
     private Superviseur superviseur;
 
 

@@ -5,6 +5,7 @@ import com.group1.stagesWs.enums.UserType;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,8 +19,7 @@ public class Superviseur extends User implements Serializable {
     private String specialite;
 
 
-    @OneToMany(mappedBy = "superviseur")
-    private List<Etudiant> etudiantSupervise = new ArrayList<>();
+
 
 
     public Superviseur() {

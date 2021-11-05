@@ -92,14 +92,15 @@ public class UserService implements SessionManager<User> {
     }
 
     public Optional<Superviseur> addListeEtudiantSuperviseur(int superviseurId, List<Etudiant> listeEtudiants) {
-        if(!superviseurRepository.findById(superviseurId).equals(Optional.empty())){
-            Superviseur superviseur = superviseurRepository.findById(superviseurId).get();
-            superviseur.setEtudiantSupervise(listeEtudiants);
-            return Optional.of(superviseurRepository.save(superviseur));
+        Optional<Superviseur> superviseur = superviseurRepository.findById(superviseurId);
+        if(!superviseur.equals(Optional.empty())){
+            for (Etudiant etudiant: listeEtudiants){
+                etudiant.setSuperviseur(superviseur.get());
+            }
+            etudiantRepository.saveAll(listeEtudiants);
+            return superviseur;
         }
-
-        return Optional.empty();
-
+        return superviseur;
     }
 
     @Override
