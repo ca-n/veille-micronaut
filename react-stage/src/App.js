@@ -18,8 +18,10 @@ import AccountDetails from "./component/AccountDetails/AccountDetails";
 import VerificationCV from "./component/gestionCV/VerificationCV";
 import VerificationCVList from "./component/gestionCV/VerificationCVList";
 import DropCv from './component/DropCv/DropCv';
+import SuperviseurEtudiantsAssignation from './component/Superviseur/SuperviseurEtudiantsAssignation';
 import Dashboard from './component/dashboard/Dashboard';
 import Contrat from './component/contrat/Contrat';
+
 
 function App() {
   return (
@@ -42,7 +44,7 @@ function App() {
               <Route exact path="/gestion/cv/:id"><VerificationCV /></Route>
               <Route exact path="/dashboard"><Dashboard /></Route>
               <Route exact path="/contrat"><Contrat /></Route>
-
+              <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation/></Route>
             </Switch>
           </div>
         </UserInfo>

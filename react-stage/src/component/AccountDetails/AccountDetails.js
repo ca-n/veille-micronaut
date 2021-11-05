@@ -4,7 +4,6 @@ import "./AccountDetailsCSS.css";
 
 const AccountDetails = () => {
   const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
-  const [cvs, setCVs] = useState();
   const [fullUser, setFullUser] = useState({
     id: Number,
     prenom: String,
@@ -62,7 +61,7 @@ const AccountDetails = () => {
               name="prenom"
               className="form-input"
               placeholder="Entrez votre prenom"
-              value={fullUser.prenom}
+              defaultValue={fullUser.prenom}
               readOnly
             ></input>
           </div>
@@ -77,7 +76,7 @@ const AccountDetails = () => {
               name="nom"
               className="form-input"
               placeholder="Entrez votre nom"
-              value={fullUser.nom}
+              defaultValue={fullUser.nom}
               readOnly
             ></input>
           </div>
@@ -92,7 +91,7 @@ const AccountDetails = () => {
               name="courriel"
               className="form-input"
               placeholder="Entrez votre courriel"
-              value={fullUser.courriel}
+              defaultValue={fullUser.courriel}
               readOnly
             ></input>
           </div>
@@ -116,7 +115,7 @@ const AccountDetails = () => {
               name="password"
               className="form-input"
               placeholder="Confirmez votre mot de passe"
-              value={fullUser.password}
+              defaultValue={fullUser.password}
               readOnly
             ></input>
           </div>
@@ -131,7 +130,7 @@ const AccountDetails = () => {
               name="numTelephone"
               className="form-input"
               placeholder="Entrez votre numero de telephone"
-              value={fullUser.numTelephone}
+              defaultValue={fullUser.numTelephone}
               readOnly
             ></input>{" "}
           </div>
@@ -148,7 +147,7 @@ const AccountDetails = () => {
                   name="programme"
                   className="form-input"
                   placeholder="Entrez le nom de votre programme"
-                  value={fullUser.programme}
+                  defaultValue={fullUser.programme}
                   readOnly
                 ></input>
               </div>
@@ -163,7 +162,7 @@ const AccountDetails = () => {
                   name="adresse"
                   className="form-input"
                   placeholder="Entrez votre adresse"
-                  value={fullUser.adresse}
+                  defaultValue={fullUser.adresse}
                   readOnly
                 ></input>
               </div>
@@ -178,7 +177,7 @@ const AccountDetails = () => {
                   name="numMatricule"
                   className="form-input"
                   placeholder="Entrez votre numero de matricule"
-                  value={fullUser.numMatricule}
+                  defaultValue={fullUser.numMatricule}
                   readOnly
                 ></input>
               </div>
@@ -226,7 +225,7 @@ const AccountDetails = () => {
                   name="nomEntreprise"
                   className="form-input"
                   placeholder="Entrez le nom de votre entreprise"
-                  value={fullUser.nomEntreprise}
+                  defaultValue={fullUser.nomEntreprise}
                 ></input>
               </div>
 
@@ -240,7 +239,7 @@ const AccountDetails = () => {
                   name="adresseEntreprise"
                   className="form-input"
                   placeholder="Entrez l'adresse de votre entreprise"
-                  value={fullUser.adresseEntreprise}
+                  defaultValue={fullUser.adresseEntreprise}
                 ></input>
               </div>
             </>
@@ -257,7 +256,7 @@ const AccountDetails = () => {
                   name="departement"
                   className="form-input"
                   placeholder="Entrez le nom de votre departement"
-                  value={fullUser.departement}
+                  defaultValue={fullUser.departement}
                 ></input>
               </div>
 
@@ -271,7 +270,7 @@ const AccountDetails = () => {
                   name="specialite"
                   className="form-input"
                   placeholder="Entrez votre specialite"
-                  value={fullUser.specialite}
+                  defaultValue={fullUser.specialite}
                 ></input>
               </div>
             </>
@@ -289,7 +288,7 @@ const AccountDetails = () => {
                   name="departement"
                   className="form-input"
                   placeholder="Entrez le nom de votre departement"
-                  value={fullUser.departement}
+                  defaultValue={fullUser.departement}
                 ></input>
               </div>
             </>

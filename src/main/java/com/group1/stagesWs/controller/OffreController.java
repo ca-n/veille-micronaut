@@ -35,11 +35,24 @@ public class OffreController {
         return ResponseEntity.ok(service.getEtudiantOffres(email));
     }
 
-    @PostMapping
-    public ResponseEntity<Offre> saveOffre(@RequestBody Offre offre) {
-        return service.saveOffre(offre)
+    @GetMapping("/moniteur/{email}")
+    public ResponseEntity<List<Offre>> getMoniteurOffres(@PathVariable String email) {
+        return ResponseEntity.ok(service.getMoniteurOffres(email));
+    }
+
+    // Create new offre, include author's email in request path
+    @PostMapping("/{authorEmail}")
+    public ResponseEntity<Offre> addOffre(@RequestBody Offre offre, @PathVariable String authorEmail) {
+        return service.addOffre(offre, authorEmail)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Offre> updateOffre(@PathVariable int id, @RequestBody Offre offre) {
+        return service.updateOffre(id, offre)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/{id}/apply")

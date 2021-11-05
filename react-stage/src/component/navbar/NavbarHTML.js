@@ -49,11 +49,9 @@ const NavbarHTML = () => {
             :
             null
           }
-          {(loggedUser.role !== "MONITEUR")&& loggedUser.isLoggedIn &&
-            <>
+          {(loggedUser.isLoggedIn && loggedUser.role !== "SUPERVISEUR") ?
               <Nav.Link as={Link} to="/offres">Offres</Nav.Link>
-            </>
-            }
+            : null}
 
           {loggedUser.isLoggedIn && (loggedUser.role === "GESTIONNAIRE" ||  loggedUser.role === "MONITEUR")  ?
           <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
@@ -67,6 +65,10 @@ const NavbarHTML = () => {
         }
         {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
         <Nav.Link as={Link} to="/gestion/cv">Voir et valider les CV</Nav.Link> : null
+        }
+
+        {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
+        <Nav.Link as={Link} to="/gestion/superviseur">Gestion Superviseur</Nav.Link> : null
         }
         </Nav>
       </Navbar.Collapse>

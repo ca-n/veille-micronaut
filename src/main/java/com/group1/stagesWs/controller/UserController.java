@@ -85,14 +85,36 @@ public class UserController {
         return new ResponseEntity<>(service.getAllEtudiants(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/superviseur/{idSuperviseur}/etudiants")
-    public ResponseEntity<List<Etudiant>> getAllEtudiantsForSuperviseur(@PathVariable("idSuperviseur") int idSuperviseur) {
-        logger.info("get - getAllEtudiantsForSuperviseur " + idSuperviseur);
-        return new ResponseEntity<>(service.getAllEtudiantsForSuperviseur(idSuperviseur), HttpStatus.OK);
-    }
+//    @GetMapping(path = "/superviseur/{idSuperviseur}/etudiants")
+//    public ResponseEntity<List<Etudiant>> getAllEtudiantsForSuperviseur(@PathVariable("idSuperviseur") int idSuperviseur) {
+//        logger.info("get - getAllEtudiantsForSuperviseur " + idSuperviseur);
+//        return new ResponseEntity<>(service.getAllEtudiantsForSuperviseur(idSuperviseur), HttpStatus.OK);
+//    }
 
     @GetMapping(path = "/etudiants/allSession")
     public ResponseEntity<List<Etudiant>> getAllEtudiantsAllSession() {
         return new ResponseEntity<>(service.getAllEtudiantsAllSession(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/superviseurs/allSession")
+    public ResponseEntity<List<Superviseur>> getAllSuperviseursAllSession() {
+        return new ResponseEntity<>(service.getAllSuperviseursAllSession(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/etudiants/nosuperviseur")
+    public ResponseEntity<List<Etudiant>> getAllEtudiantsWithoutSuperviseur(){
+        return new ResponseEntity<>(service.getAllEtudiantsWithoutSuperviseur(), HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/superviseur/{superviseurId}/etudiants")
+    public ResponseEntity<Superviseur> saveListeEtudiantsSuperviseur(@RequestBody List<Etudiant> listeEtudiants, @PathVariable int superviseurId) {
+        return service.addListeEtudiantSuperviseur(superviseurId, listeEtudiants)
+                .map(superviseur1 -> ResponseEntity.status(HttpStatus.OK).body(superviseur1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @GetMapping(path = "/superviseur/etudiants/{idSuperviseur}")
+    public ResponseEntity<List<Etudiant>> getAllEtudiantBySuperviseur(@PathVariable int idSuperviseur){
+        return new ResponseEntity<>(service.getAllEtudiantsBySuperviseur(idSuperviseur), HttpStatus.OK);
     }
 }
