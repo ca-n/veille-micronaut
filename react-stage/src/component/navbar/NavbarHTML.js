@@ -70,6 +70,9 @@ const NavbarHTML = () => {
         {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
         <Nav.Link as={Link} to="/gestion/superviseur">Gestion Superviseur</Nav.Link> : null
         }
+        {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
+        <Nav.Link as={Link} to="/gestion/allSession">All Sessions Info</Nav.Link> : null
+        }
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -144,6 +144,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant3.setAdresse("113 lapierre");
         etudiant3.setNumMatricule("18223243");
         etudiant3.setHasLicense(true);
+        etudiant3.setSession(Session.HIVER_2021);
         etudiantRepository.save(etudiant3);
 
         Etudiant etudiant4 = new Etudiant();
@@ -157,6 +158,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant4.setAdresse("113 lapierre");
         etudiant4.setNumMatricule("18422323");
         etudiant4.setHasLicense(true);
+        etudiant4.setSession(Session.HIVER_2021);
         etudiantRepository.save(etudiant4);
 
         Etudiant etudiant5 = new Etudiant();

@@ -71,7 +71,7 @@ public class CVServiceTest {
         CV cv1 = getCV(); //Constructeur met leur session par defaut a la session actuelle
         CV cv2 = getCV(); //Constructeur met leur session par defaut a la session actuelle
         CV cv3 = getCV();
-        cv3.setSession(Session.AUTOMNE_2021); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
+        cv3.setSession(Session.HIVER_2021); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
         List<CV> listCV = List.of(cv1, cv2, cv3);
         when(cvRepository.findAll(any(Sort.class))).thenReturn(listCV);
 
@@ -88,7 +88,7 @@ public class CVServiceTest {
         CV cv1 = getCV(); //Constructeur met leur session par defaut a la session actuelle
         CV cv2 = getCV(); //Constructeur met leur session par defaut a la session actuelle
         CV cv3 = getCV();
-        cv3.setSession(Session.AUTOMNE_2021); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
+        cv3.setSession(Session.HIVER_2021); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
         List<CV> expected = List.of(cv1, cv2, cv3);
         when(cvRepository.findAll(any(Sort.class))).thenReturn(expected);
 
@@ -151,7 +151,7 @@ public class CVServiceTest {
         expected2.setEtudiant(expectedEtudiant);
         CV expected3 = getCV();
         expected3.setEtudiant(expectedEtudiant);
-        expected3.setSession(Session.AUTOMNE_2021); //Pour tester qu'on retourne juste les CV a l'etudiant pour la session actuelle
+        expected3.setSession(Session.HIVER_2021); //Pour tester qu'on retourne juste les CV a l'etudiant pour la session actuelle
         when(cvRepository.findCVByEtudiantId(any(Integer.class))).thenReturn(List.of(expected, expected2));
 
         //Act

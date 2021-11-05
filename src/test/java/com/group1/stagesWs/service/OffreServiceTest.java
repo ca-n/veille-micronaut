@@ -43,7 +43,7 @@ public class OffreServiceTest {
     void testGetAllOffres() {
         //Arrange
         List<Offre> expected = getOffres(); // Les offres de bases contienne la session actuelle
-        expected.get(0).setSession(Session.AUTOMNE_2021); //Changement de la session a une sesion differente que la session actuelle
+        expected.get(0).setSession(Session.HIVER_2021); //Changement de la session a une sesion differente que la session actuelle
         when(offreRepository.findAll()).thenReturn(expected);
 
         //Act
@@ -57,7 +57,7 @@ public class OffreServiceTest {
     void testGetAllOffresAllSession() {
         //Arrange
         List<Offre> expected = getOffres(); // Les offres de bases contienne la session actuelle
-        expected.get(0).setSession(Session.AUTOMNE_2021); //Changement de la session a une sesion differente que la session actuelle
+        expected.get(0).setSession(Session.HIVER_2021); //Changement de la session a une sesion differente que la session actuelle
         when(offreRepository.findAll()).thenReturn(expected);
 
         //Act

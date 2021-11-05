@@ -21,6 +21,7 @@ import DropCv from './component/DropCv/DropCv';
 import SuperviseurEtudiantsAssignation from './component/Superviseur/SuperviseurEtudiantsAssignation';
 import Dashboard from './component/dashboard/Dashboard';
 import Contrat from './component/contrat/Contrat';
+import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
               <Route exact path="/dashboard"><Dashboard /></Route>
               <Route exact path="/contrat"><Contrat /></Route>
               <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation/></Route>
+              <Route exact path="/gestion/allSession"><AllSessionInfo/></Route>
             </Switch>
           </div>
         </UserInfo>
