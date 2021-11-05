@@ -34,18 +34,18 @@ const SuperviseurEtudiantsAssignation = () => {
     useEffect(() => {
         // if (!loggedUser.isLoggedIn || (loggedUser.role !== "GESTIONNAIRE" || loggedUser.role !== "ETUDIANT")) history.push("/login")
         const getSuperviseurs = async () => {
-            const dbSuperviseurs =  await UserService.getListAllSuperviseurs()
+            const dbSuperviseurs = await UserService.getListAllSuperviseurs()
             console.log(dbSuperviseurs, "dbSuperviseurs")
             setListSuperviseurs(dbSuperviseurs)
         }
         getSuperviseurs()
     }, [])
 
-        const getListAllEtudiants = async (listSelectedEtudiant) => {
-            const allEtudiantsNoSuperviseur = await UserService.getListEtudiantWithoutSuperviseur() 
-            console.log(allEtudiantsNoSuperviseur, "fetch no superviseur")
-            setListAllEtudiant(getOptionsEtudiant(allEtudiantsNoSuperviseur.concat(listSelectedEtudiant)))
-        }
+    const getListAllEtudiants = async (listSelectedEtudiant) => {
+        const allEtudiantsNoSuperviseur = await UserService.getListEtudiantWithoutSuperviseur()
+        console.log(allEtudiantsNoSuperviseur, "fetch no superviseur")
+        setListAllEtudiant(getOptionsEtudiant(allEtudiantsNoSuperviseur.concat(listSelectedEtudiant)))
+    }
 
 
 
@@ -87,7 +87,7 @@ const SuperviseurEtudiantsAssignation = () => {
         setListSelectedEtudiant(getOptionsEtudiant(listEtudiantSupervise))
         getListAllEtudiants(listEtudiantSupervise)
         console.log("______---------------__________", superviseur)
-        
+
         setShowModal(true)
     }
 
@@ -97,7 +97,7 @@ const SuperviseurEtudiantsAssignation = () => {
         setShowModal(false)
     }
 
-    
+
 
     useEffect(() => {
         console.log(currentSuperviseur, "CURRENT SUPERVISEUR")
@@ -129,7 +129,7 @@ const SuperviseurEtudiantsAssignation = () => {
     }
 
     const updateSuperviseurs = async () => {
-        const dbSuperviseurs =  await UserService.getListAllSuperviseurs()
+        const dbSuperviseurs = await UserService.getListAllSuperviseurs()
         setListSuperviseurs(dbSuperviseurs)
     }
 
@@ -140,23 +140,23 @@ const SuperviseurEtudiantsAssignation = () => {
             <table className="table border">
                 <thead>
                     <tr>
-                        <th colSpan='3'>Prenom/Nom</th>
-                        <th colSpan='3'>Departement</th>
-                        <th colSpan='3'>Specialite</th>
+                        <th colSpan='3' style={{ color: "black" }}>Prenom/Nom</th>
+                        <th colSpan='3' style={{ color: "black" }}>Departement</th>
+                        <th colSpan='3' style={{ color: "black" }}>Specialite</th>
                         <th colSpan='3'></th>
                     </tr>
                 </thead>
                 <tbody>
                     {listSuperviseurs.map((superviseur) =>
-                            <tr key={superviseur.id.toString()}>
-                                <td colSpan='3'>{superviseur.prenom} {superviseur.nom}</td>
-                                <td colSpan='3'>{superviseur.departement}</td>
-                                <td colSpan='3'>{superviseur.specialite}</td>
-                                <td colSpan='3'><input type='button' onClick={() => onClickSuperviseur(superviseur)} value='Détails' className='p-1 btn-secondary' /></td>
-                            </tr>)
+                        <tr key={superviseur.id.toString()}>
+                            <td colSpan='3'>{superviseur.prenom} {superviseur.nom}</td>
+                            <td colSpan='3'>{superviseur.departement}</td>
+                            <td colSpan='3'>{superviseur.specialite}</td>
+                            <td colSpan='3'><input type='button' onClick={() => onClickSuperviseur(superviseur)} value='Détails' className='p-1 btn-secondary' /></td>
+                        </tr>)
                     }
 
-                
+
 
                 </tbody>
             </table>
@@ -164,11 +164,11 @@ const SuperviseurEtudiantsAssignation = () => {
                 <div className="container text-center">
                     <AiOutlineClose color='red' size='24px' onClick={onClickClose} />
                     <div className="row">
-                        <div className="col-2">Prenom/Nom</div>
-                        <div className="col-2">Departement</div>
-                        <div className="col-2"># Telephone</div>
-                        <div className="col-2">Courriel</div>
-                        <div className="col-2">Specialite</div>
+                        <div className="col-2" >Prenom/Nom</div>
+                        <div className="col-2" >Departement</div>
+                        <div className="col-2" ># Telephone</div>
+                        <div className="col-2" >Courriel</div>
+                        <div className="col-2" >Specialite</div>
                         <div className="col-2"></div>
                     </div>
 
@@ -184,7 +184,7 @@ const SuperviseurEtudiantsAssignation = () => {
                     <br />
                     <br />
 
-                
+
                     {loggedUser.role == "GESTIONNAIRE" &&
                         <div className="mt-4">
                             <div className="row">
