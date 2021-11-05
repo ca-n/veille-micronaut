@@ -266,7 +266,7 @@ public class StageswsApplication implements CommandLineRunner{
         gestionnaireRepository.save(gestionnaire);
 
 
-        
+
 
 
 
