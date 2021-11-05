@@ -14,6 +14,7 @@ import VerificationCV from './component/gestionCV/VerificationCV';
 import VerificationCVList from './component/gestionCV/VerificationCVList';
 
 import DropCv from './component/DropCv/DropCv';
+import SuperviseurEtudiantsAssignation from './component/Superviseur/SuperviseurEtudiantsAssignation';
 
 
 
@@ -36,6 +37,8 @@ function App() {
               <Route exact path="/dropCv"><DropCv/></Route>
               <Route exact path="/gestion/cv"><VerificationCVList/></Route>
               <Route exact path="/gestion/cv/:id"><VerificationCV/></Route>
+              <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation/></Route>
+
 
             </Switch>
           </div>

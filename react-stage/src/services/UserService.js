@@ -11,7 +11,25 @@ const UserService = {
         const res = await fetch(urlBase + '/etudiants')
         const data = await res.json()
         return data
-    }
+    },
+
+    getListEtudiantWithoutSuperviseur: async () => {
+        const res = await fetch(urlBase + '/etudiants/nosuperviseur')
+        const data = await res.json()
+        return data
+    },
+
+    getListAllSuperviseurs: async () => {
+        const res = await fetch(urlBase + '/superviseurs')
+        const data = await res.json()
+        return data
+    },
+
+    getListEtudiantSuperviseur: async (superviseurId) => {
+        const res = await fetch(urlBase + '/superviseur/etudiants/' + superviseurId)
+        const data = await res.json()
+        return data
+    },
 }
 
 export default UserService

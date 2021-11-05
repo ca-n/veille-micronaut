@@ -223,7 +223,7 @@ public class UserControllerTests {
         //Assert
         var actualSuperviseurs = mapper.readValue(result.getResponse().getContentAsString(), List.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualSuperviseurs.size()).isEqualTo(expected.size());
+        assertThat(actualSuperviseurs).hasSize(expected.size());
     }
 
     @Test
@@ -276,6 +276,26 @@ public class UserControllerTests {
         var actualSuperviseur = mapper.readValue(result.getResponse().getContentAsString(), Superviseur.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualSuperviseur).isEqualTo(expected);
+    }
+
+    @Test
+    void testGetAllEtudiantsBySuperviseur() throws Exception {
+        //Arrange
+        Superviseur superviseur = getSuperviseur();
+        superviseur.setId(1);
+        List<Etudiant> expected = getEtudiants();
+        when(userService.getAllEtudiantsBySuperviseur(any(Integer.class))).thenReturn(expected);
+        String url = "/user/superviseur/etudiants/" + superviseur.getId();
+
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualEtudiants).hasSize(expected.size());
     }
 
 

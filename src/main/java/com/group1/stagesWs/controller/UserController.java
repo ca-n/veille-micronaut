@@ -99,4 +99,9 @@ public class UserController {
                 .map(superviseur1 -> ResponseEntity.status(HttpStatus.OK).body(superviseur1))
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
+
+    @GetMapping(path = "/superviseur/etudiants/{idSuperviseur}")
+    public ResponseEntity<List<Etudiant>> getAllEtudiantBySuperviseur(@PathVariable int idSuperviseur){
+        return new ResponseEntity<>(service.getAllEtudiantsBySuperviseur(idSuperviseur), HttpStatus.OK);
+    }
 }
