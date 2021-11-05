@@ -37,6 +37,7 @@ public class OffreController {
 
     @PostMapping
     public ResponseEntity<Offre> saveOffre(@RequestBody Offre offre) {
+        System.err.println(offre);
         return service.saveOffre(offre)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());

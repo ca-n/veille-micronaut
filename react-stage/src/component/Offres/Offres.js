@@ -118,25 +118,27 @@ const Offres = () => {
         updatedOffre.whitelist = getListEtudiantFromOptions(listWhitelistedEtudiant)
         setCurrentOffre(updatedOffre)
         console.log(updatedOffre, "UPDATED OFFRE")
-        saveOffre(updatedOffre)
+        OffreService.saveOffre(updatedOffre)
+        updateOffres()
+
 
         console.log(listOffres, "list offres as save")
         onClickClose()
     }
 
 
-    const saveOffre = async (offre) => {
-        const res = await fetch('http://localhost:9191/offres',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(offre)
-            })
-        await res.json()
-        updateOffres()
-    }
+    // const saveOffre = async (offre) => {
+    //     const res = await fetch('http://localhost:',
+    //         {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-type': 'application/json',
+    //             },
+    //             body: JSON.stringify(offre)
+    //         })
+    //     await res.json()
+    //     updateOffres()
+    // }
 
     const updateOffres = async () => {
         const dbOffres = loggedUser.role === "ETUDIANT" ?
