@@ -82,19 +82,14 @@ public class UserService implements SessionManager<User> {
     public List<Etudiant> getAllEtudiantsAllSession() {
         return etudiantRepository.findAll();
     }
-/*
-    public Optional<User> findSuperviseurByEtudiantId(int id) {
-        Etudiant etudiant = etudiantRepository.findEtudiantById(id);
-        return Optional.of(etudiant.getSuperviseur());
-    }
-*/
-/*
-IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR
-    public Optional<User> findMoniteurByEtudiantId(int id) {
-        Etudiant etudiant = etudiantRepository.findEtudiantById(id);
-        return Optional.of(etudiant.get());
-    }
-*/
+
+    /*
+    IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR
+        public Optional<User> findMoniteurByEtudiantId(int id) {
+            Etudiant etudiant = etudiantRepository.findEtudiantById(id);
+            return Optional.of(etudiant.get());
+        }
+    */
     public List<Etudiant> getAllEtudiantsForSuperviseur(int idSuperviseur) {
         return etudiantRepository.findAllBySuperviseurId(idSuperviseur);
     }

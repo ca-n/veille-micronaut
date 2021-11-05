@@ -18,14 +18,7 @@ const UserService = {
         //const data = await res.json()
         //return data
     },
-    /*
-        getSuperviseur: async (id) => {
-            console.log(id, "id")
-            const res = await fetch(urlBase + '/superviseur/' + id)
-            const data = await res.json()
-            return data
-        }
-    */
+
     getEtudiantsForSuperviseur: async (idSuperviseur) => {
         const res = await fetch(urlBase + '/superviseur/' + idSuperviseur + '/etudiants')
         const data = await res.json()
