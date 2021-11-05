@@ -71,8 +71,9 @@ const SuperviseurDashboard = () => {
                         {etudiantsList}
                     </table>
                 </div>
-                : null}
-
+                :
+                null
+            }
         </>
     )
 }

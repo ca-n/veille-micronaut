@@ -7,7 +7,9 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.Set;
 
 @Data
 @Entity
@@ -19,6 +21,9 @@ public class Etudiant extends User implements Serializable {
 
     private boolean hasLicense;
     private boolean hasVoiture;
+
+    @OneToMany
+    private Set<Offre> offres;
 
     @ManyToOne
     private Superviseur superviseur;

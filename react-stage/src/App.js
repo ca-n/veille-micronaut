@@ -19,6 +19,7 @@ import VerificationCV from "./component/gestionCV/VerificationCV";
 import VerificationCVList from "./component/gestionCV/VerificationCVList";
 import DropCv from './component/DropCv/DropCv';
 import Dashboard from './component/dashboard/Dashboard';
+import Contrat from './component/contrat/Contrat';
 
 function App() {
   return (
@@ -28,42 +29,20 @@ function App() {
           <Navbar />
           <div>
             <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route exact path="/etudiant">
-                <FormEtudiant />
-              </Route>
-              <Route exact path="/superviseur">
-                <FormSuperviseur />
-              </Route>
-              <Route exact path="/moniteur">
-                <FormMoniteur />
-              </Route>
-              <Route exact path="/account">
-                <AccountDetails />
-              </Route>
-              <Route exact path="/offres">
-                <Offres />
-              </Route>
-              <Route exact path="/login">
-                <LoginUser />
-              </Route>
-              <Route exact path="/newOffre">
-                <FormOffre />
-              </Route>
-              <Route exact path="/dropCv">
-                <DropCv />
-              </Route>
-              <Route exact path="/gestion/cv">
-                <VerificationCVList />
-              </Route>
-              <Route exact path="/gestion/cv/:id">
-                <VerificationCV />
-              </Route>
-              <Route exact path="/dashboard">
-                <Dashboard />
-              </Route>
+              <Route exact path="/"><Home /></Route>
+              <Route exact path="/etudiant"><FormEtudiant /></Route>
+              <Route exact path="/superviseur"><FormSuperviseur /></Route>
+              <Route exact path="/moniteur"><FormMoniteur /></Route>
+              <Route exact path="/account"><AccountDetails /></Route>
+              <Route exact path="/offres"><Offres /></Route>
+              <Route exact path="/login"><LoginUser /></Route>
+              <Route exact path="/newOffre"><FormOffre /></Route>
+              <Route exact path="/dropCv"><DropCv /></Route>
+              <Route exact path="/gestion/cv"><VerificationCVList /></Route>
+              <Route exact path="/gestion/cv/:id"><VerificationCV /></Route>
+              <Route exact path="/dashboard"><Dashboard /></Route>
+              <Route exact path="/contrat"><Contrat /></Route>
+
             </Switch>
           </div>
         </UserInfo>
