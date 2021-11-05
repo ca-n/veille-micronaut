@@ -15,11 +15,13 @@ import java.util.Optional;
 public class OffreService {
     private final OffreRepository offreRepository;
     private final EtudiantRepository etudiantRepository;
+    private final MoniteurRepository moniteurRepository;
     private final UserService userService;
 
-    public OffreService(OffreRepository offreRepository, EtudiantRepository etudiantRepository, UserService userService) {
+    public OffreService(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, UserService userService) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
+        this.moniteurRepository = moniteurRepository;
         this.userService = userService;
     }
 
@@ -30,6 +32,11 @@ public class OffreService {
     public List<Offre> getEtudiantOffres(String etudiantEmail) {
         Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
         return offreRepository.findAllByWhitelistContainsAndIsValidTrue(etudiant);
+    }
+
+    public List<Offre> getMoniteurOffres(String email) {
+        Moniteur moniteur = moniteurRepository.findMoniteurByCourrielIgnoreCase(email);
+        return offreRepository.findAllByMoniteur(moniteur);
     }
 
     public Optional<Offre> addOffre(Offre offre, String email) {
