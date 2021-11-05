@@ -124,8 +124,8 @@ public class UserService implements SessionManager<User> {
 
     public List<Etudiant> getAllEtudiantsBySuperviseur(int superviseurId) {
         List<Etudiant> listAllEtudiantBySuperviseur = etudiantRepository.findAllEtudiantBySuperviseurId(superviseurId);
-        return (List<Etudiant>)(List<?>) getListForCurrentSession((List<User>)(List<?>)listAllEtudiantBySuperviseur);
-
+        return (List<Etudiant>) (List<?>) getListForCurrentSession((List<User>) (List<?>) listAllEtudiantBySuperviseur);
+    }
     /*
      * IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR public
      * Optional<User> findMoniteurByEtudiantId(int id) { Etudiant etudiant =
@@ -133,15 +133,12 @@ public class UserService implements SessionManager<User> {
      * }
      */
 
-    public List<Superviseur> getAllSuperviseurs() {
-        return superviseurRepository.findAll();
-    }
 
-    public List<Moniteur> getAllMoniteurs() {
+    public List<Moniteur> getAllMoniteurs(){
         return moniteurRepository.findAll();
     }
       
-    }
+
 
     @Override
     public List<User> getListForCurrentSession(List<User> listUser) {

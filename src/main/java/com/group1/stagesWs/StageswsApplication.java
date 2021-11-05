@@ -117,7 +117,6 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant.setAdresse("113 lapierre");
         etudiant.setNumMatricule("1822323");
         etudiant.setHasLicense(true);
-        etudiant.setSuperviseur(superviseur2);
         etudiantRepository.save(etudiant);
 
         Etudiant etudiant2 = new Etudiant();
@@ -132,7 +131,6 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant2.setNumMatricule("12345678");
         etudiant2.setHasLicense(true);
         etudiant2.setHasVoiture(true);
-        etudiant.setSuperviseur(superviseur);
         etudiantRepository.save(etudiant2);
 
         Etudiant etudiant3 = new Etudiant();
@@ -146,7 +144,6 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant3.setAdresse("113 lapierre");
         etudiant3.setNumMatricule("1822323");
         etudiant3.setHasLicense(true);
-        etudiant3.setSuperviseur(superviseur3);
         etudiantRepository.save(etudiant3);
 
         Etudiant etudiant4 = new Etudiant();
@@ -160,7 +157,6 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant4.setAdresse("113 lapierre");
         etudiant4.setNumMatricule("1822323");
         etudiant4.setHasLicense(true);
-        etudiant4.setSuperviseur(superviseur4);
         etudiantRepository.save(etudiant4);
 
         Etudiant etudiant5 = new Etudiant();
@@ -174,7 +170,6 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant5.setAdresse("113 lapierre");
         etudiant5.setNumMatricule("1822323");
         etudiant5.setHasLicense(true);
-        etudiant5.setSuperviseur(superviseur5);
         etudiantRepository.save(etudiant5);
 
         Etudiant etudiant6 = new Etudiant();
@@ -188,7 +183,6 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant6.setAdresse("113 lapierre");
         etudiant6.setNumMatricule("1822323");
         etudiant6.setHasLicense(true);
-        etudiant6.setSuperviseur(superviseur6);
         etudiantRepository.save(etudiant6);
       
         Moniteur moniteur = new Moniteur();
@@ -272,27 +266,7 @@ public class StageswsApplication implements CommandLineRunner{
         gestionnaireRepository.save(gestionnaire);
 
 
-
-
-
-
-
-
-
-        Etudiant etudiant1 = new Etudiant();
-        etudiant1.setPrenom("Patrick");
-        etudiant1.setNom("Star");
-        etudiant1.setCourriel("pat@gmail.com");
-        etudiant1.setPassword("Password1");
-        etudiant1.setNumTelephone("123145676");
-        etudiant1.setRole(UserType.ETUDIANT);
-        etudiant1.setProgramme("Info");
-        etudiant1.setAdresse("113 lapierre");
-        etudiant1.setNumMatricule("12345678");
-        etudiant1.setHasLicense(true);
-        etudiant1.setHasVoiture(true);
-        etudiant1.setSuperviseur(superviseur);
-        etudiantRepository.save(etudiant1);
+        
 
 
 
@@ -322,11 +296,6 @@ public class StageswsApplication implements CommandLineRunner{
         Offre offre5 = new Offre("TITRE5", "DESCRIPTION5", "ENTREPRISE5", true, "10 boul dagenais Montreal", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 18.75);
         Offre offre6 = new Offre("TITRE6", "DESCRIPTION6", "ENTREPRISE6", true, "113 lapierre Montreal", "2022-12-05", "2023-3-05", 13, "9:00 à 5:00", 40, 20.75);
         offre1.setWhitelist(Set.of(etudiant));
-        offreRepository.save(offre1);
-        offreRepository.save(offre2);
-        offreRepository.save(offre3);
-        offreRepository.save(offre4);
-        offreRepository.save(offre5);
-        offreRepository.save(offre6);
+        offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
     }
 }

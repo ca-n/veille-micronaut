@@ -85,20 +85,15 @@ public class UserController {
         return new ResponseEntity<>(service.getAllEtudiants(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/superviseur/{idSuperviseur}/etudiants")
-    public ResponseEntity<List<Etudiant>> getAllEtudiantsForSuperviseur(@PathVariable("idSuperviseur") int idSuperviseur) {
-        logger.info("get - getAllEtudiantsForSuperviseur " + idSuperviseur);
-        return new ResponseEntity<>(service.getAllEtudiantsForSuperviseur(idSuperviseur), HttpStatus.OK);
-    }
+//    @GetMapping(path = "/superviseur/{idSuperviseur}/etudiants")
+//    public ResponseEntity<List<Etudiant>> getAllEtudiantsForSuperviseur(@PathVariable("idSuperviseur") int idSuperviseur) {
+//        logger.info("get - getAllEtudiantsForSuperviseur " + idSuperviseur);
+//        return new ResponseEntity<>(service.getAllEtudiantsForSuperviseur(idSuperviseur), HttpStatus.OK);
+//    }
 
     @GetMapping(path = "/etudiants/allSession")
     public ResponseEntity<List<Etudiant>> getAllEtudiantsAllSession() {
         return new ResponseEntity<>(service.getAllEtudiantsAllSession(), HttpStatus.OK);
-    }
-
-    @GetMapping(path = "/superviseurs")
-    public ResponseEntity<List<Superviseur>> getAllSuperviseurs() {
-        return new ResponseEntity<>(service.getAllSuperviseurs(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/superviseurs/allSession")
