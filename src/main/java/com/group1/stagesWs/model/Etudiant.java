@@ -8,7 +8,9 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 import java.io.Serializable;
+import java.util.Set;
 
 @Data
 @Entity
@@ -20,6 +22,9 @@ public class Etudiant extends User implements Serializable {
 
     private boolean hasLicense;
     private boolean hasVoiture;
+
+    @ManyToOne
+    private Superviseur superviseur;
 
     public Etudiant() {
         role = UserType.ETUDIANT;

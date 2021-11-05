@@ -35,6 +35,12 @@ public class Contrat implements Serializable {
     @ManyToOne
     private Offre offre;
 
+    @OneToOne
+    private Etudiant etudiant;
+
+    @ManyToOne
+    private Moniteur moniteur;
+
     public Contrat() {
         this.dateCreation = LocalDate.now();
         this.isEtudiantConfirmed = false;

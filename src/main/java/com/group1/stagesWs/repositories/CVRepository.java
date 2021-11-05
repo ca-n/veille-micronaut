@@ -13,7 +13,7 @@ public interface CVRepository extends JpaRepository<CV, Integer> {
     List<CV> findCVByEtudiantId(int id);
 
     CV findCvById(int id);
-
+  
     Boolean deleteCVById(int id);
 
 }
