@@ -298,6 +298,22 @@ public class UserControllerTests {
         assertThat(actualEtudiants).hasSize(expected.size());
     }
 
+    @Test
+    void testGetAllGestionnaires() throws Exception {
+        //Arrange
+        List<Gestionnaire> expected = getGestionnaires();
+        when(userService.getAllGestionnaires()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/user/gestionnaires")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualGestionnaires = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualGestionnaires.size()).isEqualTo(expected.size());
+    }
+
 
     private Etudiant getEtudiant() {
         return new Etudiant(
@@ -347,5 +363,9 @@ public class UserControllerTests {
 
     private List<Etudiant> getEtudiants() {
         return List.of(getEtudiant(), getEtudiant(), getEtudiant());
+    }
+
+    private List<Gestionnaire> getGestionnaires() {
+        return List.of(getGestionnaire(), getGestionnaire(), getGestionnaire());
     }
 }

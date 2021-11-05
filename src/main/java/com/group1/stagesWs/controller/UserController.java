@@ -117,6 +117,6 @@ public class UserController {
 
     @GetMapping(path = "/gestionnaires")
     public ResponseEntity<List<Gestionnaire>> getGestionnaire(){
-        return new ResponseEntity<>(service.getGestionnaire(), HttpStatus.OK);
+        return new ResponseEntity<>(service.getAllGestionnaires(), HttpStatus.OK);
     }
 }

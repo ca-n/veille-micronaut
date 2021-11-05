@@ -148,7 +148,7 @@ public class UserService implements SessionManager<User> {
     }
 
 
-    public List<Gestionnaire> getGestionnaire() {
+    public List<Gestionnaire> getAllGestionnaires() {
         return gestionnaireRepository.findAll();
     }
 }
