@@ -23,7 +23,8 @@ public class UserService implements SessionManager<User> {
     private final MoniteurRepository moniteurRepository;
     private final SuperviseurRepository superviseurRepository;
 
-    public UserService(EtudiantRepository etudiantRepository, GestionnaireRepository gestionnaireRepository, MoniteurRepository moniteurRepository, SuperviseurRepository superviseurRepository) {
+    public UserService(EtudiantRepository etudiantRepository, GestionnaireRepository gestionnaireRepository,
+            MoniteurRepository moniteurRepository, SuperviseurRepository superviseurRepository) {
         this.etudiantRepository = etudiantRepository;
         this.gestionnaireRepository = gestionnaireRepository;
         this.moniteurRepository = moniteurRepository;
@@ -84,12 +85,20 @@ public class UserService implements SessionManager<User> {
     }
 
     /*
-    IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR
-        public Optional<User> findMoniteurByEtudiantId(int id) {
-            Etudiant etudiant = etudiantRepository.findEtudiantById(id);
-            return Optional.of(etudiant.get());
-        }
-    */
+     * IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR public
+     * Optional<User> findMoniteurByEtudiantId(int id) { Etudiant etudiant =
+     * etudiantRepository.findEtudiantById(id); return Optional.of(etudiant.get());
+     * }
+     */
+
+    public List<Superviseur> getAllSuperviseurs() {
+        return superviseurRepository.findAll();
+    }
+
+    public List<Moniteur> getAllMoniteurs() {
+        return moniteurRepository.findAll();
+    }
+
     public List<Etudiant> getAllEtudiantsForSuperviseur(int idSuperviseur) {
         return etudiantRepository.findAllBySuperviseurId(idSuperviseur);
     }
