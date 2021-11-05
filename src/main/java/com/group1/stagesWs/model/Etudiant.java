@@ -24,6 +24,7 @@ public class Etudiant extends User implements Serializable {
     private boolean hasVoiture;
 
     @ManyToOne
+    @JoinColumn(name="superviseur_id")
     private Superviseur superviseur;
 
     public Etudiant() {
@@ -40,9 +41,7 @@ public class Etudiant extends User implements Serializable {
         this.hasVoiture = hasVoiture;
     }
 
-    @ManyToOne
-    @JoinColumn(name="superviseur_id")
-    private Superviseur superviseur;
+
 
 
 }

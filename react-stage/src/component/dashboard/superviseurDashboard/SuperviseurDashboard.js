@@ -43,7 +43,7 @@ const SuperviseurDashboard = () => {
 
     const getEtudiants = async (id) => {
         const dbEtudiants =
-            await UserService.getEtudiantsForSuperviseur(id)
+            await UserService.getListEtudiantSuperviseur(id)
         console.log(dbEtudiants, "dbEtudiants")
         setListEtudiants(dbEtudiants)
     }

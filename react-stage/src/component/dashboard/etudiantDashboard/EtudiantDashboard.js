@@ -49,7 +49,7 @@ const EtudiantDashboard = () => {
                 .then(data => {
                     console.log(data, "data")
                     setFullUser(data)
-                    setSuperviseur(data.superviseur)
+                    setSuperviseur(data)
                     getMoniteur(data.id)
                     getContrat(data.id)
                 })
