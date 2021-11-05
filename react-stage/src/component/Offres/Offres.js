@@ -96,6 +96,18 @@ const Offres = () => {
 
     }
 
+    const appliquerOffre = async (offre) => {
+        console.log(offre, "offre")
+        console.log(loggedUser, "loggesUser")
+        let offreApplied
+        offreApplied = await OffreService.applyForOffre(offre.id, loggedUser.courriel)
+        console.log(offreApplied, "offreApplied")
+        if (offreApplied != null) {
+            alert("Application recu");
+        }
+
+    }
+
 
     const onClickClose = () => {
         setCurrentOffre({})
@@ -153,8 +165,8 @@ const Offres = () => {
             <table className="table border">
                 <thead>
                     <tr>
-                        <th colSpan='3' style={{color: "black"}}>Titre</th>
-                        <th colSpan='3' style={{color: "black"}}>Entreprise</th>
+                        <th colSpan='3' style={{ color: "black" }}>Titre</th>
+                        <th colSpan='3' style={{ color: "black" }}>Entreprise</th>
                         {loggedUser.role !== "ETUDIANT" &&
                             <th colSpan='1'>Valide</th>
                         }
@@ -204,7 +216,7 @@ const Offres = () => {
                         <div className="col-2">{currentOffre.adresse}</div>
                         {loggedUser.role !== "ETUDIANT" &&
                             <div className="col-2 form-check ">
-                                
+
                                 <label className="form-check-label" htmlFor="valid"> <input type='checkbox' name='valid' className="form-check-input" checked={currentOffre.valid} onChange={onToggleValid} />Valid </label>
                             </div>
                         }
@@ -228,6 +240,9 @@ const Offres = () => {
                         <div className="col-2">{currentOffre.horaire}</div>
                         <div className="col-2">{currentOffre.nbTotalHeuresParSemaine} heures</div>
                         <div className="col-2">{currentOffre.tauxHoraire} $/h</div>
+                        {loggedUser.role == "ETUDIANT" &&
+                            <div className="row"><input type='button' onClick={() => appliquerOffre(currentOffre)} value='Appliquer à l offre' className='p-1 btn-primary' /></div>
+                        }
 
                     </div>
 
