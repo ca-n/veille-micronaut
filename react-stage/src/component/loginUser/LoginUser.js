@@ -1,16 +1,15 @@
-import React from "react";
-import { useState } from "react/cjs/react.development";
-import LoginUserHTML from "./LoginUserHTML";
-import "./LoginUserCss.css";
-import { Redirect } from "react-router";
+import React from 'react'
+import { useState } from 'react/cjs/react.development'
+import LoginUserHTML from './LoginUserHTML'
+import './LoginUserCss.css'
+import { Redirect } from 'react-router'
 
 const LoginUser = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false)
 
-  function setSubmitTrue() {
-    setIsSubmitted(true);
-  }
-
+    function setSubmitTrue() {
+        setIsSubmitted(true)
+    }
 
     return (
         <>
@@ -21,4 +20,8 @@ const LoginUser = () => {
                 {!isSubmitted ? (<LoginUserHTML setSubmitTrue={setSubmitTrue} />) : (<Redirect to="/dashboard" />)}
             </div>
 
-export default LoginUser;
+        </>
+    )
+}
+
+export default LoginUser

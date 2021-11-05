@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfo'
+import DashboardGestionnaire from '../DashboardGestionnaire/DashboardGestionnaire'
 import SuperviseurDashboard from '../superviseurDashboard/SuperviseurDashboard'
 
 
@@ -12,6 +13,12 @@ const Dashboard = () => {
             {
                 loggedUser.role === "SUPERVISEUR" ?
                     < SuperviseurDashboard />
+                    :
+                    null
+            }
+            {
+                loggedUser.role === "GESTIONNAIRE" ?
+                    < DashboardGestionnaire />
                     :
                     null
             }

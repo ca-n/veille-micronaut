@@ -17,11 +17,8 @@ import UserInfo, { UserInfoContext } from "./contexts/UserInfo";
 import AccountDetails from "./component/AccountDetails/AccountDetails";
 import VerificationCV from "./component/gestionCV/VerificationCV";
 import VerificationCVList from "./component/gestionCV/VerificationCVList";
-import DashboardGestionnaire from "./component/DashboardGestionnaire/Dashboard";
 import DropCv from './component/DropCv/DropCv';
 import Dashboard from './component/dashboard/Dashboard';
-
-import DropCv from "./component/DropCv/DropCv";
 
 function App() {
   return (
@@ -66,9 +63,6 @@ function App() {
               </Route>
               <Route exact path="/dashboard">
                 <Dashboard />
-              </Route>
-              <Route exact path="/dashboardGestionnaire">
-                <DashboardGestionnaire />
               </Route>
             </Switch>
           </div>

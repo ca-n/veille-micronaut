@@ -123,60 +123,60 @@ public class StageswsApplication implements CommandLineRunner{
         moniteur.setAdresseEntreprise("110 lapierre");
         moniteurRepository.save(moniteur);
 
-        Moniteur moniteur2 = new Moniteur();
-        moniteur2.setPrenom("mat");
-        moniteur2.setNom("Bourgoin");
-        moniteur2.setCourriel("mat@gmail.com");
-        moniteur2.setPassword("Password1");
-        moniteur2.setNumTelephone("2389238");
-        moniteur2.setRole(UserType.MONITEUR);
-        moniteur2.setNomEntreprise("Bob the builder");
-        moniteur2.setAdresseEntreprise("110 lapierre");
-        moniteurRepository.save(moniteur2);
-
-        Moniteur moniteur3= new Moniteur();
-        moniteur3.setPrenom("neil");
-        moniteur3.setNom("Bourgoin");
-        moniteur3.setCourriel("neil@gmail.com");
-        moniteur3.setPassword("Password1");
-        moniteur3.setNumTelephone("2389238");
-        moniteur3.setRole(UserType.MONITEUR);
-        moniteur3.setNomEntreprise("Bob the builder");
-        moniteur3.setAdresseEntreprise("110 lapierre");
-        moniteurRepository.save(moniteur3);
-
-        Moniteur moniteur4 = new Moniteur();
-        moniteur4.setPrenom("Jeremie");
-        moniteur4.setNom("Bourgoin");
-        moniteur4.setCourriel("jeremie@gmail.com");
-        moniteur4.setPassword("Password1");
-        moniteur4.setNumTelephone("2389238");
-        moniteur4.setRole(UserType.MONITEUR);
-        moniteur4.setNomEntreprise("Bob the builder");
-        moniteur4.setAdresseEntreprise("110 lapierre");
-        moniteurRepository.save(moniteur4);
-
-        Moniteur moniteur5 = new Moniteur();
-        moniteur5.setPrenom("Bob");
-        moniteur5.setNom("Bourgoin");
-        moniteur5.setCourriel("bob@gmail.com");
-        moniteur5.setPassword("Password1");
-        moniteur5.setNumTelephone("2389238");
-        moniteur5.setRole(UserType.MONITEUR);
-        moniteur5.setNomEntreprise("Bob the builder");
-        moniteur5.setAdresseEntreprise("110 lapierre");
-        moniteurRepository.save(moniteur5);
-
-        Moniteur moniteur6 = new Moniteur();
-        moniteur6.setPrenom("Lynn");
-        moniteur6.setNom("Bob");
-        moniteur6.setCourriel("lynn@gmail.com");
-        moniteur6.setPassword("Password1");
-        moniteur6.setNumTelephone("2389238");
-        moniteur6.setRole(UserType.MONITEUR);
-        moniteur6.setNomEntreprise("Bob the builder");
-        moniteur6.setAdresseEntreprise("110 lapierre");
-        moniteurRepository.save(moniteur6);
+//        Moniteur moniteur2 = new Moniteur();
+//        moniteur2.setPrenom("mat");
+//        moniteur2.setNom("Bourgoin");
+//        moniteur2.setCourriel("mat@gmail.com");
+//        moniteur2.setPassword("Password1");
+//        moniteur2.setNumTelephone("2389238");
+//        moniteur2.setRole(UserType.MONITEUR);
+//        moniteur2.setNomEntreprise("Bob the builder");
+//        moniteur2.setAdresseEntreprise("110 lapierre");
+//        moniteurRepository.save(moniteur2);
+//
+//        Moniteur moniteur3= new Moniteur();
+//        moniteur3.setPrenom("neil");
+//        moniteur3.setNom("Bourgoin");
+//        moniteur3.setCourriel("neil@gmail.com");
+//        moniteur3.setPassword("Password1");
+//        moniteur3.setNumTelephone("2389238");
+//        moniteur3.setRole(UserType.MONITEUR);
+//        moniteur3.setNomEntreprise("Bob the builder");
+//        moniteur3.setAdresseEntreprise("110 lapierre");
+//        moniteurRepository.save(moniteur3);
+//
+//        Moniteur moniteur4 = new Moniteur();
+//        moniteur4.setPrenom("Jeremie");
+//        moniteur4.setNom("Bourgoin");
+//        moniteur4.setCourriel("jeremie@gmail.com");
+//        moniteur4.setPassword("Password1");
+//        moniteur4.setNumTelephone("2389238");
+//        moniteur4.setRole(UserType.MONITEUR);
+//        moniteur4.setNomEntreprise("Bob the builder");
+//        moniteur4.setAdresseEntreprise("110 lapierre");
+//        moniteurRepository.save(moniteur4);
+//
+//        Moniteur moniteur5 = new Moniteur();
+//        moniteur5.setPrenom("Bob");
+//        moniteur5.setNom("Bourgoin");
+//        moniteur5.setCourriel("bob@gmail.com");
+//        moniteur5.setPassword("Password1");
+//        moniteur5.setNumTelephone("2389238");
+//        moniteur5.setRole(UserType.MONITEUR);
+//        moniteur5.setNomEntreprise("Bob the builder");
+//        moniteur5.setAdresseEntreprise("110 lapierre");
+//        moniteurRepository.save(moniteur5);
+//
+//        Moniteur moniteur6 = new Moniteur();
+//        moniteur6.setPrenom("Lynn");
+//        moniteur6.setNom("Bob");
+//        moniteur6.setCourriel("lynn@gmail.com");
+//        moniteur6.setPassword("Password1");
+//        moniteur6.setNumTelephone("2389238");
+//        moniteur6.setRole(UserType.MONITEUR);
+//        moniteur6.setNomEntreprise("Bob the builder");
+//        moniteur6.setAdresseEntreprise("110 lapierre");
+//        moniteurRepository.save(moniteur6);
 
 
         Gestionnaire gestionnaire = new Gestionnaire();
@@ -201,60 +201,60 @@ public class StageswsApplication implements CommandLineRunner{
         superviseur.setSpecialite("fullstack");
         superviseurRepository.save(superviseur);
 
-        Superviseur superviseur2 = new Superviseur();
-        superviseur2.setPrenom("Neil");
-        superviseur2.setNom("Munger");
-        superviseur2.setCourriel("neil@gmail.com");
-        superviseur2.setPassword("Password1");
-        superviseur2.setNumTelephone("82308920938");
-        superviseur2.setRole(UserType.SUPERVISEUR);
-        superviseur2.setDepartement("Informatique");
-        superviseur2.setSpecialite("fullstack");
-        superviseurRepository.save(superviseur2);
-
-        Superviseur superviseur3 = new Superviseur();
-        superviseur3.setPrenom("Mat");
-        superviseur3.setNom("Munger");
-        superviseur3.setCourriel("mat@gmail.com");
-        superviseur3.setPassword("Password1");
-        superviseur3.setNumTelephone("82308920938");
-        superviseur3.setRole(UserType.SUPERVISEUR);
-        superviseur3.setDepartement("Informatique");
-        superviseur3.setSpecialite("fullstack");
-        superviseurRepository.save(superviseur3);
-
-        Superviseur superviseur4 = new Superviseur();
-        superviseur4.setPrenom("pascal");
-        superviseur4.setNom("Munger");
-        superviseur4.setCourriel("pascal@gmail.com");
-        superviseur4.setPassword("Password1");
-        superviseur4.setNumTelephone("82308920938");
-        superviseur4.setRole(UserType.SUPERVISEUR);
-        superviseur4.setDepartement("Informatique");
-        superviseur4.setSpecialite("fullstack");
-        superviseurRepository.save(superviseur4);
-
-        Superviseur superviseur5 = new Superviseur();
-        superviseur5.setPrenom("Ricky");
-        superviseur5.setNom("Munger");
-        superviseur5.setCourriel("ricky@gmail.com");
-        superviseur5.setPassword("Password1");
-        superviseur5.setNumTelephone("82308920938");
-        superviseur5.setRole(UserType.SUPERVISEUR);
-        superviseur5.setDepartement("Informatique");
-        superviseur5.setSpecialite("fullstack");
-        superviseurRepository.save(superviseur5);
-
-        Superviseur superviseur6 = new Superviseur();
-        superviseur6.setPrenom("bob");
-        superviseur6.setNom("Munger");
-        superviseur6.setCourriel("bob@gmail.com");
-        superviseur6.setPassword("Password1");
-        superviseur6.setNumTelephone("82308920938");
-        superviseur6.setRole(UserType.SUPERVISEUR);
-        superviseur6.setDepartement("Informatique");
-        superviseur6.setSpecialite("fullstack");
-        superviseurRepository.save(superviseur6);
+//        Superviseur superviseur2 = new Superviseur();
+//        superviseur2.setPrenom("Neil");
+//        superviseur2.setNom("Munger");
+//        superviseur2.setCourriel("neil@gmail.com");
+//        superviseur2.setPassword("Password1");
+//        superviseur2.setNumTelephone("82308920938");
+//        superviseur2.setRole(UserType.SUPERVISEUR);
+//        superviseur2.setDepartement("Informatique");
+//        superviseur2.setSpecialite("fullstack");
+//        superviseurRepository.save(superviseur2);
+//
+//        Superviseur superviseur3 = new Superviseur();
+//        superviseur3.setPrenom("Mat");
+//        superviseur3.setNom("Munger");
+//        superviseur3.setCourriel("mat@gmail.com");
+//        superviseur3.setPassword("Password1");
+//        superviseur3.setNumTelephone("82308920938");
+//        superviseur3.setRole(UserType.SUPERVISEUR);
+//        superviseur3.setDepartement("Informatique");
+//        superviseur3.setSpecialite("fullstack");
+//        superviseurRepository.save(superviseur3);
+//
+//        Superviseur superviseur4 = new Superviseur();
+//        superviseur4.setPrenom("pascal");
+//        superviseur4.setNom("Munger");
+//        superviseur4.setCourriel("pascal@gmail.com");
+//        superviseur4.setPassword("Password1");
+//        superviseur4.setNumTelephone("82308920938");
+//        superviseur4.setRole(UserType.SUPERVISEUR);
+//        superviseur4.setDepartement("Informatique");
+//        superviseur4.setSpecialite("fullstack");
+//        superviseurRepository.save(superviseur4);
+//
+//        Superviseur superviseur5 = new Superviseur();
+//        superviseur5.setPrenom("Ricky");
+//        superviseur5.setNom("Munger");
+//        superviseur5.setCourriel("ricky@gmail.com");
+//        superviseur5.setPassword("Password1");
+//        superviseur5.setNumTelephone("82308920938");
+//        superviseur5.setRole(UserType.SUPERVISEUR);
+//        superviseur5.setDepartement("Informatique");
+//        superviseur5.setSpecialite("fullstack");
+//        superviseurRepository.save(superviseur5);
+//
+//        Superviseur superviseur6 = new Superviseur();
+//        superviseur6.setPrenom("bob");
+//        superviseur6.setNom("Munger");
+//        superviseur6.setCourriel("bob@gmail.com");
+//        superviseur6.setPassword("Password1");
+//        superviseur6.setNumTelephone("82308920938");
+//        superviseur6.setRole(UserType.SUPERVISEUR);
+//        superviseur6.setDepartement("Informatique");
+//        superviseur6.setSpecialite("fullstack");
+//        superviseurRepository.save(superviseur6);
 
         Etudiant etudiant = new Etudiant();
         etudiant.setPrenom("Mathieu");

@@ -5,7 +5,7 @@ import Moniteurs from "./Moniteurs";
 import Offres from "./Offres";
 import Superviseurs from "./Superviseurs";
 import "./DashboardGestionnaireCSS.css";
-const Dashboard = () => {
+const DashboardGestionnaire = () => {
   return (
     <body>
       <div className="topLeft">
@@ -27,4 +27,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardGestionnaire;
