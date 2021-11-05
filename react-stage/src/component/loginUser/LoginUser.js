@@ -11,20 +11,14 @@ const LoginUser = () => {
     setIsSubmitted(true);
   }
 
-  return (
-    <>
-      <div className="form-container">
-        <div className="form-content-left">
-          <img src="img/img-2.svg" alt="spaceship" className="form-img"></img>
-        </div>
-        {!isSubmitted ? (
-          <LoginUserHTML setSubmitTrue={setSubmitTrue} />
-        ) : (
-          <Redirect to="/" />
-        )}
-      </div>
-    </>
-  );
-};
+
+    return (
+        <>
+            <div className="form-container">
+                <div className="form-content-left">
+                    <img src="img/img-2.svg" alt="spaceship" className="form-img"></img>
+                </div>
+                {!isSubmitted ? (<LoginUserHTML setSubmitTrue={setSubmitTrue} />) : (<Redirect to="/dashboard" />)}
+            </div>
 
 export default LoginUser;

@@ -25,6 +25,11 @@ public class OffreController {
         return ResponseEntity.ok(service.getAllOffres());
     }
 
+    @GetMapping("/allSession")
+    public ResponseEntity<List<Offre>> getAllOffresAllSession() {
+        return ResponseEntity.ok(service.getAllOffresAllSession());
+    }
+
     @GetMapping("/etudiant/{email}")
     public ResponseEntity<List<Offre>> getEtudiantOffres(@PathVariable String email) {
         return ResponseEntity.ok(service.getEtudiantOffres(email));
@@ -35,5 +40,12 @@ public class OffreController {
         return service.saveOffre(offre)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
+    }
+
+    @PostMapping("/{id}/apply")
+    public ResponseEntity<Offre> applyForOffre(@PathVariable int id, @RequestBody String email) {
+        return service.applyForOffre(id, email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.internalServerError().build());
     }
 }

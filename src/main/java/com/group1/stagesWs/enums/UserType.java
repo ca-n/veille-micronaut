@@ -1,4 +1,4 @@
-package com.group1.stagesWs.model;
+package com.group1.stagesWs.enums;
 
 public enum UserType {
 

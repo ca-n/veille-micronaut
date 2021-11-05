@@ -36,10 +36,9 @@ public class UserControllerTests {
     @MockBean
     private UserService userService;
 
-    public UserControllerTests(){
+    public UserControllerTests() {
         mapper = new ObjectMapper().findAndRegisterModules();
     }
-
 
 
     @Test
@@ -49,7 +48,7 @@ public class UserControllerTests {
         when(userService.addEtudiant(expected)).thenReturn(Optional.of(expected));
 
         // Act
-        MvcResult result = mockMvc.perform(post("/stage/etudiant")
+        MvcResult result = mockMvc.perform(post("/user/etudiant")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
@@ -66,7 +65,7 @@ public class UserControllerTests {
         when(userService.addMoniteur(expected)).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/moniteur")
+        MvcResult result = mockMvc.perform(post("/user/moniteur")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
@@ -83,7 +82,7 @@ public class UserControllerTests {
         when(userService.addSuperviseur(expected)).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/superviseur")
+        MvcResult result = mockMvc.perform(post("/user/superviseur")
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert
@@ -185,7 +184,44 @@ public class UserControllerTests {
         when(userService.getAllEtudiants()).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(get("/stage/etudiants")
+        MvcResult result = mockMvc.perform(get("/user/etudiants")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualEtudiants.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetAllEtudiantsAllSession() throws Exception {
+        //Arrange
+        List<Etudiant> expected = getEtudiants();
+        when(userService.getAllEtudiantsAllSession()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/user/etudiants/allSession")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualEtudiants.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetAllEtudiantsForSuperviseur() throws Exception {
+        //Arrange
+        List<Etudiant> expected = getEtudiants();
+        Superviseur superviseur = getSuperviseur();
+        for (Etudiant etudiant : expected) {
+            etudiant.setSuperviseur(superviseur);
+        }
+        when(userService.getAllEtudiantsForSuperviseur(superviseur.getId())).thenReturn(expected);
+        String url = "/user/superviseur/" + superviseur.getId() + "/etudiants";
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert

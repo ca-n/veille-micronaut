@@ -18,6 +18,8 @@ import AccountDetails from "./component/AccountDetails/AccountDetails";
 import VerificationCV from "./component/gestionCV/VerificationCV";
 import VerificationCVList from "./component/gestionCV/VerificationCVList";
 import DashboardGestionnaire from "./component/DashboardGestionnaire/Dashboard";
+import DropCv from './component/DropCv/DropCv';
+import Dashboard from './component/dashboard/Dashboard';
 
 import DropCv from "./component/DropCv/DropCv";
 
@@ -61,6 +63,9 @@ function App() {
               </Route>
               <Route exact path="/gestion/cv/:id">
                 <VerificationCV />
+              </Route>
+              <Route exact path="/dashboard">
+                <Dashboard />
               </Route>
               <Route exact path="/dashboardGestionnaire">
                 <DashboardGestionnaire />

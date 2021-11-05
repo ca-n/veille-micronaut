@@ -1,5 +1,6 @@
 package com.group1.stagesWs.service;
 
+import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.EtudiantRepository;
@@ -12,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -31,14 +33,29 @@ public class OffreServiceTest {
     @Test
     void testGetAllOffres() {
         //Arrange
-        List<Offre> expected = getOffres();
+        List<Offre> expected = getOffres(); // Les offres de bases contienne la session actuelle
+        expected.get(0).setSession(Session.AUTOMNE_2021); //Changement de la session a une sesion differente que la session actuelle
         when(offreRepository.findAll()).thenReturn(expected);
 
         //Act
         List<Offre> returned = service.getAllOffres();
 
         //Assert
-        assertThat(returned).isEqualTo(expected);
+        assertThat(returned).hasSize(expected.size() - 1); //Retour de la liste sans l'offre qui n'est pas dans la session actuelle
+    }
+
+    @Test
+    void testGetAllOffresAllSession() {
+        //Arrange
+        List<Offre> expected = getOffres(); // Les offres de bases contienne la session actuelle
+        expected.get(0).setSession(Session.AUTOMNE_2021); //Changement de la session a une sesion differente que la session actuelle
+        when(offreRepository.findAll()).thenReturn(expected);
+
+        //Act
+        List<Offre> returned = service.getAllOffresAllSession();
+
+        //Assert
+        assertThat(returned).isEqualTo(expected); //Retour de la liste sans l'offre qui n'est pas dans la session actuelle
     }
 
     @Test
@@ -67,6 +84,24 @@ public class OffreServiceTest {
 
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    void testApplyForOffre() {
+        //Arrange
+        Etudiant etudiant = getEtudiant();
+        Offre expected = getOffre();
+        when(offreRepository.findById(any(Integer.class))).thenReturn(Optional.of(expected));
+        when(etudiantRepository.findEtudiantByCourrielIgnoreCase(any(String.class))).thenReturn(etudiant);
+        when(offreRepository.save(any(Offre.class))).thenReturn(expected);
+
+        //Act
+        Optional<Offre> returned = service.applyForOffre(expected.getId(), etudiant.getCourriel());
+
+        //Assert
+        assertThat(returned).isPresent();
+        var actual = returned.get();
+        assertThat(actual.getApplicants()).contains(etudiant);
     }
 
     private Offre getOffre() {
