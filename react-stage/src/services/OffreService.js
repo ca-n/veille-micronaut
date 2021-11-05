@@ -7,21 +7,27 @@ const OffreService = {
         return data
     },
 
-    // getEtudiantOffres [GET] /offres/{etudiantCourriel}
+    // getEtudiantOffres [GET] /offres/etudiant/{etudiantCourriel}
     getEtudiantOffres: async (etudiantCourriel) => {
         const res = await fetch(offresUrl + '/etudiant/' + etudiantCourriel)
         const data = await res.json()
         return data
     },
 
-    // addOffre [POST] /offres
-    addOffre: async (offre, email) => {
-        const res = await fetch(offresUrl, 
+    // getMoniteurOffres [GET] /offres/moniteur/{moniteurCourriel}
+    getMoniteurOffres: async (moniteurCourriel) => {
+        const res = await fetch(offresUrl + '/moniteur/' + moniteurCourriel)
+        const data = await res.json()
+        return data
+    },
+
+    // addOffre [POST] /offres/{authorEmail}
+    addOffre: async (offre, authorEmail) => {
+        const res = await fetch(offresUrl + '/' + authorEmail, 
         {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json',
-                'email': email
+                'Content-type': 'application/json'
             },
             body: JSON.stringify(offre)
         })
