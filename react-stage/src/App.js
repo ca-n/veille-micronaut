@@ -45,7 +45,6 @@ function App() {
               <Route exact path="/dashboard"><Dashboard /></Route>
               <Route exact path="/contrat"><Contrat /></Route>
               <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation/></Route>
-
             </Switch>
           </div>
         </UserInfo>

@@ -19,10 +19,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @WebMvcTest(OffreController.class)
 public class OffreControllerTests {
@@ -91,13 +91,45 @@ public class OffreControllerTests {
     }
 
     @Test
-    void testSaveOffre() throws Exception {
+    void testGetMoniteurOffres() throws Exception {
         //Arrange
-        Offre expected = getOffre();
-        when(service.saveOffre(expected)).thenReturn(Optional.of(expected));
+        List<Offre> expected = List.of(getOffre(), getOffre(), getOffre());
+        when(service.getMoniteurOffres(any(String.class))).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(post("/offres")
+        MvcResult result = mockMvc.perform(get("/offres/moniteur/moniteur@example.com")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(actual.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testAddOffre() throws Exception {
+        //Arrange
+        Offre expected = getOffre();
+        when(service.addOffre(any(Offre.class), any(String.class))).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(post("/offres/moniteur@example.com")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualOffre = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualOffre).isEqualTo(expected);
+    }
+
+    @Test
+    void testUpdateOffre() throws Exception {
+        //Arrange
+        Offre expected = getOffre();
+        when(service.updateOffre(any(Integer.class), any(Offre.class))).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(put("/offres/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expected))).andReturn();
 

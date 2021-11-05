@@ -49,11 +49,9 @@ const NavbarHTML = () => {
             :
             null
           }
-          {(loggedUser.role !== "MONITEUR")&& loggedUser.isLoggedIn &&
-            <>
+          {(loggedUser.isLoggedIn && loggedUser.role !== "SUPERVISEUR") ?
               <Nav.Link as={Link} to="/offres">Offres</Nav.Link>
-            </>
-            }
+            : null}
 
           {loggedUser.isLoggedIn && (loggedUser.role === "GESTIONNAIRE" ||  loggedUser.role === "MONITEUR")  ?
           <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
