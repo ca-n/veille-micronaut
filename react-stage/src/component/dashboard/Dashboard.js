@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { UserInfoContext } from '../../contexts/UserInfo'
-import EtudiantDashboard from '../etudiantDashboard/EtudiantDashboard'
-import DashboardGestionnaire from '../DashboardGestionnaire/DashboardGestionnaire'
-import SuperviseurDashboard from '../superviseurDashboard/SuperviseurDashboard'
-import MoniteurDashboard from '../moniteurDashboard/MoniteurDashboard'
+import { UserInfoContext} from './../../contexts/UserInfo'
+import EtudiantDashboard from './etudiantDashboard/EtudiantDashboard'
+import DashboardGestionnaire from './DashboardGestionnaire/DashboardGestionnaire'
+import SuperviseurDashboard from './superviseurDashboard/SuperviseurDashboard'
+import MoniteurDashboard from './moniteurDashboard/MoniteurDashboard'
 
 
 const Dashboard = () => {
