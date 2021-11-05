@@ -63,21 +63,7 @@ const OffreService = {
         })
         const data = await res.json()
         return data
-    },
-
-    // // saveWhitelist [POST] /stage/whitelist
-    // saveWhitelist: async (whitelist) => {
-    //     const res = await fetch('http://localhost:9191/stage/whitelist', 
-    //     {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(whitelist)
-    //     })
-    //     const data = await res.json()
-    //     return data
-    // }
+    }
 }
 
 export default OffreService

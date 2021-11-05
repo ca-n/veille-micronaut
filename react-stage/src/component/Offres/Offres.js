@@ -244,7 +244,7 @@ const Offres = () => {
                         <div className="col-2">{currentOffre.horaire}</div>
                         <div className="col-2">{currentOffre.nbTotalHeuresParSemaine} heures</div>
                         <div className="col-2">{currentOffre.tauxHoraire} $/h</div>
-                        {loggedUser.role == "ETUDIANT" &&
+                        {loggedUser.role === "ETUDIANT" &&
                             <div className="row"><input type='button' onClick={() => appliquerOffre(currentOffre)} value='Appliquer à l offre' className='p-1 btn-primary' /></div>
                         }
 

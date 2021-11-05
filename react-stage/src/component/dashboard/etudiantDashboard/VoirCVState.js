@@ -9,7 +9,7 @@ const VoirCVState = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
 
     const updateCvs = async () => {
-        fetch(`http://localhost:9191/stage/cv/etudiant/${etudiant.id}`)
+        fetch(`http://localhost:9191cv/etudiant/${etudiant.id}`)
             .then(res => {
                 return res.json()
             })
@@ -19,12 +19,12 @@ const VoirCVState = () => {
     }
 
     const deleteCV = async (cv) => {
-        const res = await fetch(`http://localhost:9191/stage/cv/delete/${cv.id}`, { method: 'DELETE' })
+        const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`, { method: 'DELETE' })
         await res.json().then(updateCvs())
     }
 
     const download = (cv) => {
-        saveAs(`http://localhost:9191/stage/cv/pdf/${cv.id}`)
+        saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
     }
 
     const getStatusIcon = (status) => {
