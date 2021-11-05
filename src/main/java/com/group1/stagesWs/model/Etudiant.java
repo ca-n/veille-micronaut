@@ -22,9 +22,6 @@ public class Etudiant extends User implements Serializable {
     private boolean hasLicense;
     private boolean hasVoiture;
 
-    @OneToMany
-    private Set<Offre> offres;
-
     @ManyToOne
     private Superviseur superviseur;
 
