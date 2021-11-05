@@ -1,6 +1,7 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.model.*;
+import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.GestionnaireRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
@@ -8,11 +9,13 @@ import com.group1.stagesWs.repositories.OffreRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
-public class OffreService {
+public class OffreService implements SessionManager<Offre> {
     private final OffreRepository offreRepository;
     private final EtudiantRepository etudiantRepository;
     private final MoniteurRepository moniteurRepository;
@@ -26,8 +29,15 @@ public class OffreService {
     }
 
     public List<Offre> getAllOffres() {
+        List<Offre> listAllOffres = offreRepository.findAll();
+        return getListForCurrentSession(listAllOffres);
+    }
+
+    public List<Offre> getAllOffresAllSession() {
         return offreRepository.findAll();
     }
+
+
 
     public List<Offre> getEtudiantOffres(String etudiantEmail) {
         Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
@@ -57,6 +67,17 @@ public class OffreService {
         return Optional.of(offreRepository.save(offre));
     }
 
+    @Override
+    public List<Offre> getListForCurrentSession(List<Offre> listOffre) {
+        List<Offre> listOffreCurrentSession = new ArrayList<>();
+        for(Offre offre : listOffre){
+            if(offre.getSession() == SessionManager.CURRENT_SESSION){
+                listOffreCurrentSession.add(offre);
+            }
+        }
+        return listOffreCurrentSession;
+    }
+  
     public Optional<Offre> applyForOffre(int id, String email) {
         Optional<Offre> offreOptional = offreRepository.findById(id);
         if (offreOptional.isEmpty()) return offreOptional;
@@ -67,7 +88,9 @@ public class OffreService {
         Offre offre = offreOptional.get();
         Etudiant etudiant = etudiantOptional.get();
 
-        offre.apply(etudiant);
+        Set<Etudiant> applicants = offre.getApplicants();
+        applicants.add(etudiant);
+        offre.setApplicants(applicants);
         return Optional.of(offreRepository.save(offre));
     }
 }

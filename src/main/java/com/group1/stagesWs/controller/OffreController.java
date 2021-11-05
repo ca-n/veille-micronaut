@@ -25,6 +25,11 @@ public class OffreController {
         return ResponseEntity.ok(service.getAllOffres());
     }
 
+    @GetMapping("/allSession")
+    public ResponseEntity<List<Offre>> getAllOffresAllSession() {
+        return ResponseEntity.ok(service.getAllOffresAllSession());
+    }
+
     @GetMapping("/etudiant/{email}")
     public ResponseEntity<List<Offre>> getEtudiantOffres(@PathVariable String email) {
         return ResponseEntity.ok(service.getEtudiantOffres(email));

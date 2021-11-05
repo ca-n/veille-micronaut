@@ -169,8 +169,8 @@ const Offres = () => {
             <table className="table border">
                 <thead>
                     <tr>
-                        <th colSpan='3'>Titre</th>
-                        <th colSpan='3'>Entreprise</th>
+                        <th colSpan='3' style={{color: "black"}}>Titre</th>
+                        <th colSpan='3' style={{color: "black"}}>Entreprise</th>
                         {loggedUser.role !== "ETUDIANT" &&
                             <th colSpan='1'>Valide</th>
                         }

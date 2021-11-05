@@ -57,6 +57,23 @@ public class OffreControllerTests {
     }
 
     @Test
+    void testGetAllOffresAllSession() throws Exception {
+        //Arrange
+        List<Offre> expected = List.of(getOffre(), getOffre(), getOffre());
+        when(service.getAllOffresAllSession()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/offres/allSession")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualOffres = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualOffres.size()).isEqualTo(expected.size());
+    }
+
+    @Test
     void testGetEtudiantOffres() throws Exception {
         //Arrange
         String etudiantEmail = "etudiant@example.com";

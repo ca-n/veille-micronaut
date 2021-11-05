@@ -1,12 +1,12 @@
 package com.group1.stagesWs.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Gestionnaire;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.service.UserService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -36,10 +36,10 @@ public class UserControllerTests {
     @MockBean
     private UserService userService;
 
-    public UserControllerTests(){
+    public UserControllerTests() {
         mapper = new ObjectMapper().findAndRegisterModules();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
-
 
 
     @Test
@@ -49,7 +49,7 @@ public class UserControllerTests {
         when(userService.addEtudiant(expected)).thenReturn(Optional.of(expected));
 
         // Act
-        MvcResult result = mockMvc.perform(post("/stage/etudiant")
+        MvcResult result = mockMvc.perform(post("/user/etudiant")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
@@ -66,7 +66,7 @@ public class UserControllerTests {
         when(userService.addMoniteur(expected)).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/moniteur")
+        MvcResult result = mockMvc.perform(post("/user/moniteur")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
@@ -83,7 +83,7 @@ public class UserControllerTests {
         when(userService.addSuperviseur(expected)).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(post("/stage/superviseur")
+        MvcResult result = mockMvc.perform(post("/user/superviseur")
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert
@@ -185,13 +185,117 @@ public class UserControllerTests {
         when(userService.getAllEtudiants()).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(get("/stage/etudiants")
+        MvcResult result = mockMvc.perform(get("/user/etudiants")
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert
         var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualEtudiants.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetAllEtudiantsAllSession() throws Exception {
+        //Arrange
+        List<Etudiant> expected = getEtudiants();
+        when(userService.getAllEtudiantsAllSession()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/user/etudiants/allSession")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualEtudiants.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetAllSuperviseurs() throws Exception {
+        //Arrange
+        List<Superviseur> expected = List.of(getSuperviseur(), getSuperviseur(), getSuperviseur());
+        when(userService.getAllSuperviseurs()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/user/superviseurs")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualSuperviseurs = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualSuperviseurs).hasSize(expected.size());
+    }
+
+    @Test
+    void testGetAllSuperviseurAllSession() throws Exception {
+        //Arrange
+        List<Superviseur> expected = List.of(getSuperviseur(), getSuperviseur(), getSuperviseur());
+        when(userService.getAllSuperviseursAllSession()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/user/superviseurs/allSession")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualSuperviseurs = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualSuperviseurs.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetAllEtudiantsWithoutSuperviseur() throws Exception {
+        //Arrange
+        List<Etudiant> expected = getEtudiants();
+        when(userService.getAllEtudiantsWithoutSuperviseur()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/user/etudiants/nosuperviseur")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualEtudiants.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testSaveListeEtudiantSuperviseur() throws Exception {
+        //Arrange
+        Superviseur expected = getSuperviseur();
+        expected.setId(1);
+        List<Etudiant> listEtudiants = getEtudiants();
+        when(userService.addListeEtudiantSuperviseur(any(Integer.class), any(List.class))).thenReturn(Optional.of(expected));
+        String url = "/user/superviseur/" + expected.getId() + "/etudiants";
+        //Act
+        MvcResult result = mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(listEtudiants))).andReturn();
+
+
+        //Assert
+        var actualSuperviseur = mapper.readValue(result.getResponse().getContentAsString(), Superviseur.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualSuperviseur).isEqualTo(expected);
+    }
+
+    @Test
+    void testGetAllEtudiantsBySuperviseur() throws Exception {
+        //Arrange
+        Superviseur superviseur = getSuperviseur();
+        superviseur.setId(1);
+        List<Etudiant> expected = getEtudiants();
+        when(userService.getAllEtudiantsBySuperviseur(any(Integer.class))).thenReturn(expected);
+        String url = "/user/superviseur/etudiants/" + superviseur.getId();
+
+
+        //Act
+        MvcResult result = mockMvc.perform(get(url)
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualEtudiants = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualEtudiants).hasSize(expected.size());
     }
 
 

@@ -1,15 +1,16 @@
-const offresUrl = 'http://localhost:9191/offres'
+
+const urlBase = 'http://localhost:9191/offres'
 const OffreService = {
     // getAllOffres [GET] /offres
     getAllOffres: async () => {
-        const res = await fetch(offresUrl)
+        const res = await fetch(urlBase)
         const data = await res.json()
         return data
     },
 
     // getEtudiantOffres [GET] /offres/etudiant/{etudiantCourriel}
     getEtudiantOffres: async (etudiantCourriel) => {
-        const res = await fetch(offresUrl + '/etudiant/' + etudiantCourriel)
+        const res = await fetch(urlBase + '/etudiant/' + etudiantCourriel)
         const data = await res.json()
         return data
     },
@@ -23,7 +24,7 @@ const OffreService = {
 
     // addOffre [POST] /offres/{authorEmail}
     addOffre: async (offre, authorEmail) => {
-        const res = await fetch(offresUrl + '/' + authorEmail, 
+        const res = await fetch(offresUrl + '/' + authorEmail,
         {
             method: 'POST',
             headers: {
@@ -52,7 +53,7 @@ const OffreService = {
     // applyForOffre [POST] /offres/{id}/apply 
     // body: email
     applyForOffre: async (id, email) => {
-        const res = await fetch(`${offresUrl}/${id}/apply`,
+        const res = await fetch(`${urlBase}/${id}/apply`,
         {
             method: 'POST',
             headers: {

@@ -23,7 +23,7 @@ const NavbarHTML = () => {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
-      <Navbar.Brand as={Link} to="/"><img src={logo} className="App-logo" alt="logo" /></Navbar.Brand>
+      <Navbar.Brand as={Link} to="/dashboard"><img src={logo} className="App-logo" alt="logo" /></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
@@ -42,9 +42,9 @@ const NavbarHTML = () => {
             null
           }
           {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
-            <NavDropdown title="Url Inscription" id="basic-nav-dropdown">
-              <NavDropdown.Item><button onClick={myFunction}>Email link</button></NavDropdown.Item>
-              <NavDropdown.Item><CopyToClipboard text={"http://localhost:3000/moniteur"}><button>Copy to clipboard</button></CopyToClipboard></NavDropdown.Item>
+            <NavDropdown  title="Url Inscription" id="basic-nav-dropdown">
+              <NavDropdown.Item ><button  className="text-white"onClick={myFunction}>Email link</button></NavDropdown.Item>
+              <NavDropdown.Item ><CopyToClipboard text={"http://localhost:3000/moniteur"}><button className="text-white">Copy to clipboard</button></CopyToClipboard></NavDropdown.Item>
             </NavDropdown>
             :
             null
@@ -65,6 +65,10 @@ const NavbarHTML = () => {
         }
         {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
         <Nav.Link as={Link} to="/gestion/cv">Voir et valider les CV</Nav.Link> : null
+        }
+
+        {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
+        <Nav.Link as={Link} to="/gestion/superviseur">Gestion Superviseur</Nav.Link> : null
         }
         </Nav>
       </Navbar.Collapse>

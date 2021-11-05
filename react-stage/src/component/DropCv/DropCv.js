@@ -2,6 +2,7 @@ import { React, useState, useContext, useEffect } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfo';
 import './DropCv.css'
 import { saveAs } from 'file-saver'
+import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from 'react-icons/ai'
 
 const DropCv = () => {
     const [etudiant, setEtudiant] = useState()
@@ -52,7 +53,7 @@ const DropCv = () => {
 
                             let cv = { data: result, etudiant: data, nom: files.name }
 
-                            const res = await fetch('http://localhost:9191/stage/cv', {
+                            const res = await fetch('http://localhost:9191/cv', {
                                 method: 'POST',
                                 headers: {
                                     'Content-type': 'application/json',
@@ -69,7 +70,7 @@ const DropCv = () => {
 
 
     const updateCvs = async () => {
-        fetch(`http://localhost:9191/stage/cv/etudiant/${etudiant.id}`)
+        fetch(`http://localhost:9191/cv/etudiant/${etudiant.id}`)
             .then(res => {
                 return res.json()
             })
@@ -79,14 +80,37 @@ const DropCv = () => {
     }
 
     const deleteCV = async (cv) => {
-        const res = await fetch(`http://localhost:9191/stage/cv/delete/${cv.id}`, { method: 'DELETE' })
+        const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`, { method: 'DELETE' })
         await res.json().then(updateCvs())
     }
 
-    const download = (cv) => {
-        saveAs(`http://localhost:9191/stage/cv/pdf/${cv.id}`)
+    const download = async (cv) => {
+        await fetch(`http://localhost:9191/cv/pdf/${cv.id}`)
+                        .then(res => {
+                            console.log(res)
+                            if (res.ok){
+                                saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
+                            }
+                            throw res
+                        })
+                        .catch(error =>{
+                            alert("Le fichier n'est pas disponible")
+                        })
+        
     }
 
+    const getStatusIcon = (status) => {
+        switch (status) {
+            case "PENDING":
+                return <AiOutlineClockCircle color="gold" size="48px" />
+            case "ACCEPTED":
+                return <AiOutlineCheckCircle color="green" size="48px" />
+            case "REJECTED":
+                return <AiOutlineCloseCircle color="red" size="48px" />
+            default:
+                return;
+        }
+    }
 
     const cvList = cvs.map((cv) =>
         <tr key={cv.id.toString()}>
@@ -94,6 +118,7 @@ const DropCv = () => {
             <td>{cv.dateSoumission}</td>
             <td><button onClick={() => deleteCV(cv)}>effacer</button></td>
             <td><button onClick={() => download(cv)}>télécharger</button></td>
+            <td>{getStatusIcon(cv.status)}</td>
         </tr>);
 
     useEffect(() => {
@@ -104,7 +129,7 @@ const DropCv = () => {
                 })
                 .then(data => {
                     setEtudiant(data)
-                    fetch(`http://localhost:9191/stage/cv/etudiant/${data.id}`)
+                    fetch(`http://localhost:9191/cv/etudiant/${data.id}`)
                         .then(res => {
                             return res.json()
                         })
@@ -120,7 +145,7 @@ const DropCv = () => {
             <form method="post" action="#" id="#" onSubmit={OnSubmit}>
 
                 <div class="form-group files">
-                    <input type="file" onChange={OnInputChange} class="form-control" id="fileName" name="fileName" multiple=""  />
+                    <input type="file" onChange={OnInputChange} class="form-control" id="fileName" name="fileName" multiple="" />
                 </div>
                 <button type="submit">Submit</button>
             </form>
@@ -130,9 +155,10 @@ const DropCv = () => {
                     <th>Date de soumission</th>
                     <th>effacer</th>
                     <th>télécarger</th>
+                    <th>Statut du CV</th>
                 </tr>
                 {cvList}
-                    </table> :  null }
+            </table> : null}
         </div>
     )
 }
