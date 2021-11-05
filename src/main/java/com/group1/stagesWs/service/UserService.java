@@ -66,7 +66,7 @@ public class UserService implements SessionManager<User> {
         }
         return Optional.empty();
     }
-  
+
     public List<Etudiant> getAllEtudiants() {
         List<Etudiant> listAllEtudiant = etudiantRepository.findAll();
         return (List<Etudiant>)(List<?>) getListForCurrentSession((List<User>)(List<?>)listAllEtudiant);
@@ -76,10 +76,30 @@ public class UserService implements SessionManager<User> {
         return etudiantRepository.findAll();
     }
 
+    public List<Superviseur> getAllSuperviseurs() {
+        List<Superviseur> listAllSuperviseur = superviseurRepository.findAll();
+        return (List<Superviseur>)(List<?>) getListForCurrentSession((List<User>)(List<?>)listAllSuperviseur);
+    }
+
+    public List<Superviseur> getAllSuperviseursAllSession() {
+        return superviseurRepository.findAll();
+    }
+
 
     public List<Etudiant> getAllEtudiantsWithoutSuperviseur(){
         List<Etudiant> etudiantListe = etudiantRepository.findAllEtudiantBySuperviseurNull();
         return (List<Etudiant>)(List<?>) getListForCurrentSession((List<User>)(List<?>)etudiantListe);
+    }
+
+    public Optional<Superviseur> addListeEtudiantSuperviseur(int superviseurId, List<Etudiant> listeEtudiants) {
+        if(!superviseurRepository.findById(superviseurId).equals(Optional.empty())){
+            Superviseur superviseur = superviseurRepository.findById(superviseurId).get();
+            superviseur.setEtudiantSupervise(listeEtudiants);
+            return Optional.of(superviseurRepository.save(superviseur));
+        }
+
+        return Optional.empty();
+
     }
 
     @Override
@@ -93,14 +113,5 @@ public class UserService implements SessionManager<User> {
         return listUserCurrentSession;
     }
 
-    public Optional<Superviseur> addListeEtudiantSuperviseur(int superviseurId, List<Etudiant> listeEtudiants) {
-        if(!superviseurRepository.findById(superviseurId).equals(Optional.empty())){
-            Optional<Superviseur> superviseur = superviseurRepository.findById(superviseurId);
-            superviseur.get().setEtudiantSupervise(listeEtudiants);
-            return superviseurRepository.save(superviseur);
-        }
 
-        return Optional.empty();
-
-    }
 }

@@ -233,6 +233,33 @@ public class UserServiceTest {
     }
 
     @Test
+    public void testGetAllSuperviseurs() {
+        //Arrange
+        List<Superviseur> expected = List.of(getSuperviseur(), getSuperviseur(), getSuperviseur());  //List etudiant qui ont la session actuelle par defaut
+        expected.get(0).setSession(Session.AUTOMNE_2021); //Changer un des etudiants a une session differente
+        when(superviseurRepository.findAll()).thenReturn(expected);
+
+        //Act
+        List<Superviseur> returned = service.getAllSuperviseurs();
+
+        //Assert
+        assertThat(returned).hasSize(expected.size() -1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+    }
+
+    @Test
+    public void testGetAllSuperviseurAllSession() {
+        //Arrange
+        List<Superviseur> expected = List.of(getSuperviseur(), getSuperviseur(), getSuperviseur());   //List etudiant qui ont la session actuelle par defaut
+        when(superviseurRepository.findAll()).thenReturn(expected);
+
+        //Act
+        List<Superviseur> returned = service.getAllSuperviseursAllSession();
+
+        //Assert
+        assertThat(returned).isEqualTo(expected); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+    }
+
+    @Test
     public void testGetAllEtudiantsWithoutSuperviseur() {
         //Arrange
         List<Etudiant> expected = getEtudiants();   //List etudiant qui ont la session actuelle par defaut
@@ -245,6 +272,26 @@ public class UserServiceTest {
         //Assert
         assertThat(returned).hasSize(expected.size() -1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
+
+    @Test
+    public void testAddListeEtudiantSuperviseur() {
+        //Arrange
+        Superviseur expected = getSuperviseur();
+        expected.setId(1);
+        List<Etudiant> listEtudiants = getEtudiants();
+        when(superviseurRepository.findById(any(Integer.class))).thenReturn(Optional.of(expected));
+        when(superviseurRepository.save(any(Superviseur.class))).thenReturn(expected);
+
+        //Act
+        Optional<Superviseur> returned = service.addListeEtudiantSuperviseur(expected.getId(), listEtudiants);
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+        assertThat(returned.get().getEtudiantSupervise()).hasSize(listEtudiants.size());
+    }
+
+
+
 
 
     private Etudiant getEtudiant() {
