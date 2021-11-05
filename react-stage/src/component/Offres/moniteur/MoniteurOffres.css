@@ -1,0 +1,23 @@
+.auto {
+    overflow: hidden;
+    margin: auto;
+}
+
+.bold {
+    font-weight: bolder;
+}
+
+.center {
+    text-align: center;
+    margin: auto;
+}
+
+.offre {
+    color: black;
+    text-decoration: none;
+}
+
+.offre:hover {
+    color: black;
+    background-color: #eee;
+}
