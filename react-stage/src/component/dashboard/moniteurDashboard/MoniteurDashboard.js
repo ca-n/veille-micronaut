@@ -34,19 +34,11 @@ const MoniteurDashboard = () => {
                 })
                 .then(data => {
                     console.log(data, "data")
-                    getEtudiants(data.id)
                     setFullUser(data)
                 })
 
         }
     }, []);
-
-    const getEtudiants = async (id) => {
-        const dbEtudiants =
-            await UserService.getEtudiantsForSuperviseur(id)
-        console.log(dbEtudiants, "dbEtudiants")
-        setListEtudiants(dbEtudiants)
-    }
 
     const etudiantsList = listEtudiants.map((etudiant) =>
         <tr key={etudiant.id.toString()}>
