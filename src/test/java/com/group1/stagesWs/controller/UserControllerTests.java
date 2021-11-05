@@ -1,12 +1,12 @@
 package com.group1.stagesWs.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Gestionnaire;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Superviseur;
 import com.group1.stagesWs.service.UserService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -36,10 +36,10 @@ public class UserControllerTests {
     @MockBean
     private UserService userService;
 
-    public UserControllerTests(){
+    public UserControllerTests() {
         mapper = new ObjectMapper().findAndRegisterModules();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
-
 
 
     @Test
@@ -210,16 +210,17 @@ public class UserControllerTests {
         assertThat(actualEtudiants.size()).isEqualTo(expected.size());
     }
 
+
     @Test
     void testGetAllEtudiantsForSuperviseur() throws Exception {
         //Arrange
         List<Etudiant> expected = getEtudiants();
         Superviseur superviseur = getSuperviseur();
-        for (Etudiant etudiant:expected) {
+        for (Etudiant etudiant : expected) {
             etudiant.setSuperviseur(superviseur);
         }
         when(userService.getAllEtudiantsForSuperviseur(superviseur.getId())).thenReturn(expected);
-        String url = "/user/etudiants/" + superviseur.getId();
+        String url = "/user/superviseur/" + superviseur.getId() + "/etudiants";
 
         //Act
         MvcResult result = mockMvc.perform(get(url)
@@ -230,7 +231,6 @@ public class UserControllerTests {
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualEtudiants.size()).isEqualTo(expected.size());
     }
-
 
     private Etudiant getEtudiant() {
         return new Etudiant(

@@ -3,6 +3,8 @@ package com.group1.stagesWs.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
+import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.service.CVService;
 import com.group1.stagesWs.service.EmailService;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,8 +19,8 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -143,29 +145,53 @@ public class CVControllerTests {
         CV expected = new CV();
         expected.setId(1);
         when(cvService.deleteCV(any(Integer.class))).thenReturn(true);
-
+        
         //Act
         MvcResult result = mockMvc.perform(delete("/cv/delete/" + expected.getId())).andReturn();
-
+        
         //Assert
         var actual = mapper.readValue(result.getResponse().getContentAsString(), Boolean.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actual).isTrue();
     }
-
+    
     @Test
     void testGetAllCVsAllSession() throws Exception {
         //Arrange
         List<CV> expected = List.of(new CV(), new CV(), new CV());
         when(cvService.getAllCVsAllSession()).thenReturn(expected);
-
+        
         //Act
         MvcResult result = mockMvc.perform(get("/cv/allSession")).andReturn();
-
+        
         //Assert
         var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actual.size()).isEqualTo(3);
     }
-
+    
+    private Etudiant getEtudiant() {
+        return new Etudiant(
+                "Pascal",
+                "Bourgoin",
+                "test@test.com",
+                "password",
+                "123456789",
+                "technique",
+                "addy 123",
+                "123456",
+                true,
+                true);
+    }
+    
+    private Moniteur getMoniteur() {
+        return new Moniteur(
+                "John",
+                "Doe",
+                "john.doe@example.com",
+                "pa55w0rd",
+                "000111222",
+                "Example Enterprises",
+                "123 Enterprise Lane");
+    }
 }

@@ -1,8 +1,14 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
-import com.group1.stagesWs.model.*;
-import com.group1.stagesWs.repositories.*;
+import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Moniteur;
+import com.group1.stagesWs.model.Superviseur;
+import com.group1.stagesWs.model.User;
+import com.group1.stagesWs.repositories.EtudiantRepository;
+import com.group1.stagesWs.repositories.GestionnaireRepository;
+import com.group1.stagesWs.repositories.MoniteurRepository;
+import com.group1.stagesWs.repositories.SuperviseurRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +23,8 @@ public class UserService implements SessionManager<User> {
     private final MoniteurRepository moniteurRepository;
     private final SuperviseurRepository superviseurRepository;
 
-    public UserService(EtudiantRepository etudiantRepository, GestionnaireRepository gestionnaireRepository, MoniteurRepository moniteurRepository, SuperviseurRepository superviseurRepository) {
+    public UserService(EtudiantRepository etudiantRepository, GestionnaireRepository gestionnaireRepository,
+            MoniteurRepository moniteurRepository, SuperviseurRepository superviseurRepository) {
         this.etudiantRepository = etudiantRepository;
         this.gestionnaireRepository = gestionnaireRepository;
         this.moniteurRepository = moniteurRepository;
@@ -75,6 +82,21 @@ public class UserService implements SessionManager<User> {
 
     public List<Etudiant> getAllEtudiantsAllSession() {
         return etudiantRepository.findAll();
+    }
+
+    /*
+     * IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR public
+     * Optional<User> findMoniteurByEtudiantId(int id) { Etudiant etudiant =
+     * etudiantRepository.findEtudiantById(id); return Optional.of(etudiant.get());
+     * }
+     */
+
+    public List<Superviseur> getAllSuperviseurs() {
+        return superviseurRepository.findAll();
+    }
+
+    public List<Moniteur> getAllMoniteurs() {
+        return moniteurRepository.findAll();
     }
 
     public List<Etudiant> getAllEtudiantsForSuperviseur(int idSuperviseur) {
