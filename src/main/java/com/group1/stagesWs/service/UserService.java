@@ -84,6 +84,48 @@ public class UserService implements SessionManager<User> {
         return etudiantRepository.findAll();
     }
 
+    public List<Superviseur> getAllSuperviseurs() {
+        List<Superviseur> listAllSuperviseur = superviseurRepository.findAll();
+        return (List<Superviseur>)(List<?>) getListForCurrentSession((List<User>)(List<?>)listAllSuperviseur);
+    }
+
+    public List<Superviseur> getAllSuperviseursAllSession() {
+        return superviseurRepository.findAll();
+    }
+
+
+    public List<Etudiant> getAllEtudiantsWithoutSuperviseur(){
+        List<Etudiant> etudiantListe = etudiantRepository.findAllEtudiantBySuperviseurNull();
+        return (List<Etudiant>)(List<?>) getListForCurrentSession((List<User>)(List<?>)etudiantListe);
+    }
+
+    public Optional<Superviseur> addListeEtudiantSuperviseur(int superviseurId, List<Etudiant> listeEtudiants) {
+        Optional<Superviseur> superviseur = superviseurRepository.findById(superviseurId);
+        if(!superviseur.equals(Optional.empty())) {
+            if (!listeEtudiants.isEmpty()){
+                for (Etudiant etudiant : listeEtudiants) {
+                    etudiant.setSuperviseur(superviseur.get());
+                }
+                etudiantRepository.saveAll(listeEtudiants);
+            }
+            else{
+                listeEtudiants = etudiantRepository.findAllEtudiantBySuperviseurId(superviseurId);
+                for (Etudiant etudiant : listeEtudiants) {
+                    etudiant.setSuperviseur(null);
+                }
+                etudiantRepository.saveAll(listeEtudiants);
+
+            }
+            return superviseur;
+
+        }
+        return superviseur;
+    }
+
+    public List<Etudiant> getAllEtudiantsBySuperviseur(int superviseurId) {
+        List<Etudiant> listAllEtudiantBySuperviseur = etudiantRepository.findAllEtudiantBySuperviseurId(superviseurId);
+        return (List<Etudiant>)(List<?>) getListForCurrentSession((List<User>)(List<?>)listAllEtudiantBySuperviseur);
+
     /*
      * IF ETUDIANT HAS CONTRAT THEN ACCES CONTRAT AND RETURN MONITEUR public
      * Optional<User> findMoniteurByEtudiantId(int id) { Etudiant etudiant =
@@ -98,9 +140,7 @@ public class UserService implements SessionManager<User> {
     public List<Moniteur> getAllMoniteurs() {
         return moniteurRepository.findAll();
     }
-
-    public List<Etudiant> getAllEtudiantsForSuperviseur(int idSuperviseur) {
-        return etudiantRepository.findAllBySuperviseurId(idSuperviseur);
+      
     }
 
     @Override
@@ -113,4 +153,6 @@ public class UserService implements SessionManager<User> {
         }
         return listUserCurrentSession;
     }
+
+
 }

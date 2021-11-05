@@ -9,4 +9,5 @@ public interface SuperviseurRepository extends JpaRepository<Superviseur, Intege
     Superviseur findSuperviseurByCourrielIgnoreCase(String courriel);
 
     Superviseur findSuperviseurByCourrielIgnoreCaseAndPassword(String courriel, String pwd);
+
 }

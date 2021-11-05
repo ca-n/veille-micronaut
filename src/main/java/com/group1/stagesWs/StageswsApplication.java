@@ -190,7 +190,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant6.setHasLicense(true);
         etudiant6.setSuperviseur(superviseur6);
         etudiantRepository.save(etudiant6);
-
+      
         Moniteur moniteur = new Moniteur();
         moniteur.setPrenom("Pascal");
         moniteur.setNom("Bourgoin");
@@ -275,6 +275,24 @@ public class StageswsApplication implements CommandLineRunner{
 
 
 
+
+
+
+
+        Etudiant etudiant1 = new Etudiant();
+        etudiant1.setPrenom("Patrick");
+        etudiant1.setNom("Star");
+        etudiant1.setCourriel("pat@gmail.com");
+        etudiant1.setPassword("Password1");
+        etudiant1.setNumTelephone("123145676");
+        etudiant1.setRole(UserType.ETUDIANT);
+        etudiant1.setProgramme("Info");
+        etudiant1.setAdresse("113 lapierre");
+        etudiant1.setNumMatricule("12345678");
+        etudiant1.setHasLicense(true);
+        etudiant1.setHasVoiture(true);
+        etudiant1.setSuperviseur(superviseur);
+        etudiantRepository.save(etudiant1);
 
 
 
