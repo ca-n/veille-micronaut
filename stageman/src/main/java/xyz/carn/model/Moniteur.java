@@ -14,6 +14,7 @@ public class Moniteur extends User {
     private String addresseEntreprise;
 
     public Moniteur() {
+        super();
         role = UserType.MONITEUR;
     }
 }

@@ -13,6 +13,7 @@ public class Gestionnaire extends User {
     private String departement;
 
     public Gestionnaire() {
+        super();
         role = UserType.GESTIONNAIRE;
     }
 }

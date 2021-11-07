@@ -17,6 +17,7 @@ public class User implements Serializable {
     @GeneratedValue
     protected int id;
     protected String prenom;
+    protected String nom;
     @Column(unique = true)
     protected String courriel;
     protected String password;

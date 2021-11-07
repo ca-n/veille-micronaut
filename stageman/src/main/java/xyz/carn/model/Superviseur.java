@@ -14,6 +14,7 @@ public class Superviseur extends User {
     private String specialite;
 
     public Superviseur() {
+        super();
         role = UserType.SUPERVISEUR;
     }
 }

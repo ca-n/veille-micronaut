@@ -21,6 +21,7 @@ public class Etudiant extends User {
     private boolean hasVoiture;
 
     public Etudiant() {
+        super();
         role = UserType.ETUDIANT;
     }
 }
