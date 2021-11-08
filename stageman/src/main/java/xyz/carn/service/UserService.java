@@ -41,24 +41,28 @@ public class UserService {
         return Optional.of(moniteurRepository.save(moniteur));
     }
 
-    public Optional<? extends User> login(@NotNull Credentials credentials) {
+    public Optional<User> login(Credentials credentials) {
         var moniteur = moniteurRepository.findByCourrielIgnoreCaseAndPassword(credentials.getEmail(), credentials.getPassword());
-        if (moniteur.isPresent()) return moniteur;
+        if (moniteur.isPresent()) return Optional.of(moniteur.get());
         var etudiant = etudiantRepository.findByCourrielIgnoreCaseAndPassword(credentials.getEmail(), credentials.getPassword());
-        if (etudiant.isPresent()) return etudiant;
+        if (etudiant.isPresent()) return Optional.of(etudiant.get());
         var superviseur = superviseurRepository.findByCourrielIgnoreCaseAndPassword(credentials.getEmail(), credentials.getPassword());
-        if (superviseur.isPresent()) return superviseur;
-        return gestionnaireRepository.findByCourrielIgnoreCaseAndPassword(credentials.getEmail(), credentials.getPassword());
+        if (superviseur.isPresent()) return Optional.of(superviseur.get());
+        var gestionnaire = gestionnaireRepository.findByCourrielIgnoreCaseAndPassword(credentials.getEmail(), credentials.getPassword());
+        if (gestionnaire.isPresent()) return Optional.of(gestionnaire.get());
+        return Optional.empty();
     }
 
-    public Optional<? extends User> getUserByEmail(String email) {
+    public Optional<User> getUserByEmail(String email) {
         var moniteur = moniteurRepository.findByCourrielIgnoreCase(email);
-        if (moniteur.isPresent()) return moniteur;
+        if (moniteur.isPresent()) return Optional.of(moniteur.get());
         var etudiant = etudiantRepository.findByCourrielIgnoreCase(email);
-        if (etudiant.isPresent()) return etudiant;
+        if (etudiant.isPresent()) return Optional.of(etudiant.get());
         var superviseur = superviseurRepository.findByCourrielIgnoreCase(email);
-        if (superviseur.isPresent()) return superviseur;
-        return gestionnaireRepository.findByCourrielIgnoreCase(email);
+        if (superviseur.isPresent()) return Optional.of(superviseur.get());
+        var gestionnaire = gestionnaireRepository.findByCourrielIgnoreCase(email);
+        if (gestionnaire.isPresent()) return Optional.of(gestionnaire.get());
+        return Optional.empty();
     }
 
     public List<Etudiant> getAllEtudiants() {
