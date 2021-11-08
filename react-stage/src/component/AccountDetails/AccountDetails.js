@@ -25,7 +25,7 @@ const AccountDetails = () => {
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
+            fetch(`http://localhost:8080/users/${loggedUser.courriel}`)
                 .then(res => {
                     return res.json();
                 })

@@ -41,7 +41,7 @@ const useFormSuperviseur = (callback,validateInfoSuperviseur) => {
             callback();
 
             var request = new XMLHttpRequest();
-            request.open('POST', 'http://localhost:9191/stage/superviseur', true);
+            request.open('POST', 'http://localhost:8080/users/superviseurs', true);
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
 

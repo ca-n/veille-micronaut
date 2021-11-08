@@ -65,7 +65,17 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
         } else {
             if (Object.keys(errors).length === 0 && isSubmitted) {
                 // callback();
-                fetch(`http://localhost:9191/user/${values.courriel}/${values.password}`)
+                fetch('http://localhost:8080/users/login',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: {
+                        'email': values.courriel,
+                        'password': values.password
+                    }
+                })
                     .then(res => {
                         console.log(res, "resultat res")
 
