@@ -9,9 +9,14 @@ import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
+import xyz.carn.model.Etudiant;
+import xyz.carn.model.Moniteur;
 import xyz.carn.model.Superviseur;
+import xyz.carn.model.User;
+import xyz.carn.model.type.Credentials;
 import xyz.carn.service.UserService;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -33,7 +38,7 @@ public class UserControllerTest {
         Superviseur expected = new Superviseur();
         expected.setId(1);
         when(service.addSuperviseur(any(Superviseur.class))).thenReturn(Optional.of(expected));
-        var request = HttpRequest.create(HttpMethod.POST, "/superviseurs").body(new Superviseur());
+        var request = HttpRequest.POST("/superviseurs", new Superviseur());
 
         //Act
         var response = client.toBlocking().exchange(request, Superviseur.class);
@@ -46,27 +51,94 @@ public class UserControllerTest {
 
     @Test
     void testAddEtudiant() {
-        fail("Not implemented.");
+        //Arrange
+        Etudiant expected = new Etudiant();
+        expected.setId(1);
+        when(service.addEtudiant(any(Etudiant.class))).thenReturn(Optional.of(expected));
+        var request = HttpRequest.POST("/etudiants", new Etudiant());
+
+        //Act
+        var response = client.toBlocking().exchange(request, Etudiant.class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.body()).isEqualTo(expected);
+        verify(service).addEtudiant(any(Etudiant.class));
     }
 
     @Test
     void testAddMoniteur() {
-        fail("Not implemented.");
+        //Arrange
+        Moniteur expected = new Moniteur();
+        expected.setId(1);
+        when(service.addMoniteur(any(Moniteur.class))).thenReturn(Optional.of(expected));
+        var request = HttpRequest.POST("/moniteurs", new Moniteur());
+
+        //Act
+        var response = client.toBlocking().exchange(request, Moniteur.class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.body()).isEqualTo(expected);
+        verify(service).addMoniteur(any(Moniteur.class));
     }
 
     @Test
     void testLogin() {
-        fail("Not implemented.");
+        //Arrange
+        Credentials creds = new Credentials();
+        creds.setEmail("email@example.com");
+        User expected = new User();
+        expected.setCourriel(creds.getEmail());
+        when(service.login(any(Credentials.class))).thenReturn(Optional.of(expected));
+        var request = HttpRequest.POST("/login", creds);
+
+        //Act
+        var response = client.toBlocking().exchange(request, User.class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isPresent();
+        var actual = response.getBody().get();
+        assertThat(actual.getCourriel()).isEqualTo(expected.getCourriel());
+        verify(service).login(any(Credentials.class));
     }
 
     @Test
     void testGetUserByEmail() {
-        fail("Not implemented.");
+        //Arrange
+        User expected = new User();
+        expected.setCourriel("email@example.com");
+        when(service.getUserByEmail(any(String.class))).thenReturn(Optional.of(expected));
+        var request = HttpRequest.GET(expected.getCourriel());
+
+        //Act
+        var response = client.toBlocking().exchange(request, User.class);
+
+        //Assert
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isPresent();
+        var actual = response.getBody().get();
+        assertThat(actual.getCourriel()).isEqualTo(expected.getCourriel());
+        verify(service).getUserByEmail(any(String.class));
     }
 
     @Test
     void testGetAllEtudiants() {
-        fail("Not implemented.");
+        //Arrange
+        List<Etudiant> expected = List.of(new Etudiant(), new Etudiant(), new Etudiant());
+        when(service.getAllEtudiants()).thenReturn(expected);
+        var request = HttpRequest.GET("/etudiants");
+
+        //Act
+        var response = client.toBlocking().exchange(request, List.class);
+
+        //Assert
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isPresent();
+        var actual = response.getBody().get();
+        assertThat(actual.size()).isEqualTo(3);
+        verify(service).getAllEtudiants();
     }
 
     @MockBean(UserService.class)
