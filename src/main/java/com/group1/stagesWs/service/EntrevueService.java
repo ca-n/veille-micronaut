@@ -19,14 +19,16 @@ public class EntrevueService  implements SessionManager<Entrevue> {
         this.entrevueRepository = entrevueRepository;
     }
 
+    public Optional<Entrevue> saveEntrevue(Entrevue entrevue) {
+        return Optional.of(entrevueRepository.save(entrevue));
+    }
+
     public List<Entrevue> getAllEntrevueEtudiant(int id) {
         List<Entrevue> listCVEtudiantCurrentSession = entrevueRepository.findEntrevueByEtudiantId(id);
         return getListForCurrentSession(listCVEtudiantCurrentSession);
     }
 
-    public Optional<Entrevue> saveEntrevue(Entrevue entrevue) {
-        return Optional.of(entrevueRepository.save(entrevue));
-    }
+
 
 
     @Override
