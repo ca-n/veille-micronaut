@@ -22,15 +22,17 @@ public class StageswsApplication implements CommandLineRunner{
     private final GestionnaireRepository gestionnaireRepository;
     private final SuperviseurRepository superviseurRepository;
     private final CVRepository cvRepository;
+    private final EntrevueRepository entrevueRepository;
 
 
-    public StageswsApplication(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, GestionnaireRepository gestionnaireRepository, SuperviseurRepository superviseurRepository, CVRepository cvRepository) {
+    public StageswsApplication(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, GestionnaireRepository gestionnaireRepository, SuperviseurRepository superviseurRepository, CVRepository cvRepository,EntrevueRepository entrevueRepository) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
         this.moniteurRepository = moniteurRepository;
         this.gestionnaireRepository = gestionnaireRepository;
         this.superviseurRepository = superviseurRepository;
         this.cvRepository = cvRepository;
+        this.entrevueRepository = entrevueRepository;
     }
 
     public static void main(String[] args) {
@@ -307,5 +309,6 @@ public class StageswsApplication implements CommandLineRunner{
         Offre offre6 = new Offre("TITRE6", "DESCRIPTION6", "ENTREPRISE6", true, "113 lapierre Montreal", "2022-12-05", "2023-3-05", 13, "9:00 à 5:00", 40, 20.75);
         offre1.setWhitelist(Set.of(etudiant));
         offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
+
     }
 }

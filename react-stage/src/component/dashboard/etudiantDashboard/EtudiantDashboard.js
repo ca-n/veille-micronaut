@@ -6,6 +6,7 @@ import VoirCVState from './VoirCVState'
 import './EtudiantDashboard.css'
 import UserService from '../../../services/UserService'
 import ContratService from '../../../services/ContratService'
+import Entrevue from './Entrevue'
 
 
 const EtudiantDashboard = () => {
@@ -107,6 +108,7 @@ const EtudiantDashboard = () => {
                 :
                 <Offres />
             }
+            <Entrevue />
         </>
     )
 }
