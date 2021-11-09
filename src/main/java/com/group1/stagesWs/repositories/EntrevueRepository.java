@@ -11,6 +11,4 @@ import java.util.List;
 public interface EntrevueRepository extends JpaRepository<Entrevue,Integer> {
     List<Entrevue> findEntrevueByEtudiantId(int id);
 
-    Boolean deleteEntrevueByById(int id);
-
 }

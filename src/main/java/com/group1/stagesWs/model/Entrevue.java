@@ -19,7 +19,7 @@ public class Entrevue implements Serializable {
     private String titre;
     private Date date;
 
-    protected Session session;
+    private Session session;
 
     @ManyToOne
     private Etudiant etudiant;
