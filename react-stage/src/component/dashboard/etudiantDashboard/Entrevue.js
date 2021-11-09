@@ -30,6 +30,8 @@ const Entrevue = () => {
         <tr key={entrevue.id.toString()}>
             <td>{entrevue.titre}</td>
             <td>{entrevue.date}</td>
+            <td>{entrevue.time}</td>
+
         </tr>);
 
     return (
@@ -39,6 +41,7 @@ const Entrevue = () => {
                 <tr>
                     <th>Titre</th>
                     <th>Date</th>
+                    <th>Time</th>
                 </tr>
                 {entrevuesList}
             </table>

@@ -119,4 +119,15 @@ public class UserController {
     public ResponseEntity<List<Gestionnaire>> getGestionnaire(){
         return new ResponseEntity<>(service.getAllGestionnaires(), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/etudiant/{id}")
+    public ResponseEntity<Etudiant> getEtudiant(@PathVariable("id") int id){
+        return new ResponseEntity<>(service.getEtudiant(id), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/moniteur/{id}")
+    public ResponseEntity<Moniteur> getMoniteur(@PathVariable("id") int id){
+        return new ResponseEntity<>(service.getMoniteur(id), HttpStatus.OK);
+    }
+
 }

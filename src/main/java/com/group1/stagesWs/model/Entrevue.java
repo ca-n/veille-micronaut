@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -17,6 +18,7 @@ public class Entrevue implements Serializable {
 
     private String titre;
     private LocalDate date;
+    private LocalTime time;
 
     private Session session;
 

@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
@@ -315,6 +316,7 @@ public class StageswsApplication implements CommandLineRunner{
         entrevue.setId(1);
         entrevue.setTitre("test1");
         entrevue.setDate(LocalDate.of(2021,11,16));
+        entrevue.setTime(LocalTime.of(15,00));
         entrevue.setEtudiant(etudiant);
         entrevue.setMoniteur(moniteur);
 
@@ -322,6 +324,7 @@ public class StageswsApplication implements CommandLineRunner{
         entrevue2.setId(2);
         entrevue2.setTitre("test2");
         entrevue2.setDate(LocalDate.of(2021,11,27));
+        entrevue2.setTime(LocalTime.of(11,30));
         entrevue2.setEtudiant(etudiant);
         entrevue2.setMoniteur(moniteur);
 

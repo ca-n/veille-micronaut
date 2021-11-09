@@ -151,4 +151,12 @@ public class UserService implements SessionManager<User> {
     public List<Gestionnaire> getAllGestionnaires() {
         return gestionnaireRepository.findAll();
     }
+
+    public Etudiant getEtudiant(int id){
+        return etudiantRepository.findEtudiantById(id);
+    }
+
+    public Moniteur getMoniteur(int id){
+        return moniteurRepository.findMoniteurById(id);
+    }
 }
