@@ -1,5 +1,8 @@
 package com.group1.stagesWs.model;
 
+import com.group1.stagesWs.SessionManager;
+import com.group1.stagesWs.enums.Session;
+import com.group1.stagesWs.enums.UserType;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,10 +19,18 @@ public class Entrevue implements Serializable {
     private String titre;
     private Date date;
 
+    protected Session session;
+
     @ManyToOne
     private Etudiant etudiant;
 
     @ManyToOne
     private Moniteur moniteur;
+
+    public Entrevue() {
+        session = SessionManager.CURRENT_SESSION;
+    }
+
+
 
 }
