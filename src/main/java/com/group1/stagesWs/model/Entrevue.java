@@ -2,12 +2,11 @@ package com.group1.stagesWs.model;
 
 import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.enums.Session;
-import com.group1.stagesWs.enums.UserType;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -17,7 +16,7 @@ public class Entrevue implements Serializable {
     private int id;
 
     private String titre;
-    private Date date;
+    private LocalDate date;
 
     private Session session;
 
