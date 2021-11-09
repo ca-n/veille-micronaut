@@ -1,12 +1,14 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
+import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Entrevue;
 import com.group1.stagesWs.repositories.EntrevueRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EntrevueService  implements SessionManager<Entrevue> {
@@ -20,6 +22,10 @@ public class EntrevueService  implements SessionManager<Entrevue> {
     public List<Entrevue> getAllEntrevueEtudiant(int id) {
         List<Entrevue> listCVEtudiantCurrentSession = entrevueRepository.findEntrevueByEtudiantId(id);
         return getListForCurrentSession(listCVEtudiantCurrentSession);
+    }
+
+    public Optional<Entrevue> saveEntrevue(Entrevue entrevue) {
+        return Optional.of(entrevueRepository.save(entrevue));
     }
 
 

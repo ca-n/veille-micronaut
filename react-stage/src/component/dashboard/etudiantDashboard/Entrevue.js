@@ -39,7 +39,6 @@ const Entrevue = () => {
             <h1>Entrevues</h1>
             <table>
                 <tr>
-                    <th>id</th>
                     <th>Titre</th>
                     <th>Date</th>
                 </tr>

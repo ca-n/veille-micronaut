@@ -311,6 +311,20 @@ public class StageswsApplication implements CommandLineRunner{
         offre1.setWhitelist(Set.of(etudiant));
         offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
 
+        Entrevue entrevue = new Entrevue();
+        entrevue.setId(1);
+        entrevue.setTitre("test1");
+        entrevue.setDate(LocalDate.of(2021,11,16));
+        entrevue.setEtudiant(etudiant);
+        entrevue.setMoniteur(moniteur);
 
+        Entrevue entrevue2 = new Entrevue();
+        entrevue2.setId(2);
+        entrevue2.setTitre("test2");
+        entrevue2.setDate(LocalDate.of(2021,11,27));
+        entrevue2.setEtudiant(etudiant);
+        entrevue2.setMoniteur(moniteur);
+
+        entrevueRepository.saveAll(List.of(entrevue,entrevue2));
     }
 }
