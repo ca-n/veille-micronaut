@@ -24,8 +24,13 @@ public class EntrevueService  implements SessionManager<Entrevue> {
     }
 
     public List<Entrevue> getAllEntrevueEtudiant(int id) {
-        List<Entrevue> listCVEtudiantCurrentSession = entrevueRepository.findEntrevueByEtudiantId(id);
-        return getListForCurrentSession(listCVEtudiantCurrentSession);
+        List<Entrevue> listEtudiantCurrentSession = entrevueRepository.findEntrevueByEtudiantId(id);
+        return getListForCurrentSession(listEtudiantCurrentSession);
+    }
+
+    public List<Entrevue> getAllEntrevueMoniteur(int id) {
+        List<Entrevue> listMoniteurCurrentSession = entrevueRepository.findEntrevueByMoniteurId(id);
+        return getListForCurrentSession(listMoniteurCurrentSession);
     }
 
 

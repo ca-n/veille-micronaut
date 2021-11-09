@@ -32,7 +32,12 @@ public class EntrevueController {
     }
 
     @GetMapping(path = "/etudiant/{id}")
-    public ResponseEntity<List<Entrevue>> getAllCVbyEtudiant(@PathVariable("id") int id) {
+    public ResponseEntity<List<Entrevue>> getAllEntrevuesByEtudiant(@PathVariable("id") int id) {
         return new ResponseEntity<>(entrevueService.getAllEntrevueEtudiant(id), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/moniteur/{id}")
+    public ResponseEntity<List<Entrevue>> getAllEntrevuesByMoniteur(@PathVariable("id") int id) {
+        return new ResponseEntity<>(entrevueService.getAllEntrevueMoniteur(id), HttpStatus.OK);
     }
 }
