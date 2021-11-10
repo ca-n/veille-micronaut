@@ -122,22 +122,22 @@ public class OffreControllerTests {
         assertThat(actualOffre).isEqualTo(expected);
     }
 
-    @Test
-    void testUpdateOffre() throws Exception {
-        //Arrange
-        Offre expected = getOffre();
-        when(service.updateOffre(any(Integer.class), any(Offre.class))).thenReturn(Optional.of(expected));
-
-        //Act
-        MvcResult result = mockMvc.perform(put("/offres/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(expected))).andReturn();
-
-        //Assert
-        var actualOffre = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actualOffre).isEqualTo(expected);
-    }
+//    @Test
+//    void testUpdateOffre() throws Exception {
+//        //Arrange
+//        Offre expected = getOffre();
+//        when(service.updateOffre(any(Integer.class), any(Offre.class))).thenReturn(Optional.of(expected));
+//
+//        //Act
+//        MvcResult result = mockMvc.perform(put("/offres/1")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(mapper.writeValueAsString(expected))).andReturn();
+//
+//        //Assert
+//        var actualOffre = mapper.readValue(result.getResponse().getContentAsString(), Offre.class);
+//        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+//        assertThat(actualOffre).isEqualTo(expected);
+//    }
 
     @Test
     void testApplyForOffre() throws Exception {
