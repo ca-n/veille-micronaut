@@ -62,7 +62,7 @@ const Offres = () => {
     useEffect(() => {
         const getListAllEtudiants = async () => {
             const allEtudiants = await UserService.getListAllEtudiants()
-            setListAllEtudiant(getOptionsEtudiant(allEtudiants))
+            setListAllEtudiant(allEtudiants)
 
         }
         getListAllEtudiants()
@@ -250,7 +250,7 @@ const Offres = () => {
                                 <div className="col-6">
                                     <h1>Select Etudiants</h1>
                                     <MultiSelect
-                                        options={listAllEtudiant}
+                                        options={getOptionsEtudiant(listAllEtudiant)}
                                         value={listWhitelistedEtudiant}
                                         onChange={setListWhitelistedEtudiant}
                                         labelledBy="Select"
