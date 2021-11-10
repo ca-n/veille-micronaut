@@ -22,7 +22,7 @@ import SuperviseurEtudiantsAssignation from './component/Superviseur/Superviseur
 import Dashboard from './component/dashboard/Dashboard';
 import Contrat from './component/contrat/Contrat';
 import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
-import NewContrat from "./component/contrat/NewContrat"
+import NewContrat from "./component/contrat/newContrat/NewContrat"
 
 
 function App() {
