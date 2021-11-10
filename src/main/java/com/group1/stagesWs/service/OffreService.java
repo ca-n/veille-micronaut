@@ -60,12 +60,12 @@ public class OffreService implements SessionManager<Offre> {
         return Optional.of(offreRepository.save(offre));
     }
 
-    public Optional<Offre> updateOffre(int id, Offre offre) {
-        var offreOptional = offreRepository.findById(id);
-        if (offreOptional.isEmpty()) return offreOptional;
-        if (offre.getId() != id) offre.setId(id);
-        return Optional.of(offreRepository.save(offre));
-    }
+//    public Optional<Offre> updateOffre(int id, Offre offre) {
+//        var offreOptional = offreRepository.findById(id);
+//        if (offreOptional.isEmpty()) return offreOptional;
+//        if (offre.getId() != id) offre.setId(id);
+//        return Optional.of(offreRepository.save(offre));
+//    }
 
     @Override
     public List<Offre> getListForCurrentSession(List<Offre> listOffre) {

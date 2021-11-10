@@ -48,12 +48,12 @@ public class OffreController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Offre> updateOffre(@PathVariable int id, @RequestBody Offre offre) {
-        return service.updateOffre(id, offre)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Offre> updateOffre(@PathVariable int id, @RequestBody Offre offre) {
+//        return service.updateOffre(id, offre)
+//                .map(ResponseEntity::ok)
+//                .orElse(ResponseEntity.notFound().build());
+//    }
 
     @PostMapping("/{id}/apply")
     public ResponseEntity<Offre> applyForOffre(@PathVariable int id, @RequestBody String email) {

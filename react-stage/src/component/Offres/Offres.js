@@ -25,7 +25,7 @@ const Offres = () => {
         nbTotalHeuresParSemaine: Number,
         tauxHoraire: Number,
         whitelist: Array,
-        applicants: [],
+        applicants: Array,
         valid: Boolean
     })
 
@@ -69,20 +69,16 @@ const Offres = () => {
     }, [])
 
 
-    useEffect(() => {
-        console.log("-----UseEffect Logging--------")
-        console.log(listAllEtudiant, "list all etudiant --- listAllEtudiant")
-        console.log(listWhitelistedEtudiant, "list whitelisted etudiant --- listWhitelistedEtudiant ")
-        console.log(listOffres, "list all offres  ------------ listOffres")
-
-        // console.log(getOptionsEtudiant(listAllEtudiant), "filtered list etudiant ===================================")
-
-
-    }, [listAllEtudiant, listWhitelistedEtudiant, listOffres])
+    // useEffect(() => {
+    //     console.log("-----UseEffect Logging--------")
+    //     console.log(listAllEtudiant, "list all etudiant --- listAllEtudiant")
+    //     console.log(listWhitelistedEtudiant, "list whitelisted etudiant --- listWhitelistedEtudiant ")
+    //     console.log(listOffres, "list all offres  ------------ listOffres")
+    //     // console.log(getOptionsEtudiant(listAllEtudiant), "filtered list etudiant ===================================")
+    // }, [listAllEtudiant, listWhitelistedEtudiant, listOffres])
 
     const getOptionsEtudiant = (listEtudiant) => {
         return listEtudiant.map(etudiant => {
-            // console.log(etudiant)
             let etudiantOption = {}
             etudiantOption.label = etudiant.prenom + " " + etudiant.nom
             etudiantOption.value = etudiant
@@ -101,7 +97,7 @@ const Offres = () => {
 
 
     const onClickOffre = (offre) => {
-        console.log(offre)
+        console.log(offre, "ON click details offre")
         setCurrentOffre(offre)
         setListWhitelistedEtudiant(getOptionsEtudiant(offre.whitelist))
         setShowModal(true)
@@ -110,14 +106,12 @@ const Offres = () => {
 
     const appliquerOffre = async (offre) => {
         console.log(offre, "offre")
-        console.log(loggedUser, "loggesUser")
         let offreApplied
         offreApplied = await OffreService.applyForOffre(offre.id, loggedUser.courriel)
         console.log(offreApplied, "offreApplied")
         if (offreApplied != null) {
             alert("Application recu");
         }
-
     }
 
 
@@ -133,26 +127,26 @@ const Offres = () => {
         }))
     }
 
-    useEffect(() => {
-        console.log(currentOffre, "CURRENT OFFRE")
-    }, [currentOffre])
+    // useEffect(() => {
+    //     console.log(currentOffre, "CURRENT OFFRE")
+    // }, [currentOffre])
 
     const onClickSave = async () => {
         const updatedOffre = currentOffre
         updatedOffre.whitelist = getListEtudiantFromOptions(listWhitelistedEtudiant)
         setCurrentOffre(updatedOffre)
         console.log(updatedOffre, "UPDATED OFFRE")
-        OffreService.updateOffre(updatedOffre)
-        updateOffres()
+        await OffreService.saveOffre(updatedOffre)
+        await updateOffres()
 
 
-        console.log(listOffres, "list offres as save")
+        console.log(listOffres, "list offres as save -------------------")
         onClickClose()
     }
 
     const updateOffres = async () => {
         const dbOffres = loggedUser.role === "ETUDIANT" ?
-            OffreService.getEtudiantOffres(loggedUser.courriel) :
+            await OffreService.getEtudiantOffres(loggedUser.courriel) :
             await OffreService.getAllOffres()
         console.log(dbOffres, "dbOffres in update offres")
         setListOffres(dbOffres)
