@@ -1,6 +1,14 @@
 export default function validateInfoContrat(values) {
     let errors = {}
 
+    if (!values.offre) {
+        errors.offre = "L'offre est requise"
+    }
+
+    if (!values.etudiant) {
+        errors.etudiant = "L'étudiant est requis"
+    }
+
     if (!values.collegeEngagement) {
         errors.collegeEngagement = "Les engagements du collège sont requis"
     }

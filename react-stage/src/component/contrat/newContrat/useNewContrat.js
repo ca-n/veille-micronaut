@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useNewContrat = (validateInfoContrat) => {
-    const url = ""
+const useNewContrat = (callback, validateInfoContrat) => {
     const [values, setValues] = useState({
     })
     const [errors, setErrors] = useState({})
@@ -26,6 +25,8 @@ const useNewContrat = (validateInfoContrat) => {
     useEffect(() => {
 
         if (Object.keys(errors).length === 0 && isSubmitting) {
+            callback();
+
             var request = new XMLHttpRequest();
             request.open('POST', 'http://localhost:9191/contrat', true);
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
