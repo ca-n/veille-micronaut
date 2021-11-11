@@ -16,15 +16,22 @@ const NewContratForm = ({ submitForm }) => {
             dbOffres = await OffreService.getAllOffres()
 
             setListOffres(dbOffres)
+            setValuesOnLoad(dbOffres)
         }
         getOffres()
     }, [])
 
+    const setValuesOnLoad = (listOffres) => {
+        setValueOffre(listOffres[0])
+        setListEtudiants(listOffres[0].applicants);
+        setValueEtudiant(listOffres[0].applicants[0])
+
+    }
 
     const onChangeOffre = (e) => {
         let offre = JSON.parse(e.target.value)
-        values.offre = offre
-        values.moniteur = offre.moniteur
+        setValueOffre(offre)
+        setValueMoniteur(offre.moniteur)
         setListEtudiants(offre.applicants);
         setValueEtudiant(offre.applicants[0])
 
@@ -33,6 +40,14 @@ const NewContratForm = ({ submitForm }) => {
     const onChangeEtudiant = (e) => {
         let etudiant = JSON.parse(e.target.value)
         setValueEtudiant(etudiant)
+    }
+
+    const setValueMoniteur = (moniteur) => {
+        values.moniteur = moniteur
+    }
+
+    const setValueOffre = (offre) => {
+        values.offre = offre
     }
 
     const setValueEtudiant = (etudiant) => {
@@ -55,6 +70,7 @@ const NewContratForm = ({ submitForm }) => {
                             <option value={JSON.stringify(offre)}>{offre.titre}</option>
                         ))}
                     </select>
+                    {errors.offre && <p>{errors.offre}</p>}
                 </div>
 
                 <div className="form-inputs">
@@ -67,6 +83,7 @@ const NewContratForm = ({ submitForm }) => {
                             <option value={JSON.stringify(etudiant)}>{etudiant.prenom} {etudiant.nom}</option>
                         ))}
                     </select>
+                    {errors.etudiant && <p>{errors.etudiant}</p>}
                 </div>
 
                 <div className="form-inputs">
