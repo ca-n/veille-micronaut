@@ -27,13 +27,14 @@ const useNewContrat = (validateInfoContrat) => {
 
         if (Object.keys(errors).length === 0 && isSubmitting) {
             var request = new XMLHttpRequest();
-            request.open('POST', 'http://localhost:9191/user/etudiant', true);
+            request.open('POST', 'http://localhost:9191/contrat', true);
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
 
-            const etudiant = JSON.stringify(values);
+            const contrat = JSON.stringify(values);
+            console.log(contrat,"sent contrat")
 
-            request.send(etudiant)
+            request.send(contrat)
         }
     }, [errors]
     );
