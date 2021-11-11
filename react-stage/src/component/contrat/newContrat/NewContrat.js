@@ -8,6 +8,7 @@ import './NewContratCSS.css'
 const NewContrat = () => {
     const { handleChange, values, handleSubmit, errors } = useNewContrat(validateInfoContrat);
     const [listOffres, setListOffres] = useState([])
+    const [listEtudiants, setListEtudiants] = useState([])
     const [optionOffres, setOptionOffres] = useState([])
     const [optionEtudiants, setOptionEtudiants] = useState([])
 
@@ -18,43 +19,16 @@ const NewContrat = () => {
 
             console.log(dbOffres, "dbOffres")
             setListOffres(dbOffres)
-            getOptionOffres(dbOffres)
         }
         getOffres()
     }, [])
 
-    const getOptionOffres = (offres) => {
-        let newOptionOffre = []
-        offres.forEach(offre => {
-            console.log(offre, "offre")
-            newOptionOffre = [...newOptionOffre, { 'id': offre.id, 'titre': offre.titre }]
-        });
-        console.log(newOptionOffre, "newOptionOffre")
-        setOptionOffres(newOptionOffre)
+
+    const onChangeOffre = (e) => {
+        let offre = JSON.parse(e.target.value)
+        console.log(offre.applicants, "applicants")
+        setListEtudiants(offre.applicants);
     }
-
-
-    //doit recevoir l'offre lors du onChange
-    const getOptionEtudiants = (offre) => {
-        console.log("allo")
-        let listEtudiant = []
-        let applicants = offre.applicants
-        let newOptionEtudiant = []
-        applicants.forEach(etudiant => {
-            console.log(etudiant, "etudiant")
-            newOptionEtudiant = [...newOptionEtudiant, { 'id': etudiant.id, 'prenom': etudiant.prenom, 'nom': etudiant.nom }]
-        });
-        console.log(newOptionEtudiant, "newOptionEtudiant")
-        setOptionEtudiants(newOptionEtudiant)
-    }
-
-
-
-
-    //apres avoir get offre
-    //->getMoniteur
-    //->list applicant
-    //->select etudiant
 
     return (
         <div className="form-content-right">
@@ -67,25 +41,23 @@ const NewContrat = () => {
                         className="form-label">
                         Offre
                     </label>
-                    <select>
-                        {optionOffres.map((optionOffre) => (
-                            <option onChange={getOptionEtudiants} value={optionOffre.id}>{optionOffre.titre}</option>
+                    <select onChange={onChangeOffre}>
+                        {listOffres.map((offre) => (
+                            <option value={JSON.stringify(offre)}>{offre.titre}</option>
                         ))}
                     </select>
-                    {errors.offre && <p>{errors.offre}</p>}
                 </div>
-                
+
                 <div className="form-inputs">
                     <label htmlFor="etudiant"
                         className="form-label">
-                        Etudiant
+                        Étudiant
                     </label>
                     <select>
-                        {optionEtudiants.map((optionEtudiant) => (
-                            <option onChange={getOptionEtudiants} value={optionEtudiant.id}>{optionEtudiant.prenom} {optionEtudiant.nom}</option>
+                        {listEtudiants.map((etudiant) => (
+                            <option value={etudiant}>{etudiant.prenom} {etudiant.nom}</option>
                         ))}
                     </select>
-                    {errors.etudiant && <p>{errors.etudiant}</p>}
                 </div>
 
                 <div className="form-inputs">
