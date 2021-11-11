@@ -15,7 +15,6 @@ const NewContrat = () => {
             let dbOffres
             dbOffres = await OffreService.getAllOffres()
 
-            console.log(dbOffres, "dbOffres")
             setListOffres(dbOffres)
         }
         getOffres()
@@ -25,13 +24,14 @@ const NewContrat = () => {
     const onChangeOffre = (e) => {
         let offre = JSON.parse(e.target.value)
         values.offre = offre
-        console.log(offre.applicants, "applicants")
+        values.moniteur = offre.moniteur
         setListEtudiants(offre.applicants);
+        values.etudiant = offre.applicants[0]
+
     }
 
     const onChangeEtudiant = (e) => {
         let etudiant = JSON.parse(e.target.value)
-        console.log(etudiant, "etudiant")
         values.etudiant = etudiant
     }
 

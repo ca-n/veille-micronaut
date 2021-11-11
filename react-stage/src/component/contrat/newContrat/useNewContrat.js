@@ -32,7 +32,6 @@ const useNewContrat = (validateInfoContrat) => {
 
 
             const contrat = JSON.stringify(values);
-            console.log(contrat,"sent contrat")
 
             request.send(contrat)
         }

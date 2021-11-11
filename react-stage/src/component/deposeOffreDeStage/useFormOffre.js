@@ -34,7 +34,6 @@ const useFormOffre = (callback, validateInfoOffre) => {
         }
     }
     useEffect(() => {
-        console.log(values, "TT")
     }, [values])
 
     const handleSubmit = e => {
