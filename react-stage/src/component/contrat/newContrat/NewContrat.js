@@ -9,8 +9,6 @@ const NewContrat = () => {
     const { handleChange, values, handleSubmit, errors } = useNewContrat(validateInfoContrat);
     const [listOffres, setListOffres] = useState([])
     const [listEtudiants, setListEtudiants] = useState([])
-    const [optionOffres, setOptionOffres] = useState([])
-    const [optionEtudiants, setOptionEtudiants] = useState([])
 
     useEffect(() => {
         const getOffres = async () => {
@@ -26,8 +24,15 @@ const NewContrat = () => {
 
     const onChangeOffre = (e) => {
         let offre = JSON.parse(e.target.value)
+        values.offre = offre
         console.log(offre.applicants, "applicants")
         setListEtudiants(offre.applicants);
+    }
+
+    const onChangeEtudiant = (e) => {
+        let etudiant = JSON.parse(e.target.value)
+        console.log(etudiant, "etudiant")
+        values.etudiant = etudiant
     }
 
     return (
@@ -53,9 +58,9 @@ const NewContrat = () => {
                         className="form-label">
                         Étudiant
                     </label>
-                    <select>
+                    <select onChange={onChangeEtudiant}>
                         {listEtudiants.map((etudiant) => (
-                            <option value={etudiant}>{etudiant.prenom} {etudiant.nom}</option>
+                            <option value={JSON.stringify(etudiant)}>{etudiant.prenom} {etudiant.nom}</option>
                         ))}
                     </select>
                 </div>
