@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class CV implements Serializable {
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
 
     private String nom;
 
