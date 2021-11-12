@@ -23,5 +23,5 @@ export default function validateInfoContrat(values) {
 
 
 
-    return errors;
+    return errors
 }

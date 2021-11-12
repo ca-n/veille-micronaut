@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import useNewContrat from './useNewContrat'
-import validateInfoContrat from './validateInfoContrat';
-import OffreService from '../../../services/OffreService';
+import validateInfoContrat from './validateInfoContrat'
+import OffreService from '../../../services/OffreService'
 import './NewContratCSS.css'
 
 
 const NewContratForm = ({ submitForm }) => {
-    const { handleChange, values, handleSubmit, errors } = useNewContrat(submitForm, validateInfoContrat);
+    const { handleChange, values, handleSubmit, errors } = useNewContrat(submitForm, validateInfoContrat)
     const [listOffres, setListOffres] = useState([])
     const [listEtudiants, setListEtudiants] = useState([])
 
@@ -23,7 +23,7 @@ const NewContratForm = ({ submitForm }) => {
 
     const setValuesOnLoad = (listOffres) => {
         setValueOffre(listOffres[0])
-        setListEtudiants(listOffres[0].applicants);
+        setListEtudiants(listOffres[0].applicants)
         setValueEtudiant(listOffres[0].applicants[0])
 
     }
@@ -32,7 +32,7 @@ const NewContratForm = ({ submitForm }) => {
         let offre = JSON.parse(e.target.value)
         setValueOffre(offre)
         setValueMoniteur(offre.moniteur)
-        setListEtudiants(offre.applicants);
+        setListEtudiants(offre.applicants)
         setValueEtudiant(offre.applicants[0])
 
     }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 
 const useNewContrat = (callback, validateInfoContrat) => {
     const [values, setValues] = useState({
@@ -16,31 +16,30 @@ const useNewContrat = (callback, validateInfoContrat) => {
     }
 
     const handleSubmit = e => {
-        e.preventDefault();
+        e.preventDefault()
         setErrors(validateInfoContrat(values))
         setIsSubmitting(true)
 
     }
 
     useEffect(() => {
-
         if (Object.keys(errors).length === 0 && isSubmitting) {
-            callback();
+            //callback()
 
-            var request = new XMLHttpRequest();
-            request.open('POST', 'http://localhost:9191/contrat', true);
-            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            var request = new XMLHttpRequest()
+            request.open('POST', 'http://localhost:9191/contrat', true)
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
 
 
-            const contrat = JSON.stringify(values);
+            const contrat = JSON.stringify(values)
 
             request.send(contrat)
         }
     }, [errors]
-    );
+    )
 
 
     return { handleChange, values, handleSubmit, errors }
-};
+}
 
-export default useNewContrat;
+export default useNewContrat
