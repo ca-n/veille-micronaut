@@ -22,9 +22,7 @@ import SuperviseurEtudiantsAssignation from './component/Superviseur/Superviseur
 import Dashboard from './component/dashboard/Dashboard';
 import Contrat from './component/contrat/Contrat';
 import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
-import NewContrat from "./component/contrat/newContrat/NewContratForm"
-import NewContratForm from "./component/contrat/newContrat/NewContratForm";
-import NewContratSuccess from "./component/contrat/newContrat/NewContratSuccess";
+import NewContrat from "./component/contrat/newContrat/NewContrat"
 
 
 function App() {
@@ -51,8 +49,6 @@ function App() {
               <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation /></Route>
               <Route exact path="/gestion/allSession"><AllSessionInfo /></Route>
               <Route exact path="/gestion/newContrat"><NewContrat /></Route>
-              <Route exact path="/gestion/newContratForm"><NewContratForm /></Route>
-              <Route exact path="/gestion/newContratSucces"><NewContratSuccess /></Route>
 
             </Switch>
           </div>

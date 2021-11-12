@@ -24,7 +24,7 @@ const useNewContrat = (callback, validateInfoContrat) => {
 
     useEffect(() => {
         if (Object.keys(errors).length === 0 && isSubmitting) {
-            //callback()
+            callback()
 
             var request = new XMLHttpRequest()
             request.open('POST', 'http://localhost:9191/contrat', true)
