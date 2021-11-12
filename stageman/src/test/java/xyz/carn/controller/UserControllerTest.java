@@ -1,6 +1,5 @@
 package xyz.carn.controller;
 
-import io.micronaut.http.HttpMethod;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.HttpClient;
@@ -87,9 +86,9 @@ public class UserControllerTest {
     void testLogin() {
         //Arrange
         Credentials creds = new Credentials();
-        creds.setEmail("email@example.com");
+        creds.setCourriel("email@example.com");
         User expected = new User();
-        expected.setCourriel(creds.getEmail());
+        expected.setCourriel(creds.getCourriel());
         when(service.login(any(Credentials.class))).thenReturn(Optional.of(expected));
         var request = HttpRequest.POST("/login", creds);
 

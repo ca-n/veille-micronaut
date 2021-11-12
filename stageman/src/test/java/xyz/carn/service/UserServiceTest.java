@@ -4,8 +4,6 @@ import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import xyz.carn.model.Etudiant;
 import xyz.carn.model.Gestionnaire;
 import xyz.carn.model.Moniteur;
@@ -95,10 +93,10 @@ public class UserServiceTest {
     void testLoginGestionnaire() {
         //Arrange
         Credentials creds = new Credentials();
-        creds.setEmail("email@example.com");
+        creds.setCourriel("email@example.com");
         creds.setPassword("Password1");
         Gestionnaire expected = new Gestionnaire();
-        expected.setCourriel(creds.getEmail());
+        expected.setCourriel(creds.getCourriel());
         when(gestionnaireRepository.findByCourrielIgnoreCaseAndPassword(any(String.class), any(String.class))).thenReturn(Optional.of(expected));
 
         //Act
@@ -115,10 +113,10 @@ public class UserServiceTest {
     void testLoginSuperviseur() {
         //Arrange
         Credentials creds = new Credentials();
-        creds.setEmail("email@example.com");
+        creds.setCourriel("email@example.com");
         creds.setPassword("Password1");
         Superviseur expected = new Superviseur();
-        expected.setCourriel(creds.getEmail());
+        expected.setCourriel(creds.getCourriel());
         when(superviseurRepository.findByCourrielIgnoreCaseAndPassword(any(String.class), any(String.class))).thenReturn(Optional.of(expected));
 
         //Act
@@ -135,10 +133,10 @@ public class UserServiceTest {
     void testLoginEtudiant() {
         //Arrange
         Credentials creds = new Credentials();
-        creds.setEmail("email@example.com");
+        creds.setCourriel("email@example.com");
         creds.setPassword("Password1");
         Etudiant expected = new Etudiant();
-        expected.setCourriel(creds.getEmail());
+        expected.setCourriel(creds.getCourriel());
         when(etudiantRepository.findByCourrielIgnoreCaseAndPassword(any(String.class), any(String.class))).thenReturn(Optional.of(expected));
 
         //Act
@@ -155,10 +153,10 @@ public class UserServiceTest {
     void testLoginMoniteur() {
         //Arrange
         Credentials creds = new Credentials();
-        creds.setEmail("email@example.com");
+        creds.setCourriel("email@example.com");
         creds.setPassword("Password1");
         Moniteur expected = new Moniteur();
-        expected.setCourriel(creds.getEmail());
+        expected.setCourriel(creds.getCourriel());
         when(moniteurRepository.findByCourrielIgnoreCaseAndPassword(any(String.class), any(String.class))).thenReturn(Optional.of(expected));
 
         //Act

@@ -1,6 +1,9 @@
 micronaut:
   application:
     name: stageman
+  server:
+    cors:
+      enabled: true
 datasources:
   default:
     url: jdbc:h2:mem:veille-micronaut;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE

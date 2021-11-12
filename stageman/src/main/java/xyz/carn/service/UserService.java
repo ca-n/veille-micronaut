@@ -11,7 +11,6 @@ import xyz.carn.repository.GestionnaireRepository;
 import xyz.carn.repository.MoniteurRepository;
 import xyz.carn.repository.SuperviseurRepository;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,13 +41,13 @@ public class UserService {
     }
 
     public Optional<User> login(Credentials credentials) {
-        var moniteur = moniteurRepository.findByCourrielIgnoreCaseAndPassword(credentials.getEmail(), credentials.getPassword());
+        var moniteur = moniteurRepository.findByCourrielIgnoreCaseAndPassword(credentials.getCourriel(), credentials.getPassword());
         if (moniteur.isPresent()) return Optional.of(moniteur.get());
-        var etudiant = etudiantRepository.findByCourrielIgnoreCaseAndPassword(credentials.getEmail(), credentials.getPassword());
+        var etudiant = etudiantRepository.findByCourrielIgnoreCaseAndPassword(credentials.getCourriel(), credentials.getPassword());
         if (etudiant.isPresent()) return Optional.of(etudiant.get());
-        var superviseur = superviseurRepository.findByCourrielIgnoreCaseAndPassword(credentials.getEmail(), credentials.getPassword());
+        var superviseur = superviseurRepository.findByCourrielIgnoreCaseAndPassword(credentials.getCourriel(), credentials.getPassword());
         if (superviseur.isPresent()) return Optional.of(superviseur.get());
-        var gestionnaire = gestionnaireRepository.findByCourrielIgnoreCaseAndPassword(credentials.getEmail(), credentials.getPassword());
+        var gestionnaire = gestionnaireRepository.findByCourrielIgnoreCaseAndPassword(credentials.getCourriel(), credentials.getPassword());
         if (gestionnaire.isPresent()) return Optional.of(gestionnaire.get());
         return Optional.empty();
     }

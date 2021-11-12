@@ -71,10 +71,7 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
                     headers: {
                         'Content-type': 'application/json'
                     },
-                    body: {
-                        'email': values.courriel,
-                        'password': values.password
-                    }
+                    body: JSON.stringify(values)
                 })
                     .then(res => {
                         console.log(res, "resultat res")
