@@ -34,6 +34,7 @@ const NavbarHTML = () => {
             <NavDropdown.Divider />
             <NavDropdown.Item><Link to="/login">Login</Link></NavDropdown.Item>
           </NavDropdown>
+
           {loggedUser.isLoggedIn ?
             <Nav.Item>
               <Nav.Link as={Link} to="/account">Account details</Nav.Link>
@@ -41,6 +42,7 @@ const NavbarHTML = () => {
             :
             null
           }
+
           {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
             <NavDropdown  title="Url Inscription" id="basic-nav-dropdown">
               <NavDropdown.Item ><button  className="text-white"onClick={myFunction}>Email link</button></NavDropdown.Item>
@@ -49,30 +51,41 @@ const NavbarHTML = () => {
             :
             null
           }
+
           {(loggedUser.isLoggedIn && loggedUser.role !== "SUPERVISEUR") ?
-              <Nav.Link as={Link} to="/offres">Offres</Nav.Link>
-            : null}
+            <Nav.Link as={Link} to="/offres">Offres</Nav.Link>
+            : null
+          }
 
           {loggedUser.isLoggedIn && (loggedUser.role === "GESTIONNAIRE" ||  loggedUser.role === "MONITEUR")  ?
-          <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
-          :
-          null
-        }
-        {loggedUser.isLoggedIn && loggedUser.role === "ETUDIANT" ?
-          <Nav.Link as={Link} to="/dropCv" >Ajouter ou voir cv</Nav.Link>
-          :
-          null
-        }
-        {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
-        <Nav.Link as={Link} to="/gestion/cv">Voir et valider les CV</Nav.Link> : null
-        }
+            <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
+            :
+            null
+          }
+        
+          {loggedUser.isLoggedIn && loggedUser.role === "ETUDIANT" ?
+            <Nav.Link as={Link} to="/dropCv" >Ajouter ou voir cv</Nav.Link>
+            :
+            null
+          }
 
-        {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
-        <Nav.Link as={Link} to="/gestion/superviseur">Gestion Superviseur</Nav.Link> : null
-        }
-        {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
-        <Nav.Link as={Link} to="/gestion/allSession">All Sessions Info</Nav.Link> : null
-        }
+          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
+            <Nav.Link as={Link} to="/gestion/cv">Voir et valider les CV</Nav.Link> 
+            : 
+            null
+          }
+
+          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
+            <Nav.Link as={Link} to="/gestion/superviseur">Gestion Superviseur</Nav.Link> 
+            :
+            null
+          }
+
+          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
+            <Nav.Link as={Link} to="/gestion/allSession">All Sessions Info</Nav.Link> 
+            : 
+            null
+          }
         </Nav>
       </Navbar.Collapse>
     </Navbar>
