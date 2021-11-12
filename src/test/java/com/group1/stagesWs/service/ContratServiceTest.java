@@ -1,20 +1,16 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.controller.ContratController;
-import com.group1.stagesWs.enums.CVStatus;
-import com.group1.stagesWs.enums.Session;
-import com.group1.stagesWs.model.*;
-import com.group1.stagesWs.repositories.CVRepository;
+import com.group1.stagesWs.model.Contrat;
+import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Moniteur;
+import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.ContratRepository;
-import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Sort;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
