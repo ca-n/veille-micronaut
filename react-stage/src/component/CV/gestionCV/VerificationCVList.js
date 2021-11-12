@@ -2,8 +2,8 @@ import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from 'react-icons/ai'
-import { UserInfoContext } from '../../contexts/UserInfo';
-import CVService from '../../services/CVService'
+import { UserInfoContext } from '../../../contexts/UserInfo';
+import CVService from '../../../services/CVService'
 import './VerificationCV.css'
 
 const VerificationCVList = () => {
