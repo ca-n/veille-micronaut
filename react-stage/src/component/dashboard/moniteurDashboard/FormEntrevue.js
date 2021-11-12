@@ -1,5 +1,6 @@
 import { React, useEffect, useState, useRef } from 'react'
 import EntrevueService from '../../../services/EntrevueService'
+import Swal from 'sweetalert2'
 
 const FormEntrevue = ({ handleReloadList }) => {
     const [values, setValues] = useState({
@@ -9,8 +10,29 @@ const FormEntrevue = ({ handleReloadList }) => {
         etudiantId: "",
         moniteurId: ""
     })
+    const [listEtudiants, setListEtudiants] = useState([])
+    const [listMoniteurs, setListMoniteurs] = useState([])
+    const etudiantID = useRef(0)
+    const moniteurID = useRef(0)
 
-    const reload = useRef(0)
+
+
+
+
+    useEffect(async () => {
+        await fetch(`http://localhost:9191/user/etudiants`)
+            .then(response => response.json())
+            .then(data => setListEtudiants(data));
+
+        await fetch(`http://localhost:9191/user/moniteurs`)
+            .then(response => response.json())
+            .then(data => setListMoniteurs(data));
+    }, [])
+
+    const reload = useRef(0) //tester ca tantot"
+
+
+
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -20,40 +42,65 @@ const FormEntrevue = ({ handleReloadList }) => {
         })
     }
 
+    const handleChangeSelectedEtudiant = e => {
+        etudiantID.current = e.target.value
+    }
+    const handleChangeSelectedMoniteur = e => {
+        moniteurID.current = e.target.value
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await fetchAndPost()
-        handleReloadList()
+        if (etudiantID.current !== 0 && moniteurID.current !== 0) {
+            await fetchAndPost()
+            handleReloadList()
+            Swal.fire({
+                title: 'Succès!',
+                text: 'L`entrevue est crée',
+                icon: 'success',
+            })
+        }
+        else {
+            Swal.fire({
+                title: 'Erreur!',
+                text: 'Veuillez sélectionner un étudiant et/ou un moniteur',
+                icon: 'error',
+            })
+        }
+
     }
 
     const fetchAndPost = async () => {
         const moniteurEtudiant = await fetchMoniteurEtEtudiant()
-        postEntrevue(moniteurEtudiant.pop(), moniteurEtudiant.pop())
+        postEntrevue(moniteurEtudiant[0], moniteurEtudiant[1])
+
     }
 
     const fetchMoniteurEtEtudiant = async () => {
         const moniteurEtudiant = []
-        await fetch(`http://localhost:9191/user/etudiant/${values.etudiantId}`)
+        await fetch(`http://localhost:9191/user/etudiant/${etudiantID.current}`)
             .then(response => response.json())
             .then(data => moniteurEtudiant.push(data));
-        await fetch(`http://localhost:9191/user/moniteur/${values.moniteurId}`)
+        await fetch(`http://localhost:9191/user/moniteur/${moniteurID.current}`)
             .then(response => response.json())
             .then(data => moniteurEtudiant.push(data));
         return moniteurEtudiant;
 
     }
 
-    const postEntrevue = async (moniteur, etudiant) => {
+    const postEntrevue = (etudiant, moniteur) => {
         const entrevue = {
             titre: values.titre,
             date: values.date,
             time: values.time,
             etudiant: etudiant,
-            moniteur: moniteur
+            moniteur: moniteur,
+            nomEntreprise: moniteur.nomEntreprise
         }
         console.log(entrevue)
         EntrevueService.addEntrevue(entrevue)
     }
+
 
 
 
@@ -100,24 +147,21 @@ const FormEntrevue = ({ handleReloadList }) => {
                                 name="time" />
                         </td>
                         <td>
-                            <input
-                                value={values.etudiantId}
-                                onChange={handleChange}
-                                id="etudiantId"
-                                className="form-field"
-                                type="text"
-                                placeholder="etudiantId"
-                                name="etudiantId" />
+
+                            <select name="etudiant" onChange={handleChangeSelectedEtudiant}>
+                                <option>Please select</option>
+                                {
+                                    listEtudiants.map((etudiant) =>
+                                        <option value={etudiant.id}>{etudiant.prenom} {etudiant.nom}</option>)
+                                }
+                            </select>
                         </td>
                         <td>
-                            <input
-                                value={values.moniteurId}
-                                onChange={handleChange}
-                                id="moniteurId"
-                                className="form-field"
-                                type="text"
-                                placeholder="moniteurId"
-                                name="moniteurId" />
+                            <select name="moniteur" onChange={handleChangeSelectedMoniteur}>
+                                <option>Please select</option>
+                                {listMoniteurs.map((moniteur) =>
+                                    <option value={moniteur.id}>{moniteur.prenom} {moniteur.nom}</option>)}
+                            </select>
                         </td>
                         <td>
                             <button class="form-field" type="submit">

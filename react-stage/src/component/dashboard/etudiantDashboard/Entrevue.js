@@ -31,6 +31,7 @@ const Entrevue = () => {
             <td>{entrevue.titre}</td>
             <td>{entrevue.date}</td>
             <td>{entrevue.time}</td>
+            <td>{entrevue.nomEntreprise}</td>
 
         </tr>);
 
@@ -42,6 +43,7 @@ const Entrevue = () => {
                     <th>Titre</th>
                     <th>Date</th>
                     <th>Time</th>
+                    <th>Nom de l'entreprise</th>
                 </tr>
                 {entrevuesList}
             </table>
