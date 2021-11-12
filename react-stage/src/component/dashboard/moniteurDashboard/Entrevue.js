@@ -12,6 +12,7 @@ const Entrevue = (reloadList) => {
     }, [])
 
     useEffect(() => {
+        console.log("Reloading list useEffect")
         fetchListEntrevue()
     }, [reloadList])
 

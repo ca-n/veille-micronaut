@@ -27,10 +27,9 @@ const MoniteurDashboard = () => {
         specialite: String
     })
     const [listGestionnaires, setListGestionnaires] = useState([])
-    const reloadList = useRef(0)
-
+    const [reloadList, setReloadList] = useState(0)
     const handleReloadList = () => {
-        reloadList.current = reloadList.current++
+        setReloadList(reloadList + 1)
     }
 
 
@@ -78,8 +77,8 @@ const MoniteurDashboard = () => {
                 </table>
             </div>
             <Offres />
-            <FormEntrevue handleReloadList={this.handleReloadList} />
-            <Entrevue reloadList={this.reloadList} />
+            <FormEntrevue handleReloadList={handleReloadList} />
+            <Entrevue reloadList={reloadList} />
         </>
     )
 }

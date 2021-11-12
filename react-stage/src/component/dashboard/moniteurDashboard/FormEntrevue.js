@@ -1,7 +1,7 @@
 import { React, useEffect, useState, useRef } from 'react'
 import EntrevueService from '../../../services/EntrevueService'
 
-const FormEntrevue = (handleReloadList) => {
+const FormEntrevue = ({ handleReloadList }) => {
     const [values, setValues] = useState({
         titre: "",
         date: "",
@@ -20,9 +20,9 @@ const FormEntrevue = (handleReloadList) => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        fetchAndPost()
+        await fetchAndPost()
         handleReloadList()
     }
 
