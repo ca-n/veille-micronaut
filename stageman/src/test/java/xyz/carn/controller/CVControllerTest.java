@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import xyz.carn.model.CV;
 import xyz.carn.service.CVService;
 
-import java.net.URI;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
