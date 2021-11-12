@@ -53,7 +53,9 @@ const Entrevue = (reloadList) => {
                     <th>Date</th>
                     <th>Time</th>
                 </tr>
-                {entrevuesList}
+                <tbody>
+                    {entrevuesList}
+                </tbody>
             </table>
         </div>
 

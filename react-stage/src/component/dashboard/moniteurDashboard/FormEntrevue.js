@@ -59,52 +59,83 @@ const FormEntrevue = ({ handleReloadList }) => {
 
     return (
         <div>
+            <h1>Créer une entrevue</h1>
             <form className="register-form" onSubmit={handleSubmit}>
-                <input
-                    value={values.titre}
-                    onChange={handleChange}
-                    id="titre"
-                    className="form-field"
-                    type="text"
-                    placeholder="titre"
-                    name="titre" />
-                <input
-                    value={values.date}
-                    onChange={handleChange}
-                    id="date"
-                    className="form-field"
-                    type="date"
-                    name="date" />
-                <input
-                    value={values.time}
-                    onChange={handleChange}
-                    id="time"
-                    className="form-field"
-                    type="time"
-                    name="time" />
-                <input
-                    value={values.etudiantId}
-                    onChange={handleChange}
-                    id="etudiantId"
-                    className="form-field"
-                    type="text"
-                    placeholder="etudiantId"
-                    name="etudiantId" />
-                <input
-                    value={values.moniteurId}
-                    onChange={handleChange}
-                    id="moniteurId"
-                    className="form-field"
-                    type="text"
-                    placeholder="moniteurId"
-                    name="moniteurId" />
-                <button class="form-field" type="submit">
-                    Créer
-                </button>
+                <table>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Id de l'étudiant</th>
+                        <th>Id de du moniteur</th>
+                        <th>Créer</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input
+                                value={values.titre}
+                                onChange={handleChange}
+                                id="titre"
+                                className="form-field"
+                                type="text"
+                                placeholder="titre"
+                                name="titre" />
+                        </td>
+                        <td>
+                            <input
+                                value={values.date}
+                                onChange={handleChange}
+                                id="date"
+                                className="form-field"
+                                type="date"
+                                name="date" />
+                        </td>
+                        <td>
+                            <input
+                                value={values.time}
+                                onChange={handleChange}
+                                id="time"
+                                className="form-field"
+                                type="time"
+                                name="time" />
+                        </td>
+                        <td>
+                            <input
+                                value={values.etudiantId}
+                                onChange={handleChange}
+                                id="etudiantId"
+                                className="form-field"
+                                type="text"
+                                placeholder="etudiantId"
+                                name="etudiantId" />
+                        </td>
+                        <td>
+                            <input
+                                value={values.moniteurId}
+                                onChange={handleChange}
+                                id="moniteurId"
+                                className="form-field"
+                                type="text"
+                                placeholder="moniteurId"
+                                name="moniteurId" />
+                        </td>
+                        <td>
+                            <button class="form-field" type="submit">
+                                Créer
+                            </button>
+                        </td>
+                    </tr>
 
+                    {/* 
+                
+                
+               
+                 */}
+                </table>
             </form>
 
-        </div>
+
+        </div >
     )
 }
 
