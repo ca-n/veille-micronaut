@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import xyz.carn.model.CV;
 import xyz.carn.repository.CVRepository;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -33,6 +35,21 @@ public class CVServiceTest {
         var actual = returned.get();
         assertThat(actual.getId()).isGreaterThan(0);
         verify(cvRepository).save(any(CV.class));
+    }
+
+    @Test
+    void testGetCV() {
+        //Arrange
+        CV expected = new CV();
+        expected.setId(1);
+        when(cvRepository.findById(anyInt())).thenReturn(Optional.of(expected));
+
+        //Act
+        var returned = service.getCV(expected.getId());
+
+        //Assert
+        assertThat(returned).isPresent();
+        assertThat(returned.get()).isEqualTo(expected);
     }
 
     @MockBean(CVRepository.class)
