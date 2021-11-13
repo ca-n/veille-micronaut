@@ -4,6 +4,7 @@ import jakarta.inject.Singleton;
 import xyz.carn.model.CV;
 import xyz.carn.repository.CVRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Singleton
@@ -21,5 +22,9 @@ public class CVService {
 
     public Optional<CV> getCV(int id) {
         return cvRepository.findById(id);
+    }
+
+    public List<CV> getAllCVs() {
+        return cvRepository.findAll();
     }
 }
