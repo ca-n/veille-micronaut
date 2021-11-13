@@ -18,4 +18,8 @@ public class CVService {
     public Optional<CV> saveCV(CV cv) {
         return Optional.of(cvRepository.save(cv));
     }
+
+    public Optional<CV> getCV(int id) {
+        return cvRepository.findById(id);
+    }
 }
