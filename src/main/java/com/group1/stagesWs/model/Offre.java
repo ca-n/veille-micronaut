@@ -1,7 +1,6 @@
 package com.group1.stagesWs.model;
 
 import com.group1.stagesWs.SessionManager;
-import com.group1.stagesWs.enums.Session;
 import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,7 +26,7 @@ public class Offre implements Serializable {
     private String horaire;
     private double nbTotalHeuresParSemaine;
     private double tauxHoraire;
-    private Session session;
+    private String session;
 
 
     @ManyToOne
@@ -45,7 +44,7 @@ public class Offre implements Serializable {
     public Offre() {
         this.whitelist = new HashSet<>();
         this.applicants = new HashSet<>();
-        this.session = SessionManager.CURRENT_SESSION;
+        this.session = SessionManager.CURRENT_SESSION.getNomSession();
     }
 
     public Offre(String titre, String description, String entreprise, boolean isValid, String adresse, String dateDebut, String dateFin, int nbTotalSemaine, String horaire, double nbTotalHeuresParSemaine, double tauxHoraire) {
@@ -62,6 +61,6 @@ public class Offre implements Serializable {
         this.tauxHoraire = tauxHoraire;
         this.whitelist = new HashSet<>();
         this.applicants = new HashSet<>();
-        this.session = SessionManager.CURRENT_SESSION;
+        this.session = SessionManager.CURRENT_SESSION.getNomSession();
     }
 }

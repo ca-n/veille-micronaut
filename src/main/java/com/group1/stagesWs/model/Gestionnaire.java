@@ -17,7 +17,7 @@ public class Gestionnaire extends User implements Serializable {
 
     public Gestionnaire() {
         role = UserType.GESTIONNAIRE;
-        session = SessionManager.CURRENT_SESSION;
+//        session = SessionManager.CURRENT_SESSION;
     }
 
     public Gestionnaire(String prenom, String nom, String courriel, String password, String numTelephone, String departement) {

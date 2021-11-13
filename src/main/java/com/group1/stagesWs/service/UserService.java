@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.DoubleStream;
 
 @Service
-public class UserService implements SessionManager<User> {
+public class UserService extends SessionManager<User> {
 
     private final EtudiantRepository etudiantRepository;
     private final GestionnaireRepository gestionnaireRepository;
@@ -137,7 +137,7 @@ public class UserService implements SessionManager<User> {
     public List<User> getListForCurrentSession(List<User> listUser) {
         List<User> listUserCurrentSession = new ArrayList<>();
         for (User user : listUser) {
-            if (user.getSession() == SessionManager.CURRENT_SESSION) {
+            if (user.getSession() == SessionManager.CURRENT_SESSION.getNomSession()) {
                 listUserCurrentSession.add(user);
             }
         }

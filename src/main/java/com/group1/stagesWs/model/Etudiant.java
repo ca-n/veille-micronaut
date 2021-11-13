@@ -29,7 +29,7 @@ public class Etudiant extends User implements Serializable {
 
     public Etudiant() {
         role = UserType.ETUDIANT;
-        session = SessionManager.CURRENT_SESSION;
+//        session = SessionManager.CURRENT_SESSION.getNomSession();
     }
 
     public Etudiant(String prenom, String nom, String courriel, String password, String numTelephone, String programme, String adresse, String numMatricule, boolean hasLicense, boolean hasVoiture) {

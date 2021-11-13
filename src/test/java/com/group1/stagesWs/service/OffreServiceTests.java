@@ -1,6 +1,5 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Offre;
@@ -15,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -23,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class OffreServiceTest {
+public class OffreServiceTests {
     @Mock
     private OffreRepository offreRepository;
 
@@ -43,7 +41,7 @@ public class OffreServiceTest {
     void testGetAllOffres() {
         //Arrange
         List<Offre> expected = getOffres(); // Les offres de bases contienne la session actuelle
-        expected.get(0).setSession(Session.HIVER_2021); //Changement de la session a une sesion differente que la session actuelle
+        expected.get(0).setSession("AUT-2021"); //Changement de la session a une sesion differente que la session actuelle
         when(offreRepository.findAll()).thenReturn(expected);
 
         //Act
@@ -57,7 +55,7 @@ public class OffreServiceTest {
     void testGetAllOffresAllSession() {
         //Arrange
         List<Offre> expected = getOffres(); // Les offres de bases contienne la session actuelle
-        expected.get(0).setSession(Session.HIVER_2021); //Changement de la session a une sesion differente que la session actuelle
+        expected.get(0).setSession("HIVER-2021"); //Changement de la session a une sesion differente que la session actuelle
         when(offreRepository.findAll()).thenReturn(expected);
 
         //Act

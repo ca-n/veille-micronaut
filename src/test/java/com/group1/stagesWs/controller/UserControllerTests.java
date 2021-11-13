@@ -41,8 +41,8 @@ public class UserControllerTests {
     private UserService userService;
 
     public UserControllerTests() {
-        mapper = new ObjectMapper().findAndRegisterModules();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.mapper = new ObjectMapper().findAndRegisterModules();
+        this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
 
