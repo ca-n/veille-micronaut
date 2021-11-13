@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import xyz.carn.model.CV;
 import xyz.carn.repository.CVRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -50,6 +51,19 @@ public class CVServiceTest {
         //Assert
         assertThat(returned).isPresent();
         assertThat(returned.get()).isEqualTo(expected);
+    }
+
+    @Test
+    void testGetAllCVs() {
+        //Arrange
+        List<CV> expected = List.of(new CV(), new CV(), new CV());
+        when(cvRepository.findAll()).thenReturn(expected);
+
+        //Act
+        var returned = service.getAllCVs();
+
+        //Assert
+        assertThat(returned.size()).isEqualTo(3);
     }
 
     @MockBean(CVRepository.class)
