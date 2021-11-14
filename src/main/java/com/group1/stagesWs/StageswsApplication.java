@@ -5,6 +5,7 @@ import com.group1.stagesWs.model.Session;
 import com.group1.stagesWs.enums.UserType;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.*;
+import com.group1.stagesWs.service.SessionService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,15 +25,23 @@ public class StageswsApplication implements CommandLineRunner{
     private final GestionnaireRepository gestionnaireRepository;
     private final SuperviseurRepository superviseurRepository;
     private final CVRepository cvRepository;
+    private final SessionService sessionService;
 
 
-    public StageswsApplication(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, GestionnaireRepository gestionnaireRepository, SuperviseurRepository superviseurRepository, CVRepository cvRepository) {
+    public StageswsApplication(OffreRepository offreRepository,
+                               EtudiantRepository etudiantRepository,
+                               MoniteurRepository moniteurRepository,
+                               GestionnaireRepository gestionnaireRepository,
+                               SuperviseurRepository superviseurRepository,
+                               CVRepository cvRepository,
+                               SessionService sessionService) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
         this.moniteurRepository = moniteurRepository;
         this.gestionnaireRepository = gestionnaireRepository;
         this.superviseurRepository = superviseurRepository;
         this.cvRepository = cvRepository;
+        this.sessionService = sessionService;
     }
 
     public static void main(String[] args) {
@@ -42,6 +51,7 @@ public class StageswsApplication implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
 
+        sessionService.newSession("HIVER-2021");
         Session sessionAlternative = new Session("AUT-2021");
         Superviseur superviseur = new Superviseur();
         superviseur.setPrenom("Jeremie");

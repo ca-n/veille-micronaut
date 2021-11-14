@@ -71,7 +71,7 @@ public class OffreService extends SessionManager<Offre> {
     public List<Offre> getListForCurrentSession(List<Offre> listOffre) {
         List<Offre> listOffreCurrentSession = new ArrayList<>();
         for(Offre offre : listOffre){
-            if(offre.getSession() == SessionManager.CURRENT_SESSION.getNomSession()){
+            if(offre.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())){
                 listOffreCurrentSession.add(offre);
             }
         }

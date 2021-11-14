@@ -43,7 +43,7 @@ public class SessionControllerTests {
 
     public SessionControllerTests() {
         this.mapper = new ObjectMapper().findAndRegisterModules();
-//        this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 //        this.mapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
     }
 

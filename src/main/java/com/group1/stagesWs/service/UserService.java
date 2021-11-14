@@ -129,6 +129,11 @@ public class UserService extends SessionManager<User> {
 
 
     public List<Moniteur> getAllMoniteurs() {
+        List<Moniteur> moniteurList = moniteurRepository.findAll();
+        return (List<Moniteur>) (List<?>) getListForCurrentSession((List<User>) (List<?>) moniteurList);
+    }
+
+    public List<Moniteur> getAllMoniteursAllSession(){
         return moniteurRepository.findAll();
     }
 
@@ -137,7 +142,7 @@ public class UserService extends SessionManager<User> {
     public List<User> getListForCurrentSession(List<User> listUser) {
         List<User> listUserCurrentSession = new ArrayList<>();
         for (User user : listUser) {
-            if (user.getSession() == SessionManager.CURRENT_SESSION.getNomSession()) {
+            if (user.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())) {
                 listUserCurrentSession.add(user);
             }
         }

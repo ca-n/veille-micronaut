@@ -5,7 +5,7 @@ const ContratService = {
         //const res = await fetch(url + email)
         //const data = await res.json()
         //return data
-    }
+    },
 }
 
 export default ContratService

@@ -14,7 +14,7 @@ const VerificationCV = () => {
     const { id } = useParams()
     const history = useHistory()
 
-    useEffect(() => {
+    useEffect(async () => {
         if (!loggedUser.isLoggedIn || loggedUser.role !== "GESTIONNAIRE") history.push("/login")
 
         const getCV = async () => {

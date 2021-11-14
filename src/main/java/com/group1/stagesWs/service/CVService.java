@@ -71,7 +71,7 @@ public class CVService extends SessionManager<CV> {
     public List<CV> getListForCurrentSession(List<CV> listCV) {
         List<CV> listCVCurrentSession = new ArrayList<>();
         for(CV cv : listCV){
-            if(cv.getSession() == SessionManager.CURRENT_SESSION.getNomSession()){
+            if(cv.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())){
                 listCVCurrentSession.add(cv);
             }
         }

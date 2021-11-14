@@ -1,34 +1,35 @@
-import React, {useEffect, useState, useContext} from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfo';
+import UserService from '../../services/UserService';
 
-const AllSessionEtudiant = () => {
-const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
+const AllSessionEtudiant = ({ reloadList, getListForSpecificSession, elementsPerPage }) => {
   const [etudiants, setEtudiants] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const [etudiantsVisible, setEtudiantsVisible] = useState([]);
-  const etudiantsPerPage = 10;
 
-  useEffect(() => {
-    if ( loggedUser.role !== "ETUDIANT") {
-      fetch(`http://localhost:9191/user/etudiants/allSession`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((etudiants) => {
-          setEtudiants(etudiants);
-          setEtudiantsVisible(etudiants.slice(0, etudiantsPerPage));
-        });
-    }
+  useEffect(async () => {
+    const etudiants = await UserService.getListAllEtudiantsAllSession()
+    setEtudiants(getListForSpecificSession(etudiants));
+    setEtudiantsVisible(getListForSpecificSession(etudiants).slice(0, elementsPerPage));
   }, []);
 
-  const updateListeEtudiants = (pageNumber) => {
-    let offset = etudiantsPerPage * pageNumber;
+  useEffect(async () => {
+    const etudiants = await UserService.getListAllEtudiantsAllSession()
+    setEtudiants(getListForSpecificSession(etudiants));
+    setEtudiantsVisible(getListForSpecificSession(etudiants).slice(0, elementsPerPage));
 
-    setEtudiantsVisible(etudiants.slice(0 + offset, etudiantsPerPage + offset));
+  }, [reloadList]);
+
+
+
+  const updateListeEtudiants = (pageNumber) => {
+    let offset = elementsPerPage * pageNumber;
+
+    setEtudiantsVisible(etudiants.slice(0 + offset, elementsPerPage + offset));
   };
 
   const nextPage = () => {
-    if (etudiantsPerPage * (pageNumber + 1) >= etudiants.length) return;
+    if (elementsPerPage * (pageNumber + 1) >= etudiants.length) return;
     updateListeEtudiants(pageNumber + 1);
     setPageNumber(pageNumber + 1);
   };
@@ -40,7 +41,7 @@ const [loggedUser, setLoggedUser] = useContext(UserInfoContext);
   };
 
   const etudiantsList = etudiantsVisible.map((etudiant) => (
-    <tr key={etudiant.id.toString()}>
+    <tr key={etudiant.id}>
       <td>{etudiant.prenom} {etudiant.nom}</td>
       <td>{etudiant.courriel}</td>
       <td>{etudiant.session}</td>
