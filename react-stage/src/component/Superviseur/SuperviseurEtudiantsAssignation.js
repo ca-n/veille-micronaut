@@ -198,7 +198,13 @@ const SuperviseurEtudiantsAssignation = () => {
                                     />
                                 </div>
                                 <div className="col-6">
-                                    <h1>Whitelisted Etudiants</h1>
+                                    {listSelectedEtudiant.length === 0 ?
+                                        <h1>Aucun Etudiant Sélectionné</h1> :
+                                            listSelectedEtudiant.length < 2 ?
+                                                <h1>Etudiant Sélectionné</h1>
+                                                :
+                                                <h1>Etudiants Sélectionnés</h1>
+                                    }
                                     {listSelectedEtudiant.map((etudiant, index) =>
                                         <li key={index}>{etudiant.label}</li>
                                     )}
