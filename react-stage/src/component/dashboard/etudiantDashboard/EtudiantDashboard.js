@@ -48,9 +48,9 @@ const EtudiantDashboard = () => {
                     return res.json();
                 })
                 .then(data => {
-                    console.log(data, "data")
+                    console.log(data, "compte")
                     setFullUser(data)
-                    setSuperviseur(data)
+                    setSuperviseur(data.superviseur)
                     getMoniteur(data.id)
                     getContrat(data.id)
                 })

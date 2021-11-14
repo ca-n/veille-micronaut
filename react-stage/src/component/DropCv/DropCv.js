@@ -86,17 +86,17 @@ const DropCv = () => {
 
     const download = async (cv) => {
         await fetch(`http://localhost:9191/cv/pdf/${cv.id}`)
-                        .then(res => {
-                            console.log(res)
-                            if (res.ok){
-                                saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
-                            }
-                            throw res
-                        })
-                        .catch(error =>{
-                            alert("Le fichier n'est pas disponible")
-                        })
-        
+            .then(res => {
+                console.log(res)
+                if (res.ok) {
+                    saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
+                }
+                throw res
+            })
+            .catch(error => {
+                alert("Le fichier n'est pas disponible")
+            })
+
     }
 
     const getStatusIcon = (status) => {
