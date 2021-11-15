@@ -93,6 +93,19 @@ public class CVControllerTest {
         verify(service).getAllEtudiantCVs(anyInt());
     }
 
+    @Test
+    void testDeleteCV() {
+        //Arrange
+        var request = HttpRequest.DELETE("/1");
+
+        //Act
+        var response = client.toBlocking().exchange(request);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.OK);
+        verify(service).deleteCV(anyInt());
+    }
+
     @MockBean(CVService.class)
     CVService service() {
         return mock(CVService.class);
