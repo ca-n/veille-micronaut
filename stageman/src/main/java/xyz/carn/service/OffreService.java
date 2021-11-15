@@ -1,7 +1,10 @@
 package xyz.carn.service;
 
 import jakarta.inject.Singleton;
+import xyz.carn.model.Offre;
 import xyz.carn.repository.OffreRepository;
+
+import java.util.List;
 
 @Singleton
 public class OffreService {
@@ -9,5 +12,9 @@ public class OffreService {
 
     public OffreService(OffreRepository offreRepository) {
         this.offreRepository = offreRepository;
+    }
+
+    public List<Offre> getAllOffres() {
+        return offreRepository.findAll();
     }
 }
