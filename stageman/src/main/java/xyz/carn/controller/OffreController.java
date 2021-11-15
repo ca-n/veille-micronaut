@@ -33,8 +33,7 @@ public class OffreController {
 
     @Get("/etudiant/{email}")
     public HttpResponse<List<Offre>> getEtudiantOffres(@PathVariable String email) {
-        throw new UnsupportedOperationException("Not implemented due to issue in OffreRepository");
-//        return HttpResponse.ok(service.getEtudiantOffres(email));
+        return HttpResponse.ok(service.getEtudiantOffres(email));
     }
 
     @Get("/moniteur/{email}")
