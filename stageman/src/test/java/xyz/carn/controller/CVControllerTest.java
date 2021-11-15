@@ -43,6 +43,23 @@ public class CVControllerTest {
         verify(service).saveCV(any(CV.class));
     }
 
+    @Test
+    void testGetCV() {
+        //Arrange
+        CV expected = new CV();
+        expected.setId(1);
+        when(service.getCV(anyInt())).thenReturn(Optional.of(expected));
+        var request = HttpRequest.GET("/" + expected.getId());
+
+        //Act
+        var response = client.toBlocking().exchange(request, CV.class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.OK);
+        assertThat(response.body()).isEqualTo(expected);
+        verify(service).getCV(anyInt());
+    }
+
     @MockBean(CVService.class)
     CVService service() {
         return mock(CVService.class);
