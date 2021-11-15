@@ -96,6 +96,23 @@ public class OffreServiceTest {
         verify(offreRepository).findAllByMoniteur(any(Moniteur.class));
     }
 
+    @Test
+    void testApplyForOffre() {
+        //Arrange
+        Offre offre = new Offre();
+        when(etudiantRepository.findByCourrielIgnoreCase(anyString())).thenReturn(Optional.of(new Etudiant()));
+        when(offreRepository.findById(anyInt())).thenReturn(Optional.of(offre));
+        when(offreRepository.save(any(Offre.class))).thenReturn(offre);
+
+        //Act
+        var returned = service.applyForOffre(1, "etudiant@example.com");
+
+        //Assert
+        assertThat(returned).isPresent();
+        var actual = returned.get();
+        assertThat(actual.getApplicants().size()).isGreaterThan(0);
+    }
+
     @MockBean(OffreRepository.class)
     OffreRepository offreRepository() {
         return mock(OffreRepository.class);
