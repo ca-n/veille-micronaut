@@ -3,6 +3,7 @@ package xyz.carn.controller;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
+import io.micronaut.http.netty.stream.StreamedHttpResponse;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import xyz.carn.model.CV;
@@ -61,5 +62,10 @@ public class CVController {
         return service.rejectCV(cv)
                 .map(HttpResponse::ok)
                 .orElse(HttpResponse.status(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    @Get("/{id}/pdf")
+    public HttpResponse<byte[]> getPDF(@PathVariable int id) {
+        return HttpResponse.ok(service.getPDF(id)).header("Content-type", "application/pdf");
     }
 }
