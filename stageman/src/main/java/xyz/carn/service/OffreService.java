@@ -10,6 +10,7 @@ import xyz.carn.repository.OffreRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Singleton
 public class OffreService {
@@ -44,5 +45,18 @@ public class OffreService {
         Optional<Moniteur> moniteur = moniteurRepository.findByCourrielIgnoreCase(email);
         return moniteur.map(offreRepository::findAllByMoniteur)
                 .orElse(List.of());
+    }
+
+    public Optional<Offre> applyForOffre(int offreId, String email) {
+        Optional<Etudiant> etudiant = etudiantRepository.findByCourrielIgnoreCase(email);
+        Optional<Offre> offreOptional = offreRepository.findById(offreId);
+        if (etudiant.isEmpty() || offreOptional.isEmpty()) return Optional.empty();
+        Offre offre = offreOptional.get();
+
+        Set<Etudiant> applicants = offre.getApplicants();
+        applicants.add(etudiant.get());
+        offre.setApplicants(applicants);
+
+        return Optional.of(offreRepository.save(offre));
     }
 }
