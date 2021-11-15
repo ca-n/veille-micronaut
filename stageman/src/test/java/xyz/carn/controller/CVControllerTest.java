@@ -9,6 +9,7 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import xyz.carn.model.CV;
+import xyz.carn.model.type.CVStatus;
 import xyz.carn.service.CVService;
 
 import java.util.List;
@@ -104,6 +105,22 @@ public class CVControllerTest {
         //Assert
         assertThat(response.status()).isEqualTo(HttpStatus.OK);
         verify(service).deleteCV(anyInt());
+    }
+
+    @Test
+    void testAcceptCV() {
+        //Arrange
+        CV expected = new CV();
+        expected.setStatus(CVStatus.ACCEPTED);
+        when(service.acceptCV(any(CV.class))).thenReturn(Optional.of(expected));
+        var request = HttpRequest.POST("/accept", new CV());
+
+        //Act
+        var response = client.toBlocking().exchange(request, CV.class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.OK);
+        assertThat(response.body().getStatus()).isEqualTo(CVStatus.ACCEPTED);
     }
 
     @MockBean(CVService.class)
