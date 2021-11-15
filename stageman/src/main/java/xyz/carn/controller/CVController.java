@@ -37,4 +37,9 @@ public class CVController {
     public HttpResponse<List<CV>> getAllCVs() {
         return HttpResponse.ok(service.getAllCVs());
     }
+
+    @Get("/etudiant/{etudiantId}")
+    public HttpResponse<List<CV>> getAllEtudiantCVs(@PathVariable int etudiantId) {
+        return HttpResponse.ok(service.getAllEtudiantCVs(etudiantId));
+    }
 }
