@@ -48,4 +48,11 @@ public class CVController {
         service.deleteCV(id);
         return HttpResponse.ok();
     }
+
+    @Post("/accept")
+    public HttpResponse<CV> acceptCV(CV cv) {
+        return service.acceptCV(cv)
+                .map(HttpResponse::ok)
+                .orElse(HttpResponse.status(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
 }
