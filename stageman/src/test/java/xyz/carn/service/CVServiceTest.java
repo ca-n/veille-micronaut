@@ -127,6 +127,21 @@ public class CVServiceTest {
         verify(cvRepository).save(any(CV.class));
     }
 
+    @Test
+    void testGetPDF() {
+        //Arrange
+        CV expected = new CV();
+        expected.setData(new byte[]{1, 2, 3, 4});
+        when(cvRepository.findById(anyInt())).thenReturn(Optional.of(expected));
+
+        //Act
+        var returned = service.getPDF(1);
+
+        //Assert
+        assertThat(returned.length).isEqualTo(4);
+        verify(cvRepository).findById(anyInt());
+    }
+
     @MockBean(CVRepository.class)
     CVRepository cvRepository() {
         return mock(CVRepository.class);
