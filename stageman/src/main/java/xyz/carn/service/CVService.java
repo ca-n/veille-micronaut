@@ -32,4 +32,8 @@ public class CVService {
     public List<CV> getAllEtudiantCVs(Etudiant etudiant) {
         return cvRepository.findAllByEtudiant(etudiant);
     }
+
+    public void deleteCV(CV cv) {
+        cvRepository.delete(cv);
+    }
 }
