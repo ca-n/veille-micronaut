@@ -42,4 +42,10 @@ public class CVController {
     public HttpResponse<List<CV>> getAllEtudiantCVs(@PathVariable int etudiantId) {
         return HttpResponse.ok(service.getAllEtudiantCVs(etudiantId));
     }
+
+    @Delete("/{id}")
+    public HttpResponse<?> deleteCV(@PathVariable int id) {
+        service.deleteCV(id);
+        return HttpResponse.ok();
+    }
 }
