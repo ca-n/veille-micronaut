@@ -52,6 +52,7 @@ public class CVServiceTest {
         //Assert
         assertThat(returned).isPresent();
         assertThat(returned.get()).isEqualTo(expected);
+        verify(cvRepository).findById(anyInt());
     }
 
     @Test
@@ -65,6 +66,7 @@ public class CVServiceTest {
 
         //Assert
         assertThat(returned.size()).isEqualTo(3);
+        verify(cvRepository).findAll();
     }
 
     @Test
@@ -78,6 +80,18 @@ public class CVServiceTest {
 
         //Assert
         assertThat(returned.size()).isEqualTo(3);
+        verify(cvRepository).findAllByEtudiant(any(Etudiant.class));
+    }
+
+    @Test
+    void testDeleteCV() {
+        //Arrange
+
+        //Act
+        service.deleteCV(new CV());
+
+        //Assert
+        verify(cvRepository).delete(any(CV.class));
     }
 
     @MockBean(CVRepository.class)
