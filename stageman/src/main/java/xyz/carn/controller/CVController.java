@@ -8,6 +8,8 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import xyz.carn.model.CV;
 import xyz.carn.service.CVService;
 
+import java.util.List;
+
 @ExecuteOn(TaskExecutors.IO)
 @Controller("/cvs")
 public class CVController {
@@ -29,5 +31,10 @@ public class CVController {
         return service.getCV(id)
                 .map(HttpResponse::ok)
                 .orElse(HttpResponse.status(HttpStatus.NOT_FOUND));
+    }
+
+    @Get
+    public HttpResponse<List<CV>> getAllCVs() {
+        return HttpResponse.ok(service.getAllCVs());
     }
 }
