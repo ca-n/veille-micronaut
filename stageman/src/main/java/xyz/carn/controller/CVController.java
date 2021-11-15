@@ -55,4 +55,11 @@ public class CVController {
                 .map(HttpResponse::ok)
                 .orElse(HttpResponse.status(HttpStatus.INTERNAL_SERVER_ERROR));
     }
+
+    @Post("/reject")
+    public HttpResponse<CV> rejectCV(CV cv) {
+        return service.rejectCV(cv)
+                .map(HttpResponse::ok)
+                .orElse(HttpResponse.status(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
 }
