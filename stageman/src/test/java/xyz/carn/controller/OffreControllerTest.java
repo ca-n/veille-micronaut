@@ -64,7 +64,18 @@ public class OffreControllerTest {
 
     @Test
     void testGetEtudiantOffres() {
-        fail("Not implemented due to issue in OffreRepository");
+        //Arrange
+        List<Offre> expected = List.of(new Offre(), new Offre(), new Offre());
+        when(service.getEtudiantOffres(anyString())).thenReturn(expected);
+        var request = HttpRequest.GET("/etudiant/etudiant@example.com");
+
+        //Act
+        var response = client.toBlocking().exchange(request, List.class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.OK);
+        assertThat(response.body().size()).isEqualTo(expected.size());
+        verify(service).getEtudiantOffres(anyString());
     }
 
     @Test
