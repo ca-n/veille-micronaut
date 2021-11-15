@@ -29,6 +29,9 @@ public class Offre implements Serializable {
     @ManyToMany
     private Set<Etudiant> whitelist;
 
+    @ManyToMany
+    private Set<Etudiant> applicants;
+
     @ManyToOne
     private Moniteur moniteur;
 
@@ -37,5 +40,6 @@ public class Offre implements Serializable {
 
     public Offre() {
         whitelist = new HashSet<>();
+        applicants = new HashSet<>();
     }
 }
