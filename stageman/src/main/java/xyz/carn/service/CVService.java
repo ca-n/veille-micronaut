@@ -3,6 +3,7 @@ package xyz.carn.service;
 import jakarta.inject.Singleton;
 import xyz.carn.model.CV;
 import xyz.carn.model.Etudiant;
+import xyz.carn.model.type.CVStatus;
 import xyz.carn.repository.CVRepository;
 
 import java.util.List;
@@ -35,5 +36,10 @@ public class CVService {
 
     public void deleteCV(CV cv) {
         cvRepository.delete(cv);
+    }
+
+    public Optional<CV> acceptCV(CV cv) {
+        cv.setStatus(CVStatus.ACCEPTED);
+        return Optional.of(cvRepository.save(cv));
     }
 }
