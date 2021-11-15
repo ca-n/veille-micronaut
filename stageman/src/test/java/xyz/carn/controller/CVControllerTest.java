@@ -121,6 +121,7 @@ public class CVControllerTest {
         //Assert
         assertThat(response.status()).isEqualTo(HttpStatus.OK);
         assertThat(response.body().getStatus()).isEqualTo(CVStatus.ACCEPTED);
+        verify(service).acceptCV(any(CV.class));
     }
 
     @Test
@@ -137,6 +138,23 @@ public class CVControllerTest {
         //Assert
         assertThat(response.status()).isEqualTo(HttpStatus.OK);
         assertThat(response.body().getStatus()).isEqualTo(CVStatus.REJECTED);
+        verify(service).rejectCV(any(CV.class));
+    }
+
+    @Test
+    void testGetPDF() {
+        //Arrange
+        when(service.getPDF(anyInt())).thenReturn(new byte[] {1, 2, 3, 4});
+        var request = HttpRequest.GET("/1/pdf");
+
+        //Act
+        var response = client.toBlocking().exchange(request, byte[].class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.OK);
+        assertThat(response.header("Content-type")).isEqualTo("application/pdf");
+        assertThat(response.body().length).isEqualTo(4);
+        verify(service).getPDF(anyInt());
     }
 
     @MockBean(CVService.class)
