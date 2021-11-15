@@ -40,8 +40,9 @@ public class CVService {
                 .orElse(List.of());
     }
 
-    public void deleteCV(CV cv) {
-        cvRepository.delete(cv);
+    public void deleteCV(int id) {
+        var cv = cvRepository.findById(id);
+        cv.ifPresent(cvRepository::delete);
     }
 
     public Optional<CV> acceptCV(CV cv) {

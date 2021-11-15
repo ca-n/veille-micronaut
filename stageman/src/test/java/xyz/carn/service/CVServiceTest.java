@@ -93,11 +93,13 @@ public class CVServiceTest {
     @Test
     void testDeleteCV() {
         //Arrange
+        when(cvRepository.findById(anyInt())).thenReturn(Optional.of(new CV()));
 
         //Act
-        service.deleteCV(new CV());
+        service.deleteCV(1);
 
         //Assert
+        verify(cvRepository).findById(anyInt());
         verify(cvRepository).delete(any(CV.class));
     }
 
