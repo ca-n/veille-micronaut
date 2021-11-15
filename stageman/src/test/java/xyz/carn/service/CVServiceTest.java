@@ -108,6 +108,23 @@ public class CVServiceTest {
         assertThat(returned).isPresent();
         var actual = returned.get();
         assertThat(actual.getStatus()).isEqualTo(CVStatus.ACCEPTED);
+        verify(cvRepository).save(any(CV.class));
+    }
+
+    @Test
+    void testRejectCV() {
+        //Arrange
+        CV cv = new CV();
+        when(cvRepository.save(any(CV.class))).thenReturn(cv);
+
+        //Act
+        var returned = service.rejectCV(cv);
+
+        //Assert
+        assertThat(returned).isPresent();
+        var actual = returned.get();
+        assertThat(actual.getStatus()).isEqualTo(CVStatus.REJECTED);
+        verify(cvRepository).save(any(CV.class));
     }
 
     @MockBean(CVRepository.class)
