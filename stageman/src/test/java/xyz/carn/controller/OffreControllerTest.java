@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @MicronautTest
@@ -57,6 +58,27 @@ public class OffreControllerTest {
         assertThat(response.status()).isEqualTo(HttpStatus.OK);
         assertThat(response.body().getId()).isGreaterThan(0);
         verify(service).saveOffre(any(Offre.class));
+    }
+
+    @Test
+    void testGetEtudiantOffres() {
+        fail("Not implemented due to issue in OffreRepository");
+    }
+
+    @Test
+    void testGetMoniteurOffres() {
+        //Arrange
+        List<Offre> expected = List.of(new Offre(), new Offre(), new Offre());
+        when(service.getMoniteurOffres(anyString())).thenReturn(expected);
+        var request = HttpRequest.GET("/moniteur/moniteur@example.com");
+
+        //Act
+        var response = client.toBlocking().exchange(request, List.class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.OK);
+        assertThat(response.body().size()).isEqualTo(expected.size());
+        verify(service).getMoniteurOffres(anyString());
     }
 
     @MockBean(OffreService.class)
