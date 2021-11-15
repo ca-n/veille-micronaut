@@ -2,10 +2,7 @@ package xyz.carn.controller;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.PathVariable;
-import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import xyz.carn.model.Offre;
@@ -28,7 +25,7 @@ public class OffreController {
     }
 
     @Post
-    public HttpResponse<Offre> saveOffre(Offre offre) {
+    public HttpResponse<Offre> saveOffre(@Body Offre offre) {
         return service.saveOffre(offre)
                 .map(HttpResponse::ok)
                 .orElse(HttpResponse.status(HttpStatus.CONFLICT));
@@ -43,5 +40,12 @@ public class OffreController {
     @Get("/moniteur/{email}")
     public HttpResponse<List<Offre>> getMoniteurOffres(@PathVariable String email) {
         return HttpResponse.ok(service.getMoniteurOffres(email));
+    }
+
+    @Post("/{offreId}/apply")
+    public HttpResponse<Offre> applyForOffre(@PathVariable int offreId, @Body String email) {
+        return service.applyForOffre(offreId, email)
+                .map(HttpResponse::ok)
+                .orElse(HttpResponse.serverError());
     }
 }
