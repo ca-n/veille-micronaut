@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import xyz.carn.model.CV;
 import xyz.carn.model.Etudiant;
+import xyz.carn.model.type.CVStatus;
 import xyz.carn.repository.CVRepository;
 
 import java.util.List;
@@ -92,6 +93,21 @@ public class CVServiceTest {
 
         //Assert
         verify(cvRepository).delete(any(CV.class));
+    }
+
+    @Test
+    void testAcceptCV() {
+        //Arrange
+        CV cv = new CV();
+        when(cvRepository.save(any(CV.class))).thenReturn(cv);
+
+        //Act
+        var returned = service.acceptCV(cv);
+
+        //Assert
+        assertThat(returned).isPresent();
+        var actual = returned.get();
+        assertThat(actual.getStatus()).isEqualTo(CVStatus.ACCEPTED);
     }
 
     @MockBean(CVRepository.class)
