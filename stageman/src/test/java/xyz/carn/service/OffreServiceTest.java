@@ -68,9 +68,7 @@ public class OffreServiceTest {
         fail("Not implemented due to issue in OffreRepository");
 //        //Arrange
 //        List<Offre> expected = List.of(new Offre(), new Offre(), new Offre());
-//        Etudiant etudiant = new Etudiant();
-//        etudiant.setId(1);
-//        when(etudiantRepository.findByCourrielIgnoreCase(anyString())).thenReturn(java.util.Optional.of(etudiant));
+//        when(etudiantRepository.findByCourrielIgnoreCase(anyString())).thenReturn(java.util.Optional.of(new Etudiant()));
 //        when(offreRepository.findAllByWhitelistContainsAndValidTrue(any(Etudiant.class))).thenReturn(expected);
 //
 //        //Act
