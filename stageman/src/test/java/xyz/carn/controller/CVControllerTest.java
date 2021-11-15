@@ -123,6 +123,22 @@ public class CVControllerTest {
         assertThat(response.body().getStatus()).isEqualTo(CVStatus.ACCEPTED);
     }
 
+    @Test
+    void testRejectCV() {
+        //Arrange
+        CV expected = new CV();
+        expected.setStatus(CVStatus.REJECTED);
+        when(service.rejectCV(any(CV.class))).thenReturn(Optional.of(expected));
+        var request = HttpRequest.POST("/reject", new CV());
+
+        //Act
+        var response = client.toBlocking().exchange(request, CV.class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.OK);
+        assertThat(response.body().getStatus()).isEqualTo(CVStatus.REJECTED);
+    }
+
     @MockBean(CVService.class)
     CVService service() {
         return mock(CVService.class);
