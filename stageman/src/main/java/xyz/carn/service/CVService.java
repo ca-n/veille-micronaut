@@ -42,4 +42,9 @@ public class CVService {
         cv.setStatus(CVStatus.ACCEPTED);
         return Optional.of(cvRepository.save(cv));
     }
+
+    public Optional<CV> rejectCV(CV cv) {
+        cv.setStatus(CVStatus.REJECTED);
+        return Optional.of(cvRepository.save(cv));
+    }
 }
