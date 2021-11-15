@@ -47,4 +47,11 @@ public class CVService {
         cv.setStatus(CVStatus.REJECTED);
         return Optional.of(cvRepository.save(cv));
     }
+
+    public byte[] getPDF(int id) {
+        Optional<CV> cvOptional = cvRepository.findById(id);
+        return cvOptional
+                .map(CV::getData)
+                .orElse(new byte[0]);
+    }
 }
