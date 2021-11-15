@@ -5,6 +5,7 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 import xyz.carn.model.CV;
+import xyz.carn.model.Etudiant;
 import xyz.carn.repository.CVRepository;
 
 import java.util.List;
@@ -61,6 +62,19 @@ public class CVServiceTest {
 
         //Act
         var returned = service.getAllCVs();
+
+        //Assert
+        assertThat(returned.size()).isEqualTo(3);
+    }
+
+    @Test
+    void testGetAllEtudiantCVs() {
+        //Arrange
+        List<CV> expected = List.of(new CV(), new CV(), new CV());
+        when(cvRepository.findAllByEtudiant(any(Etudiant.class))).thenReturn(expected);
+
+        //Act
+        var returned = service.getAllEtudiantCVs(new Etudiant());
 
         //Assert
         assertThat(returned.size()).isEqualTo(3);
