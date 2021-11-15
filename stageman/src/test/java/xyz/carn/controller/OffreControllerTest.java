@@ -12,6 +12,7 @@ import xyz.carn.model.Offre;
 import xyz.carn.service.OffreService;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
@@ -39,6 +40,23 @@ public class OffreControllerTest {
         assertThat(response.status()).isEqualTo(HttpStatus.OK);
         assertThat(response.body().size()).isEqualTo(expected.size());
         verify(service).getAllOffres();
+    }
+
+    @Test
+    void testSaveOffre() {
+        //Arrange
+        Offre expected = new Offre();
+        expected.setId(1);
+        when(service.saveOffre(any(Offre.class))).thenReturn(Optional.of(expected));
+        var request = HttpRequest.POST("", new Offre());
+
+        //Act
+        var response = client.toBlocking().exchange(request, Offre.class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.OK);
+        assertThat(response.body().getId()).isGreaterThan(0);
+        verify(service).saveOffre(any(Offre.class));
     }
 
     @MockBean(OffreService.class)
