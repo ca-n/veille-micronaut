@@ -1,11 +1,10 @@
 package xyz.carn.model;
 
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -18,7 +17,7 @@ public class Offre implements Serializable {
     private String titre;
     private String description;
     private String entreprise;
-    private boolean isValid;
+    private boolean valid;
     private String addresse;
     private String dateDebut;
     private String dateFin;
@@ -30,7 +29,13 @@ public class Offre implements Serializable {
     @ManyToMany
     private Set<Etudiant> whitelist;
 
+    @ManyToOne
+    private Moniteur moniteur;
+
+    @ManyToOne
+    private Gestionnaire gestionnaire;
+
     public Offre() {
-        whitelist = Set.of();
+        whitelist = new HashSet<>();
     }
 }
