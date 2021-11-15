@@ -2,6 +2,7 @@ package xyz.carn.service;
 
 import jakarta.inject.Singleton;
 import xyz.carn.model.CV;
+import xyz.carn.model.Etudiant;
 import xyz.carn.repository.CVRepository;
 
 import java.util.List;
@@ -26,5 +27,9 @@ public class CVService {
 
     public List<CV> getAllCVs() {
         return cvRepository.findAll();
+    }
+
+    public List<CV> getAllEtudiantCVs(Etudiant etudiant) {
+        return cvRepository.findAllByEtudiant(etudiant);
     }
 }
