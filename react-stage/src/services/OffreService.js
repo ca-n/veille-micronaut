@@ -1,21 +1,21 @@
 const OffreService = {
     // getAllOffres [GET] /stage/offres
     getAllOffres: async () => {
-        const res = await fetch('http://localhost:9191/stage/offres')
+        const res = await fetch('http://localhost:8080/offres')
         const data = await res.json()
         return data
     },
 
     // getEtudiantOffres [GET] /stage/offres/{etudiantCourriel}
     getEtudiantOffres: async (etudiantCourriel) => {
-        const res = await fetch('http://localhost:9191/stage/offres/etudiant/' + etudiantCourriel)
+        const res = await fetch('http://localhost:8080/offres/etudiant/' + etudiantCourriel)
         const data = await res.json()
         return data
     },
 
     // saveOffre [POST] /stage/offre
     saveOffre: async (offre) => {
-        const res = await fetch('http://localhost:9191/stage/offre', 
+        const res = await fetch('http://localhost:8080/offres', 
         {
             method: 'POST',
             headers: {

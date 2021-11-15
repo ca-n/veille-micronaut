@@ -1,4 +1,4 @@
-const url = 'http://localhost:9191/stage/cv'
+const url = 'http://localhost:8080/cvs'
 const CVService = {
     acceptCV: async (cv) => {
         const res = await fetch(url + '/accept',

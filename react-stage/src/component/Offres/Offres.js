@@ -122,7 +122,7 @@ const Offres = () => {
 
 
     const saveOffre = async (offre) => {
-        const res = await fetch('http://localhost:9191/stage/offre',
+        const res = await fetch('http://localhost:8080/offres',
             {
                 method: 'POST',
                 headers: {

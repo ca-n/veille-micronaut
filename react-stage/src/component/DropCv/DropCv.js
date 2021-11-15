@@ -41,7 +41,7 @@ const DropCv = () => {
                 result = result.substring(28)
 
                 if (loggedUser.isLoggedIn) {
-                    fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
+                    fetch(`http://localhost:8080/users/${loggedUser.courriel}`)
                         .then(res => {
                             return res.json();
                         })
@@ -52,7 +52,7 @@ const DropCv = () => {
 
                             let cv = { data: result, etudiant: data, nom: files.name }
 
-                            const res = await fetch('http://localhost:9191/stage/cv', {
+                            const res = await fetch('http://localhost:8080/cvs', {
                                 method: 'POST',
                                 headers: {
                                     'Content-type': 'application/json',
@@ -69,7 +69,7 @@ const DropCv = () => {
 
 
     const updateCvs = async () => {
-        fetch(`http://localhost:9191/stage/cv/etudiant/${etudiant.id}`)
+        fetch(`http://localhost:8080/cvs/etudiant/${etudiant.id}`)
             .then(res => {
                 return res.json()
             })
@@ -79,12 +79,12 @@ const DropCv = () => {
     }
 
     const deleteCV = async (cv) => {
-        const res = await fetch(`http://localhost:9191/stage/cv/delete/${cv.id}`, { method: 'DELETE' })
+        const res = await fetch(`http://localhost:8080/cvs/${cv.id}`, { method: 'DELETE' })
         await res.json().then(updateCvs())
     }
 
     const download = (cv) => {
-        saveAs(`http://localhost:9191/stage/cv/pdf/${cv.id}`)
+        saveAs(`http://localhost:8080/cvs/${cv.id}/pdf`)
     }
 
 
@@ -98,13 +98,13 @@ const DropCv = () => {
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
+            fetch(`http://localhost:8080/users/${loggedUser.courriel}`)
                 .then(res => {
                     return res.json();
                 })
                 .then(data => {
                     setEtudiant(data)
-                    fetch(`http://localhost:9191/stage/cv/etudiant/${data.id}`)
+                    fetch(`http://localhost:8080/cvs/etudiant/${data.id}`)
                         .then(res => {
                             return res.json()
                         })
