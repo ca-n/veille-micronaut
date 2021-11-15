@@ -56,6 +56,22 @@ public class SessionServiceTests {
 
     }
 
+
+    @Test
+    public void testGetCurrentSession(){
+        //Arrange
+        Session expected = getSession();
+        SessionManager.CURRENT_SESSION = expected;
+        when(sessionRepository.findById(any(Integer.class))).thenReturn(Optional.of(expected));
+
+        //Act
+        Optional<Session> returned = sessionService.getCurrentSession();
+
+        //Assert
+        assertThat(returned).isEqualTo(Optional.of(expected));
+
+    }
+
     private static Session getSession(){
         return new Session("test session");
     }

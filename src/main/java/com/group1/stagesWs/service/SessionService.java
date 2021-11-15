@@ -28,4 +28,13 @@ public class SessionService {
     public List<Session> getAllSessions() {
         return sessionRepository.findAll();
     }
+
+
+    public Optional<Session> getCurrentSession(){
+        Session currentSession = SessionManager.CURRENT_SESSION;
+        if(!sessionRepository.findById(currentSession.getId()).isEmpty()){
+            return Optional.of(currentSession);
+        }
+        return Optional.empty();
+    }
 }

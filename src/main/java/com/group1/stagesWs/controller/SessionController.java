@@ -36,4 +36,9 @@ public class SessionController {
     public ResponseEntity<List<Session>> getAllSessions() {
         return new ResponseEntity<>(service.getAllSessions(), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/currentSession")
+    public ResponseEntity<Session> getCurrentSession() {
+        return new ResponseEntity<>(service.getCurrentSession().get(), HttpStatus.OK);
+    }
 }

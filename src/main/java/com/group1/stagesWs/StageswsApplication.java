@@ -50,9 +50,9 @@ public class StageswsApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-
-        sessionService.newSession("HIVER-2021");
         Session sessionAlternative = new Session("AUT-2021");
+        sessionService.newSession(sessionAlternative.getNomSession());
+        sessionService.newSession("HIVER-2021");
         Superviseur superviseur = new Superviseur();
         superviseur.setPrenom("Jeremie");
         superviseur.setNom("Munger");

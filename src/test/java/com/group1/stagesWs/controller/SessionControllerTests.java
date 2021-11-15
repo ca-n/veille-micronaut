@@ -80,6 +80,22 @@ public class SessionControllerTests {
         assertThat(actualListSession).hasSize(expected.size());
     }
 
+    @Test
+    public void testGetCurrentSession() throws Exception {
+        //Arrange
+        Session expected = getSession();
+        when(service.getCurrentSession()).thenReturn(Optional.of(expected));
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/session/currentSession")
+                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(Optional.of(expected)))).andReturn();
+
+        // Assert
+        var actualCurrentSession = mapper.readValue(result.getResponse().getContentAsString(), Session.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualCurrentSession).isEqualTo(expected);
+    }
+
     private static Session getSession(){
         return new Session("test session");
     }
