@@ -77,6 +77,22 @@ public class CVControllerTest {
         verify(service).getAllCVs();
     }
 
+    @Test
+    void testGetAllEtudiantCVs() {
+        //Arrange
+        List<CV> expected = List.of(new CV(), new CV(), new CV());
+        when(service.getAllEtudiantCVs(anyInt())).thenReturn(expected);
+        var request = HttpRequest.GET("/etudiant/1");
+
+        //Act
+        var response = client.toBlocking().exchange(request, List.class);
+
+        //Assert
+        assertThat(response.status()).isEqualTo(HttpStatus.OK);
+        assertThat(response.body().size()).isEqualTo(3);
+        verify(service).getAllEtudiantCVs(anyInt());
+    }
+
     @MockBean(CVService.class)
     CVService service() {
         return mock(CVService.class);
