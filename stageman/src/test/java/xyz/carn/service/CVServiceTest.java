@@ -8,6 +8,7 @@ import xyz.carn.model.CV;
 import xyz.carn.model.Etudiant;
 import xyz.carn.model.type.CVStatus;
 import xyz.carn.repository.CVRepository;
+import xyz.carn.repository.EtudiantRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,9 @@ import static org.mockito.Mockito.*;
 public class CVServiceTest {
     @Inject
     CVRepository cvRepository;
+
+    @Inject
+    EtudiantRepository etudiantRepository;
 
     @Inject
     CVService service;
@@ -74,13 +78,15 @@ public class CVServiceTest {
     void testGetAllEtudiantCVs() {
         //Arrange
         List<CV> expected = List.of(new CV(), new CV(), new CV());
+        when(etudiantRepository.findById(anyInt())).thenReturn(Optional.of(new Etudiant()));
         when(cvRepository.findAllByEtudiant(any(Etudiant.class))).thenReturn(expected);
 
         //Act
-        var returned = service.getAllEtudiantCVs(new Etudiant());
+        var returned = service.getAllEtudiantCVs(1);
 
         //Assert
         assertThat(returned.size()).isEqualTo(3);
+        verify(etudiantRepository).findById(anyInt());
         verify(cvRepository).findAllByEtudiant(any(Etudiant.class));
     }
 
@@ -145,5 +151,10 @@ public class CVServiceTest {
     @MockBean(CVRepository.class)
     CVRepository cvRepository() {
         return mock(CVRepository.class);
+    }
+
+    @MockBean(EtudiantRepository.class)
+    EtudiantRepository etudiantRepository() {
+        return mock(EtudiantRepository.class);
     }
 }

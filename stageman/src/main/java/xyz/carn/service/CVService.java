@@ -5,6 +5,7 @@ import xyz.carn.model.CV;
 import xyz.carn.model.Etudiant;
 import xyz.carn.model.type.CVStatus;
 import xyz.carn.repository.CVRepository;
+import xyz.carn.repository.EtudiantRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +15,11 @@ public class CVService {
 
     private final CVRepository cvRepository;
 
-    public CVService(CVRepository cvRepository) {
+    private final EtudiantRepository etudiantRepository;
+
+    public CVService(CVRepository cvRepository, EtudiantRepository etudiantRepository) {
         this.cvRepository = cvRepository;
+        this.etudiantRepository = etudiantRepository;
     }
 
     public Optional<CV> saveCV(CV cv) {
@@ -30,8 +34,10 @@ public class CVService {
         return cvRepository.findAll();
     }
 
-    public List<CV> getAllEtudiantCVs(Etudiant etudiant) {
-        return cvRepository.findAllByEtudiant(etudiant);
+    public List<CV> getAllEtudiantCVs(int etudiantId) {
+        var etudiant = etudiantRepository.findById(etudiantId);
+        return etudiant.map(cvRepository::findAllByEtudiant)
+                .orElse(List.of());
     }
 
     public void deleteCV(CV cv) {
