@@ -23,18 +23,17 @@ const NewContratForm = ({ submitForm }) => {
 
     const setValuesOnLoad = (listOffres) => {
         setValueOffre(listOffres[0])
-        setListEtudiants(listOffres[0].applicants)
-        setValueEtudiant(listOffres[0].applicants[0])
-
+        getListEtudiants(listOffres[0].applicants)
     }
-
+    const getListEtudiants = (listApplicants) => {
+        setListEtudiants(listApplicants)
+        setValueEtudiant(listApplicants[0])
+    }
     const onChangeOffre = (e) => {
         let offre = JSON.parse(e.target.value)
         setValueOffre(offre)
         setValueMoniteur(offre.moniteur)
-        setListEtudiants(offre.applicants)
-        setValueEtudiant(offre.applicants[0])
-
+        getListEtudiants(offre.applicants)
     }
 
     const onChangeEtudiant = (e) => {
