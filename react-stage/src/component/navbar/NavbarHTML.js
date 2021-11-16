@@ -87,6 +87,7 @@ const NavbarHTML = () => {
           {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
             <NavDropdown title="Contrat" id="basic-nav-dropdown">
               <NavDropdown.Item><Link to="/gestion/newContrat">Créer Contrat</Link></NavDropdown.Item>
+              <NavDropdown.Item><Link to="/gestion/demarrerContrat">Démarrer Contrat</Link></NavDropdown.Item>
             </NavDropdown>
             :
             null
