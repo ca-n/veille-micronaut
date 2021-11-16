@@ -1,5 +1,6 @@
 package com.group1.stagesWs.service;
 
+import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.model.Contrat;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
@@ -11,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,6 +28,20 @@ public class ContratServiceTest {
 
     @InjectMocks
     private ContratService contratService;
+
+    @Test
+    void testGetAllContrats() {
+        //Arrange
+        List<Contrat> expected = getContrats();
+        expected.get(0).setSession(Session.HIVER_2021);
+        when(contratRepository.findAll()).thenReturn(expected);
+
+        //Act
+        List<Contrat> returned = contratService.getAllContrats();
+
+        //Assert
+        assertThat(returned).hasSize(expected.size() - 1);
+    }
 
     @Test
     void testSaveCV() {
@@ -88,5 +104,9 @@ public class ContratServiceTest {
                 getEtudiant(),
                 getMoniteur()
         );
+    }
+
+    private List<Contrat> getContrats() {
+        return List.of(getContrat(), getContrat(), getContrat());
     }
 }

@@ -33,5 +33,10 @@ public class ContratService implements SessionManager<Contrat>{
         }
         return listContratCurrentSession;
     }
+
+    public List<Contrat> getAllContrats() {
+        List<Contrat> listAllContrats = contratRepository.findAll();
+        return getListForCurrentSession(listAllContrats);
+    }
 }
 

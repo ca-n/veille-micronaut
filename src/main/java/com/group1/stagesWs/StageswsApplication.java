@@ -8,15 +8,13 @@ import com.group1.stagesWs.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Profile;
 
 import java.util.List;
 import java.util.Set;
 
 
-
 @SpringBootApplication
-public class StageswsApplication implements CommandLineRunner{
+public class StageswsApplication implements CommandLineRunner {
 
     private final OffreRepository offreRepository;
     private final EtudiantRepository etudiantRepository;
@@ -24,15 +22,17 @@ public class StageswsApplication implements CommandLineRunner{
     private final GestionnaireRepository gestionnaireRepository;
     private final SuperviseurRepository superviseurRepository;
     private final CVRepository cvRepository;
+    private final ContratRepository contratRepository;
 
 
-    public StageswsApplication(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, GestionnaireRepository gestionnaireRepository, SuperviseurRepository superviseurRepository, CVRepository cvRepository) {
+    public StageswsApplication(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, GestionnaireRepository gestionnaireRepository, SuperviseurRepository superviseurRepository, CVRepository cvRepository, ContratRepository contratRepository) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
         this.moniteurRepository = moniteurRepository;
         this.gestionnaireRepository = gestionnaireRepository;
         this.superviseurRepository = superviseurRepository;
         this.cvRepository = cvRepository;
+        this.contratRepository = contratRepository;
     }
 
     public static void main(String[] args) {
@@ -188,7 +188,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant6.setNumMatricule("18223234");
         etudiant6.setHasLicense(true);
         etudiantRepository.save(etudiant6);
-      
+
         Moniteur moniteur = new Moniteur();
         moniteur.setPrenom("Pascal");
         moniteur.setNom("Bourgoin");
@@ -256,9 +256,6 @@ public class StageswsApplication implements CommandLineRunner{
         moniteurRepository.save(moniteur6);
 
 
-
-
-
         Gestionnaire gestionnaire = new Gestionnaire();
         gestionnaire.setPrenom("Neil");
         gestionnaire.setNom("Carrie");
@@ -268,10 +265,6 @@ public class StageswsApplication implements CommandLineRunner{
         gestionnaire.setRole(UserType.GESTIONNAIRE);
         gestionnaire.setDepartement("Informatique");
         gestionnaireRepository.save(gestionnaire);
-
-
-
-
 
 
         CV cv1 = new CV(); // pending
@@ -290,7 +283,7 @@ public class StageswsApplication implements CommandLineRunner{
         cv4.setEtudiant(etudiant2);
         cv4.setSession(Session.AUTOMNE_2021);
         cv4.setNom("cv-accepted.pdf");
-      
+
         cvRepository.saveAll(List.of(cv1, cv2, cv3, cv4));
 
         Offre offre1 = new Offre("TITRE1", "DESCRIPTION1", "ENTREPRISE1", true, "1 rue de la riviere Brossard", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 21);
@@ -309,5 +302,9 @@ public class StageswsApplication implements CommandLineRunner{
         Offre offre6 = new Offre("TITRE6", "DESCRIPTION6", "ENTREPRISE6", true, "113 lapierre Montreal", "2022-12-05", "2023-3-05", 13, "9:00 à 5:00", 40, 20.75);
         offre1.setWhitelist(Set.of(etudiant));
         offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
+
+        Contrat contrat1 = new Contrat("fournir a l entreprise tous les renseignements concernant les conditions specifiques du programme d etudes et du programme d alternance travail etudes", "embaucher l eleve stagiaire aux conditions precisees dans la presente entente", "assumer de facon responsable et securitaire, les taches qui lui sont confiees", offre1, etudiant, moniteur);
+        Contrat contrat2 = new Contrat("collaborer, au besoin, a la definition du plan de stage", "mettre en place des mesures d accueil, d integration et d encadrement de l eleve stagiaire", "respecter les dates de debut et de fin de stage", offre2, etudiant5, moniteur);
+        contratRepository.saveAll(List.of(contrat1, contrat2));
     }
 }

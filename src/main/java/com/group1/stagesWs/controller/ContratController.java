@@ -8,9 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/contrat")
 public class ContratController {
 
      Logger logger = LoggerFactory.getLogger(ContratController.class);
@@ -21,7 +22,12 @@ public class ContratController {
         this.contratService = contratService;
     }
 
-    @PostMapping
+    @GetMapping("/contrats")
+    public ResponseEntity<List<Contrat>> getAllContrats() {
+        return ResponseEntity.ok(contratService.getAllContrats());
+    }
+
+    @PostMapping("/contrat")
     public ResponseEntity<Contrat> saveContrat(@RequestBody Contrat contrat) {
         logger.info("post - createContrat " + contrat);
         return contratService.saveContrat(contrat).map(contrat1 -> ResponseEntity.status(HttpStatus.CREATED).body(contrat1))
