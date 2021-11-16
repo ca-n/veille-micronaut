@@ -48,4 +48,18 @@ public class Contrat implements Serializable {
         this.isMoniteurConfirmed = false;
         this.session = SessionManager.CURRENT_SESSION.getNomSession();
     }
+
+    public Contrat(String collegeEngagement, String entrepriseEngagement, String etudiantEngagement, Offre offre, Etudiant etudiant, Moniteur moniteur) {
+        this.dateCreation = LocalDate.now();
+        this.isEtudiantConfirmed = false;
+        this.isGestionnaireConfirmed = false;
+        this.isMoniteurConfirmed = false;
+        this.session = SessionManager.CURRENT_SESSION;
+        this.collegeEngagement = collegeEngagement;
+        this.entrepriseEngagement = entrepriseEngagement;
+        this.etudiantEngagement = etudiantEngagement;
+        this.offre = offre;
+        this.etudiant = etudiant;
+        this.moniteur = moniteur;
+    }
 }
