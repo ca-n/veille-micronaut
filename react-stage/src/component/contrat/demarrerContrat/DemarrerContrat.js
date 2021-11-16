@@ -1,9 +1,13 @@
 import React from 'react'
+import AfficherContrat from './AfficherContrat'
 
 const DemarrerContrat = () => {
-    
+
     return (
-        <p>DemarrerContrat</p>
+        <>
+            <p>DemarrerContrat</p>
+            <AfficherContrat />
+        </>
 
     )
 }
