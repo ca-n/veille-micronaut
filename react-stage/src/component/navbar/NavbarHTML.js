@@ -27,6 +27,7 @@ const NavbarHTML = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
+
           <NavDropdown title="Form" id="basic-nav-dropdown">
             <NavDropdown.Item><Link to="/etudiant">Form Etudiant</Link></NavDropdown.Item>
             <NavDropdown.Item><Link to="/superviseur">Form Superviseur</Link></NavDropdown.Item>
@@ -44,8 +45,8 @@ const NavbarHTML = () => {
           }
 
           {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
-            <NavDropdown  title="Url Inscription" id="basic-nav-dropdown">
-              <NavDropdown.Item ><button  className="text-white"onClick={myFunction}>Email link</button></NavDropdown.Item>
+            <NavDropdown title="Url Inscription" id="basic-nav-dropdown">
+              <NavDropdown.Item ><button className="text-white" onClick={myFunction}>Email link</button></NavDropdown.Item>
               <NavDropdown.Item ><CopyToClipboard text={"http://localhost:3000/moniteur"}><button className="text-white">Copy to clipboard</button></CopyToClipboard></NavDropdown.Item>
             </NavDropdown>
             :
@@ -53,39 +54,44 @@ const NavbarHTML = () => {
           }
 
           {(loggedUser.isLoggedIn && loggedUser.role !== "SUPERVISEUR") ?
-            <Nav.Link as={Link} to="/offres">Offres</Nav.Link>
-            : null
-          }
-
-          {loggedUser.isLoggedIn && (loggedUser.role === "GESTIONNAIRE" ||  loggedUser.role === "MONITEUR")  ?
-            <Nav.Link as={Link} to="/newOffre" >Créer offre de stage</Nav.Link>
-            :
-            null
-          }
-        
-          {loggedUser.isLoggedIn && loggedUser.role === "ETUDIANT" ?
-            <Nav.Link as={Link} to="/dropCv" >Ajouter ou voir cv</Nav.Link>
+            <NavDropdown title="Offres" id="basic-nav-dropdown">
+              <NavDropdown.Item><Link to="/offres">Offres</Link></NavDropdown.Item>
+              {loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR" ?
+                <NavDropdown.Item><Link to="/newOffre">Créer offre de stage</Link></NavDropdown.Item> : null
+              }
+            </NavDropdown>
             :
             null
           }
 
-          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
-            <Nav.Link as={Link} to="/gestion/cv">Voir et valider les CV</Nav.Link> 
-            : 
-            null
-          }
-
-          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
-            <Nav.Link as={Link} to="/gestion/superviseur">Gestion Superviseur</Nav.Link> 
+          {loggedUser.isLoggedIn && (loggedUser.role === "ETUDIANT" || loggedUser.role === "GESTIONNAIRE") ?
+            <NavDropdown title="CV" id="basic-nav-dropdown">
+              {loggedUser.role === "ETUDIANT" ?
+                <NavDropdown.Item><Link to="/dropCv">Ajouter ou voir cv</Link></NavDropdown.Item> : null
+              }
+              {loggedUser.role === "GESTIONNAIRE" ?
+                <NavDropdown.Item><Link to="/gestion/cv">Voir et valider les CV</Link></NavDropdown.Item> : null
+              }
+            </NavDropdown>
             :
             null
           }
 
-          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ? 
-            <Nav.Link as={Link} to="/gestion/allSession">All Sessions Info</Nav.Link> 
-            : 
+          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
+            <Nav.Link as={Link} to="/gestion/superviseur">Gestion Superviseur</Nav.Link> : null
+          }
+          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
+            <Nav.Link as={Link} to="/gestion/allSession">All Sessions Info</Nav.Link> : null
+          }
+
+          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
+            <NavDropdown title="Contrat" id="basic-nav-dropdown">
+              <NavDropdown.Item><Link to="/gestion/newContrat">Créer Contrat</Link></NavDropdown.Item>
+            </NavDropdown>
+            :
             null
           }
+
         </Nav>
       </Navbar.Collapse>
     </Navbar>
