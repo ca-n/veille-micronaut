@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ContratService implements SessionManager<Contrat>{
+public class ContratService extends SessionManager<Contrat>{
 
     private final ContratRepository contratRepository;
 
@@ -27,7 +27,7 @@ public class ContratService implements SessionManager<Contrat>{
     public List<Contrat> getListForCurrentSession(List<Contrat> listContrat) {
         List<Contrat> listContratCurrentSession = new ArrayList<>();
         for(Contrat contrat : listContrat){
-            if(contrat.getSession() == SessionManager.CURRENT_SESSION){
+            if(contrat.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())){
                 listContratCurrentSession.add(contrat);
             }
         }
