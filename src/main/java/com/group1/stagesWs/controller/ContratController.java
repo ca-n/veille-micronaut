@@ -27,9 +27,15 @@ public class ContratController {
         return ResponseEntity.ok(contratService.getAllContrats());
     }
 
-    @GetMapping("/contrats/{moniteurEmail}")
-    public ResponseEntity<List<Contrat>> getAllContrats(@PathVariable("moniteurEmail") String moniteurEmail) {
+    @GetMapping("/contrats/moniteur/{moniteurEmail}")
+    public ResponseEntity<List<Contrat>> getContratsByMoniteurEmail(@PathVariable("moniteurEmail") String moniteurEmail) {
         return ResponseEntity.ok(contratService.getContratsByMoniteurEmail(moniteurEmail));
+    }
+
+    @GetMapping("/contrats/etudiant/{etudiantEmail}")
+    public ResponseEntity<Contrat> getContratsByEtudiantEmail(@PathVariable("etudiantEmail") String etudiantEmail) {
+        logger.info("get - getContratsByEtudiantEmail " + etudiantEmail);
+        return ResponseEntity.ok(contratService.getContratsByEtudiantEmail(etudiantEmail));
     }
 
     @PostMapping("/contrat")

@@ -69,7 +69,7 @@ public class ContratControllerTests {
         when(contratService.getContratsByMoniteurEmail(moniteur.getCourriel())).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(get("/contrats/" + moniteur.getCourriel())
+        MvcResult result = mockMvc.perform(get("/contrats/moniteur/" + moniteur.getCourriel())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expected))).andReturn();
 
@@ -77,6 +77,22 @@ public class ContratControllerTests {
         var actualContrats = mapper.readValue(result.getResponse().getContentAsString(), List.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualContrats.size()).isEqualTo(expected.size());
+    }
+
+    void testGetContratsByEtudiantEmail() throws Exception {
+        //Arrange
+        Etudiant etudiant = getEtudiant();
+        Contrat expected = getContrat();
+        when(contratService.getContratsByEtudiantEmail(etudiant.getCourriel())).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/contrats/etudiant/" + etudiant.getCourriel())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualContrats = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test
