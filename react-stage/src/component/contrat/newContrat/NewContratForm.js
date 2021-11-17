@@ -25,10 +25,12 @@ const NewContratForm = ({ submitForm }) => {
         setValueOffre(listOffres[0])
         getListEtudiants(listOffres[0].applicants)
     }
+
     const getListEtudiants = (listApplicants) => {
         setListEtudiants(listApplicants)
         setValueEtudiant(listApplicants[0])
     }
+
     const onChangeOffre = (e) => {
         let offre = JSON.parse(e.target.value)
         setValueOffre(offre)
@@ -90,7 +92,7 @@ const NewContratForm = ({ submitForm }) => {
                         className="form-label">
                         Le Collège s’engage à :
                     </label>
-                    <input id="collegeEngagement" type="text" name="collegeEngagement" className="form-input" placeholder="Entrez votre prenom" value={values.collegeEngagement} onChange={handleChange}></input>
+                    <input id="collegeEngagement" type="text" name="collegeEngagement" className="form-input" placeholder="Entrez les engagments du collège" value={values.collegeEngagement} onChange={handleChange}></input>
                     {errors.collegeEngagement && <p>{errors.collegeEngagement}</p>}
                 </div>
 
@@ -99,7 +101,7 @@ const NewContratForm = ({ submitForm }) => {
                         className="form-label">
                         L’entreprise s’engage à :
                     </label>
-                    <input id="entrepriseEngagement" type="text" name="entrepriseEngagement" className="form-input" placeholder="Entrez votre prenom" value={values.entrepriseEngagement} onChange={handleChange}></input>
+                    <input id="entrepriseEngagement" type="text" name="entrepriseEngagement" className="form-input" placeholder="Entrez les engagments de l'entreprise" value={values.entrepriseEngagement} onChange={handleChange}></input>
                     {errors.entrepriseEngagement && <p>{errors.entrepriseEngagement}</p>}
                 </div>
 
@@ -108,7 +110,7 @@ const NewContratForm = ({ submitForm }) => {
                         className="form-label">
                         L’étudiant s’engage à :
                     </label>
-                    <input id="etudiantEngagement" type="text" name="etudiantEngagement" className="form-input" placeholder="Entrez votre prenom" value={values.etudiantEngagement} onChange={handleChange}></input>
+                    <input id="etudiantEngagement" type="text" name="etudiantEngagement" className="form-input" placeholder="Entrez les engagments de l'étudiant" value={values.etudiantEngagement} onChange={handleChange}></input>
                     {errors.etudiantEngagement && <p>{errors.etudiantEngagement}</p>}
                 </div>
 
