@@ -1,10 +1,8 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.model.Contrat;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Moniteur;
-import com.group1.stagesWs.model.Offre;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.ContratRepository;
+import com.group1.stagesWs.repositories.MoniteurRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,6 +22,8 @@ public class ContratServiceTest {
     @Mock
     private ContratRepository contratRepository;
 
+    @Mock
+    private MoniteurRepository moniteurRepository;
 
     @InjectMocks
     private ContratService contratService;
@@ -40,6 +40,22 @@ public class ContratServiceTest {
 
         //Assert
         assertThat(returned).hasSize(expected.size() - 1);
+    }
+
+    @Test
+    void testGetContratsByMoniteurEmail() {
+        //Arrange
+        List<Contrat> expected = getContrats();
+        Moniteur moniteur = getMoniteur();
+        when(contratRepository.findContratByMoniteur(moniteur)).thenReturn(expected);
+        when(moniteurRepository.findMoniteurByCourrielIgnoreCase(moniteur.getCourriel())).thenReturn(moniteur);
+
+        //Act
+        List<Contrat> returned = contratService.getContratsByMoniteurEmail(moniteur.getCourriel());
+
+        //Assert
+        assertThat(returned).isEqualTo(expected);
+        assertThat(returned.size()).isEqualTo(expected.size());
     }
 
     @Test

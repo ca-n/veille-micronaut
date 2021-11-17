@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class ContratController {
 
-     Logger logger = LoggerFactory.getLogger(ContratController.class);
+    Logger logger = LoggerFactory.getLogger(ContratController.class);
 
     private final ContratService contratService;
 
@@ -25,6 +25,11 @@ public class ContratController {
     @GetMapping("/contrats")
     public ResponseEntity<List<Contrat>> getAllContrats() {
         return ResponseEntity.ok(contratService.getAllContrats());
+    }
+
+    @GetMapping("/contrats/{moniteurEmail}")
+    public ResponseEntity<List<Contrat>> getAllContrats(@PathVariable("moniteurEmail") String moniteurEmail) {
+        return ResponseEntity.ok(contratService.getContratsByMoniteurEmail(moniteurEmail));
     }
 
     @PostMapping("/contrat")

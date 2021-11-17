@@ -62,6 +62,24 @@ public class ContratControllerTests {
     }
 
     @Test
+    void testGetContratsByMoniteurEmail() throws Exception {
+        //Arrange
+        Moniteur moniteur = getMoniteur();
+        List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+        when(contratService.getContratsByMoniteurEmail(moniteur.getCourriel())).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/contrats/" + moniteur.getCourriel())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualContrats = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualContrats.size()).isEqualTo(expected.size());
+    }
+
+    @Test
     public void testSaveContrat() throws Exception {
         //Arrange
         Contrat expected = getContrat();
