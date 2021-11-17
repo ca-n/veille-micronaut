@@ -3,7 +3,6 @@ package com.group1.stagesWs.model;
 
 import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.enums.CVStatus;
-import com.group1.stagesWs.model.Session;
 import lombok.Data;
 
 import javax.persistence.*;

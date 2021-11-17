@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { UserInfoContext } from '../../contexts/UserInfo';
+import React, { useEffect, useState } from 'react'
 import UserService from '../../services/UserService';
 
 const AllSessionEtudiant = ({ reloadList, getListForSpecificSession, elementsPerPage }) => {

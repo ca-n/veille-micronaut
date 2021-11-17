@@ -1,12 +1,9 @@
 package com.group1.stagesWs.controller;
 
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Session;
-import com.group1.stagesWs.service.OffreService;
 import com.group1.stagesWs.service.SessionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ContextConfiguration(classes = SessionController.class,
         initializers = ConfigFileApplicationContextInitializer.class)

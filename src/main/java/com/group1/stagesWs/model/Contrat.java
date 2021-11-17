@@ -1,7 +1,6 @@
 package com.group1.stagesWs.model;
 
 import com.group1.stagesWs.SessionManager;
-import com.group1.stagesWs.model.Session;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -54,7 +53,7 @@ public class Contrat implements Serializable {
         this.isEtudiantConfirmed = false;
         this.isGestionnaireConfirmed = false;
         this.isMoniteurConfirmed = false;
-        this.session = SessionManager.CURRENT_SESSION;
+        this.session = SessionManager.CURRENT_SESSION.getNomSession();
         this.collegeEngagement = collegeEngagement;
         this.entrepriseEngagement = entrepriseEngagement;
         this.etudiantEngagement = etudiantEngagement;
