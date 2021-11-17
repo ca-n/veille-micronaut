@@ -12,6 +12,12 @@ const ContratService = {
         //const data = await res.json()
         //return data
     },
+
+    getContratsByMoniteurEmail: async (email) => {
+        const res = await fetch(urlBase + 'contrats/' + email);
+        const data = await res.json();
+        return data;
+    },
 }
 
 export default ContratService

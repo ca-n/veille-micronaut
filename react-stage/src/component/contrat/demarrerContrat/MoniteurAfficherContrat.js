@@ -16,7 +16,7 @@ const MoniteurAfficherContrat = () => {
 
         const getContrats = async () => {
             let dbContrats
-            dbContrats = await ContratService.getAllContrats()
+            dbContrats = await ContratService.getContratsByMoniteurEmail(loggedUser.courriel)
             console.log(dbContrats, "dbContrats")
             //setListOffres(dbOffres)
             //setValuesOnLoad(dbOffres)
