@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 
 
-const PDFOffresVisible = () => {
+const PDFEtudiantsInscrient = () => {
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -13,7 +13,7 @@ const PDFOffresVisible = () => {
         <div>
             < div >
                 <Document
-                    file={'http://localhost:9191/rapport/pdf/offresValide'}
+                    file={'http://localhost:9191/rapport/pdf/etudiantsInscrient'}
                     onLoadSuccess={onDocumentLoadSuccess}
                 >
                     <Page pageNumber={pageNumber} />
@@ -24,4 +24,4 @@ const PDFOffresVisible = () => {
     )
 }
 
-export default PDFOffresVisible
+export default PDFEtudiantsInscrient

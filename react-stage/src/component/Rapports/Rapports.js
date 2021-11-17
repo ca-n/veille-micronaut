@@ -42,7 +42,7 @@ const Rapports = () => {
                         <button onClick={downloadOffresInvalid} >Download</button>
                     </td>
                     <td>
-                        <button>Open</button>
+                        <button onClick={() => window.open("http://localhost:3000/rapports/offresInvalides", "_blank")}>Open</button>
                     </td>
                 </tr>
 
@@ -54,7 +54,7 @@ const Rapports = () => {
                         <button onClick={downloadEtudiantsInscrient} >Download</button>
                     </td>
                     <td>
-                        <button>Open</button>
+                        <button onClick={() => window.open("http://localhost:3000/rapports/etudiantsInscrient", "_blank")}>Open</button>
                     </td>
                 </tr>
 
@@ -66,7 +66,7 @@ const Rapports = () => {
                         <button onClick={downloadCVPendingRejected} >Download</button>
                     </td>
                     <td>
-                        <button>Open</button>
+                        <button onClick={() => window.open("http://localhost:3000/rapports/cvPendingRejected", "_blank")}>Open</button>
                     </td>
                 </tr>
             </table>

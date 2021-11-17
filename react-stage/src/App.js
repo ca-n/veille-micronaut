@@ -21,8 +21,11 @@ import DropCv from './component/DropCv/DropCv';
 import SuperviseurEtudiantsAssignation from './component/Superviseur/SuperviseurEtudiantsAssignation';
 import Dashboard from './component/dashboard/Dashboard';
 import Contrat from './component/contrat/Contrat';
-import Rapports from "./component/Rapports";
-import PDFOffresVisible from "./component/PDFOffresVisible";
+import Rapports from "./component/Rapports/Rapports";
+import PDFOffresVisible from "./component/Rapports/PDFOffresValides";
+import PDFOffresInvalides from "./component/Rapports/PDFOffresInvalides";
+import PDFEtudiantsInscrient from "./component/Rapports/PDFEtudiantsInscrient";
+import PDFCVPendingEtRejected from "./component/Rapports/PDFCVPendingEtRejected";
 import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
 
 
@@ -51,6 +54,12 @@ function App() {
               <Route exact path="/gestion/allSession"><AllSessionInfo /></Route>
               <Route exact path="/rapports"><Rapports /></Route>
               <Route exact path="/rapports/offresValides"><PDFOffresVisible /></Route>
+              <Route exact path="/rapports/offresInvalides"><PDFOffresInvalides /></Route>
+              <Route exact path="/rapports/etudiantsInscrient"><PDFEtudiantsInscrient /></Route>
+              <Route exact path="/rapports/cvPendingRejected"><PDFCVPendingEtRejected /></Route>
+
+
+
 
 
             </Switch>
