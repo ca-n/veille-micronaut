@@ -7,6 +7,12 @@ const OffreService = {
     return data;
   },
 
+  getAllOffresAllSession: async () => {
+    const res = await fetch(urlBase + '/allSession');
+    const data = await res.json();
+    return data;
+  },
+
   // getEtudiantOffres [GET] /offres/etudiant/{etudiantCourriel}
   getEtudiantOffres: async (etudiantCourriel) => {
     const res = await fetch(urlBase + "/etudiant/" + etudiantCourriel);

@@ -1,12 +1,14 @@
 package com.group1.stagesWs;
 
-import com.group1.stagesWs.enums.Session;
+import com.group1.stagesWs.model.Session;
+import com.group1.stagesWs.repositories.SessionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public interface SessionManager<T> {
+public abstract class SessionManager<T> {
 
-    public final static Session CURRENT_SESSION = Session.AUTOMNE_2021;
+    public static Session CURRENT_SESSION = new Session("HIVER-2021");
 
-    List<T>getListForCurrentSession(List<T> list);
+    public abstract List<T>getListForCurrentSession(List<T> list);
 }

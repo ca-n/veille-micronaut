@@ -76,6 +76,11 @@ public class UserController {
     public ResponseEntity<List<Moniteur>> getAllMoniteurs() {
         return new ResponseEntity<>(service.getAllMoniteurs(), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/moniteurs/allSession")
+    public ResponseEntity<List<Moniteur>> getAllMoniteursAllSession() {
+        return new ResponseEntity<>(service.getAllMoniteursAllSession(), HttpStatus.OK);
+    }
   
     @GetMapping(path = "/etudiants")
     public ResponseEntity<List<Etudiant>> getAllEtudiants() {
