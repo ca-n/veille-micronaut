@@ -152,11 +152,11 @@ public class UserService implements SessionManager<User> {
         return gestionnaireRepository.findAll();
     }
 
-    public Etudiant getEtudiant(String nom){
-        return etudiantRepository.findEtudiantByNom(nom);
+    public Etudiant getEtudiant(int id){
+        return etudiantRepository.findEtudiantById(id);
     }
 
-    public Moniteur getMoniteur(String nom){
-        return moniteurRepository.findMoniteurByNom(nom);
+    public Moniteur getMoniteur(int id){
+        return moniteurRepository.findMoniteurById(id);
     }
 }
