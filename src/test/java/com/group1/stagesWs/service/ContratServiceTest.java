@@ -1,6 +1,5 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.model.Contrat;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
@@ -33,7 +32,7 @@ public class ContratServiceTest {
     void testGetAllContrats() {
         //Arrange
         List<Contrat> expected = getContrats();
-        expected.get(0).setSession(Session.HIVER_2021);
+        expected.get(0).setSession("HIVER_2021");
         when(contratRepository.findAll()).thenReturn(expected);
 
         //Act
