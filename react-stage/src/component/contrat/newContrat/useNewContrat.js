@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react"
 
 const useNewContrat = (callback, validateInfoContrat) => {
-    const [values, setValues] = useState({
-    })
+    const [values, setValues] = useState({})
     const [errors, setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
 
