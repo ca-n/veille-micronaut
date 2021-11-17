@@ -4,7 +4,7 @@ import OffreService from '../../../services/OffreService'
 import ContratService from '../../../services/ContratService'
 import { get } from 'request'
 
-const GestionnaireAfficherContrat = () => {
+const MoniteurAfficherContrat = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
     const [listContrats, setListContrats] = useState([])
     const [listOffres, setListOffres] = useState([])
@@ -197,4 +197,4 @@ const GestionnaireAfficherContrat = () => {
     )
 }
 
-export default GestionnaireAfficherContrat
+export default MoniteurAfficherContrat
