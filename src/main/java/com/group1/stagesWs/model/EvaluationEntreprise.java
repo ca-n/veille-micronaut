@@ -30,7 +30,8 @@ public class EvaluationEntreprise implements Serializable {
     private Superviseur superviseur;
 
     public EvaluationEntreprise() {
-        dateCreation = LocalDate.now();
-        session = SessionManager.CURRENT_SESSION.getNomSession();
+        this.dateCreation = LocalDate.now();
+        this.evaluationGrid = new char[10];
+        this.session = SessionManager.CURRENT_SESSION.getNomSession();
     }
 }
