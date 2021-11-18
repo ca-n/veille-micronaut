@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EntrevueService  implements SessionManager<Entrevue> {
+public class EntrevueService extends SessionManager<Entrevue> {
 
     private final EntrevueRepository entrevueRepository;
 
@@ -40,7 +40,7 @@ public class EntrevueService  implements SessionManager<Entrevue> {
     public List<Entrevue> getListForCurrentSession(List<Entrevue> listEntrevue) {
         List<Entrevue> listEntrevueCurrentSession = new ArrayList<>();
         for(Entrevue entrevue : listEntrevue){
-            if(entrevue.getSession() == SessionManager.CURRENT_SESSION){
+            if(entrevue.getSession() == SessionManager.CURRENT_SESSION.getNomSession()){
                 listEntrevueCurrentSession.add(entrevue);
             }
         }
