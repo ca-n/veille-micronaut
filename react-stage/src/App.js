@@ -26,6 +26,11 @@ import PDFOffresVisible from "./component/Rapports/PDFOffresValides";
 import PDFOffresInvalides from "./component/Rapports/PDFOffresInvalides";
 import PDFEtudiantsInscrient from "./component/Rapports/PDFEtudiantsInscrient";
 import PDFCVPendingEtRejected from "./component/Rapports/PDFCVPendingEtRejected";
+import PDFEtudiantsSansCV from "./component/Rapports/PDFEudiantsSansCV";
+import PDFEtudiantsSansEntrevue from "./component/Rapports/PDFEtudiantsSansEntrevue";
+import PDFEtudiantsAttenteEntrevue from "./component/Rapports/PDFEtudiantsAttenteEntrevue";
+import PDFEtudiantsAttenteReponseEntrevue from "./component/Rapports/PDFEtudiantsAttenteReponseEntrevue";
+import PDFEtudiantsTrouveStage from "./component/Rapports/PDFEtudiantsTrouveStage";
 import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
 
 
@@ -57,6 +62,17 @@ function App() {
               <Route exact path="/rapports/offresInvalides"><PDFOffresInvalides /></Route>
               <Route exact path="/rapports/etudiantsInscrient"><PDFEtudiantsInscrient /></Route>
               <Route exact path="/rapports/cvPendingRejected"><PDFCVPendingEtRejected /></Route>
+              <Route exact path="/rapports/etudiantsSansCV"><PDFEtudiantsSansCV /></Route>
+              <Route exact path="/rapports/etudiantsSansEntrevue"><PDFEtudiantsSansEntrevue /></Route>
+              <Route exact path="/rapports/etudiantsAttenteEntrevue"><PDFEtudiantsAttenteEntrevue /></Route>
+              <Route exact path="/rapports/etudiantsAttenteReponseEntrevue"><PDFEtudiantsAttenteReponseEntrevue /></Route>
+              <Route exact path="/rapports/etudiantsTrouveStage"><PDFEtudiantsTrouveStage /></Route>
+
+
+
+
+
+
 
 
 
