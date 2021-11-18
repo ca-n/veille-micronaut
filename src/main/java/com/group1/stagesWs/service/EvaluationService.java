@@ -2,7 +2,9 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.model.EvaluationEntreprise;
+import com.group1.stagesWs.model.EvaluationEtudiant;
 import com.group1.stagesWs.repositories.EvaluationEntrepriseRepository;
+import com.group1.stagesWs.repositories.EvaluationEtudiantRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,25 +12,43 @@ import java.util.Optional;
 
 @Service
 public class EvaluationService {
-    private final EvaluationEntrepriseRepository entrepriseEvalRepository;
+    private final EvaluationEntrepriseRepository entrepriseEvalRepo;
+    private final EvaluationEtudiantRepository etudiantEvalRepo;
 
-    public EvaluationService(EvaluationEntrepriseRepository evaluationEntrepriseRepository) {
-        this.entrepriseEvalRepository = evaluationEntrepriseRepository;
+    public EvaluationService(EvaluationEntrepriseRepository entrepriseEvalRepo, EvaluationEtudiantRepository etudiantEvalRepo) {
+        this.entrepriseEvalRepo = entrepriseEvalRepo;
+        this.etudiantEvalRepo = etudiantEvalRepo;
     }
 
     public EvaluationEntreprise save(EvaluationEntreprise evaluation) {
-        return entrepriseEvalRepository.save(evaluation);
+        return entrepriseEvalRepo.save(evaluation);
+    }
+
+    public EvaluationEtudiant save(EvaluationEtudiant evaluation) {
+        return etudiantEvalRepo.save(evaluation);
     }
 
     public List<EvaluationEntreprise> getAllCurrentEntrepriseEvals() {
-        return entrepriseEvalRepository.findAllBySession(SessionManager.CURRENT_SESSION.getNomSession());
+        return entrepriseEvalRepo.findAllBySession(SessionManager.CURRENT_SESSION.getNomSession());
+    }
+
+    public List<EvaluationEtudiant> getAllCurrentEtudiantEvals() {
+        return etudiantEvalRepo.findAllBySession(SessionManager.CURRENT_SESSION.getNomSession());
     }
 
     public List<EvaluationEntreprise> getAllEntrepriseEvals() {
-        return entrepriseEvalRepository.findAll();
+        return entrepriseEvalRepo.findAll();
+    }
+
+    public List<EvaluationEtudiant> getAllEtudiantEvals() {
+        return etudiantEvalRepo.findAll();
     }
 
     public Optional<EvaluationEntreprise> getEntrepriseEval(int id) {
-        return entrepriseEvalRepository.findById(id);
+        return entrepriseEvalRepo.findById(id);
+    }
+
+    public Optional<EvaluationEtudiant> getEtudiantEval(int id) {
+        return etudiantEvalRepo.findById(id);
     }
 }
