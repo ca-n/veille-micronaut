@@ -14,7 +14,7 @@ public class EvaluationEntreprise implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int numeroStage;
-    private char[] evaluation;
+    private char[] evaluationGrid;
     private String commentaires;
     private int stagePrefere;
     private int nombreStagiaires;
