@@ -1,7 +1,11 @@
 import { React, useState } from 'react'
+import { useHistory } from "react-router-dom";
+
 import './NewCSS.css'
 
 const NewFormEtudiant = () => {
+    const history = useHistory();
+
     const [values, setValues] = useState({
         prenom: "",
         nom: "",
@@ -15,13 +19,15 @@ const NewFormEtudiant = () => {
         hasLicense: false,
         hasVoiture: false,
     })
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState(0)
     const [hasVoiture, setHasVoiture] = useState(false)
     const [hasLicense, setHasLicense] = useState(false)
     const [submitted, setSubmitted] = useState(false)
 
 
     const handleChange = e => {
+
+
         const { name, value } = e.target
         setValues({
             ...values,
@@ -78,17 +84,19 @@ const NewFormEtudiant = () => {
 
 
     const handleSubmit = async (e) => {
+        console.log("Entre dans le submit")
         e.preventDefault();
         setErrors(checkError(values))
 
         setSubmitted(true)
+        if (Object.keys(checkError(values)).length === 0 || Object.keys(checkError(values)).length === undefined && submitted) {
 
-        if (Object.keys(checkError(values)).length === 0 && submitted) {
-            console.log("entre boucle")
 
-            saveEtudiant()
             values.hasLicense = hasLicense
             values.hasVoiture = hasVoiture
+            saveEtudiant()
+            history.push("/login");
+
         }
     }
 
