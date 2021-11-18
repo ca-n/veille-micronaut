@@ -6,6 +6,7 @@ import VoirCVState from './VoirCVState'
 import './EtudiantDashboard.css'
 import UserService from '../../../services/UserService'
 import ContratService from '../../../services/ContratService'
+import Entrevue from './Entrevue'
 
 
 const EtudiantDashboard = () => {
@@ -47,9 +48,9 @@ const EtudiantDashboard = () => {
                     return res.json();
                 })
                 .then(data => {
-                    console.log(data, "data")
+                    console.log(data, "compte")
                     setFullUser(data)
-                    setSuperviseur(data)
+                    setSuperviseur(data.superviseur)
                     getMoniteur(data.id)
                     getContrat(data.id)
                 })
@@ -107,6 +108,7 @@ const EtudiantDashboard = () => {
                 :
                 <Offres />
             }
+            <Entrevue />
         </>
     )
 }
