@@ -1,5 +1,6 @@
 import "./App.css";
 import FormEtudiant from "./component/inscription/inscriptionEtudiant/FormEtudiant"
+import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant";
 import FormSuperviseur from "./component/inscription/inscriptionSuperviseur/FormSuperviseur";
 import FormMoniteur from "./component/inscription/inscriptionMoniteur/FormMoniteur";
 import LoginUser from "./component/loginUser/LoginUser";
@@ -34,7 +35,7 @@ function App() {
           <div>
             <Switch>
               <Route exact path="/"><Home /></Route>
-              <Route exact path="/etudiant"><FormEtudiant /></Route>
+              <Route exact path="/etudiant"><NewFormEtudiant /></Route>
               <Route exact path="/superviseur"><FormSuperviseur /></Route>
               <Route exact path="/moniteur"><FormMoniteur /></Route>
               <Route exact path="/account"><AccountDetails /></Route>

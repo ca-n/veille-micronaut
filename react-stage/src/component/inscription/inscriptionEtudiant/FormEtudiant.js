@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 
 const FormEtudiant = () => {
-    const [isSbubmitted,setIsSubmitted] = useState(false)
-    function submitForm(){
+    const [isSbubmitted, setIsSubmitted] = useState(false)
+    function submitForm() {
         setIsSubmitted(true)
     }
 
@@ -18,9 +18,9 @@ const FormEtudiant = () => {
                 <div className="form-content-left">
                     <img src="img/img-2.svg" alt="spaceship" className="form-img"></img>
                 </div>
-                {!isSbubmitted ? (<FormEtudiantHTML submitForm={submitForm} /> ) : (<FormEtudiantSuccess />)  }
+                {!isSbubmitted ? (<FormEtudiantHTML submitForm={submitForm} />) : (<FormEtudiantSuccess />)}
             </div>
-            
+
         </>
     )
 }
