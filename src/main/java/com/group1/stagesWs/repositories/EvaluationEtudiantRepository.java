@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface EvaluationEtudiantRepository extends JpaRepository<EvaluationEtudiant, Integer> {
     List<EvaluationEtudiant> findAllBySession(String session);
+    List<EvaluationEtudiant> findAllByContratEtudiantId(int etudiantId);
+    List<EvaluationEtudiant> findAllByContratMoniteurId(int moniteurId);
 }
