@@ -1,7 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import UserService from '../../../services/UserService'
 import Offres from '../../Offres/Offres'
+import Entrevue from './Entrevue'
+import FormEntrevue from './FormEntrevue'
 import './MoniteurDashboard.css'
 
 const MoniteurDashboard = () => {
@@ -25,6 +27,11 @@ const MoniteurDashboard = () => {
         specialite: String
     })
     const [listGestionnaires, setListGestionnaires] = useState([])
+    const [reloadList, setReloadList] = useState(0)
+    const handleReloadList = () => {
+        setReloadList(reloadList + 1)
+    }
+
 
 
     useEffect(() => {
@@ -70,6 +77,8 @@ const MoniteurDashboard = () => {
                 </table>
             </div>
             <Offres />
+            <FormEntrevue handleReloadList={handleReloadList} />
+            <Entrevue reloadList={reloadList} />
         </>
     )
 }
