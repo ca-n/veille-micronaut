@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useEffect, useContext, Redirect, useRef } from "react";
 import { UserInfoContext } from "../../contexts/UserInfo";
-
 import './LoginUser';
+import './LoginUserCss.css'
 import { Link } from 'react-router-dom'
 
 
@@ -70,7 +70,7 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
                         console.log(res, "resultat res")
 
                         if (res.ok) {
-                            loginValid.current = true 
+                            loginValid.current = true
                             return res.json()
                         }
                         throw res

@@ -2,7 +2,9 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.enums.CVStatus;
+import com.group1.stagesWs.enums.NotifStatus;
 import com.group1.stagesWs.model.CV;
+import com.group1.stagesWs.model.Notification;
 import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.springframework.data.domain.Sort;
@@ -17,12 +19,26 @@ public class CVService extends SessionManager<CV> {
 
     private final CVRepository cvRepository;
 
-    public CVService(CVRepository cvRepository) {
+    private final EmailService emailService;
+
+    private final NotificationService notificationService;
+
+    public CVService(CVRepository cvRepository,
+                     EmailService emailService,
+                     NotificationService notificationService) {
         this.cvRepository = cvRepository;
+        this.emailService = emailService;
+        this.notificationService = notificationService;
     }
 
     public Optional<CV> saveCV(CV cv) {
-        return Optional.of(cvRepository.save(cv));
+        Optional<CV> optionalCV =  Optional.of(cvRepository.save(cv));
+        if (optionalCV.isPresent()) {
+            emailService.sendGestionnaireEmailCVAjouter();
+            notificationService.saveNotificationGestionnaire(
+                    new Notification("Il y a un nouveau cv a verifier de l'etudiant : " + cv.getEtudiant().getPrenom() + " " + cv.getEtudiant().getNom(), NotifStatus.ALERT));
+        }
+        return optionalCV;
     }
 
     public List<CV> getAllCVEtudiant(int id) {

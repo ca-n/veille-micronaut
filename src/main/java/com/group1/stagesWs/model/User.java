@@ -7,6 +7,8 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @MappedSuperclass
 @Data
@@ -28,6 +30,8 @@ public class User implements Serializable {
     protected LocalDate dateCreation;
     protected String session;
 
+    @OneToMany
+    protected Set<Notification> notifications = new HashSet<>();
 
     public User() {
         dateCreation = LocalDate.now();
