@@ -1,18 +1,21 @@
 package com.group1.stagesWs;
 
 import com.group1.stagesWs.enums.CVStatus;
-import com.group1.stagesWs.enums.Session;
+import com.group1.stagesWs.model.Session;
 import com.group1.stagesWs.enums.UserType;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.*;
+import com.group1.stagesWs.service.SessionService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
+
 
 
 @SpringBootApplication
@@ -26,8 +29,16 @@ public class StageswsApplication implements CommandLineRunner{
     private final CVRepository cvRepository;
     private final EntrevueRepository entrevueRepository;
 
+    private final SessionService sessionService;
 
-    public StageswsApplication(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, GestionnaireRepository gestionnaireRepository, SuperviseurRepository superviseurRepository, CVRepository cvRepository,EntrevueRepository entrevueRepository) {
+    public StageswsApplication(OffreRepository offreRepository,
+                               EtudiantRepository etudiantRepository,
+                               MoniteurRepository moniteurRepository,
+                               GestionnaireRepository gestionnaireRepository,
+                               SuperviseurRepository superviseurRepository,
+                               CVRepository cvRepository,
+                               EntrevueRepository entrevueRepository,
+                               SessionService sessionService) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
         this.moniteurRepository = moniteurRepository;
@@ -35,6 +46,7 @@ public class StageswsApplication implements CommandLineRunner{
         this.superviseurRepository = superviseurRepository;
         this.cvRepository = cvRepository;
         this.entrevueRepository = entrevueRepository;
+        this.sessionService = sessionService;
     }
 
     public static void main(String[] args) {
@@ -43,7 +55,9 @@ public class StageswsApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-
+        Session sessionAlternative = new Session("AUT-2021");
+        sessionService.newSession(sessionAlternative.getNomSession());
+        sessionService.newSession("HIVER-2021");
         Superviseur superviseur = new Superviseur();
         superviseur.setPrenom("Jeremie");
         superviseur.setNom("Munger");
@@ -148,7 +162,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant3.setAdresse("113 lapierre");
         etudiant3.setNumMatricule("18223243");
         etudiant3.setHasLicense(true);
-        etudiant3.setSession(Session.HIVER_2021);
+        etudiant3.setSession(sessionAlternative.getNomSession());
         etudiantRepository.save(etudiant3);
 
         Etudiant etudiant4 = new Etudiant();
@@ -162,7 +176,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant4.setAdresse("113 lapierre");
         etudiant4.setNumMatricule("18422323");
         etudiant4.setHasLicense(true);
-        etudiant4.setSession(Session.HIVER_2021);
+        etudiant4.setSession(sessionAlternative.getNomSession());
         etudiantRepository.save(etudiant4);
 
         Etudiant etudiant5 = new Etudiant();
@@ -290,7 +304,7 @@ public class StageswsApplication implements CommandLineRunner{
         CV cv4 = new CV(); // accepted
         cv4.setStatus(CVStatus.ACCEPTED);
         cv4.setEtudiant(etudiant2);
-        cv4.setSession(Session.AUTOMNE_2021);
+        cv4.setSession(sessionAlternative.getNomSession());
         cv4.setNom("cv-accepted.pdf");
       
         cvRepository.saveAll(List.of(cv1, cv2, cv3, cv4));
@@ -309,6 +323,7 @@ public class StageswsApplication implements CommandLineRunner{
         offre2.setApplicants(Set.of(etudiant4, etudiant5));
         offre3.setApplicants(Set.of(etudiant6));
         Offre offre6 = new Offre("TITRE6", "DESCRIPTION6", "ENTREPRISE6", true, "113 lapierre Montreal", "2022-12-05", "2023-3-05", 13, "9:00 à 5:00", 40, 20.75);
+        offre6.setSession(sessionAlternative.getNomSession());
         offre1.setWhitelist(Set.of(etudiant));
         offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
 

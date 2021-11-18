@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class OffreService implements SessionManager<Offre> {
+public class OffreService extends SessionManager<Offre> {
     private final OffreRepository offreRepository;
     private final EtudiantRepository etudiantRepository;
     private final MoniteurRepository moniteurRepository;
@@ -60,18 +60,18 @@ public class OffreService implements SessionManager<Offre> {
         return Optional.of(offreRepository.save(offre));
     }
 
-    public Optional<Offre> updateOffre(int id, Offre offre) {
-        var offreOptional = offreRepository.findById(id);
-        if (offreOptional.isEmpty()) return offreOptional;
-        if (offre.getId() != id) offre.setId(id);
-        return Optional.of(offreRepository.save(offre));
-    }
+//    public Optional<Offre> updateOffre(int id, Offre offre) {
+//        var offreOptional = offreRepository.findById(id);
+//        if (offreOptional.isEmpty()) return offreOptional;
+//        if (offre.getId() != id) offre.setId(id);
+//        return Optional.of(offreRepository.save(offre));
+//    }
 
     @Override
     public List<Offre> getListForCurrentSession(List<Offre> listOffre) {
         List<Offre> listOffreCurrentSession = new ArrayList<>();
         for(Offre offre : listOffre){
-            if(offre.getSession() == SessionManager.CURRENT_SESSION){
+            if(offre.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())){
                 listOffreCurrentSession.add(offre);
             }
         }

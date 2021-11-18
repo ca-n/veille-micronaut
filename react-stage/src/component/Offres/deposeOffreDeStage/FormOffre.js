@@ -5,7 +5,7 @@ import FormOffreHTML from "./FormOffreHTML";
 import FormOffreSuccess from "./FormOffreSuccess";
 
 const FormOffre = () => {
-    const [isSbubmitted, setIsSubmitted] = useState(false)
+    const [isSubmitted, setIsSubmitted] = useState(false)
 
     function submitForm() {
         setIsSubmitted(true)
@@ -18,7 +18,7 @@ const FormOffre = () => {
                 <div className="form-content-left">
                     <img src="img/img-2.svg" alt="spaceship" className="form-img"></img>
                 </div>
-                {!isSbubmitted ? (<FormOffreHTML submitForm={submitForm} />) : (<FormOffreSuccess />)}
+                {!isSubmitted ? (<FormOffreHTML submitForm={submitForm} />) : (<FormOffreSuccess />)}
             </div>
 
         </>

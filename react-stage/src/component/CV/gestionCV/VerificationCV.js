@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
-import { UserInfoContext } from '../../contexts/UserInfo';
-import CVService from '../../services/CVService.js'
+import { UserInfoContext } from '../../../contexts/UserInfo';
+import CVService from '../../../services/CVService'
 import './VerificationCV.css'
 
 const VerificationCV = () => {
@@ -14,7 +14,7 @@ const VerificationCV = () => {
     const { id } = useParams()
     const history = useHistory()
 
-    useEffect(() => {
+    useEffect(async () => {
         if (!loggedUser.isLoggedIn || loggedUser.role !== "GESTIONNAIRE") history.push("/login")
 
         const getCV = async () => {
