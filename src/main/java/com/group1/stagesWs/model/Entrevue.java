@@ -20,7 +20,7 @@ public class Entrevue implements Serializable {
     private LocalDate date;
     private LocalTime time;
 
-    private Session session;
+    private String session;
 
     @ManyToOne
     private Etudiant etudiant;
@@ -29,7 +29,7 @@ public class Entrevue implements Serializable {
     private Moniteur moniteur;
 
     public Entrevue() {
-        session = SessionManager.CURRENT_SESSION;
+        session = SessionManager.CURRENT_SESSION.getNomSession();
     }
 
 
