@@ -62,11 +62,19 @@ public class CVService extends SessionManager<CV> {
 
     public Optional<CV> acceptCV(CV cv) {
         cv.setStatus(CVStatus.ACCEPTED);
+        emailService.sendEtudiantEmailCVAccepted(cv);
+        notificationService.saveNotificationEtudiant(
+                new Notification("Votre cv " + cv.getNom() + " a été accepté", NotifStatus.ALERT)
+                ,cv.getEtudiant().getId());
         return Optional.of(cvRepository.save(cv));
     }
 
     public Optional<CV> rejectCV(CV cv) {
         cv.setStatus(CVStatus.REJECTED);
+        emailService.sendEtudiantEmailCVRejected(cv);
+        notificationService.saveNotificationEtudiant(
+                new Notification("Votre cv " + cv.getNom() + " a été rejeté", NotifStatus.ALERT)
+                ,cv.getEtudiant().getId());
         return Optional.of(cvRepository.save(cv));
     }
 
