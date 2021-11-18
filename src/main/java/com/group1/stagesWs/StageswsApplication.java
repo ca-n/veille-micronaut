@@ -11,6 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Profile;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
@@ -25,8 +27,9 @@ public class StageswsApplication implements CommandLineRunner{
     private final GestionnaireRepository gestionnaireRepository;
     private final SuperviseurRepository superviseurRepository;
     private final CVRepository cvRepository;
-    private final SessionService sessionService;
+    private final EntrevueRepository entrevueRepository;
 
+    private final SessionService sessionService;
 
     public StageswsApplication(OffreRepository offreRepository,
                                EtudiantRepository etudiantRepository,
@@ -34,6 +37,7 @@ public class StageswsApplication implements CommandLineRunner{
                                GestionnaireRepository gestionnaireRepository,
                                SuperviseurRepository superviseurRepository,
                                CVRepository cvRepository,
+                               EntrevueRepository entrevueRepository,
                                SessionService sessionService) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
@@ -41,6 +45,7 @@ public class StageswsApplication implements CommandLineRunner{
         this.gestionnaireRepository = gestionnaireRepository;
         this.superviseurRepository = superviseurRepository;
         this.cvRepository = cvRepository;
+        this.entrevueRepository = entrevueRepository;
         this.sessionService = sessionService;
     }
 
@@ -66,7 +71,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Superviseur superviseur2 = new Superviseur();
         superviseur2.setPrenom("Lynn");
-        superviseur2.setNom("Bob");
+        superviseur2.setNom("Petti");
         superviseur2.setCourriel("lynn@gmail.com");
         superviseur2.setPassword("Password1");
         superviseur2.setNumTelephone("82308920938");
@@ -77,7 +82,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Superviseur superviseur3 = new Superviseur();
         superviseur3.setPrenom("Eric");
-        superviseur3.setNom("Bob");
+        superviseur3.setNom("Grand");
         superviseur3.setCourriel("eric@gmail.com");
         superviseur3.setPassword("Password1");
         superviseur3.setNumTelephone("82308920938");
@@ -88,7 +93,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Superviseur superviseur4 = new Superviseur();
         superviseur4.setPrenom("Audrey");
-        superviseur4.setNom("Bob");
+        superviseur4.setNom("Jeune");
         superviseur4.setCourriel("audrey@gmail.com");
         superviseur4.setPassword("Password1");
         superviseur4.setNumTelephone("82308920938");
@@ -110,7 +115,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Superviseur superviseur6 = new Superviseur();
         superviseur6.setPrenom("Emilie");
-        superviseur6.setNom("Bob");
+        superviseur6.setNom("Loi");
         superviseur6.setCourriel("emilie@gmail.com");
         superviseur6.setPassword("Password1");
         superviseur6.setNumTelephone("82308920938");
@@ -148,7 +153,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Etudiant etudiant3 = new Etudiant();
         etudiant3.setPrenom("Maelle");
-        etudiant3.setNom("Bob");
+        etudiant3.setNom("Chantier");
         etudiant3.setCourriel("maelle@gmail.com");
         etudiant3.setPassword("Password1");
         etudiant3.setNumTelephone("2323232323");
@@ -162,7 +167,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Etudiant etudiant4 = new Etudiant();
         etudiant4.setPrenom("Mahellie");
-        etudiant4.setNom("Bob");
+        etudiant4.setNom("Belle");
         etudiant4.setCourriel("mahelli@gmail.com");
         etudiant4.setPassword("Password1");
         etudiant4.setNumTelephone("2323232323");
@@ -176,7 +181,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Etudiant etudiant5 = new Etudiant();
         etudiant5.setPrenom("Emil");
-        etudiant5.setNom("Bob");
+        etudiant5.setNom("Docteur");
         etudiant5.setCourriel("emil@gmail.com");
         etudiant5.setPassword("Password1");
         etudiant5.setNumTelephone("2323232323");
@@ -189,7 +194,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Etudiant etudiant6 = new Etudiant();
         etudiant6.setPrenom("Simon");
-        etudiant6.setNom("Felton");
+        etudiant6.setNom("Roger");
         etudiant6.setCourriel("simon@gmail.com");
         etudiant6.setPassword("Password1");
         etudiant6.setNumTelephone("2323232323");
@@ -213,7 +218,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Moniteur moniteur2 = new Moniteur();
         moniteur2.setPrenom("Joel");
-        moniteur2.setNom("Bob");
+        moniteur2.setNom("Drole");
         moniteur2.setCourriel("joel@gmail.com");
         moniteur2.setPassword("Password1");
         moniteur2.setNumTelephone("2389238");
@@ -224,7 +229,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Moniteur moniteur3 = new Moniteur();
         moniteur3.setPrenom("Alex");
-        moniteur3.setNom("Bob");
+        moniteur3.setNom("Bonheur");
         moniteur3.setCourriel("alex@gmail.com");
         moniteur3.setPassword("Password1");
         moniteur3.setNumTelephone("2389238");
@@ -235,7 +240,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Moniteur moniteur4 = new Moniteur();
         moniteur4.setPrenom("Kassandra");
-        moniteur4.setNom("Bob");
+        moniteur4.setNom("Cheer");
         moniteur4.setCourriel("kassandra@gmail.com");
         moniteur4.setPassword("Password1");
         moniteur4.setNumTelephone("2389238");
@@ -246,7 +251,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Moniteur moniteur5 = new Moniteur();
         moniteur5.setPrenom("Jonathan");
-        moniteur5.setNom("Bob");
+        moniteur5.setNom("Bo");
         moniteur5.setCourriel("jonathan@gmail.com");
         moniteur5.setPassword("Password1");
         moniteur5.setNumTelephone("2389238");
@@ -257,7 +262,7 @@ public class StageswsApplication implements CommandLineRunner{
 
         Moniteur moniteur6 = new Moniteur();
         moniteur6.setPrenom("Ricky");
-        moniteur6.setNom("Bob");
+        moniteur6.setNom("Boby");
         moniteur6.setCourriel("ricky@gmail.com");
         moniteur6.setPassword("Password1");
         moniteur6.setNumTelephone("2389238");
@@ -321,5 +326,23 @@ public class StageswsApplication implements CommandLineRunner{
         offre6.setSession(sessionAlternative.getNomSession());
         offre1.setWhitelist(Set.of(etudiant));
         offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
+
+        Entrevue entrevue = new Entrevue();
+        entrevue.setId(1);
+        entrevue.setTitre("test1");
+        entrevue.setDate(LocalDate.of(2021,11,16));
+        entrevue.setTime(LocalTime.of(15,00));
+        entrevue.setEtudiant(etudiant);
+        entrevue.setMoniteur(moniteur);
+
+        Entrevue entrevue2 = new Entrevue();
+        entrevue2.setId(2);
+        entrevue2.setTitre("test2");
+        entrevue2.setDate(LocalDate.of(2021,11,27));
+        entrevue2.setTime(LocalTime.of(11,30));
+        entrevue2.setEtudiant(etudiant);
+        entrevue2.setMoniteur(moniteur);
+
+        entrevueRepository.saveAll(List.of(entrevue,entrevue2));
     }
 }
