@@ -116,7 +116,7 @@ const NewLoginUser = () => {
     }, [loggedUser])
 
     return (
-        <div>
+        <body>
             <form onSubmit={handleSubmit}>
 
                 <label>
@@ -135,7 +135,7 @@ const NewLoginUser = () => {
 
                 <button type="submit" className="button">Se connecter</button>
             </form >
-        </div >
+        </body>
     );
 }
 

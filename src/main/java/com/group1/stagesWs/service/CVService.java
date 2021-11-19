@@ -1,10 +1,9 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
-import com.group1.stagesWs.enums.CVStatus;
+import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.repositories.CVRepository;
-import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -45,14 +44,16 @@ public class CVService extends SessionManager<CV> {
     }
 
     public Optional<CV> acceptCV(CV cv) {
-        cv.setStatus(CVStatus.ACCEPTED);
+        cv.setStatus(Status.ACCEPTED);
         return Optional.of(cvRepository.save(cv));
     }
 
     public Optional<CV> rejectCV(CV cv) {
-        cv.setStatus(CVStatus.REJECTED);
+        cv.setStatus(Status.REJECTED);
         return Optional.of(cvRepository.save(cv));
     }
+
+
 
     public Optional<CV> getCVById(int id) {
         return cvRepository.findById(id);
@@ -66,6 +67,16 @@ public class CVService extends SessionManager<CV> {
     public List<CV> getAllCVsAllSession() {
         return cvRepository.findAll(Sort.by(Sort.Order.asc("status"), Sort.Order.desc("dateSoumission")));
     }
+
+    public List<CV> getCVPendingEtRejected() {
+        List<CV> listPending = cvRepository.findCVByStatus(Status.PENDING);
+        List<CV> listRejected = cvRepository.findCVByStatus(Status.REJECTED);
+        listPending.addAll(listRejected);
+
+        return listPending;
+    }
+
+
 
     @Override
     public List<CV> getListForCurrentSession(List<CV> listCV) {

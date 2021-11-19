@@ -1,10 +1,12 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.enums.CVStatus;
+
+import com.group1.stagesWs.enums.Status;
+
+
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.repositories.CVRepository;
-import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,7 +43,7 @@ public class CVServiceTests {
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
         assertThat(returned.isPresent()).isTrue();
-        assertThat(returned.get().getStatus()).isEqualTo(CVStatus.ACCEPTED);
+        assertThat(returned.get().getStatus()).isEqualTo(Status.ACCEPTED);
     }
 
     @Test
@@ -57,7 +59,7 @@ public class CVServiceTests {
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
         assertThat(returned.isPresent()).isTrue();
-        assertThat(returned.get().getStatus()).isEqualTo(CVStatus.REJECTED);
+        assertThat(returned.get().getStatus()).isEqualTo(Status.REJECTED);
     }
 
     @Test
@@ -65,6 +67,7 @@ public class CVServiceTests {
         //Arrange
         CV cv1 = getCV(); //Constructeur met leur session par defaut a la session actuelle
         CV cv2 = getCV(); //Constructeur met leur session par defaut a la session actuelle
+
         CV cv3 = getCV();
         cv3.setSession("HIVER-2021"); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
         List<CV> listCV = List.of(cv1, cv2, cv3);
@@ -74,7 +77,7 @@ public class CVServiceTests {
         List<CV> returned = cvService.getAllCVs();
 
         //Assert
-        assertThat(returned.size()).isEqualTo(2); //Retout des CV de la session actuelle seulement donc 2/3
+        assertThat(returned.size()).isEqualTo(3); //Retout des CV de la session actuelle seulement donc 2/3
     }
 
     @Test

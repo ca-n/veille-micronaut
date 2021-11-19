@@ -15,7 +15,8 @@ import java.util.List;
 @RequestMapping("/contrats")
 public class ContratController {
 
-    Logger logger = LoggerFactory.getLogger(ContratController.class);
+     Logger logger = LoggerFactory.getLogger(ContratController.class);
+
 
     private final ContratService contratService;
 

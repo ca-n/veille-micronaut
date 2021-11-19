@@ -216,7 +216,7 @@ public class UserServiceTests {
         List<Etudiant> returned = service.getAllEtudiants();
 
         //Assert
-        assertThat(returned).hasSize(expected.size() - 1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+        assertThat(returned).hasSize(expected.size() ); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
 
     @Test
@@ -245,7 +245,7 @@ public class UserServiceTests {
         List<Superviseur> returned = service.getAllSuperviseurs();
 
         //Assert
-        assertThat(returned).hasSize(expected.size() - 1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+        assertThat(returned).hasSize(expected.size() ); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
 
     @Test
@@ -272,7 +272,7 @@ public class UserServiceTests {
         List<Etudiant> returned = service.getAllEtudiantsWithoutSuperviseur();
 
         //Assert
-        assertThat(returned).hasSize(expected.size() - 1); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
+        assertThat(returned).hasSize(expected.size()); //Verifie que la liste retourne contient juste les etudiants de la session actuelle
     }
 
     @Test
