@@ -12,10 +12,9 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/contrat")
 public class ContratController {
 
-     Logger logger = LoggerFactory.getLogger(ContratController.class);
+    Logger logger = LoggerFactory.getLogger(ContratController.class);
 
     private final ContratService contratService;
 
@@ -23,7 +22,23 @@ public class ContratController {
         this.contratService = contratService;
     }
 
-    @PostMapping
+    @GetMapping("/contrats")
+    public ResponseEntity<List<Contrat>> getAllContrats() {
+        return ResponseEntity.ok(contratService.getAllContrats());
+    }
+
+    @GetMapping("/contrats/moniteur/{moniteurEmail}")
+    public ResponseEntity<List<Contrat>> getContratsByMoniteurEmail(@PathVariable("moniteurEmail") String moniteurEmail) {
+        return ResponseEntity.ok(contratService.getContratsByMoniteurEmail(moniteurEmail));
+    }
+
+    @GetMapping("/contrats/etudiant/{etudiantEmail}")
+    public ResponseEntity<Contrat> getContratsByEtudiantEmail(@PathVariable("etudiantEmail") String etudiantEmail) {
+        logger.info("get - getContratsByEtudiantEmail " + etudiantEmail);
+        return ResponseEntity.ok(contratService.getContratsByEtudiantEmail(etudiantEmail));
+    }
+
+    @PostMapping("/contrat")
     public ResponseEntity<Contrat> saveContrat(@RequestBody Contrat contrat) {
         logger.info("post - createContrat " + contrat);
         return contratService.saveContrat(contrat).map(contrat1 -> ResponseEntity.status(HttpStatus.CREATED).body(contrat1))

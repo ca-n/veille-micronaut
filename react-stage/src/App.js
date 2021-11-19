@@ -11,18 +11,17 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
 } from "react-router-dom";
-import UserInfo, { UserInfoContext } from "./contexts/UserInfo";
+import UserInfo from "./contexts/UserInfo";
 import AccountDetails from "./component/AccountDetails/AccountDetails";
 import VerificationCV from './component/CV/gestionCV/VerificationCV'
 import VerificationCVList from "./component/CV/gestionCV/VerificationCVList";
 import DropCv from "./component/CV/DropCv/DropCv";
 import SuperviseurEtudiantsAssignation from './component/Superviseur/SuperviseurEtudiantsAssignation';
 import Dashboard from './component/dashboard/Dashboard';
-import Contrat from './component/contrat/Contrat';
 import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
 import NewContrat from "./component/contrat/newContrat/NewContrat"
+import AfficherContrat from "./component/contrat/demarrerContrat/AfficherContrat"
 
 
 function App() {
@@ -45,11 +44,10 @@ function App() {
               <Route exact path="/gestion/cv"><VerificationCVList /></Route>
               <Route exact path="/gestion/cv/:id"><VerificationCV /></Route>
               <Route exact path="/dashboard"><Dashboard /></Route>
-              <Route exact path="/contrat"><Contrat /></Route>
               <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation /></Route>
               <Route exact path="/gestion/allSession"><AllSessionInfo /></Route>
               <Route exact path="/gestion/newContrat"><NewContrat /></Route>
-
+              <Route exact path="/gestion/demarrerContrat"><AfficherContrat /></Route>
             </Switch>
           </div>
         </UserInfo>
