@@ -12,6 +12,8 @@ const MoniteurAfficherContrat = () => {
     useEffect(async () => {
         let dbContrats
         dbContrats = await ContratService.getContratsByMoniteurEmail(loggedUser.courriel)
+        
+        console.log(dbContrats,"dbContrats")
         getOffres(dbContrats)
         setListContrats(dbContrats)
     }, [])
@@ -55,7 +57,7 @@ const MoniteurAfficherContrat = () => {
     const onChangeEtudiant = async (e) => {
         let etudiant = JSON.parse(e.target.value)
 
-        await setContratValues(etudiant)
+        await setContratValues(listContrats, etudiant)
     }
 
     const setContratValues = async (listContrats, etudiant) => {

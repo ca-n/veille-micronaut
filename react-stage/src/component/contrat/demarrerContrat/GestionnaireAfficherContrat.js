@@ -50,12 +50,13 @@ const GestionnaireAfficherContrat = () => {
     const onChangeOffre = (e) => {
         let offre = JSON.parse(e.target.value)
         getListEtudiants(listContrats, offre.applicants)
+        setErrors({})
 
     }
 
     const onChangeEtudiant = async (e) => {
         let etudiant = JSON.parse(e.target.value)
-
+        setErrors({})
         await setContratValues(listContrats, etudiant)
     }
 
@@ -79,8 +80,9 @@ const GestionnaireAfficherContrat = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        setErrors(validateInfoDemarrerContrat(contrat))
-        if (Object.keys(errors).length === 0 && !isAlreadyStarted(contrat)) {
+        let errorValidation = validateInfoDemarrerContrat(contrat)
+        setErrors(errorValidation)
+        if (Object.keys(errorValidation).length === 0 && !isAlreadyStarted(contrat)) {
             const date = new Date()
             contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0];
             contrat.gestionnaireConfirmed = true

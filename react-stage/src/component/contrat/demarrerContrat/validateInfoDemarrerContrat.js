@@ -9,6 +9,5 @@ export default function validateInfoDemarrerContrat(values) {
         errors.moniteurConfirmed = "La signature du moniteur est requise"
     }
 
-
     return errors
 }
