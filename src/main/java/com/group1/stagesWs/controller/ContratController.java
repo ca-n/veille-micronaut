@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/contrat")
@@ -28,4 +30,13 @@ public class ContratController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
+    @GetMapping("/moniteur/courriel/{courriel}")
+    public ResponseEntity<List<Contrat>> getAllMoniteurContrats(@PathVariable String courriel) {
+        return ResponseEntity.ok(contratService.getAllMoniteurContrats(courriel));
+    }
+
+    @GetMapping("/superviseur/courriel/{courriel}")
+    public ResponseEntity<List<Contrat>> getAllSuperviseurEtudiantContrats(@PathVariable String courriel) {
+        return ResponseEntity.ok(contratService.getAllSuperviseurEtudiantContrats(courriel));
+    }
 }
