@@ -1,10 +1,11 @@
 package com.group1.stagesWs;
 
-import com.group1.stagesWs.enums.CVStatus;
+import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.enums.UserType;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.*;
+import com.group1.stagesWs.service.RapportService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,8 +27,17 @@ public class StageswsApplication implements CommandLineRunner{
     private final CVRepository cvRepository;
     private final EntrevueRepository entrevueRepository;
 
+    private final RapportService rapportService;
 
-    public StageswsApplication(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, GestionnaireRepository gestionnaireRepository, SuperviseurRepository superviseurRepository, CVRepository cvRepository,EntrevueRepository entrevueRepository) {
+
+    public StageswsApplication(OffreRepository offreRepository,
+                               EtudiantRepository etudiantRepository,
+                               MoniteurRepository moniteurRepository,
+                               GestionnaireRepository gestionnaireRepository,
+                               SuperviseurRepository superviseurRepository,
+                               CVRepository cvRepository,
+                               EntrevueRepository entrevueRepository,
+                               RapportService rapportService) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
         this.moniteurRepository = moniteurRepository;
@@ -35,6 +45,7 @@ public class StageswsApplication implements CommandLineRunner{
         this.superviseurRepository = superviseurRepository;
         this.cvRepository = cvRepository;
         this.entrevueRepository = entrevueRepository;
+        this.rapportService = rapportService;
     }
 
     public static void main(String[] args) {
@@ -121,6 +132,7 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant.setAdresse("113 lapierre");
         etudiant.setNumMatricule("1822323");
         etudiant.setHasLicense(true);
+        etudiant.setSuperviseur(superviseur);
         etudiantRepository.save(etudiant);
 
         Etudiant etudiant2 = new Etudiant();
@@ -280,15 +292,15 @@ public class StageswsApplication implements CommandLineRunner{
         cv1.setEtudiant(etudiant2);
         cv1.setNom("cv-pending.pdf");
         CV cv2 = new CV(); // accepted
-        cv2.setStatus(CVStatus.ACCEPTED);
+        cv2.setStatus(Status.ACCEPTED);
         cv2.setEtudiant(etudiant2);
         cv2.setNom("cv-accepted.pdf");
         CV cv3 = new CV(); // rejected
-        cv3.setStatus(CVStatus.REJECTED);
+        cv3.setStatus(Status.REJECTED);
         cv3.setEtudiant(etudiant2);
         cv3.setNom("cv-rejected.pdf");
         CV cv4 = new CV(); // accepted
-        cv4.setStatus(CVStatus.ACCEPTED);
+        cv4.setStatus(Status.ACCEPTED);
         cv4.setEtudiant(etudiant2);
         cv4.setSession(Session.AUTOMNE_2021);
         cv4.setNom("cv-accepted.pdf");
@@ -315,19 +327,26 @@ public class StageswsApplication implements CommandLineRunner{
         Entrevue entrevue = new Entrevue();
         entrevue.setId(1);
         entrevue.setTitre("test1");
+        entrevue.setNomEntreprise("Umaknow");
         entrevue.setDate(LocalDate.of(2021,11,16));
         entrevue.setTime(LocalTime.of(15,00));
         entrevue.setEtudiant(etudiant);
         entrevue.setMoniteur(moniteur);
+        entrevue.setStatus(Status.PENDING);
 
         Entrevue entrevue2 = new Entrevue();
         entrevue2.setId(2);
         entrevue2.setTitre("test2");
+        entrevue2.setNomEntreprise("desJardins");
         entrevue2.setDate(LocalDate.of(2021,11,27));
         entrevue2.setTime(LocalTime.of(11,30));
-        entrevue2.setEtudiant(etudiant);
+        entrevue2.setEtudiant(etudiant2);
         entrevue2.setMoniteur(moniteur);
+        entrevue2.setStatus(Status.ACCEPTED);
 
         entrevueRepository.saveAll(List.of(entrevue,entrevue2));
+
+        rapportService.getEtudiantTrouveStage();
+
     }
 }

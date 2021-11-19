@@ -1,11 +1,13 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
+import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Entrevue;
 import com.group1.stagesWs.repositories.EntrevueRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +34,25 @@ public class EntrevueService  implements SessionManager<Entrevue> {
         List<Entrevue> listMoniteurCurrentSession = entrevueRepository.findEntrevueByMoniteurId(id);
         return getListForCurrentSession(listMoniteurCurrentSession);
     }
+
+    public List<Entrevue> getAllEntrevuesQuiArrive(){
+        return entrevueRepository.findAllByDateAfter(LocalDate.now());
+    }
+
+    public List<Entrevue> getAllEntrevuesPasse(){
+        return entrevueRepository.findAllByDateBefore(LocalDate.now());
+    }
+
+    public List<Entrevue> getAllEntrevues() {
+        return entrevueRepository.findAll();
+    }
+
+    public List<Entrevue> getEntrevuesAccepted() {
+        List<Entrevue> listEntrevuesAccepted = entrevueRepository.findEntrevueByStatus(Status.ACCEPTED);
+
+        return listEntrevuesAccepted;
+    }
+
 
 
 

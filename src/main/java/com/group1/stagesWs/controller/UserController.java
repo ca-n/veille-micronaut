@@ -120,14 +120,14 @@ public class UserController {
         return new ResponseEntity<>(service.getAllGestionnaires(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/etudiant/{nom}")
-    public ResponseEntity<Etudiant> getEtudiant(@PathVariable("nom") String nom){
-        return new ResponseEntity<>(service.getEtudiant(nom), HttpStatus.OK);
+    @GetMapping(path = "/etudiant/{id}")
+    public ResponseEntity<Etudiant> getEtudiant(@PathVariable("id") int id){
+        return new ResponseEntity<>(service.getEtudiant(id), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/moniteur/{nom}")
-    public ResponseEntity<Moniteur> getMoniteur(@PathVariable("nom") String nom){
-        return new ResponseEntity<>(service.getMoniteur(nom), HttpStatus.OK);
+    @GetMapping(path = "/moniteur/{id}")
+    public ResponseEntity<Moniteur> getMoniteur(@PathVariable("id") int id){
+        return new ResponseEntity<>(service.getMoniteur(id), HttpStatus.OK);
     }
 
 }

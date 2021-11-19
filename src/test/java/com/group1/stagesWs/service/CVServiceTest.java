@@ -1,6 +1,6 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.enums.CVStatus;
+import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
@@ -46,7 +46,7 @@ public class CVServiceTest {
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
         assertThat(returned.isPresent()).isTrue();
-        assertThat(returned.get().getStatus()).isEqualTo(CVStatus.ACCEPTED);
+        assertThat(returned.get().getStatus()).isEqualTo(Status.ACCEPTED);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class CVServiceTest {
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
         assertThat(returned.isPresent()).isTrue();
-        assertThat(returned.get().getStatus()).isEqualTo(CVStatus.REJECTED);
+        assertThat(returned.get().getStatus()).isEqualTo(Status.REJECTED);
     }
 
     @Test
