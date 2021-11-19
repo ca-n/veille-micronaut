@@ -9,13 +9,14 @@ import FormEvaluationEntreprise from './FormEvaluationEntreprise'
 import ListEntrepriseToEvaluate from './ListEntrepriseToEvaluate'
 
 const EvaluationEntreprise = () => {
-    const loggedUser = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const history = useHistory()
     const [contrats, setContrats] = useState([])
     const [currentContrat, setCurrentContrat] = useState()
     const [superviseur, setSuperviseur] = useState({})
 
     useEffect(() => {
+        console.log(loggedUser)
         if (!loggedUser.isLoggedIn || loggedUser.role !== "SUPERVISEUR") history.push("/login")
 
         const getContrats = async () => {

@@ -8,7 +8,7 @@ import FormEvaluationEtudiant from './FormEvaluationEtudiant'
 import ListEtudiantToEvaluate from './ListEtudiantToEvaluate'
 
 const EvaluationEtudiant = () => {
-    const loggedUser = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const history = useHistory()
     const [contrats, setContrats] = useState([])
     const [currentContrat, setCurrentContrat] = useState()

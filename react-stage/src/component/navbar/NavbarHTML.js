@@ -84,7 +84,7 @@ const NavbarHTML = () => {
             <Nav.Link as={Link} to="/gestion/allSession">All Sessions Info</Nav.Link> : null
           }
           {loggedUser.isLoggedIn && loggedUser.role === "MONITEUR" && <Nav.Link as={Link} to="/evaluation/etudiant">Evaluation Étudiant</Nav.Link> }
-          {loggedUser.isLoggedIn && loggedUser.role === "SUPERVISEUR" && <Nav.Link as={Link} to="/evaluation/entreprise">Evaluation Étudiant</Nav.Link> }
+          {loggedUser.isLoggedIn && loggedUser.role === "SUPERVISEUR" && <Nav.Link as={Link} to="/evaluation/entreprise">Evaluation Entreprise</Nav.Link> }
 
 
 
