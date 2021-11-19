@@ -92,6 +92,10 @@ const NavbarHTML = () => {
             null
           }
 
+          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
+            <Nav.Link as={Link} to="/rapports">Rapports</Nav.Link> : null
+          }
+
         </Nav>
       </Navbar.Collapse>
     </Navbar>
