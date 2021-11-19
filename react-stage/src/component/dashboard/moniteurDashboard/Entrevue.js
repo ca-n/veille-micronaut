@@ -15,7 +15,6 @@ const Entrevue = (reloadList) => {
     useEffect(async () => {
         console.log("Reloading list useEffect")
         await fetchListEntrevue()
-        await fetchListEntrevue()
     }, [reloadList])
 
     const fetchListEntrevue = async () => {
