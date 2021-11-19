@@ -10,7 +10,6 @@ const GestionnaireAfficherContrat = () => {
     const [listContrats, setListContrats] = useState([])
     const [listOffres, setListOffres] = useState([])
     const [listEtudiants, setListEtudiants] = useState([])
-    const [values, setValues] = useState({})
     const [contrat, setContrat] = useState({})
     const [errors, setErrors] = useState({})
 
@@ -24,15 +23,6 @@ const GestionnaireAfficherContrat = () => {
         
     }, [])
 
-    const handleChange = e => {
-        const { name, value } = e.target
-        setValues({
-            ...values,
-            [name]: value,
-        })
-
-    }
-
     const getOffres =  (listContrats) => {
         let tempListOffres = []
         listContrats.forEach(contrat => {
@@ -44,7 +34,6 @@ const GestionnaireAfficherContrat = () => {
 
     const setValuesOnLoad = (listContrats, listOffres) => {
         getListEtudiants(listContrats,listOffres[0].applicants)
-        setValueOffre(listOffres[0])
 
     }
 
@@ -66,8 +55,6 @@ const GestionnaireAfficherContrat = () => {
 
     const onChangeOffre = (e) => {
         let offre = JSON.parse(e.target.value)
-        setValueOffre(offre)
-        setValueMoniteur(offre.moniteur)
         getListEtudiants(listContrats, offre.applicants)
 
     }
@@ -78,20 +65,7 @@ const GestionnaireAfficherContrat = () => {
         await setContratValues(listContrats,etudiant)
     }
 
-    const setValueMoniteur = (moniteur) => {
-        values.moniteur = moniteur
-    }
-
-    const setValueOffre = (offre) => {
-        values.offre = offre
-    }
-
-    const setValueEtudiant = (etudiant) => {
-        values.etudiant = etudiant
-    }
-
     const setContratValues = async (listContrats,etudiant) => {
-        setValueEtudiant(etudiant)
         let tempContrat = {}
         listContrats.forEach(contrat => {
             if (contrat.etudiant.id === etudiant.id) {
