@@ -1,7 +1,7 @@
 package com.group1.stagesWs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.group1.stagesWs.enums.CVStatus;
+import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
@@ -52,7 +52,7 @@ public class CVControllerTests {
     void testAcceptCV() throws Exception {
         //Arrange
         CV expected = new CV();
-        expected.setStatus(CVStatus.ACCEPTED);
+        expected.setStatus(Status.ACCEPTED);
         when(cvService.acceptCV(any())).thenReturn(Optional.of(expected));
 
         //Act
@@ -63,7 +63,7 @@ public class CVControllerTests {
         //Assert
         var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actual.getStatus()).isEqualTo(CVStatus.ACCEPTED);
+        assertThat(actual.getStatus()).isEqualTo(Status.ACCEPTED);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class CVControllerTests {
     void testRejectCV() throws Exception {
         //Arrange
         CV expected = new CV();
-        expected.setStatus(CVStatus.REJECTED);
+        expected.setStatus(Status.REJECTED);
         when(cvService.rejectCV(any())).thenReturn(Optional.of(expected));
 
         //Act
@@ -95,7 +95,7 @@ public class CVControllerTests {
         //Assert
         var actual = mapper.readValue(result.getResponse().getContentAsString(), CV.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(actual.getStatus()).isEqualTo(CVStatus.REJECTED);
+        assertThat(actual.getStatus()).isEqualTo(Status.REJECTED);
     }
 
     @Test

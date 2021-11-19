@@ -4,16 +4,16 @@ import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.model.Contrat;
 import com.group1.stagesWs.model.EvaluationEntreprise;
 import com.group1.stagesWs.model.EvaluationEtudiant;
-import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.repositories.ContratRepository;
-import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.springframework.stereotype.Service;
-
+import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.repositories.EtudiantRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+
 public class ContratService extends SessionManager<Contrat> {
 
     private final ContratRepository contratRepository;
@@ -64,6 +64,7 @@ public class ContratService extends SessionManager<Contrat> {
                 .filter(contrat -> contrat.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession()))
                 .collect(Collectors.toList());
     }
+
 
     public List<Contrat> getAllContrats() {
         List<Contrat> listAllContrats = contratRepository.findAll();

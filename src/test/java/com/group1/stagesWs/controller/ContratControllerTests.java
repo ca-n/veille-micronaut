@@ -46,6 +46,7 @@ public class ContratControllerTests {
     }
 
     @Test
+
     void testGetAllContrats() throws Exception {
         //Arrange
         List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());

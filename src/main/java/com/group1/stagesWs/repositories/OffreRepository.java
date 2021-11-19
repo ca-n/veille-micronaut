@@ -13,4 +13,6 @@ import java.util.List;
 public interface OffreRepository extends JpaRepository<Offre, Integer> {
     List<Offre> findAllByWhitelistContainsAndIsValidTrue(Etudiant etudiant);
     List<Offre> findAllByMoniteur(Moniteur moniteur);
+    List<Offre> findAllByIsValidTrue();
+    List<Offre> findAllByIsValidFalse();
 }
