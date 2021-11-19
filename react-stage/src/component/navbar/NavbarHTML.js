@@ -83,6 +83,8 @@ const NavbarHTML = () => {
           {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
             <Nav.Link as={Link} to="/gestion/allSession">All Sessions Info</Nav.Link> : null
           }
+          {loggedUser.isLoggedIn && loggedUser.role === "MONITEUR" && <Nav.Link as={Link} to="/evaluation/etudiant">Evaluation Étudiant</Nav.Link> }
+          {loggedUser.isLoggedIn && loggedUser.role === "SUPERVISEUR" && <Nav.Link as={Link} to="/evaluation/entreprise">Evaluation Étudiant</Nav.Link> }
 
           {loggedUser.isLoggedIn && (loggedUser.role === "ETUDIANT" || loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR") ?
             <NavDropdown title="Contrat" id="basic-nav-dropdown">
