@@ -1,29 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
-import OffreService from '../../../services/OffreService'
 import ContratService from '../../../services/ContratService'
-import { get } from 'request'
 import validateInfoDemarrerContrat from './validateInfoDemarrerContrat'
 
 const GestionnaireAfficherContrat = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
     const [listContrats, setListContrats] = useState([])
     const [listOffres, setListOffres] = useState([])
     const [listEtudiants, setListEtudiants] = useState([])
     const [contrat, setContrat] = useState({})
     const [errors, setErrors] = useState({})
 
-    useEffect( async () => {
-
-            let dbContrats
-            dbContrats = await ContratService.getAllContrats()
-            getOffres(dbContrats)
-            setListContrats(dbContrats)
-
-        
+    useEffect(async () => {
+        let dbContrats
+        dbContrats = await ContratService.getAllContrats()
+        getOffres(dbContrats)
+        setListContrats(dbContrats)
     }, [])
 
-    const getOffres =  (listContrats) => {
+    const getOffres = (listContrats) => {
         let tempListOffres = []
         listContrats.forEach(contrat => {
             tempListOffres = [...tempListOffres, contrat.offre]
@@ -33,17 +27,17 @@ const GestionnaireAfficherContrat = () => {
     }
 
     const setValuesOnLoad = (listContrats, listOffres) => {
-        getListEtudiants(listContrats,listOffres[0].applicants)
+        getListEtudiants(listContrats, listOffres[0].applicants)
 
     }
 
-    const getListEtudiants = (listContrats,listApplicants) => {
-        let listEtudiantsContratOffre = getEtudiantsForContrat(listContrats,listApplicants)
+    const getListEtudiants = (listContrats, listApplicants) => {
+        let listEtudiantsContratOffre = getEtudiantsForContrat(listContrats, listApplicants)
         setListEtudiants(listEtudiantsContratOffre)
         setContratValues(listContrats, listEtudiantsContratOffre[0])
     }
 
-    const getEtudiantsForContrat = (listContrats,listApplicants) => {
+    const getEtudiantsForContrat = (listContrats, listApplicants) => {
         let tempListEtudiantsContratOffre = []
         listContrats.forEach(contrat => {
             if (listApplicants.some(applicant => applicant.id === contrat.etudiant.id)) {
@@ -62,10 +56,10 @@ const GestionnaireAfficherContrat = () => {
     const onChangeEtudiant = async (e) => {
         let etudiant = JSON.parse(e.target.value)
 
-        await setContratValues(listContrats,etudiant)
+        await setContratValues(listContrats, etudiant)
     }
 
-    const setContratValues = async (listContrats,etudiant) => {
+    const setContratValues = async (listContrats, etudiant) => {
         let tempContrat = {}
         listContrats.forEach(contrat => {
             if (contrat.etudiant.id === etudiant.id) {
@@ -76,9 +70,9 @@ const GestionnaireAfficherContrat = () => {
     }
 
     const isAlreadyStarted = (contrat) => {
-        if(contrat.gestionnaireConfirmed == true && contrat.moniteurConfirmed == true && contrat.etudiantConfirmed == true){
+        if (contrat.gestionnaireConfirmed == true && contrat.moniteurConfirmed == true && contrat.etudiantConfirmed == true) {
             return true
-        }else{
+        } else {
             return false
         }
     }

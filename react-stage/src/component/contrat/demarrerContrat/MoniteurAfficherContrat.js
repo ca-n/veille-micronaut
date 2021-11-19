@@ -1,65 +1,42 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
-import OffreService from '../../../services/OffreService'
 import ContratService from '../../../services/ContratService'
-import { get } from 'request'
 
 const MoniteurAfficherContrat = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
     const [listContrats, setListContrats] = useState([])
     const [listOffres, setListOffres] = useState([])
     const [listEtudiants, setListEtudiants] = useState([])
-    const [values, setValues] = useState({})
     const [contrat, setContrat] = useState({})
 
-    useEffect(() => {
-
-        const getContrats = async () => {
-            let dbContrats
-            dbContrats = await ContratService.getContratsByMoniteurEmail(loggedUser.courriel)
-            console.log(dbContrats, "dbContrats")
-            //setListOffres(dbOffres)
-            //setValuesOnLoad(dbOffres)
-            await getOffres(dbContrats)
-            setListContrats(dbContrats)
-        }
-        getContrats()
+    useEffect(async () => {
+        let dbContrats
+        dbContrats = await ContratService.getContratsByMoniteurEmail(loggedUser.courriel)
+        getOffres(dbContrats)
+        setListContrats(dbContrats)
     }, [])
 
-    const handleChange = e => {
-        const { name, value } = e.target
-        setValues({
-            ...values,
-            [name]: value,
-        })
-
-    }
-
-    const getOffres = async (listContrats) => {
+    const getOffres = (listContrats) => {
         let tempListOffres = []
         listContrats.forEach(contrat => {
             tempListOffres = [...tempListOffres, contrat.offre]
         });
-        console.log(tempListOffres, "dbOffres2")
         setListOffres(tempListOffres)
-        await setValuesOnLoad(tempListOffres)
+        setValuesOnLoad(listContrats, tempListOffres)
     }
 
-    const setValuesOnLoad = async (listOffres) => {
-        setValueOffre(listOffres[0])
-        await getListEtudiants(listOffres[0].applicants)
+    const setValuesOnLoad = (listContrats, listOffres) => {
+        getListEtudiants(listContrats, listOffres[0].applicants)
 
     }
 
-    const getListEtudiants = async (listApplicants) => {
-        let listEtudiantsContratOffre = await getEtudiantsForContrat(listApplicants)
-        //listEtudiantsContratOffre est vide on loadant la page
-        console.log(listEtudiantsContratOffre, "listEtudiantsContratOffre")
+    const getListEtudiants = (listContrats, listApplicants) => {
+        let listEtudiantsContratOffre = getEtudiantsForContrat(listContrats, listApplicants)
         setListEtudiants(listEtudiantsContratOffre)
-        await setContratValues(listEtudiantsContratOffre[0])
+        setContratValues(listContrats, listEtudiantsContratOffre[0])
     }
 
-    const getEtudiantsForContrat = async (listApplicants) => {
+    const getEtudiantsForContrat = (listContrats, listApplicants) => {
         let tempListEtudiantsContratOffre = []
         listContrats.forEach(contrat => {
             if (listApplicants.some(applicant => applicant.id === contrat.etudiant.id)) {
@@ -71,9 +48,7 @@ const MoniteurAfficherContrat = () => {
 
     const onChangeOffre = (e) => {
         let offre = JSON.parse(e.target.value)
-        setValueOffre(offre)
-        setValueMoniteur(offre.moniteur)
-        getListEtudiants(offre.applicants)
+        getListEtudiants(listContrats, offre.applicants)
 
     }
 
@@ -83,29 +58,13 @@ const MoniteurAfficherContrat = () => {
         await setContratValues(etudiant)
     }
 
-    const setValueMoniteur = (moniteur) => {
-        values.moniteur = moniteur
-    }
-
-    const setValueOffre = (offre) => {
-        values.offre = offre
-    }
-
-    const setValueEtudiant = (etudiant) => {
-        values.etudiant = etudiant
-    }
-
-    const setContratValues = async (etudiant) => {
-        setValueEtudiant(etudiant)
+    const setContratValues = async (listContrats, etudiant) => {
         let tempContrat = {}
-        console.log(etudiant, "ETUDIANT")
-        console.log(listContrats, "LISTCONTRATS")
         listContrats.forEach(contrat => {
             if (contrat.etudiant.id === etudiant.id) {
                 tempContrat = contrat
             }
         });
-        console.log(tempContrat, "tempContrat>>>")
         setContrat(tempContrat)
     }
 
