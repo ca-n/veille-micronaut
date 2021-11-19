@@ -12,8 +12,8 @@ const MoniteurAfficherContrat = () => {
     useEffect(async () => {
         let dbContrats
         dbContrats = await ContratService.getContratsByMoniteurEmail(loggedUser.courriel)
-        
-        console.log(dbContrats,"dbContrats")
+
+        console.log(dbContrats, "dbContrats")
         getOffres(dbContrats)
         setListContrats(dbContrats)
     }, [])
@@ -70,12 +70,13 @@ const MoniteurAfficherContrat = () => {
         setContrat(tempContrat)
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
         const date = new Date()
         contrat.dateSignatureMoniteur = date.toISOString().split('T')[0];
         contrat.moniteurConfirmed = true
-        ContratService.saveContrat(contrat)
+        const newContrat = await ContratService.saveContrat(contrat)
+        setContrat(newContrat)
     }
 
 
