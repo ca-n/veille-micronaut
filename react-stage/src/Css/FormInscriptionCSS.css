@@ -63,3 +63,9 @@ form {
     font-size: 0.8em;
     font-weight: bold;
   }
+
+  h2 {
+    text-align: center;
+    padding-top: 25px;
+    color: #aaa;
+  }

@@ -66,7 +66,7 @@ const NewFormMoniteur = () => {
         }
 
         if (!values.adresseEntreprise) {
-            errors.adresseEntreprise = "Adresse requise"
+            errors.adresseEntreprise = "Adresse de l'entreprise requise"
         }
 
 
@@ -78,7 +78,6 @@ const NewFormMoniteur = () => {
 
 
     const handleSubmit = async (e) => {
-        console.log("Entre dans le submit")
         e.preventDefault();
         setErrors(checkError(values))
 
@@ -87,7 +86,7 @@ const NewFormMoniteur = () => {
 
 
 
-            saveEtudiant()
+            saveMoniteur()
             history.push("/login");
 
         }
@@ -97,7 +96,7 @@ const NewFormMoniteur = () => {
 
 
 
-    const saveEtudiant = async () => {
+    const saveMoniteur = async () => {
         var request = new XMLHttpRequest();
         request.open('POST', 'http://localhost:9191/user/moniteur', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -110,6 +109,7 @@ const NewFormMoniteur = () => {
 
     return (
         <div>
+            <h2>Créer un compte de type moniteur</h2>
             <form onSubmit={handleSubmit}>
                 <label>
                     Prenom:
