@@ -1,5 +1,17 @@
 .nav-item .dropdown-menu {
-  background: #000000;
+  background: white;
+}
+
+.nav-item .dropdown-item {
+  color: black;
+}
+
+.nav-item .dropdown-item:hover {
+  background: #23b6fd;
+}
+
+.dropdown-divider {
+  color: black;
 }
 
 .nav-item .dropdown-item {
@@ -28,11 +40,11 @@ button {
 
 a {
   text-decoration: none;
-  color: white;
+  color: black;
 }
 
 a:hover {
-  color: white;
+  color: black;
 }
 
 .bell {

@@ -18,10 +18,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ContextConfiguration(classes = ContratController.class,
@@ -43,6 +46,57 @@ public class ContratControllerTests {
     }
 
     @Test
+    void testGetAllContrats() throws Exception {
+        //Arrange
+        List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+        when(contratService.getAllContrats()).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/contrats")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualContrats = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualContrats.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetContratsByMoniteurEmail() throws Exception {
+        //Arrange
+        Moniteur moniteur = getMoniteur();
+        List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+        when(contratService.getContratsByMoniteurEmail(moniteur.getCourriel())).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/contrats/moniteur/" + moniteur.getCourriel())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualContrats = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(actualContrats.size()).isEqualTo(expected.size());
+    }
+
+    void testGetContratsByEtudiantEmail() throws Exception {
+        //Arrange
+        Etudiant etudiant = getEtudiant();
+        Contrat expected = getContrat();
+        when(contratService.getContratsByEtudiantEmail(etudiant.getCourriel())).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/contrats/etudiant/" + etudiant.getCourriel())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expected))).andReturn();
+
+        //Assert
+        var actualContrats = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
     public void testSaveContrat() throws Exception {
         //Arrange
         Contrat expected = getContrat();
@@ -56,6 +110,36 @@ public class ContratControllerTests {
         var actualContrat = mapper.readValue(result.getResponse().getContentAsString(), Contrat.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(actualContrat).isEqualTo(expected);
+    }
+
+    @Test
+    void testGetAllMoniteurContrats() throws Exception {
+        //Arrange
+        List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+        when(contratService.getAllMoniteurContrats(anyString())).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/contrats/moniteur/courriel/moniteur@example.com")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(actual.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetAllSuperviseurEtudiantContrats() throws Exception {
+        //Arrange
+        List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+        when(contratService.getAllSuperviseurEtudiantContrats(anyString())).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/contrat/superviseur/courriel/superviseur@example.com")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(actual.size()).isEqualTo(expected.size());
     }
 
     private Etudiant getEtudiant() {

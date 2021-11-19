@@ -1,12 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import Offres from '../../Offres/Offres'
-import Contrat from '../../contrat/Contrat'
 import VoirCVState from './VoirCVState'
 import './EtudiantDashboard.css'
-import UserService from '../../../services/UserService'
 import ContratService from '../../../services/ContratService'
 import Entrevue from './Entrevue'
+import AfficherContrat from '../../contrat/demarrerContrat/AfficherContrat'
 
 
 const EtudiantDashboard = () => {
@@ -51,21 +50,22 @@ const EtudiantDashboard = () => {
                     console.log(data, "compte")
                     setFullUser(data)
                     setSuperviseur(data.superviseur)
-                    getMoniteur(data.id)
-                    getContrat(data.id)
+                    //getMoniteur(data.id)
+                    getContrat(data.courriel)
                 })
 
         }
     }, []);
-
-    const getMoniteur = async (id) => {
-        const moniteur = await UserService.getMoniteur(id)
-        setMoniteur(moniteur)
-    }
-
-    const getContrat = async (id) => {
-        const dbContrat = await ContratService.getContrat(id)
+    /*
+        const getMoniteur = async (id) => {
+            const moniteur = await UserService.getMoniteur(id)
+            setMoniteur(moniteur)
+        }
+    */
+    const getContrat = async (courriel) => {
+        const dbContrat = await ContratService.getContratsByEtudiantEmail(courriel)
         console.log(dbContrat, "dbContrat")
+        setMoniteur(dbContrat.moniteur)
         setContrat(dbContrat)
     }
 
@@ -87,11 +87,15 @@ const EtudiantDashboard = () => {
                         <th>Nom</th>
                         <th>Courriel</th>
                     </tr>
-                    <tr>
-                        <td>Superviseur</td>
-                        {/* <td>{superviseur.prenom} {superviseur.nom}</td>
-                        <td>{superviseur.courriel}</td> */}
-                    </tr>
+                    {superviseur != null ?
+                        < tr >
+                            <td>Superviseur</td>
+                            <td>{superviseur.prenom} {superviseur.nom}</td>
+                            <td>{superviseur.courriel}</td>
+                        </tr>
+                        :
+                        null
+                    }
                     {contrat != null ?
                         <tr>
                             <td>Moniteur</td>
@@ -103,12 +107,19 @@ const EtudiantDashboard = () => {
                     }
                 </table>
             </div>
-            {contrat != null ?
-                <Contrat />
-                :
-                <Offres />
-            }
-            <Entrevue />
+
+            <div>
+                {contrat == null ?
+                    <Offres />
+                    :
+                    null
+                }
+                {contrat == null ?
+                    <Entrevue />
+                    :
+                    null
+                }
+            </div>
         </>
     )
 }
