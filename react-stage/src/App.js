@@ -35,6 +35,7 @@ import PDFEtudiantsNoEvaluationMoniteur from "./component/Rapports/Pdf/PDFEtudia
 import PDFEtudiantsNoEntrepriseEvalueSuperviseur from "./component/Rapports/Pdf/PDFEtudiantsNoEntrepriseEvalueSuperviseur";
 import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
 import NewContrat from "./component/contrat/newContrat/NewContrat"
+import EvaluationEtudiant from "./component/evaluations/EvaluationEtudiant";
 import AfficherContrat from "./component/contrat/demarrerContrat/AfficherContrat"
 
 
@@ -77,6 +78,7 @@ function App() {
               <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation /></Route>
               <Route exact path="/gestion/allSession"><AllSessionInfo /></Route>
               <Route exact path="/gestion/newContrat"><NewContrat /></Route>
+              <Route exact path="/evaluation/etudiant"><EvaluationEtudiant /></Route>
               <Route exact path="/gestion/demarrerContrat"><AfficherContrat /></Route>
             </Switch>
           </div>

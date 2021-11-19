@@ -104,7 +104,7 @@ public class ContratControllerTests {
         when(contratService.saveContrat(expected)).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(post("/contrat")
+        MvcResult result = mockMvc.perform(post("/contrats")
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert
@@ -120,7 +120,7 @@ public class ContratControllerTests {
         when(contratService.getAllMoniteurContrats(anyString())).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(get("/contrat/moniteur/courriel/moniteur@example.com")).andReturn();
+        MvcResult result = mockMvc.perform(get("/contrats/moniteur/courriel/moniteur@example.com")).andReturn();
 
         //Assert
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
@@ -135,7 +135,7 @@ public class ContratControllerTests {
         when(contratService.getAllSuperviseurEtudiantContrats(anyString())).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(get("/contrat/superviseur/courriel/superviseur@example.com")).andReturn();
+        MvcResult result = mockMvc.perform(get("/contrats/superviseur/courriel/superviseur@example.com")).andReturn();
 
         //Assert
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());

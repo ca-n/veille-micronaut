@@ -30,7 +30,12 @@ public class StageswsApplication implements CommandLineRunner {
     private final CVRepository cvRepository;
     private final ContratRepository contratRepository;
     private final EntrevueRepository entrevueRepository;
+    private final EvaluationEntrepriseRepository evaluationEntrepriseRepository;
+    private final EvaluationEtudiantRepository evaluationEtudiantRepository;
+
+
     private final RapportService rapportService;
+
     private final SessionService sessionService;
 
     public StageswsApplication(OffreRepository offreRepository,
@@ -40,6 +45,8 @@ public class StageswsApplication implements CommandLineRunner {
                                SuperviseurRepository superviseurRepository,
                                CVRepository cvRepository,
                                EntrevueRepository entrevueRepository,
+                               EvaluationEntrepriseRepository evaluationEntrepriseRepository,
+                               EvaluationEtudiantRepository evaluationEtudiantRepository,
                                RapportService rapportService,
                                ContratRepository contratRepository,
                                SessionService sessionService) {
@@ -51,6 +58,8 @@ public class StageswsApplication implements CommandLineRunner {
         this.cvRepository = cvRepository;
         this.contratRepository = contratRepository;
         this.entrevueRepository = entrevueRepository;
+        this.evaluationEntrepriseRepository = evaluationEntrepriseRepository;
+        this.evaluationEtudiantRepository = evaluationEtudiantRepository;
         this.rapportService = rapportService;
         this.sessionService = sessionService;
     }
@@ -357,6 +366,14 @@ public class StageswsApplication implements CommandLineRunner {
 
         entrevueRepository.saveAll(List.of(entrevue,entrevue2));
 
+        EvaluationEntreprise evalEntreprise = new EvaluationEntreprise();
+        evaluationEntrepriseRepository.save(evalEntreprise);
+        EvaluationEtudiant evalEtudiant = new EvaluationEtudiant();
+        evalEtudiant.setEvaluationGrid(new char[]{1, 0, 4, 3, 2});
+        evaluationEtudiantRepository.save(evalEtudiant);
+        Contrat contrat = new Contrat();
+        contrat.setEtudiant(etudiant2);
+        contratRepository.save(contrat);
 
     }
 }

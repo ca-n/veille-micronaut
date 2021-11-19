@@ -61,7 +61,6 @@ public class ContratServiceTest {
         List<Contrat> expected = getContrats();
         Moniteur moniteur = getMoniteur();
         when(contratRepository.findAllByMoniteurCourrielIgnoreCase(moniteur.getCourriel())).thenReturn(expected);
-        when(moniteurRepository.findMoniteurByCourrielIgnoreCase(moniteur.getCourriel())).thenReturn(moniteur);
 
         //Act
         List<Contrat> returned = contratService.getContratsByMoniteurEmail(moniteur.getCourriel());
