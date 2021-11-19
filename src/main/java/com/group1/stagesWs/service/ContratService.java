@@ -2,10 +2,11 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.model.Contrat;
+import com.group1.stagesWs.model.EvaluationEntreprise;
+import com.group1.stagesWs.model.EvaluationEtudiant;
 import com.group1.stagesWs.repositories.ContratRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,8 +16,11 @@ public class ContratService extends SessionManager<Contrat>{
 
     private final ContratRepository contratRepository;
 
-    public ContratService(ContratRepository contratRepository) {
+    private final EvaluationService evaluationService;
+
+    public ContratService(ContratRepository contratRepository, EvaluationService evaluationService) {
         this.contratRepository = contratRepository;
+        this.evaluationService = evaluationService;
     }
 
     public Optional<Contrat> saveContrat(Contrat contrat) {
@@ -29,6 +33,25 @@ public class ContratService extends SessionManager<Contrat>{
 
     public List<Contrat> getAllSuperviseurEtudiantContrats(String superviseurCourriel) {
         return getListForCurrentSession(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(superviseurCourriel));
+    }
+
+    public List<Contrat> getMoniteurContratsToEvaluate(String moniteurCourriel) {
+        List<Contrat> alreadyEvaluated = evaluationService.getAllCurrentEtudiantEvals().stream()
+                .map(EvaluationEtudiant::getContrat)
+                .collect(Collectors.toList());
+        return getListForCurrentSession(
+                contratRepository.findAllByMoniteurCourrielIgnoreCase(moniteurCourriel).stream()
+                .filter(contrat -> !alreadyEvaluated.contains(contrat))
+                .collect(Collectors.toList()));
+    }
+
+    public List<Contrat> getSuperviseurContratsToEvaluate(String superviseurCourriel) {
+        List<Contrat> alreadyEvaluated = evaluationService.getAllCurrentEntrepriseEvals().stream()
+                .map(EvaluationEntreprise::getContrat)
+                .collect(Collectors.toList());
+        return getListForCurrentSession(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(superviseurCourriel).stream()
+                .filter(contrat -> !alreadyEvaluated.contains(contrat))
+                .collect(Collectors.toList()));
     }
 
     @Override

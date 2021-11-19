@@ -9,7 +9,6 @@ import com.group1.stagesWs.service.SessionService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -28,6 +27,9 @@ public class StageswsApplication implements CommandLineRunner{
     private final SuperviseurRepository superviseurRepository;
     private final CVRepository cvRepository;
     private final EntrevueRepository entrevueRepository;
+    private final EvaluationEntrepriseRepository evaluationEntrepriseRepository;
+    private final EvaluationEtudiantRepository evaluationEtudiantRepository;
+    private final ContratRepository contratRepository;
 
     private final SessionService sessionService;
 
@@ -38,7 +40,9 @@ public class StageswsApplication implements CommandLineRunner{
                                SuperviseurRepository superviseurRepository,
                                CVRepository cvRepository,
                                EntrevueRepository entrevueRepository,
-                               SessionService sessionService) {
+                               EvaluationEntrepriseRepository evaluationEntrepriseRepository,
+                               EvaluationEtudiantRepository evaluationEtudiantRepository,
+                               ContratRepository contratRepository, SessionService sessionService) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
         this.moniteurRepository = moniteurRepository;
@@ -46,6 +50,9 @@ public class StageswsApplication implements CommandLineRunner{
         this.superviseurRepository = superviseurRepository;
         this.cvRepository = cvRepository;
         this.entrevueRepository = entrevueRepository;
+        this.evaluationEntrepriseRepository = evaluationEntrepriseRepository;
+        this.evaluationEtudiantRepository = evaluationEtudiantRepository;
+        this.contratRepository = contratRepository;
         this.sessionService = sessionService;
     }
 
@@ -344,5 +351,14 @@ public class StageswsApplication implements CommandLineRunner{
         entrevue2.setMoniteur(moniteur);
 
         entrevueRepository.saveAll(List.of(entrevue,entrevue2));
+
+        EvaluationEntreprise evalEntreprise = new EvaluationEntreprise();
+        evaluationEntrepriseRepository.save(evalEntreprise);
+        EvaluationEtudiant evalEtudiant = new EvaluationEtudiant();
+        evalEtudiant.setEvaluationGrid(new char[]{1, 0, 4, 3, 2});
+        evaluationEtudiantRepository.save(evalEtudiant);
+        Contrat contrat = new Contrat();
+        contrat.setEtudiant(etudiant2);
+        contratRepository.save(contrat);
     }
 }

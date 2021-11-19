@@ -39,4 +39,14 @@ public class ContratController {
     public ResponseEntity<List<Contrat>> getAllSuperviseurEtudiantContrats(@PathVariable String courriel) {
         return ResponseEntity.ok(contratService.getAllSuperviseurEtudiantContrats(courriel));
     }
+
+    @GetMapping("/moniteur/courriel/{courriel}/toEvaluate")
+    public ResponseEntity<List<Contrat>> getMoniteurContratsToEvaluate(@PathVariable String courriel) {
+        return ResponseEntity.ok(contratService.getMoniteurContratsToEvaluate(courriel));
+    }
+
+    @GetMapping("/superviseur/courriel/{courriel}/toEvaluate")
+    public ResponseEntity<List<Contrat>> getSuperviseurContratsToEvaluate(@PathVariable String courriel) {
+        return ResponseEntity.ok(contratService.getSuperviseurContratsToEvaluate(courriel));
+    }
 }
