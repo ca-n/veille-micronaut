@@ -111,10 +111,14 @@ const MoniteurAfficherContrat = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-
+        const date = new Date()
+        contrat.dateSignatureMoniteur = date.toISOString().split('T')[0];
+        contrat.moniteurConfirmed = true
+        ContratService.saveContrat(contrat)
     }
 
-    //readonly checkbox doesnt work
+
+
     return (
         <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>
@@ -169,28 +173,28 @@ const MoniteurAfficherContrat = () => {
                 </div>
 
                 <div className="form-inputs">
-                    <label htmlFor="isMoniteurConfirmed" className="form-label">
+                    <label htmlFor="moniteurConfirmed" className="form-label">
                         Signature moniteur
                     </label>
-                    <input id="isMoniteurConfirmed" type="checkbox" name="isMoniteurConfirmed" className="form-input" placeholder="" checked={contrat.isMoniteurConfirmed} readOnly></input>
+                    <input id="moniteurConfirmed" type="checkbox" name="moniteurConfirmed" className="form-input" placeholder="" checked={contrat.moniteurConfirmed} disabled></input>
                 </div>
 
                 <div className="form-inputs">
-                    <label htmlFor="isEtudiantConfirmed" className="form-label">
+                    <label htmlFor="etudiantConfirmed" className="form-label">
                         Signature étudiant
                     </label>
-                    <input id="isEtudiantConfirmed" type="checkbox" name="isEtudiantConfirmed" className="form-input" placeholder="" checked={contrat.isEtudiantConfirmed} readOnly></input>
+                    <input id="etudiantConfirmed" type="checkbox" name="etudiantConfirmed" className="form-input" placeholder="" checked={contrat.etudiantConfirmed} disabled></input>
                 </div>
 
                 <div className="form-inputs">
-                    <label htmlFor="isGestionnaireConfirmed" className="form-label">
+                    <label htmlFor="gestionnaireConfirmed" className="form-label">
                         Signature gestionnaire
                     </label>
-                    <input id="isGestionnaireConfirmed" type="checkbox" name="isGestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.isGestionnaireConfirmed} readOnly></input>
+                    <input id="gestionnaireConfirmed" type="checkbox" name="gestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.gestionnaireConfirmed} disabled></input>
                 </div>
 
 
-                <button className="form-input-btn" type="submit">Démarrer contrat</button>
+                <button className="form-input-btn" type="submit">Signer le contrat</button>
 
             </form>
         </div>

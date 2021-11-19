@@ -3,6 +3,7 @@ import { UserInfoContext } from '../../../contexts/UserInfo'
 import OffreService from '../../../services/OffreService'
 import ContratService from '../../../services/ContratService'
 import { get } from 'request'
+import validateInfoDemarrerContrat from './validateInfoDemarrerContrat'
 
 const GestionnaireAfficherContrat = () => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
@@ -11,19 +12,19 @@ const GestionnaireAfficherContrat = () => {
     const [listEtudiants, setListEtudiants] = useState([])
     const [values, setValues] = useState({})
     const [contrat, setContrat] = useState({})
+    const [errors, setErrors] = useState({})
 
-    useEffect(() => {
+    useEffect( async () => {
 
-        const getContrats = async () => {
             let dbContrats
             dbContrats = await ContratService.getAllContrats()
             console.log(dbContrats, "dbContrats")
             //setListOffres(dbOffres)
             //setValuesOnLoad(dbOffres)
-            await getOffres(dbContrats)
+            getOffres(dbContrats)
             setListContrats(dbContrats)
-        }
-        getContrats()
+
+        
     }, [])
 
     const handleChange = e => {
@@ -35,37 +36,42 @@ const GestionnaireAfficherContrat = () => {
 
     }
 
-    const getOffres = async (listContrats) => {
+    const getOffres =  (listContrats) => {
+        console.log(listContrats,"LISTCONTRAT")
         let tempListOffres = []
         listContrats.forEach(contrat => {
             tempListOffres = [...tempListOffres, contrat.offre]
         });
         console.log(tempListOffres, "dbOffres2")
         setListOffres(tempListOffres)
-        await setValuesOnLoad(tempListOffres)
+        console.log(tempListOffres,"|||||||")
+        setValuesOnLoad(/*listContrats,*/ tempListOffres)
     }
 
-    const setValuesOnLoad = async (listOffres) => {
+    const setValuesOnLoad = (/*listContrats,*/ listOffres) => {
+        getListEtudiants(/*listContrats,*/listOffres[0].applicants)
         setValueOffre(listOffres[0])
-        await getListEtudiants(listOffres[0].applicants)
+        console.log(listOffres[0].applicants, "??????")
 
     }
 
-    const getListEtudiants = async (listApplicants) => {
-        let listEtudiantsContratOffre = await getEtudiantsForContrat(listApplicants)
+    const getListEtudiants = (/*listContrats,*/listApplicants) => {
+        let listEtudiantsContratOffre = getEtudiantsForContrat(/*listContrats,*/listApplicants)
         //listEtudiantsContratOffre est vide on loadant la page
         console.log(listEtudiantsContratOffre, "listEtudiantsContratOffre")
         setListEtudiants(listEtudiantsContratOffre)
-        await setContratValues(listEtudiantsContratOffre[0])
+        setContratValues(listEtudiantsContratOffre[0])
     }
 
-    const getEtudiantsForContrat = async (listApplicants) => {
+    const getEtudiantsForContrat = (/*listContrats,*/listApplicants) => {
+        console.log(listContrats, "123344listContrats")
         let tempListEtudiantsContratOffre = []
         listContrats.forEach(contrat => {
             if (listApplicants.some(applicant => applicant.id === contrat.etudiant.id)) {
                 tempListEtudiantsContratOffre = [...tempListEtudiantsContratOffre, contrat.etudiant]
             }
         });
+        console.log(tempListEtudiantsContratOffre, "123344")
         return tempListEtudiantsContratOffre
     }
 
@@ -109,12 +115,25 @@ const GestionnaireAfficherContrat = () => {
         setContrat(tempContrat)
     }
 
-    const handleSubmit = e => {
-        e.preventDefault()
-
+    const isAlreadyStarted = (contrat) => {
+        if(contrat.gestionnaireConfirmed == true && contrat.moniteurConfirmed == true && contrat.etudiantConfirmed == true){
+            return true
+        }else{
+            return false
+        }
     }
 
-    //readonly checkbox doesnt work
+    const handleSubmit = e => {
+        e.preventDefault()
+        setErrors(validateInfoDemarrerContrat(contrat))
+        if (Object.keys(errors).length === 0 && !isAlreadyStarted(contrat)) {
+            const date = new Date()
+            contrat.dateSignatureGestionnaire = date.toISOString().split('T')[0];
+            contrat.gestionnaireConfirmed = true
+            ContratService.saveContrat(contrat)
+        }
+    }
+
     return (
         <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>
@@ -169,28 +188,30 @@ const GestionnaireAfficherContrat = () => {
                 </div>
 
                 <div className="form-inputs">
-                    <label htmlFor="isMoniteurConfirmed" className="form-label">
+                    <label htmlFor="moniteurConfirmed" className="form-label">
                         Signature moniteur
                     </label>
-                    <input id="isMoniteurConfirmed" type="checkbox" name="isMoniteurConfirmed" className="form-input" placeholder="" checked={contrat.isMoniteurConfirmed} readOnly></input>
+                    <input id="moniteurConfirmed" type="checkbox" name="moniteurConfirmed" className="form-input" placeholder="" checked={contrat.moniteurConfirmed} disabled></input>
                 </div>
+                {errors.moniteurConfirmed && <p>{errors.moniteurConfirmed}</p>}
 
                 <div className="form-inputs">
-                    <label htmlFor="isEtudiantConfirmed" className="form-label">
+                    <label htmlFor="etudiantConfirmed" className="form-label">
                         Signature étudiant
                     </label>
-                    <input id="isEtudiantConfirmed" type="checkbox" name="isEtudiantConfirmed" className="form-input" placeholder="" checked={contrat.isEtudiantConfirmed} readOnly></input>
+                    <input id="etudiantConfirmed" type="checkbox" name="etudiantConfirmed" className="form-input" placeholder="" checked={contrat.etudiantConfirmed} disabled></input>
                 </div>
+                {errors.etudiantConfirmed && <p>{errors.etudiantConfirmed}</p>}
 
                 <div className="form-inputs">
-                    <label htmlFor="isGestionnaireConfirmed" className="form-label">
+                    <label htmlFor="gestionnaireConfirmed" className="form-label">
                         Signature gestionnaire
                     </label>
-                    <input id="isGestionnaireConfirmed" type="checkbox" name="isGestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.isGestionnaireConfirmed} readOnly></input>
+                    <input id="gestionnaireConfirmed" type="checkbox" name="gestionnaireConfirmed" className="form-input" placeholder="" checked={contrat.gestionnaireConfirmed} disabled></input>
                 </div>
 
 
-                <button className="form-input-btn" type="submit">Démarrer contrat</button>
+                <button className="form-input-btn" type="submit">Signer et démarrer le contrat</button>
 
             </form>
         </div>

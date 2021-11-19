@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import ContratService from "../../../services/ContratService"
 
 const useNewContrat = (callback, validateInfoContrat) => {
     const [values, setValues] = useState({})
@@ -25,14 +26,15 @@ const useNewContrat = (callback, validateInfoContrat) => {
         if (Object.keys(errors).length === 0 && isSubmitting) {
             callback()
 
-            var request = new XMLHttpRequest()
+            ContratService.saveContrat(values)
+           /* var request = new XMLHttpRequest()
             request.open('POST', 'http://localhost:9191/contrat', true)
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
 
 
             const contrat = JSON.stringify(values)
 
-            request.send(contrat)
+            request.send(contrat)*/
         }
     }, [errors]
     )

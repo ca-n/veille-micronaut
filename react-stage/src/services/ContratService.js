@@ -24,6 +24,19 @@ const ContratService = {
         const data = await res.json();
         return data;
     },
+
+    saveContrat: async (values) => {
+        const res = await fetch(urlBase + 'contrat',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            })
+        const data = await res.json()
+        return data
+    },
 }
 
 export default ContratService
