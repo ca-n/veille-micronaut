@@ -2,7 +2,7 @@ import "./App.css";
 import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant";
 import NewFormSuperviseur from "./component/inscription/inscriptionSuperviseur/NewFormSuperviseur";
 import NewFormMoniteur from "./component/inscription/inscriptionMoniteur/NewFormMoniteur";
-import LoginUser from "./component/loginUser/LoginUser";
+import NewLoginUser from "./component/loginUser/NewLoginUser";
 import Navbar from "./component/navbar/NavbarHTML";
 import Home from "./component/Home/Home";
 import FormOffre from "./component/Offres/deposeOffreDeStage/FormOffre";
@@ -39,7 +39,7 @@ function App() {
               <Route exact path="/moniteur"><NewFormMoniteur /></Route>
               <Route exact path="/account"><AccountDetails /></Route>
               <Route exact path="/offres"><Offres /></Route>
-              <Route exact path="/login"><LoginUser /></Route>
+              <Route exact path="/login"><NewLoginUser /></Route>
               <Route exact path="/newOffre"><FormOffre /></Route>
               <Route exact path="/dropCv"><DropCv /></Route>
               <Route exact path="/gestion/cv"><VerificationCVList /></Route>

@@ -1,19 +1,20 @@
-import React from 'react'
 import { useState, useEffect, useContext, Redirect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import { UserInfoContext } from "../../contexts/UserInfo";
-
-import './LoginUser';
-import { Link } from 'react-router-dom'
-
+import '../../Css/FormInscriptionCSS.css'
+import Swal from 'sweetalert2'
 
 
-const LoginUserHTML = ({ setSubmitTrue }) => {
-    // const {handleChange,values, handleSubmit, errors} = useLoginUser(submitForm,validateInfoLogin);
+const NewLoginUser = () => {
+    const history = useHistory();
 
     const [values, setValues] = useState({
+
         courriel: "",
-        password: ""
+        password: "",
+
     })
+
 
     const firstUpdate = useRef(true)
     const loginValid = useRef(false)
@@ -23,6 +24,8 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
 
 
     const handleChange = e => {
+
+
         const { name, value } = e.target
         setValues({
             ...values,
@@ -30,9 +33,8 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
         })
     }
 
-    function validateInfoLogin(values) {
+    function checkError(values) {
         let errors = {}
-
         if (!values.courriel) {
             errors.courriel = "Courriel requis"
         }
@@ -41,22 +43,26 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
             errors.password = "Mot de passe requis"
         }
 
+        return errors
 
-        return errors;
     }
+
+
+
 
     const handleSubmit = e => {
         e.preventDefault();
 
-        setErrors(validateInfoLogin(values))
+        setErrors(checkError(values))
 
         setIsSubmitted(true)
     }
-
     useEffect(() => {
         console.log(errors, "errors")
     }, [errors]
     )
+
+
 
 
     useEffect(() => {
@@ -79,7 +85,6 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
                     .then(data => {
 
                         if (loginValid.current) {
-                            console.log(data, "Objet de retour data")
 
 
                             setLoggedUser({
@@ -87,21 +92,19 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
                                 role: data.role,
                                 isLoggedIn: true
                             })
-                            console.log(loggedUser, "right after the setter")
-                            console.log("Logged user in context")
-                            setSubmitTrue()
+                            history.push("/dashboard");
                         }
                     })
                     .catch(error => {
-                        alert("Le login est invalide")
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur!',
+                            text: 'Votre courriel ou votre mot de passe est invalide.',
+                        })
                     })
 
             }
         }
-
-
-
-
     }, [errors]
     );
 
@@ -109,38 +112,31 @@ const LoginUserHTML = ({ setSubmitTrue }) => {
         if (loggedUser.isLoggedIn) {
             console.log(loggedUser)
         }
-        console.log("aaa")
 
     }, [loggedUser])
+
     return (
-        <div className="form-content-right">
+        <div>
+            <form onSubmit={handleSubmit}>
 
-            <form className="form" onSubmit={handleSubmit}>
-                <h1>Vous pouvez vous connecter ici ↓</h1>
-                <div className="form-inputs">
-                    <label htmlFor="courriel"
-                        className="form-label">
-                        Courriel
-                    </label>
-                    <input id="courriel" type="email" name="courriel" className="form-input" placeholder="Entrez votre courriel" value={values.email} onChange={handleChange}></input>
-                    {errors.courriel && <p>{errors.courriel}</p>}
-                </div>
+                <label>
+                    Courriel:
+                </label>
+                <input id="courriel" type="email" name="courriel" value={values.email} onChange={handleChange}></input>
+                {errors.courriel && <p className="error">{errors.courriel}</p>}
 
-                <div className="form-inputs">
-                    <label htmlFor="password"
-                        className="form-label">
-                        Mot de passe
-                    </label>
-                    <input id="password" type="password" name="password" className="form-input" placeholder="Entrez votre mot de passe" value={values.password} onChange={handleChange}></input>
-                    {errors.password && <p>{errors.password}</p>}
-                </div>
+                <label>
+                    Mot de passe:
+                </label>
+                <input id="password" type="password" name="password" value={values.password} onChange={handleChange}></input>
+                {errors.password && <p className="error">{errors.password}</p>}
 
 
-                <button className="form-input-btn" type="submit">Login</button>
-            </form>
-        </div>
-    )
+
+                <button type="submit" className="button">Se connecter</button>
+            </form >
+        </div >
+    );
 }
 
-export default LoginUserHTML
-
+export default NewLoginUser
