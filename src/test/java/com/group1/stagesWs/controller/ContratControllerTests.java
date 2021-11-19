@@ -48,6 +48,7 @@ public class ContratControllerTests {
     }
 
     @Test
+
     void testGetAllContrats() throws Exception {
         //Arrange
         List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
@@ -106,7 +107,7 @@ public class ContratControllerTests {
         when(contratService.saveContrat(expected)).thenReturn(Optional.of(expected));
 
         //Act
-        MvcResult result = mockMvc.perform(post("/contrat")
+        MvcResult result = mockMvc.perform(post("/contrats")
                 .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(expected))).andReturn();
 
         //Assert
@@ -137,7 +138,7 @@ public class ContratControllerTests {
         when(contratService.getAllSuperviseurEtudiantContrats(anyString())).thenReturn(expected);
 
         //Act
-        MvcResult result = mockMvc.perform(get("/contrat/superviseur/courriel/superviseur@example.com")).andReturn();
+        MvcResult result = mockMvc.perform(get("/contrats/superviseur/courriel/superviseur@example.com")).andReturn();
 
         //Assert
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());

@@ -20,6 +20,9 @@ public class EvaluationEntreprise implements Serializable {
     private int nombreStagiaires;
     private boolean garderStagiaire;
     private boolean variableShifts;
+    private double heuresEncadrementParSemaineMois1;
+    private double heuresEncadrementParSemaineMois2;
+    private double heuresEncadrementParSemaineMois3;
     private LocalDate dateCreation;
     private String session;
 

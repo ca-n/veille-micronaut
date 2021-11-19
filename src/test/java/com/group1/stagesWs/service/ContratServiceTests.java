@@ -6,6 +6,8 @@ import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.ContratRepository;
 import com.group1.stagesWs.repositories.EtudiantRepository;
+import com.group1.stagesWs.repositories.MoniteurRepository;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,8 +28,10 @@ public class ContratServiceTests {
     @Mock
     private ContratRepository contratRepository;
 
+
     @Mock
     private EtudiantRepository etudiantRepository;
+
 
     @InjectMocks
     private ContratService contratService;
@@ -165,7 +169,9 @@ public class ContratServiceTests {
         );
     }
 
+
     private List<Contrat> getContrats() {
         return List.of(getContrat(), getContrat(), getContrat());
     }
+
 }

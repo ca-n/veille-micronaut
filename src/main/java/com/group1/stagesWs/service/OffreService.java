@@ -74,16 +74,8 @@ public class OffreService extends SessionManager<Offre> {
 //        return Optional.of(offreRepository.save(offre));
 //    }
 
-    @Override
-    public List<Offre> getListForCurrentSession(List<Offre> listOffre) {
-        List<Offre> listOffreCurrentSession = new ArrayList<>();
-        for(Offre offre : listOffre){
-            if(offre.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())){
-                listOffreCurrentSession.add(offre);
-            }
-        }
-        return listOffreCurrentSession;
-    }
+
+
   
     public Optional<Offre> applyForOffre(int id, String email) {
         Optional<Offre> offreOptional = offreRepository.findById(id);
@@ -104,5 +96,26 @@ public class OffreService extends SessionManager<Offre> {
                 new Notification("L'etudiant " + etudiant.getPrenom() + " " + etudiant.getNom() + " a applique a votre offre: " + offre.getTitre(), NotifStatus.ALERT),
                 offre.getMoniteur().getId());
         return Optional.of(offreRepository.save(offre));
+    }
+
+    public List<Offre> getOffreValide(){
+        List<Offre> listOffre = offreRepository.findAllByIsValidTrue();
+        return  getListForCurrentSession(listOffre);
+    }
+
+    public List<Offre> getOffreInvalide(){
+        List<Offre> listOffre = offreRepository.findAllByIsValidFalse();
+        return  getListForCurrentSession(listOffre);
+    }
+
+    @Override
+    public List<Offre> getListForCurrentSession(List<Offre> listOffre) {
+        List<Offre> listOffreCurrentSession = new ArrayList<>();
+        for(Offre offre : listOffre){
+            if(offre.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())){
+                listOffreCurrentSession.add(offre);
+            }
+        }
+        return listOffreCurrentSession;
     }
 }

@@ -161,4 +161,6 @@ public class UserService extends SessionManager<User> {
     public Moniteur getMoniteur(int id){
         return moniteurRepository.findMoniteurById(id);
     }
+
+
 }

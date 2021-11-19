@@ -12,9 +12,11 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/contrats")
 public class ContratController {
 
-    Logger logger = LoggerFactory.getLogger(ContratController.class);
+     Logger logger = LoggerFactory.getLogger(ContratController.class);
+
 
     private final ContratService contratService;
 
@@ -22,23 +24,23 @@ public class ContratController {
         this.contratService = contratService;
     }
 
-    @GetMapping("/contrats")
+    @GetMapping
     public ResponseEntity<List<Contrat>> getAllContrats() {
         return ResponseEntity.ok(contratService.getAllContrats());
     }
 
-    @GetMapping("/contrats/moniteur/{moniteurEmail}")
+    @GetMapping("/moniteur/{moniteurEmail}")
     public ResponseEntity<List<Contrat>> getContratsByMoniteurEmail(@PathVariable("moniteurEmail") String moniteurEmail) {
         return ResponseEntity.ok(contratService.getContratsByMoniteurEmail(moniteurEmail));
     }
 
-    @GetMapping("/contrats/etudiant/{etudiantEmail}")
+    @GetMapping("/etudiant/{etudiantEmail}")
     public ResponseEntity<Contrat> getContratsByEtudiantEmail(@PathVariable("etudiantEmail") String etudiantEmail) {
         logger.info("get - getContratsByEtudiantEmail " + etudiantEmail);
         return ResponseEntity.ok(contratService.getContratsByEtudiantEmail(etudiantEmail));
     }
 
-    @PostMapping("/contrat")
+    @PostMapping
     public ResponseEntity<Contrat> saveContrat(@RequestBody Contrat contrat) {
         logger.info("post - createContrat " + contrat);
         return contratService.saveContrat(contrat).map(contrat1 -> ResponseEntity.status(HttpStatus.CREATED).body(contrat1))
@@ -53,5 +55,15 @@ public class ContratController {
     @GetMapping("/superviseur/courriel/{courriel}")
     public ResponseEntity<List<Contrat>> getAllSuperviseurEtudiantContrats(@PathVariable String courriel) {
         return ResponseEntity.ok(contratService.getAllSuperviseurEtudiantContrats(courriel));
+    }
+
+    @GetMapping("/moniteur/courriel/{courriel}/toEvaluate")
+    public ResponseEntity<List<Contrat>> getMoniteurContratsToEvaluate(@PathVariable String courriel) {
+        return ResponseEntity.ok(contratService.getMoniteurContratsToEvaluate(courriel));
+    }
+
+    @GetMapping("/superviseur/courriel/{courriel}/toEvaluate")
+    public ResponseEntity<List<Contrat>> getSuperviseurContratsToEvaluate(@PathVariable String courriel) {
+        return ResponseEntity.ok(contratService.getSuperviseurContratsToEvaluate(courriel));
     }
 }

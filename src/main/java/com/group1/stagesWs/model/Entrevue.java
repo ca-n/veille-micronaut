@@ -1,6 +1,10 @@
 package com.group1.stagesWs.model;
 
 import com.group1.stagesWs.SessionManager;
+
+import com.group1.stagesWs.enums.Status;
+
+
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,6 +22,9 @@ public class Entrevue implements Serializable {
     private String titre;
     private LocalDate date;
     private LocalTime time;
+    private String nomEntreprise;
+
+    private Status status;
 
     private String session;
 
@@ -29,6 +36,9 @@ public class Entrevue implements Serializable {
 
     public Entrevue() {
         session = SessionManager.CURRENT_SESSION.getNomSession();
+        this.status = Status.PENDING;
+
+
     }
 
 
