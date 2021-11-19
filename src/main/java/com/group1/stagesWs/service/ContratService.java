@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ContratService extends SessionManager<Contrat>{
@@ -22,16 +23,19 @@ public class ContratService extends SessionManager<Contrat>{
         return Optional.of(contratRepository.save(contrat));
     }
 
+    public List<Contrat> getAllMoniteurContrats(String moniteurCourriel) {
+        return getListForCurrentSession(contratRepository.findAllByMoniteurCourrielIgnoreCase(moniteurCourriel));
+    }
+
+    public List<Contrat> getAllSuperviseurEtudiantContrats(String superviseurCourriel) {
+        return getListForCurrentSession(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(superviseurCourriel));
+    }
 
     @Override
     public List<Contrat> getListForCurrentSession(List<Contrat> listContrat) {
-        List<Contrat> listContratCurrentSession = new ArrayList<>();
-        for(Contrat contrat : listContrat){
-            if(contrat.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())){
-                listContratCurrentSession.add(contrat);
-            }
-        }
-        return listContratCurrentSession;
+        return listContrat.stream()
+                .filter(contrat -> contrat.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession()))
+                .collect(Collectors.toList());
     }
 }
 

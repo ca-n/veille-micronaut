@@ -11,10 +11,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,7 +30,7 @@ public class ContratServiceTest {
     private ContratService contratService;
 
     @Test
-    void testSaveCV() {
+    void testSaveContrat() {
         //Arrange
         Contrat expected = getContrat();
         when(contratRepository.save(any(Contrat.class))).thenReturn(expected);
@@ -38,6 +40,32 @@ public class ContratServiceTest {
 
         //Assert
         assertThat(returned).isEqualTo(Optional.of(expected));
+    }
+
+    @Test
+    void testGetAllMoniteurContrats() {
+        //Arrange
+        List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+        when(contratRepository.findAllByMoniteurCourrielIgnoreCase(anyString())).thenReturn(expected);
+
+        //Act
+        var actual = contratService.getAllMoniteurContrats("moniteur@example.com");
+
+        //Assert
+        assertThat(actual.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetAllSuperviseurEtudiantContrats() {
+        //Arrange
+        List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+        when(contratRepository.findAllByEtudiantSuperviseurCourrielIgnoreCase(anyString())).thenReturn(expected);
+
+        //Act
+        var actual = contratService.getAllSuperviseurEtudiantContrats("superviseur@example.com");
+
+        //Assert
+        assertThat(actual.size()).isEqualTo(expected.size());
     }
 
     private Etudiant getEtudiant() {
