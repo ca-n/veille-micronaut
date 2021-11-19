@@ -1,6 +1,12 @@
 const urlBase = 'http://localhost:9191/'
 
 const ContratService = {
+
+    getContrat: async (email) => {
+        //const res = await fetch(url + email)
+        //const data = await res.json()
+        //return data
+    },
     getAllContrats: async () => {
         const res = await fetch(urlBase + 'contrats');
         const data = await res.json();

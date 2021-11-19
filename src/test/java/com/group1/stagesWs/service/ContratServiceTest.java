@@ -1,9 +1,15 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.model.*;
+
+import com.group1.stagesWs.model.Contrat;
+import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Moniteur;
+import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.ContratRepository;
+
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,11 +30,13 @@ public class ContratServiceTest {
     @Mock
     private ContratRepository contratRepository;
 
+
     @Mock
     private MoniteurRepository moniteurRepository;
 
     @Mock
     private EtudiantRepository etudiantRepository;
+
 
     @InjectMocks
     private ContratService contratService;
@@ -167,7 +175,9 @@ public class ContratServiceTest {
         );
     }
 
+
     private List<Contrat> getContrats() {
         return List.of(getContrat(), getContrat(), getContrat());
     }
+
 }

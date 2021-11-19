@@ -12,9 +12,11 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/contrat")
 public class ContratController {
 
-    Logger logger = LoggerFactory.getLogger(ContratController.class);
+     Logger logger = LoggerFactory.getLogger(ContratController.class);
+
 
     private final ContratService contratService;
 
