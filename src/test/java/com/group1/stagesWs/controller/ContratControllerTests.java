@@ -1,5 +1,6 @@
 package com.group1.stagesWs.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.stagesWs.model.Contrat;
 import com.group1.stagesWs.model.Etudiant;
@@ -43,6 +44,7 @@ public class ContratControllerTests {
     @BeforeAll
     static void initializeObjectMapper() {
         mapper = new ObjectMapper().findAndRegisterModules();
+        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
     }
 
     @Test
@@ -80,6 +82,7 @@ public class ContratControllerTests {
         assertThat(actualContrats.size()).isEqualTo(expected.size());
     }
 
+    @Test
     void testGetContratsByEtudiantEmail() throws Exception {
         //Arrange
         Etudiant etudiant = getEtudiant();
