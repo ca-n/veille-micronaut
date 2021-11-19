@@ -1,8 +1,8 @@
 import "./App.css";
-import FormEtudiant from "./component/inscription/inscriptionEtudiant/FormEtudiant"
 import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant";
 import FormSuperviseur from "./component/inscription/inscriptionSuperviseur/FormSuperviseur";
 import FormMoniteur from "./component/inscription/inscriptionMoniteur/FormMoniteur";
+import NewFormMoniteur from "./component/inscription/inscriptionMoniteur/NewFormMoniteur";
 import LoginUser from "./component/loginUser/LoginUser";
 import Navbar from "./component/navbar/NavbarHTML";
 import Home from "./component/Home/Home";
@@ -37,7 +37,7 @@ function App() {
               <Route exact path="/"><Home /></Route>
               <Route exact path="/etudiant"><NewFormEtudiant /></Route>
               <Route exact path="/superviseur"><FormSuperviseur /></Route>
-              <Route exact path="/moniteur"><FormMoniteur /></Route>
+              <Route exact path="/moniteur"><NewFormMoniteur /></Route>
               <Route exact path="/account"><AccountDetails /></Route>
               <Route exact path="/offres"><Offres /></Route>
               <Route exact path="/login"><LoginUser /></Route>

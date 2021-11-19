@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import '../../../Css/FormInscriptionCSS.css'
 
-const NewFormEtudiant = () => {
+const NewFormMoniteur = () => {
     const history = useHistory();
 
     const [values, setValues] = useState({
@@ -13,15 +13,10 @@ const NewFormEtudiant = () => {
         password: "",
         password2: "",
         numTelephone: "",
-        programme: "",
-        adresse: "",
-        numMatricule: "",
-        hasLicense: false,
-        hasVoiture: false,
+        nomEntreprise: "",
+        adresseEntreprise: "",
     })
     const [errors, setErrors] = useState(0)
-    const [hasVoiture, setHasVoiture] = useState(false)
-    const [hasLicense, setHasLicense] = useState(false)
     const [submitted, setSubmitted] = useState(false)
 
 
@@ -37,9 +32,11 @@ const NewFormEtudiant = () => {
 
     function checkError(values) {
         let errors = {}
+
         if (!values.prenom) {
             errors.prenom = "Prenom requis"
         }
+
         if (!values.nom) {
             errors.nom = "Nom requis"
         }
@@ -64,17 +61,14 @@ const NewFormEtudiant = () => {
             errors.numTelephone = "Numero de telephone requis"
         }
 
-        if (!values.programme) {
-            errors.programme = "Nom du programme requis"
+        if (!values.nomEntreprise) {
+            errors.nomEntreprise = "Nom de l'entreprise requis"
         }
 
-        if (!values.adresse) {
-            errors.adresse = "Adresse requise"
+        if (!values.adresseEntreprise) {
+            errors.adresseEntreprise = "Adresse requise"
         }
 
-        if (!values.numMatricule) {
-            errors.numMatricule = "Numero de matricule requis"
-        }
 
         return errors
 
@@ -92,8 +86,7 @@ const NewFormEtudiant = () => {
         if (Object.keys(checkError(values)).length === 0 || Object.keys(checkError(values)).length === undefined && submitted) {
 
 
-            values.hasLicense = hasLicense
-            values.hasVoiture = hasVoiture
+
             saveEtudiant()
             history.push("/login");
 
@@ -102,19 +95,17 @@ const NewFormEtudiant = () => {
 
 
 
-    const handleClickVoiture = () => setHasVoiture(!hasVoiture)
 
-    const handleClickLicense = () => setHasLicense(!hasLicense)
 
     const saveEtudiant = async () => {
         var request = new XMLHttpRequest();
-        request.open('POST', 'http://localhost:9191/user/etudiant', true);
+        request.open('POST', 'http://localhost:9191/user/moniteur', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
 
-        const etudiant = JSON.stringify(values);
+        const moniteur = JSON.stringify(values);
 
-        request.send(etudiant)
+        request.send(moniteur)
     }
 
     return (
@@ -158,41 +149,25 @@ const NewFormEtudiant = () => {
                 <input id="numTelephone" type="text" name="numTelephone" value={values.numTelephone} onChange={handleChange}></input>
                 {errors.numTelephone && <p className="error">{errors.numTelephone}</p>}
 
+                <label>
+                    Nom de l'entreprise:
+                </label>
+                <input id="nomEntreprise" type="text" name="nomEntreprise" value={values.nomEntreprise} onChange={handleChange}></input>
+                {errors.nomEntreprise && <p className="error">{errors.nomEntreprise}</p>}
 
                 <label>
-                    Programme:
+                    Adresse de l'entreprise:
                 </label>
-                <input id="programme" type="text" name="programme" value={values.programme} onChange={handleChange}></input>
-                {errors.programme && <p className="error">{errors.programme}</p>}
+                <input id="adresseEntreprise" type="text" name="adresseEntreprise" value={values.adresseEntreprise} onChange={handleChange}></input>
+                {errors.adresseEntreprise && <p className="error">{errors.adresseEntreprise}</p>}
 
 
-                <label>
-                    Adresse:
-                </label>
-                <input id="adresse" type="text" name="adresse" value={values.adresse} onChange={handleChange}></input>
-                {errors.adresse && <p className="error">{errors.adresse}</p>}
 
 
-                <label>
-                    Numéro de votre matricule:
-                </label>
-                <input id="numMatricule" type="text" name="numMatricule" value={values.numMatricule} onChange={handleChange}></input>
-                {errors.numMatricule && <p className="error">{errors.numMatricule}</p>}
-
-
-                <div>
-                    <input id="hasLicense" type="checkbox" name="hasLicense" onClick={handleClickLicense} value={hasLicense}></input>
-                    <label>Permis de conduite:</label>
-                </div>
-
-                <div>
-                    <input id="hasVoiture" type="checkbox" name="hasVoiture" onClick={handleClickVoiture} value={hasVoiture}></input>
-                    <label>Possède/conduit une voiture</label>
-                </div>
                 <button type="submit" className="button">S'inscrire</button>
             </form >
         </div >
     );
 }
 
-export default NewFormEtudiant
+export default NewFormMoniteur
