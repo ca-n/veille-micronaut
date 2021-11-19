@@ -153,6 +153,34 @@ public class RapportController {
         }
     }
 
+    @GetMapping(path = "/pdf/etudiantsNoEvaluationMoniteur")
+    public void getEtudiantsNoEvaluationMoniteur( HttpServletResponse response) throws Exception {
+        try {
+            response.setContentType("application/pdf");
+            InputStream inputStream = new ByteArrayInputStream(
+                    rapportService.getEtudiantsNoEvaluationMoniteur());
+            IOUtils.copy(inputStream, response.getOutputStream());
+            ResponseEntity.status(HttpStatus.OK).build();
+        } catch (IOException e) {
+            e.printStackTrace();
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping(path = "/pdf/etudiantsNoEntrepriseEvalueSuperviseur")
+    public void getEtudiantsNoEntrepriseEvalueSuperviseur( HttpServletResponse response) throws Exception {
+        try {
+            response.setContentType("application/pdf");
+            InputStream inputStream = new ByteArrayInputStream(
+                    rapportService.getEtudiantsNoEntrepriseEvalueSuperviseur());
+            IOUtils.copy(inputStream, response.getOutputStream());
+            ResponseEntity.status(HttpStatus.OK).build();
+        } catch (IOException e) {
+            e.printStackTrace();
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
 
 }

@@ -13,6 +13,12 @@ const UserService = {
         return data
     },
 
+    getListAllEtudiantsAllSession: async () => {
+        const res = await fetch(urlBase + '/etudiants/allSession')
+        const data = await res.json()
+        return data
+    },
+
     getListEtudiantWithoutSuperviseur: async () => {
         const res = await fetch(urlBase + '/etudiants/nosuperviseur')
         const data = await res.json()
@@ -25,6 +31,24 @@ const UserService = {
         return data
     },
 
+    getListAllSuperviseursAllSession: async () => {
+        const res = await fetch(urlBase + '/superviseurs/allSession')
+        const data = await res.json()
+        return data
+    },
+
+    getListAllMoniteurs: async () => {
+        const res = await fetch(urlBase + '/moniteurs')
+        const data = await res.json()
+        return data
+    },
+
+    getListAllMoniteursAllSession: async () => {
+        const res = await fetch(urlBase + '/moniteurs/allSession')
+        const data = await res.json()
+        return data
+    },
+
     getListEtudiantSuperviseur: async (superviseurId) => {
         const res = await fetch(urlBase + '/superviseur/etudiants/' + superviseurId)
         const data = await res.json()
@@ -32,9 +56,9 @@ const UserService = {
     },
 
     getMoniteur: async (id) => {
-        //const res = await fetch(urlBase + '/moniteur/' + id)
-        //const data = await res.json()
-        //return data
+    //     //const res = await fetch(urlBase + '/moniteur/' + id)
+    //     //const data = await res.json()
+    //     //return data
     },
 
     getGestionnaires: async () => {

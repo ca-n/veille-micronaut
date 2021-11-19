@@ -1,6 +1,5 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.enums.Session;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.GestionnaireRepository;
@@ -20,7 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+public class UserServiceTests {
 
     @Mock
     private EtudiantRepository etudiantRepository;
@@ -210,7 +209,7 @@ public class UserServiceTest {
     public void testGetAllEtudiants() {
         //Arrange
         List<Etudiant> expected = getEtudiants();   //List etudiant qui ont la session actuelle par defaut
-        expected.get(0).setSession(Session.HIVER_2021); //Changer un des etudiants a une session differente
+        expected.get(0).setSession("HIVER-2021"); //Changer un des etudiants a une session differente
         when(etudiantRepository.findAll()).thenReturn(expected);
 
         //Act
@@ -239,7 +238,7 @@ public class UserServiceTest {
     public void testGetAllSuperviseurs() {
         //Arrange
         List<Superviseur> expected = List.of(getSuperviseur(), getSuperviseur(), getSuperviseur());  //List etudiant qui ont la session actuelle par defaut
-        expected.get(0).setSession(Session.HIVER_2021); //Changer un des etudiants a une session differente
+        expected.get(0).setSession("HIVER-2021"); //Changer un des etudiants a une session differente
         when(superviseurRepository.findAll()).thenReturn(expected);
 
         //Act
@@ -266,7 +265,7 @@ public class UserServiceTest {
     public void testGetAllEtudiantsWithoutSuperviseur() {
         //Arrange
         List<Etudiant> expected = getEtudiants();   //List etudiant qui ont la session actuelle par defaut
-        expected.get(0).setSession(Session.HIVER_2021); //Changer un des etudiants a une session differente pour assurer que la fonction retourne juste les etudiants de la session actuelle
+        expected.get(0).setSession("HIVER-2021"); //Changer un des etudiants a une session differente pour assurer que la fonction retourne juste les etudiants de la session actuelle
         when(etudiantRepository.findAllEtudiantBySuperviseurNull()).thenReturn(expected);
 
         //Act
@@ -323,7 +322,7 @@ public class UserServiceTest {
     public void testGetAllGestionnaires() {
         //Arrange
         List<Gestionnaire> expected = getGestionnaires();
-        expected.get(0).setSession(Session.AUTOMNE_2021);
+        expected.get(0).setSession("AUT-2021");
         when(gestionnaireRepository.findAll()).thenReturn(expected);
 
         //Act

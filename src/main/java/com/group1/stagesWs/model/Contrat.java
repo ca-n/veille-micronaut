@@ -1,7 +1,6 @@
 package com.group1.stagesWs.model;
 
 import com.group1.stagesWs.SessionManager;
-import com.group1.stagesWs.enums.Session;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -30,7 +29,7 @@ public class Contrat implements Serializable {
     private String entrepriseEngagement;
     private String etudiantEngagement;
 
-    private Session session;
+    private String session;
 
     @ManyToOne
     private Offre offre;
@@ -46,6 +45,20 @@ public class Contrat implements Serializable {
         this.isEtudiantConfirmed = false;
         this.isGestionnaireConfirmed = false;
         this.isMoniteurConfirmed = false;
-        this.session = SessionManager.CURRENT_SESSION;
+        this.session = SessionManager.CURRENT_SESSION.getNomSession();
+    }
+
+    public Contrat(String collegeEngagement, String entrepriseEngagement, String etudiantEngagement, Offre offre, Etudiant etudiant, Moniteur moniteur) {
+        this.dateCreation = LocalDate.now();
+        this.isEtudiantConfirmed = false;
+        this.isGestionnaireConfirmed = false;
+        this.isMoniteurConfirmed = false;
+        this.session = SessionManager.CURRENT_SESSION.getNomSession();
+        this.collegeEngagement = collegeEngagement;
+        this.entrepriseEngagement = entrepriseEngagement;
+        this.etudiantEngagement = etudiantEngagement;
+        this.offre = offre;
+        this.etudiant = etudiant;
+        this.moniteur = moniteur;
     }
 }

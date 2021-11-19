@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CVService implements SessionManager<CV>{
+public class CVService extends SessionManager<CV> {
 
     private final CVRepository cvRepository;
 
@@ -82,7 +82,7 @@ public class CVService implements SessionManager<CV>{
     public List<CV> getListForCurrentSession(List<CV> listCV) {
         List<CV> listCVCurrentSession = new ArrayList<>();
         for(CV cv : listCV){
-            if(cv.getSession() == SessionManager.CURRENT_SESSION){
+            if(cv.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession())){
                 listCVCurrentSession.add(cv);
             }
         }

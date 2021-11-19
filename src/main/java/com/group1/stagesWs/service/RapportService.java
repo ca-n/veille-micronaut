@@ -14,7 +14,7 @@ import com.itextpdf.layout.element.Paragraph;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 @Service
 public class RapportService<T> {
@@ -23,12 +23,14 @@ public class RapportService<T> {
     private final CVService cvService;
     private final UserService userService;
     private final EntrevueService entrevueService;
+    private final EvaluationService evaluationService;
 
-    public RapportService(OffreService offreService, CVService cvService, UserService userService, EntrevueService entrevueService) {
+    public RapportService(OffreService offreService, CVService cvService, UserService userService, EntrevueService entrevueService,EvaluationService evaluationService) {
         this.offreService = offreService;
         this.cvService = cvService;
         this.userService = userService;
         this.entrevueService = entrevueService;
+        this.evaluationService = evaluationService;
     }
 
     public <T> byte[] generatePDF(List<T> listGeneric, String titre) throws Exception {
@@ -157,17 +159,31 @@ public class RapportService<T> {
         return  generatePDF(listEtudiantTrouveStage,"List d'étudiants qui ont été accepté pour un stage");
     }
 
+    public byte[] getEtudiantsNoEvaluationMoniteur() throws Exception {
+        List<Etudiant> listEtudiant = userService.getAllEtudiants();
+        List<Etudiant> listEtudiantEvaluer = evaluationService.getAllCurrentEtudiantEvals().stream()
+                .map(EvaluationEtudiant::getContrat)
+                .map(Contrat::getEtudiant)
+                .collect(Collectors.toList());
+            List<Etudiant> listStream = listEtudiant.stream()
+                .filter(etudiant -> !listEtudiantEvaluer.contains(etudiant))
+                .collect(Collectors.toList());
+        return generatePDF(listStream,"List des étudiants n'ayant pas d'évalution du moniteur");
 
+    }
 
+    public byte[] getEtudiantsNoEntrepriseEvalueSuperviseur() throws Exception {
+        List<Etudiant> listEtudiant = userService.getAllEtudiants();
+        List<Etudiant> listEtudiantEvaluer = evaluationService.getAllCurrentEntrepriseEvals().stream()
+                .map(EvaluationEntreprise::getContrat)
+                .map(Contrat::getEtudiant)
+                .collect(Collectors.toList());
+        List<Etudiant> listStream  = listEtudiant.stream()
+                .filter(etudiant -> !listEtudiantEvaluer.contains(etudiant))
+                .collect(Collectors.toList());
+        return generatePDF(listStream,"List des étudiants dont le superviseur n'as pas encore évalué l'entreprise");
 
-
-
-
-
-
-
-
-
+    }
 
 
 

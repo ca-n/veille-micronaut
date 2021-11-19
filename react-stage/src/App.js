@@ -5,7 +5,7 @@ import FormMoniteur from "./component/inscription/inscriptionMoniteur/FormMonite
 import LoginUser from "./component/loginUser/LoginUser";
 import Navbar from "./component/navbar/NavbarHTML";
 import Home from "./component/Home/Home";
-import FormOffre from "./component/deposeOffreDeStage/FormOffre";
+import FormOffre from "./component/Offres/deposeOffreDeStage/FormOffre";
 import Offres from "./component/Offres/Offres";
 import {
   BrowserRouter as Router,
@@ -15,23 +15,27 @@ import {
 } from "react-router-dom";
 import UserInfo, { UserInfoContext } from "./contexts/UserInfo";
 import AccountDetails from "./component/AccountDetails/AccountDetails";
-import VerificationCV from "./component/gestionCV/VerificationCV";
-import VerificationCVList from "./component/gestionCV/VerificationCVList";
-import DropCv from './component/DropCv/DropCv';
+import VerificationCV from './component/CV/gestionCV/VerificationCV'
+import VerificationCVList from "./component/CV/gestionCV/VerificationCVList";
+import DropCv from "./component/CV/DropCv/DropCv";
 import SuperviseurEtudiantsAssignation from './component/Superviseur/SuperviseurEtudiantsAssignation';
 import Dashboard from './component/dashboard/Dashboard';
 import Contrat from './component/contrat/Contrat';
 import Rapports from "./component/Rapports/Rapports";
-import PDFOffresVisible from "./component/Rapports/PDFOffresValides";
-import PDFOffresInvalides from "./component/Rapports/PDFOffresInvalides";
-import PDFEtudiantsInscrient from "./component/Rapports/PDFEtudiantsInscrient";
-import PDFCVPendingEtRejected from "./component/Rapports/PDFCVPendingEtRejected";
-import PDFEtudiantsSansCV from "./component/Rapports/PDFEudiantsSansCV";
-import PDFEtudiantsSansEntrevue from "./component/Rapports/PDFEtudiantsSansEntrevue";
-import PDFEtudiantsAttenteEntrevue from "./component/Rapports/PDFEtudiantsAttenteEntrevue";
-import PDFEtudiantsAttenteReponseEntrevue from "./component/Rapports/PDFEtudiantsAttenteReponseEntrevue";
-import PDFEtudiantsTrouveStage from "./component/Rapports/PDFEtudiantsTrouveStage";
+import PDFOffresValides from "./component/Rapports/Pdf/PDFOffresValides";
+import PDFOffresInvalides from "./component/Rapports/Pdf/PDFOffresInvalides";
+import PDFEtudiantsInscrient from "./component/Rapports/Pdf/PDFEtudiantsInscrient";
+import PDFCVPendingEtRejected from "./component/Rapports/Pdf/PDFCVPendingEtRejected";
+import PDFEtudiantsSansCV from "./component/Rapports/Pdf/PDFEudiantsSansCV";
+import PDFEtudiantsSansEntrevue from "./component/Rapports/Pdf/PDFEtudiantsSansEntrevue";
+import PDFEtudiantsAttenteEntrevue from "./component/Rapports/Pdf/PDFEtudiantsAttenteEntrevue"
+import PDFEtudiantsAttenteReponseEntrevue from "./component/Rapports/Pdf/PDFEtudiantsAttenteReponseEntrevue";
+import PDFEtudiantsTrouveStage from "./component/Rapports/Pdf/PDFEtudiantsTrouveStage";
+import PDFEtudiantsNoEvaluationMoniteur from "./component/Rapports/Pdf/PDFEtudiantsNoEvaluationMoniteur";
+import PDFEtudiantsNoEntrepriseEvalueSuperviseur from "./component/Rapports/Pdf/PDFEtudiantsNoEntrepriseEvalueSuperviseur";
 import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
+import NewContrat from "./component/contrat/newContrat/NewContrat"
+
 
 
 function App() {
@@ -58,7 +62,7 @@ function App() {
               <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation /></Route>
               <Route exact path="/gestion/allSession"><AllSessionInfo /></Route>
               <Route exact path="/rapports"><Rapports /></Route>
-              <Route exact path="/rapports/offresValides"><PDFOffresVisible /></Route>
+              <Route exact path="/rapports/offresValides"><PDFOffresValides /></Route>
               <Route exact path="/rapports/offresInvalides"><PDFOffresInvalides /></Route>
               <Route exact path="/rapports/etudiantsInscrient"><PDFEtudiantsInscrient /></Route>
               <Route exact path="/rapports/cvPendingRejected"><PDFCVPendingEtRejected /></Route>
@@ -67,15 +71,9 @@ function App() {
               <Route exact path="/rapports/etudiantsAttenteEntrevue"><PDFEtudiantsAttenteEntrevue /></Route>
               <Route exact path="/rapports/etudiantsAttenteReponseEntrevue"><PDFEtudiantsAttenteReponseEntrevue /></Route>
               <Route exact path="/rapports/etudiantsTrouveStage"><PDFEtudiantsTrouveStage /></Route>
-
-
-
-
-
-
-
-
-
+              <Route exact path="/rapports/etudiantsNoEvaluationMoniteur"><PDFEtudiantsNoEvaluationMoniteur /></Route>
+              <Route exact path="/rapports/etudiantsNoEntrepriseEvalueSuperviseur"><PDFEtudiantsNoEntrepriseEvalueSuperviseur /></Route>
+              <Route exact path="/gestion/newContrat"><NewContrat /></Route>
 
 
             </Switch>

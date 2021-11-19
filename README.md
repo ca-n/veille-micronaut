@@ -48,3 +48,20 @@ Projet de gestion stages du cours projet 2021
 # Jérémie
 # Bien été : communication statue des autres 
 # Moins bien été : mauvaise evaluation des subtask
+
+# Sprint 4
+Pascal
+Bien été: bon travaille équipe
+Moin bien été: commencer en retard, taille des histoires
+
+Mathieu
+Bien été: bon travaille équipe
+Moins bien été: beaucoup de conflicts
+
+Neil
+Bien été: Pull requests vite
+Moins bien été: formattage
+
+Jérémie
+Bien été: peer code review
+Moins bien été: merge avant de tester

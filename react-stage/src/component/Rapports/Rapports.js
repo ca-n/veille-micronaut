@@ -30,6 +30,13 @@ const Rapports = () => {
     const downloadEtudiantsTrouveStage = () => {
         saveAs("http://localhost:9191/rapport/pdf/etudiantsTrouveStage")
     }
+    const downloadEtudiantsNoEvaluationMoniteur = () => {
+        saveAs("http://localhost:9191/rapport/pdf/etudiantsNoEvaluationMoniteur")
+    }
+
+    const downloadEtudiantsNoEntrepriseEvalueSuperviseur = () => {
+        saveAs("http://localhost:9191/rapport/pdf/bob")
+    }
 
 
 
@@ -143,6 +150,30 @@ const Rapports = () => {
                     </td>
                     <td>
                         <button onClick={() => window.open("http://localhost:3000/rapports/etudiantsTrouveStage", "_blank")}>Open</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colSpan="2">Étudiants n'ayant pas été évalué par le moniteur</th>
+                </tr>
+                <tr>
+                    <td>
+                        <button onClick={downloadEtudiantsNoEvaluationMoniteur} >Download</button>
+                    </td>
+                    <td>
+                        <button onClick={() => window.open("http://localhost:3000/rapports/etudiantsNoEvaluationMoniteur", "_blank")}>Open</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colSpan="2">Étudiants dont le superviseur n'as pas encore évalué l'entreprise</th>
+                </tr>
+                <tr>
+                    <td>
+                        <button onClick={downloadEtudiantsNoEntrepriseEvalueSuperviseur} >Download</button>
+                    </td>
+                    <td>
+                        <button onClick={() => window.open("http://localhost:3000/rapports/etudiantsNoEntrepriseEvalueSuperviseur", "_blank")}>Open</button>
                     </td>
                 </tr>
             </table>
