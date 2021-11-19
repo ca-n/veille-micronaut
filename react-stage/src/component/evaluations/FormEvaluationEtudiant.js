@@ -46,13 +46,13 @@ const FormEvaluationEtudiant = ({contrat, onClickSubmit, onClickCancel}) => {
             errors.moniteurFonction = "Fonction requis"
         }
 
+        setErrors(errors)
         return errors
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
         let errors = checkErrors()
-        setErrors(errors)
         if (Object.keys(errors).length === undefined || Object.keys(errors).length === 0) {
             let evaluation = values
             evaluation.evaluationGrid = evaluationGrid
@@ -685,6 +685,7 @@ const FormEvaluationEtudiant = ({contrat, onClickSubmit, onClickCancel}) => {
                     <input type="text" id="commentairesFormation" name="commentairesFormation" value={values.commentairesFormation} onChange={handleChange} />
                 </div>
                 <input type="submit" value="Soumettre" className="button" />
+                {errors.moniteurFonction && <p className="error">Veuillez remplir tout le formulaire</p>}
             </form>
         </div>
     )
