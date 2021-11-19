@@ -339,11 +339,10 @@ public class StageswsApplication implements CommandLineRunner {
         offre1.setWhitelist(Set.of(etudiant));
         offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
 
-        Contrat contrat1 = new Contrat("fournir a l entreprise tous les renseignements concernant les conditions specifiques du programme d etudes et du programme d alternance travail etudes", "embaucher l eleve stagiaire aux conditions precisees dans la presente entente", "assumer de facon responsable et securitaire, les taches qui lui sont confiees", offre1, etudiant, moniteur);
         Contrat contrat2 = new Contrat("collaborer, au besoin, a la definition du plan de stage", "mettre en place des mesures d accueil, d integration et d encadrement de l eleve stagiaire", "respecter les dates de debut et de fin de stage", offre2, etudiant5, moniteur);
         contrat2.setEtudiantConfirmed(true);
         contrat2.setMoniteurConfirmed(true);
-        contratRepository.saveAll(List.of(contrat1, contrat2));
+        contratRepository.save(contrat2);
         Entrevue entrevue = new Entrevue();
         entrevue.setId(1);
         entrevue.setTitre("test1");
