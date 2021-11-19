@@ -1,10 +1,9 @@
 package com.group1.stagesWs.service;
 
-import com.group1.stagesWs.model.Contrat;
-import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Moniteur;
-import com.group1.stagesWs.model.Offre;
+import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.repositories.ContratRepository;
+import com.group1.stagesWs.repositories.EtudiantRepository;
+import com.group1.stagesWs.repositories.MoniteurRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,9 +24,59 @@ public class ContratServiceTest {
     @Mock
     private ContratRepository contratRepository;
 
+    @Mock
+    private MoniteurRepository moniteurRepository;
+
+    @Mock
+    private EtudiantRepository etudiantRepository;
 
     @InjectMocks
     private ContratService contratService;
+
+    @Test
+    void testGetAllContrats() {
+        //Arrange
+        List<Contrat> expected = getContrats();
+        expected.get(0).setSession("HIVER_2021");
+        when(contratRepository.findAll()).thenReturn(expected);
+
+        //Act
+        List<Contrat> returned = contratService.getAllContrats();
+
+        //Assert
+        assertThat(returned).hasSize(expected.size() - 1);
+    }
+
+    @Test
+    void testGetContratsByMoniteurEmail() {
+        //Arrange
+        List<Contrat> expected = getContrats();
+        Moniteur moniteur = getMoniteur();
+        when(contratRepository.findAllByMoniteurCourrielIgnoreCase(moniteur.getCourriel())).thenReturn(expected);
+        when(moniteurRepository.findMoniteurByCourrielIgnoreCase(moniteur.getCourriel())).thenReturn(moniteur);
+
+        //Act
+        List<Contrat> returned = contratService.getContratsByMoniteurEmail(moniteur.getCourriel());
+
+        //Assert
+        assertThat(returned).isEqualTo(expected);
+        assertThat(returned.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetContratsByEtudiantEmail() {
+        //Arrange
+        Contrat expected = getContrat();
+        Etudiant etudiant = getEtudiant();
+        when(contratRepository.findContratByEtudiant(etudiant)).thenReturn(expected);
+        when(etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiant.getCourriel())).thenReturn(etudiant);
+
+        //Act
+        Contrat returned = contratService.getContratsByEtudiantEmail(etudiant.getCourriel());
+
+        //Assert
+        assertThat(returned).isEqualTo(expected);
+    }
 
     @Test
     void testSaveContrat() {
@@ -116,5 +165,9 @@ public class ContratServiceTest {
                 getEtudiant(),
                 getMoniteur()
         );
+    }
+
+    private List<Contrat> getContrats() {
+        return List.of(getContrat(), getContrat(), getContrat());
     }
 }

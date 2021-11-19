@@ -4,7 +4,9 @@ import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.model.Contrat;
 import com.group1.stagesWs.model.EvaluationEntreprise;
 import com.group1.stagesWs.model.EvaluationEtudiant;
+import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.repositories.ContratRepository;
+import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,14 +14,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ContratService extends SessionManager<Contrat>{
+public class ContratService extends SessionManager<Contrat> {
 
     private final ContratRepository contratRepository;
+    private final EtudiantRepository etudiantRepository;
 
     private final EvaluationService evaluationService;
 
-    public ContratService(ContratRepository contratRepository, EvaluationService evaluationService) {
+    public ContratService(ContratRepository contratRepository, EtudiantRepository etudiantRepository, EvaluationService evaluationService) {
         this.contratRepository = contratRepository;
+        this.etudiantRepository = etudiantRepository;
         this.evaluationService = evaluationService;
     }
 
@@ -59,6 +63,21 @@ public class ContratService extends SessionManager<Contrat>{
         return listContrat.stream()
                 .filter(contrat -> contrat.getSession().equals(SessionManager.CURRENT_SESSION.getNomSession()))
                 .collect(Collectors.toList());
+    }
+
+    public List<Contrat> getAllContrats() {
+        List<Contrat> listAllContrats = contratRepository.findAll();
+        return getListForCurrentSession(listAllContrats);
+    }
+
+    public List<Contrat> getContratsByMoniteurEmail(String moniteurEmail) {
+        List<Contrat> listAllContrats = contratRepository.findAllByMoniteurCourrielIgnoreCase(moniteurEmail);
+        return getListForCurrentSession(listAllContrats);
+    }
+
+    public Contrat getContratsByEtudiantEmail(String etudiantEmail) {
+        Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
+        return contratRepository.findContratByEtudiant(etudiant);
     }
 }
 
