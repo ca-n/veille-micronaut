@@ -16,11 +16,10 @@ const EvaluationEntreprise = () => {
     const [superviseur, setSuperviseur] = useState({})
 
     useEffect(() => {
-        //if (!loggedUser.isLoggedIn || loggedUser.role !== "SUPERVISEUR") history.push("/login")
+        if (!loggedUser.isLoggedIn || loggedUser.role !== "SUPERVISEUR") history.push("/login")
 
         const getContrats = async () => {
-            //const contratList = await ContratService.getSuperviseurContratsToEvaluate(loggedUser.courriel)
-            const contratList = await ContratService.getAllContrats();
+            const contratList = await ContratService.getSuperviseurContratsToEvaluate(loggedUser.courriel)
             setContrats(contratList)
         }
         getContrats()
