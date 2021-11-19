@@ -41,6 +41,23 @@ const NotificationService = {
         }
         const data = await res.json()
         return data
+    },
+
+    saveNotification: async (notification) => {
+        const res = await fetch(urlBase,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(notification)
+            })
+        if (!res.ok) {
+            toastError("Incapable de sauvegarder la notification")
+            return
+        }
+        const data = await res.json()
+        return data
     }
 
 }

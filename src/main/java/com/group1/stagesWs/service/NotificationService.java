@@ -127,7 +127,7 @@ public class NotificationService extends SessionManager<Notification> {
         return List.of();
     }
 
-    private Notification saveNotification(Notification notification){
+    public Notification saveNotification(Notification notification){
         return notificationRepository.save(notification);
     }
 

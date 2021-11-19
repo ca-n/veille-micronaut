@@ -41,5 +41,10 @@ public class NotificationController {
         return new ResponseEntity<>(notificationService.getNotificationsGestionnaire(), HttpStatus.OK);
     }
 
+    @PostMapping
+    public ResponseEntity<Notification> saveNotification(@RequestBody Notification notification){
+        return new ResponseEntity<>(notificationService.saveNotification(notification), HttpStatus.OK);
+    }
+
 
 }

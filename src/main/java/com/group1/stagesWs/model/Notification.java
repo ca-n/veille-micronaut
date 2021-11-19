@@ -19,7 +19,7 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String contenu;
+    private String content;
     private NotifStatus status; //A CHANGER -Veux rendre le type un enum contenant tous les types de categories de notif.
     private boolean isChecked;
 
@@ -31,7 +31,7 @@ public class Notification implements Serializable {
     }
 
     public Notification(String contenu, NotifStatus status) {
-        this.contenu = contenu;
+        this.content = contenu;
         this.status = status;
         this.isChecked = false;
         this.session = SessionManager.CURRENT_SESSION.getNomSession();

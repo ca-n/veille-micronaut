@@ -23,6 +23,7 @@ import Dashboard from './component/dashboard/Dashboard';
 import Contrat from './component/contrat/Contrat';
 import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
 import NewContrat from "./component/contrat/newContrat/NewContrat"
+import NotificationViewer from "./component/Notification/NotificationViewer";
 
 
 function App() {
@@ -49,7 +50,7 @@ function App() {
               <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation /></Route>
               <Route exact path="/gestion/allSession"><AllSessionInfo /></Route>
               <Route exact path="/gestion/newContrat"><NewContrat /></Route>
-              <Route exact path="/notification"></Route>
+              <Route exact path="/notification"><NotificationViewer /></Route>
 
             </Switch>
           </div>

@@ -1,10 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBell } from '@fortawesome/free-solid-svg-icons'
 import { UserInfoContext } from '../../contexts/UserInfo'
 import UserService from '../../services/UserService'
 import NotificationService from '../../services/NotificationService'
 import { Link } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 
 
@@ -13,11 +14,12 @@ const NotificationBell = () => {
     const [listUnchecked, setListUnchecked] = useState([])
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
     const [reload, setReload] = useState(false)
+    const firstRender = useRef(true)
 
     useEffect(async () => {
         if (reload) {
             await getNotifications()
-            console.log(listNotifs, "listNotifs")
+            // console.log(listNotifs, "listNotifs")
             getUncheckedNotifs(listNotifs)
             setReload(false)
         }
@@ -31,7 +33,8 @@ const NotificationBell = () => {
 
 
     useEffect(async () => {
-        let interval = setInterval(() => setReload(true), 10000)
+        firstRender.current = false
+        let interval = setInterval(() => setReload(true), 60000)
         //destroy interval on unmount
         return () => clearInterval(interval)
     }, [])
@@ -45,33 +48,82 @@ const NotificationBell = () => {
                 switch (loggedUser.role) {
                     case "ETUDIANT":
                         notifications = await NotificationService.getAllNotificationByEtudiant(fullUser.id)
+                        toastNewNotifications(listNotifs, notifications)
                         setListNotifs(notifications)
-                        console.log(notifications, "setting notifs etudiant")
+                        // console.log(notifications, "setting notifs etudiant")
                         break
                     case "SUPERVISEUR":
                         notifications = await NotificationService.getAllNotificationBySuperviseur(fullUser.id)
+                        toastNewNotifications(listNotifs, notifications)
                         setListNotifs(notifications)
-                        console.log(notifications, "setting notifs superv")
+                        // console.log(notifications, "setting notifs superv")
                         break
                     case "MONITEUR":
                         notifications = await NotificationService.getAllNotificationByMoniteur(fullUser.id)
+                        toastNewNotifications(listNotifs, notifications)
                         setListNotifs(notifications)
-                        console.log(notifications, "setting notifs Moniteur")
+                        // console.log(notifications, "setting notifs Moniteur")
                         break
                     case "GESTIONNAIRE":
                         notifications = await NotificationService.getAllNotificationGestionnaire()
+                        toastNewNotifications(listNotifs, notifications)
                         setListNotifs(notifications)
-                        console.log(notifications, "setting notifs gestionnaire")
+                        // console.log(notifications, "setting notifs gestionnaire")
                         break
                 }
             }
         }
     }
 
+    const toastNewNotifications = (previousNotificationsList, newNotificationsList) => {
+        // console.log(previousNotificationsList, "previousssssSSSSSSSSSS")
+        // console.log(newNotificationsList, "NEWWWWWWWWWWWWWWW")
+
+        const newNotifications = newNotificationsList.filter(
+            (newNotification) =>
+                !previousNotificationsList.some(
+                    (previousNotification) =>
+                        newNotification.id === previousNotification.id
+                )
+        )
+        if (!firstRender) {
+            // console.log(newNotifications, "DIFFERENCEEE")
+            newNotifications.forEach(notification => {
+                toastNotification(notification)
+            })
+        }
+
+
+    }
+
+    const toastNotification = (notification) => {
+        if (reload) {
+            let iconType = "info"
+            if (notification.status == "URGENT") {
+                iconType = "warning"
+            }
+            Swal.fire({
+                toast: true,
+                icon: iconType,
+                title: notification.content,
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        }
+    }
+
+
     const getUncheckedNotifs = (listNotifs) => {
         if (listNotifs.length != 0) {
             const uncheckedNotifs = listNotifs.filter((notif) => {
-                if (!notif.isChecked) {
+                if (!notif.checked) {
                     return notif
                 }
             })
