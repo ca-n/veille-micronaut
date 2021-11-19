@@ -23,6 +23,7 @@ import AllSessionInfo from "./component/allSessionViewer/AllSessionInfo";
 import NewContrat from "./component/contrat/newContrat/NewContrat"
 import EvaluationEtudiant from "./component/evaluations/EvaluationEtudiant";
 import AfficherContrat from "./component/contrat/demarrerContrat/AfficherContrat"
+import EvaluationEntreprise from "./component/evaluations/EvaluationEntreprise";
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
               <Route exact path="/gestion/allSession"><AllSessionInfo /></Route>
               <Route exact path="/gestion/newContrat"><NewContrat /></Route>
               <Route exact path="/evaluation/etudiant"><EvaluationEtudiant /></Route>
+              <Route exact path="/evaluation/entreprise"><EvaluationEntreprise /></Route>
               <Route exact path="/gestion/demarrerContrat"><AfficherContrat /></Route>
             </Switch>
           </div>

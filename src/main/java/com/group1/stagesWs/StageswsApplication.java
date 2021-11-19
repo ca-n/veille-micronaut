@@ -350,14 +350,5 @@ public class StageswsApplication implements CommandLineRunner {
         entrevue2.setMoniteur(moniteur);
 
         entrevueRepository.saveAll(List.of(entrevue,entrevue2));
-
-        EvaluationEntreprise evalEntreprise = new EvaluationEntreprise();
-        evaluationEntrepriseRepository.save(evalEntreprise);
-        EvaluationEtudiant evalEtudiant = new EvaluationEtudiant();
-        evalEtudiant.setEvaluationGrid(new char[]{1, 0, 4, 3, 2});
-        evaluationEtudiantRepository.save(evalEtudiant);
-        Contrat contrat = new Contrat();
-        contrat.setEtudiant(etudiant2);
-        contratRepository.save(contrat);
     }
 }
