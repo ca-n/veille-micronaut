@@ -8,7 +8,7 @@ const ContratService = {
     },
 
     getContratsByMoniteurEmail: async (email) => {
-        const res = await fetch(urlBase +' /moniteur/' + email);
+        const res = await fetch(urlBase +'/moniteur/' + email);
         const data = await res.json();
         return data;
     },
