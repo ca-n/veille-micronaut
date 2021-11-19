@@ -1,8 +1,8 @@
 import "./App.css";
-import FormEtudiant from "./component/inscription/inscriptionEtudiant/FormEtudiant"
-import FormSuperviseur from "./component/inscription/inscriptionSuperviseur/FormSuperviseur";
-import FormMoniteur from "./component/inscription/inscriptionMoniteur/FormMoniteur";
-import LoginUser from "./component/loginUser/LoginUser";
+import NewFormEtudiant from "./component/inscription/inscriptionEtudiant/NewFormEtudiant";
+import NewFormSuperviseur from "./component/inscription/inscriptionSuperviseur/NewFormSuperviseur";
+import NewFormMoniteur from "./component/inscription/inscriptionMoniteur/NewFormMoniteur";
+import NewLoginUser from "./component/loginUser/NewLoginUser";
 import Navbar from "./component/navbar/NavbarHTML";
 import Home from "./component/Home/Home";
 import FormOffre from "./component/Offres/deposeOffreDeStage/FormOffre";
@@ -34,12 +34,12 @@ function App() {
           <div>
             <Switch>
               <Route exact path="/"><Home /></Route>
-              <Route exact path="/etudiant"><FormEtudiant /></Route>
-              <Route exact path="/superviseur"><FormSuperviseur /></Route>
-              <Route exact path="/moniteur"><FormMoniteur /></Route>
+              <Route exact path="/etudiant"><NewFormEtudiant /></Route>
+              <Route exact path="/superviseur"><NewFormSuperviseur /></Route>
+              <Route exact path="/moniteur"><NewFormMoniteur /></Route>
               <Route exact path="/account"><AccountDetails /></Route>
               <Route exact path="/offres"><Offres /></Route>
-              <Route exact path="/login"><LoginUser /></Route>
+              <Route exact path="/login"><NewLoginUser /></Route>
               <Route exact path="/newOffre"><FormOffre /></Route>
               <Route exact path="/dropCv"><DropCv /></Route>
               <Route exact path="/gestion/cv"><VerificationCVList /></Route>
