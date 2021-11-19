@@ -10,8 +10,10 @@ import java.util.List;
 
 @Repository
 public interface ContratRepository extends JpaRepository<Contrat, Integer> {
-
-    List<Contrat> findContratByMoniteur(Moniteur moniteur);
-
+    
     Contrat findContratByEtudiant(Etudiant etudiant);
+
+    List<Contrat> findAllByMoniteurCourrielIgnoreCase(String moniteurCourriel);
+
+    List<Contrat> findAllByEtudiantSuperviseurCourrielIgnoreCase(String superviseurCourriel);
 }

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -109,6 +110,36 @@ public class ContratControllerTests {
         var actualContrat = mapper.readValue(result.getResponse().getContentAsString(), Contrat.class);
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(actualContrat).isEqualTo(expected);
+    }
+
+    @Test
+    void testGetAllMoniteurContrats() throws Exception {
+        //Arrange
+        List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+        when(contratService.getAllMoniteurContrats(anyString())).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/contrat/moniteur/courriel/moniteur@example.com")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(actual.size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void testGetAllSuperviseurEtudiantContrats() throws Exception {
+        //Arrange
+        List<Contrat> expected = List.of(getContrat(), getContrat(), getContrat());
+        when(contratService.getAllSuperviseurEtudiantContrats(anyString())).thenReturn(expected);
+
+        //Act
+        MvcResult result = mockMvc.perform(get("/contrat/superviseur/courriel/superviseur@example.com")).andReturn();
+
+        //Assert
+        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+        var actual = mapper.readValue(result.getResponse().getContentAsString(), List.class);
+        assertThat(actual.size()).isEqualTo(expected.size());
     }
 
     private Etudiant getEtudiant() {

@@ -45,4 +45,13 @@ public class ContratController {
                 .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
+    @GetMapping("/moniteur/courriel/{courriel}")
+    public ResponseEntity<List<Contrat>> getAllMoniteurContrats(@PathVariable String courriel) {
+        return ResponseEntity.ok(contratService.getAllMoniteurContrats(courriel));
+    }
+
+    @GetMapping("/superviseur/courriel/{courriel}")
+    public ResponseEntity<List<Contrat>> getAllSuperviseurEtudiantContrats(@PathVariable String courriel) {
+        return ResponseEntity.ok(contratService.getAllSuperviseurEtudiantContrats(courriel));
+    }
 }
