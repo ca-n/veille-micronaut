@@ -1,12 +1,10 @@
 package com.group1.stagesWs.service;
 
-
 import com.group1.stagesWs.model.Contrat;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.ContratRepository;
-
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
 
@@ -25,14 +23,11 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ContratServiceTest {
+public class ContratServiceTests {
 
     @Mock
     private ContratRepository contratRepository;
 
-
-    @Mock
-    private MoniteurRepository moniteurRepository;
 
     @Mock
     private EtudiantRepository etudiantRepository;

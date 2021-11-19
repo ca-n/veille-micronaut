@@ -1,6 +1,7 @@
 package com.group1.stagesWs.model;
 
 import com.group1.stagesWs.SessionManager;
+import com.group1.stagesWs.enums.NotifStatus;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -18,20 +19,21 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private LocalDate dateRappelNotif;
-    private String contenu;
-    private String categorie; //A CHANGER -Veux rendre le type un enum contenant tous les types de categories de notif.
+    private String content;
+    private NotifStatus status; //A CHANGER -Veux rendre le type un enum contenant tous les types de categories de notif.
+    private boolean isChecked;
 
     private String session;
 
     public Notification() {
         this.session = SessionManager.CURRENT_SESSION.getNomSession();
+        this.isChecked = false;
     }
 
-    public Notification(LocalDate dateRappelNotif, String contenu, String categorie) {
-        this.dateRappelNotif = dateRappelNotif;
-        this.contenu = contenu;
-        this.categorie = categorie;
+    public Notification(String contenu, NotifStatus status) {
+        this.content = contenu;
+        this.status = status;
+        this.isChecked = false;
         this.session = SessionManager.CURRENT_SESSION.getNomSession();
     }
 }

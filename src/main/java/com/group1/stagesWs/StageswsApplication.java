@@ -1,6 +1,6 @@
 package com.group1.stagesWs;
 
-
+import com.group1.stagesWs.enums.NotifStatus;
 import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.enums.UserType;
 import com.group1.stagesWs.model.*;
@@ -30,12 +30,11 @@ public class StageswsApplication implements CommandLineRunner {
     private final CVRepository cvRepository;
     private final ContratRepository contratRepository;
     private final EntrevueRepository entrevueRepository;
+    private final NotificationRepository notificationRepository;
     private final EvaluationEntrepriseRepository evaluationEntrepriseRepository;
     private final EvaluationEtudiantRepository evaluationEtudiantRepository;
 
-
     private final RapportService rapportService;
-
     private final SessionService sessionService;
 
     public StageswsApplication(OffreRepository offreRepository,
@@ -45,6 +44,7 @@ public class StageswsApplication implements CommandLineRunner {
                                SuperviseurRepository superviseurRepository,
                                CVRepository cvRepository,
                                EntrevueRepository entrevueRepository,
+                               NotificationRepository notificationRepository,
                                EvaluationEntrepriseRepository evaluationEntrepriseRepository,
                                EvaluationEtudiantRepository evaluationEtudiantRepository,
                                RapportService rapportService,
@@ -62,6 +62,7 @@ public class StageswsApplication implements CommandLineRunner {
         this.evaluationEtudiantRepository = evaluationEtudiantRepository;
         this.rapportService = rapportService;
         this.sessionService = sessionService;
+        this.notificationRepository = notificationRepository;
     }
 
 
@@ -74,6 +75,13 @@ public class StageswsApplication implements CommandLineRunner {
         Session sessionAlternative = new Session("AUT-2021");
         sessionService.newSession(sessionAlternative.getNomSession());
         sessionService.newSession("HIVER-2021");
+
+        Notification notif1 = new Notification("test1", NotifStatus.ALERT);
+        Notification notif2 = new Notification("test2", NotifStatus.ALERT);
+        Notification notif3 = new Notification("test3", NotifStatus.URGENT);
+
+        notificationRepository.saveAll(List.of(notif1, notif2, notif3));
+
 
         Superviseur superviseur = new Superviseur();
         superviseur.setPrenom("Jeremie");
@@ -152,6 +160,8 @@ public class StageswsApplication implements CommandLineRunner {
         etudiant.setAdresse("113 lapierre");
         etudiant.setNumMatricule("1822323");
         etudiant.setHasLicense(true);
+
+        etudiant.setNotifications(List.of(notif1, notif2, notif3));
         etudiant.setSuperviseur(superviseur);
         etudiantRepository.save(etudiant);
 

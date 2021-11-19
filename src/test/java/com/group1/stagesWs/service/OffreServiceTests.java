@@ -2,6 +2,7 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.model.Moniteur;
+import com.group1.stagesWs.model.Notification;
 import com.group1.stagesWs.model.Offre;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import com.group1.stagesWs.repositories.MoniteurRepository;
@@ -17,6 +18,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,6 +35,9 @@ public class OffreServiceTests {
 
     @Mock
     private UserService userService;
+
+    @Mock
+    private NotificationService notificationService;
 
     @InjectMocks
     private OffreService service;
@@ -129,9 +135,13 @@ public class OffreServiceTests {
         //Arrange
         Etudiant etudiant = getEtudiant();
         Offre expected = getOffre();
+        expected.setMoniteur(new Moniteur());
         when(offreRepository.findById(any(Integer.class))).thenReturn(Optional.of(expected));
         when(etudiantRepository.findEtudiantByCourrielIgnoreCase(any(String.class))).thenReturn(etudiant);
         when(offreRepository.save(any(Offre.class))).thenReturn(expected);
+//        doNothing().when(emailService).sendEtudiantEmailCVRejected(expected);
+        when(notificationService.saveNotificationMoniteur(any(Notification.class), anyInt())).thenReturn(true);
+
 
         //Act
         Optional<Offre> returned = service.applyForOffre(expected.getId(), etudiant.getCourriel());

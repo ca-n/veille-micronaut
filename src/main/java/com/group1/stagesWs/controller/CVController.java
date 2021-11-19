@@ -30,13 +30,9 @@ public class CVController {
 
     @PostMapping
     public ResponseEntity<CV> saveCV(@RequestBody CV cv) {
-        Optional<CV> cvOptional = cvService.saveCV(cv);
-        if (cvOptional.isPresent()) {
-            emailService.sendGestionnaireEmailCVAjouter();
-            return ResponseEntity.ok(cvOptional.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
+        return cvService.saveCV(cv)
+                .map(cv1 -> ResponseEntity.status(HttpStatus.CREATED).body(cv1))
+                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
     }
 
     @GetMapping(path = "/etudiant/{id}")
@@ -66,24 +62,16 @@ public class CVController {
 
     @PostMapping("/accept")
     public ResponseEntity<CV> acceptCV(@RequestBody CV cv) {
-        Optional<CV> cvOptional = cvService.acceptCV(cv);
-        if (cvOptional.isPresent()) {
-            emailService.sendEtudiantEmailCVAccepted(cv);
-            return ResponseEntity.ok(cvOptional.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        return cvService.acceptCV(cv)
+                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
+                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 
     @PostMapping("/reject")
     public ResponseEntity<CV> rejectCV(@RequestBody CV cv) {
-        Optional<CV> cvOptional = cvService.rejectCV(cv);
-        if (cvOptional.isPresent()) {
-            emailService.sendEtudiantEmailCVRejected(cv);
-            return ResponseEntity.ok(cvOptional.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        return cvService.rejectCV(cv)
+                .map(cv1 -> ResponseEntity.status(HttpStatus.OK).body(cv1))
+                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 
     @GetMapping
