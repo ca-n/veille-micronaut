@@ -3,13 +3,10 @@ package com.group1.stagesWs.service;
 import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.model.Contrat;
 import com.group1.stagesWs.model.Etudiant;
-import com.group1.stagesWs.model.Moniteur;
 import com.group1.stagesWs.repositories.ContratRepository;
 import com.group1.stagesWs.repositories.EtudiantRepository;
-import com.group1.stagesWs.repositories.MoniteurRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,12 +15,10 @@ import java.util.stream.Collectors;
 public class ContratService extends SessionManager<Contrat> {
 
     private final ContratRepository contratRepository;
-    private final MoniteurRepository moniteurRepository;
     private final EtudiantRepository etudiantRepository;
 
-    public ContratService(ContratRepository contratRepository, MoniteurRepository moniteurRepository, EtudiantRepository etudiantRepository) {
+    public ContratService(ContratRepository contratRepository, EtudiantRepository etudiantRepository) {
         this.contratRepository = contratRepository;
-        this.moniteurRepository = moniteurRepository;
         this.etudiantRepository = etudiantRepository;
     }
 
@@ -52,13 +47,12 @@ public class ContratService extends SessionManager<Contrat> {
     }
 
     public List<Contrat> getContratsByMoniteurEmail(String moniteurEmail) {
-        Moniteur moniteur = moniteurRepository.findMoniteurByCourrielIgnoreCase(moniteurEmail);
-        List<Contrat> listAllContrats = contratRepository.findContratByMoniteur(moniteur);
+        List<Contrat> listAllContrats = contratRepository.findAllByMoniteurCourrielIgnoreCase(moniteurEmail);
         return getListForCurrentSession(listAllContrats);
     }
 
     public Contrat getContratsByEtudiantEmail(String etudiantEmail) {
-        Etudiant etudiant =etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
+        Etudiant etudiant = etudiantRepository.findEtudiantByCourrielIgnoreCase(etudiantEmail);
         return contratRepository.findContratByEtudiant(etudiant);
     }
 }
