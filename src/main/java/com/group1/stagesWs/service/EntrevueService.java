@@ -1,8 +1,10 @@
 package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.SessionManager;
+import com.group1.stagesWs.enums.NotifStatus;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Entrevue;
+import com.group1.stagesWs.model.Notification;
 import com.group1.stagesWs.repositories.EntrevueRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +16,17 @@ import java.util.Optional;
 public class EntrevueService extends SessionManager<Entrevue> {
 
     private final EntrevueRepository entrevueRepository;
+    private final NotificationService notificationService;
 
-    public EntrevueService(EntrevueRepository entrevueRepository) {
+    public EntrevueService(EntrevueRepository entrevueRepository, NotificationService notificationService) {
         this.entrevueRepository = entrevueRepository;
+        this.notificationService = notificationService;
     }
 
     public Optional<Entrevue> saveEntrevue(Entrevue entrevue) {
+        notificationService.saveNotificationEtudiant(
+                new Notification("Vous etes convoque a une entrevue le : " + entrevue.getDate() + " avec le moniteur " + entrevue.getMoniteur(), NotifStatus.URGENT),
+                entrevue.getEtudiant().getId());
         return Optional.of(entrevueRepository.save(entrevue));
     }
 
