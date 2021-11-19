@@ -78,7 +78,7 @@ const MoniteurDashboard = () => {
             </div>
             <Offres />
             <FormEntrevue handleReloadList={handleReloadList} />
-            <Entrevue reloadList={reloadList} />
+            <Entrevue reloadList={reloadList} handleReloadList={handleReloadList} />
         </>
     )
 }

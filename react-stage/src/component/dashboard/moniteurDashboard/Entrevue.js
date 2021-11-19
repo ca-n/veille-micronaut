@@ -6,14 +6,16 @@ const Entrevue = (reloadList) => {
     const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
     const [entrevues, setEntrevues] = useState([])
 
+
     useEffect(() => {
         fetchListEntrevue()
 
     }, [])
 
-    useEffect(() => {
+    useEffect(async () => {
         console.log("Reloading list useEffect")
-        fetchListEntrevue()
+        await fetchListEntrevue()
+        await fetchListEntrevue()
     }, [reloadList])
 
     const fetchListEntrevue = async () => {
@@ -29,7 +31,6 @@ const Entrevue = (reloadList) => {
                         })
                         .then(data => {
                             setEntrevues(data)
-
                         })
                 })
         }
