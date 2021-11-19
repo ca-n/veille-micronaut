@@ -18,9 +18,6 @@ const GestionnaireAfficherContrat = () => {
 
             let dbContrats
             dbContrats = await ContratService.getAllContrats()
-            console.log(dbContrats, "dbContrats")
-            //setListOffres(dbOffres)
-            //setValuesOnLoad(dbOffres)
             getOffres(dbContrats)
             setListContrats(dbContrats)
 
@@ -37,41 +34,33 @@ const GestionnaireAfficherContrat = () => {
     }
 
     const getOffres =  (listContrats) => {
-        console.log(listContrats,"LISTCONTRAT")
         let tempListOffres = []
         listContrats.forEach(contrat => {
             tempListOffres = [...tempListOffres, contrat.offre]
         });
-        console.log(tempListOffres, "dbOffres2")
         setListOffres(tempListOffres)
-        console.log(tempListOffres,"|||||||")
-        setValuesOnLoad(/*listContrats,*/ tempListOffres)
+        setValuesOnLoad(listContrats, tempListOffres)
     }
 
-    const setValuesOnLoad = (/*listContrats,*/ listOffres) => {
-        getListEtudiants(/*listContrats,*/listOffres[0].applicants)
+    const setValuesOnLoad = (listContrats, listOffres) => {
+        getListEtudiants(listContrats,listOffres[0].applicants)
         setValueOffre(listOffres[0])
-        console.log(listOffres[0].applicants, "??????")
 
     }
 
-    const getListEtudiants = (/*listContrats,*/listApplicants) => {
-        let listEtudiantsContratOffre = getEtudiantsForContrat(/*listContrats,*/listApplicants)
-        //listEtudiantsContratOffre est vide on loadant la page
-        console.log(listEtudiantsContratOffre, "listEtudiantsContratOffre")
+    const getListEtudiants = (listContrats,listApplicants) => {
+        let listEtudiantsContratOffre = getEtudiantsForContrat(listContrats,listApplicants)
         setListEtudiants(listEtudiantsContratOffre)
-        setContratValues(listEtudiantsContratOffre[0])
+        setContratValues(listContrats, listEtudiantsContratOffre[0])
     }
 
-    const getEtudiantsForContrat = (/*listContrats,*/listApplicants) => {
-        console.log(listContrats, "123344listContrats")
+    const getEtudiantsForContrat = (listContrats,listApplicants) => {
         let tempListEtudiantsContratOffre = []
         listContrats.forEach(contrat => {
             if (listApplicants.some(applicant => applicant.id === contrat.etudiant.id)) {
                 tempListEtudiantsContratOffre = [...tempListEtudiantsContratOffre, contrat.etudiant]
             }
         });
-        console.log(tempListEtudiantsContratOffre, "123344")
         return tempListEtudiantsContratOffre
     }
 
@@ -79,14 +68,14 @@ const GestionnaireAfficherContrat = () => {
         let offre = JSON.parse(e.target.value)
         setValueOffre(offre)
         setValueMoniteur(offre.moniteur)
-        getListEtudiants(offre.applicants)
+        getListEtudiants(listContrats, offre.applicants)
 
     }
 
     const onChangeEtudiant = async (e) => {
         let etudiant = JSON.parse(e.target.value)
 
-        await setContratValues(etudiant)
+        await setContratValues(listContrats,etudiant)
     }
 
     const setValueMoniteur = (moniteur) => {
@@ -101,17 +90,14 @@ const GestionnaireAfficherContrat = () => {
         values.etudiant = etudiant
     }
 
-    const setContratValues = async (etudiant) => {
+    const setContratValues = async (listContrats,etudiant) => {
         setValueEtudiant(etudiant)
         let tempContrat = {}
-        console.log(etudiant, "ETUDIANT")
-        console.log(listContrats, "LISTCONTRATS")
         listContrats.forEach(contrat => {
             if (contrat.etudiant.id === etudiant.id) {
                 tempContrat = contrat
             }
         });
-        console.log(tempContrat, "tempContrat>>>")
         setContrat(tempContrat)
     }
 
