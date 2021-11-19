@@ -3,6 +3,7 @@ package com.group1.stagesWs.service;
 
 import com.group1.stagesWs.enums.Status;
 
+
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
 import com.group1.stagesWs.repositories.CVRepository;
@@ -66,14 +67,17 @@ public class CVServiceTests {
         //Arrange
         CV cv1 = getCV(); //Constructeur met leur session par defaut a la session actuelle
         CV cv2 = getCV(); //Constructeur met leur session par defaut a la session actuelle
-        List<CV> listCV = List.of(cv1, cv2);
+
+        CV cv3 = getCV();
+        cv3.setSession("HIVER-2021"); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
+        List<CV> listCV = List.of(cv1, cv2, cv3);
         when(cvRepository.findAll(any(Sort.class))).thenReturn(listCV);
 
         //Act
         List<CV> returned = cvService.getAllCVs();
 
         //Assert
-        assertThat(returned.size()).isEqualTo(2); //Retout des CV de la session actuelle seulement donc 2/3
+        assertThat(returned.size()).isEqualTo(3); //Retout des CV de la session actuelle seulement donc 2/3
     }
 
     @Test

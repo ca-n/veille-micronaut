@@ -18,5 +18,4 @@ public interface EtudiantRepository extends JpaRepository<Etudiant, Integer> {
 
     Etudiant findEtudiantById(int id);
 
-
 }

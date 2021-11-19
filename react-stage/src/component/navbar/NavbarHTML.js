@@ -22,7 +22,7 @@ const NavbarHTML = () => {
 
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="light" variant="light" expand="lg">
       <Navbar.Brand as={Link} to="/dashboard"><img src={logo} className="App-logo" alt="logo" /></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -84,9 +84,16 @@ const NavbarHTML = () => {
             <Nav.Link as={Link} to="/gestion/allSession">All Sessions Info</Nav.Link> : null
           }
 
-          {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
+
+
+
+          {loggedUser.isLoggedIn && (loggedUser.role === "ETUDIANT" || loggedUser.role === "GESTIONNAIRE" || loggedUser.role === "MONITEUR") ?
             <NavDropdown title="Contrat" id="basic-nav-dropdown">
-              <NavDropdown.Item><Link to="/gestion/newContrat">Créer Contrat</Link></NavDropdown.Item>
+              {loggedUser.role === "GESTIONNAIRE" ?
+                <NavDropdown.Item><Link to="/gestion/newContrat">Créer Contrat</Link></NavDropdown.Item> : null
+              }
+              <NavDropdown.Item><Link to="/gestion/demarrerContrat">Démarrer Contrat</Link></NavDropdown.Item>
+
             </NavDropdown>
             :
             null
@@ -95,6 +102,7 @@ const NavbarHTML = () => {
           {loggedUser.isLoggedIn && loggedUser.role === "GESTIONNAIRE" ?
             <Nav.Link as={Link} to="/rapports">Rapports</Nav.Link> : null
           }
+
 
         </Nav>
       </Navbar.Collapse>

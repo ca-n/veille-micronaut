@@ -1,5 +1,6 @@
 package com.group1.stagesWs;
 
+
 import com.group1.stagesWs.enums.Status;
 import com.group1.stagesWs.enums.UserType;
 import com.group1.stagesWs.model.*;
@@ -19,7 +20,7 @@ import java.util.Set;
 
 
 @SpringBootApplication
-public class StageswsApplication implements CommandLineRunner{
+public class StageswsApplication implements CommandLineRunner {
 
     private final OffreRepository offreRepository;
     private final EtudiantRepository etudiantRepository;
@@ -27,6 +28,7 @@ public class StageswsApplication implements CommandLineRunner{
     private final GestionnaireRepository gestionnaireRepository;
     private final SuperviseurRepository superviseurRepository;
     private final CVRepository cvRepository;
+    private final ContratRepository contratRepository;
     private final EntrevueRepository entrevueRepository;
     private final RapportService rapportService;
     private final SessionService sessionService;
@@ -39,6 +41,7 @@ public class StageswsApplication implements CommandLineRunner{
                                CVRepository cvRepository,
                                EntrevueRepository entrevueRepository,
                                RapportService rapportService,
+                               ContratRepository contratRepository,
                                SessionService sessionService) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
@@ -46,6 +49,7 @@ public class StageswsApplication implements CommandLineRunner{
         this.gestionnaireRepository = gestionnaireRepository;
         this.superviseurRepository = superviseurRepository;
         this.cvRepository = cvRepository;
+        this.contratRepository = contratRepository;
         this.entrevueRepository = entrevueRepository;
         this.rapportService = rapportService;
         this.sessionService = sessionService;
@@ -277,9 +281,6 @@ public class StageswsApplication implements CommandLineRunner{
         moniteurRepository.save(moniteur6);
 
 
-
-
-
         Gestionnaire gestionnaire = new Gestionnaire();
         gestionnaire.setPrenom("Neil");
         gestionnaire.setNom("Carrie");
@@ -291,28 +292,24 @@ public class StageswsApplication implements CommandLineRunner{
         gestionnaireRepository.save(gestionnaire);
 
 
-
-
-
-
-        CV cv1 = new CV(); // pending
-        cv1.setEtudiant(etudiant2);
+        CV cv1 = new CV();
+        cv1.setStatus(Status.PENDING);
+        cv1.setEtudiant(etudiant);
         cv1.setNom("cv-pending.pdf");
-        CV cv2 = new CV(); // accepted
+
+        CV cv2 = new CV();
         cv2.setStatus(Status.ACCEPTED);
         cv2.setEtudiant(etudiant2);
         cv2.setNom("cv-accepted.pdf");
-        CV cv3 = new CV(); // rejected
+
+        CV cv3 = new CV();
+        cv3.setNom("cv-rejected.pdf");
         cv3.setStatus(Status.REJECTED);
         cv3.setEtudiant(etudiant2);
-        cv3.setNom("cv-rejected.pdf");
-        CV cv4 = new CV(); // accepted
-        cv4.setStatus(Status.ACCEPTED);
-        cv4.setEtudiant(etudiant2);
-//        cv4.setSession(sessionAlternative.getNomSession());
-        cv4.setNom("cv-accepted.pdf");
 
-        cvRepository.saveAll(List.of(cv1, cv2, cv3, cv4));
+
+
+        cvRepository.saveAll(List.of(cv1, cv2, cv3));
 
         Offre offre1 = new Offre("TITRE1", "DESCRIPTION1", "ENTREPRISE1", true, "1 rue de la riviere Brossard", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 21);
         Offre offre2 = new Offre("TITRE2", "DESCRIPTION2", "ENTREPRISE2", true, "6 boul lachine Montreal", "2021-12-05", "2022-3-05", 13, "9:00 à 5:00", 40, 20);
@@ -328,10 +325,16 @@ public class StageswsApplication implements CommandLineRunner{
         offre2.setApplicants(Set.of(etudiant4, etudiant5));
         offre3.setApplicants(Set.of(etudiant6));
         Offre offre6 = new Offre("TITRE6", "DESCRIPTION6", "ENTREPRISE6", true, "113 lapierre Montreal", "2022-12-05", "2023-3-05", 13, "9:00 à 5:00", 40, 20.75);
-//        offre6.setSession(sessionAlternative.getNomSession());
+        offre6.setSession(sessionAlternative.getNomSession());
+
         offre1.setWhitelist(Set.of(etudiant));
         offreRepository.saveAll(List.of(offre1, offre2, offre3, offre4, offre5, offre6));
 
+        Contrat contrat1 = new Contrat("fournir a l entreprise tous les renseignements concernant les conditions specifiques du programme d etudes et du programme d alternance travail etudes", "embaucher l eleve stagiaire aux conditions precisees dans la presente entente", "assumer de facon responsable et securitaire, les taches qui lui sont confiees", offre1, etudiant, moniteur);
+        Contrat contrat2 = new Contrat("collaborer, au besoin, a la definition du plan de stage", "mettre en place des mesures d accueil, d integration et d encadrement de l eleve stagiaire", "respecter les dates de debut et de fin de stage", offre2, etudiant5, moniteur);
+        contrat2.setEtudiantConfirmed(true);
+        contrat2.setMoniteurConfirmed(true);
+        contratRepository.saveAll(List.of(contrat1, contrat2));
         Entrevue entrevue = new Entrevue();
         entrevue.setId(1);
         entrevue.setTitre("test1");
