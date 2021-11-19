@@ -56,15 +56,9 @@ const EtudiantDashboard = () => {
 
         }
     }, []);
-    /*
-        const getMoniteur = async (id) => {
-            const moniteur = await UserService.getMoniteur(id)
-            setMoniteur(moniteur)
-        }
-    */
+    
     const getContrat = async (courriel) => {
         const dbContrat = await ContratService.getContratsByEtudiantEmail(courriel)
-        console.log(dbContrat, "dbContrat")
         setMoniteur(dbContrat.moniteur)
         setContrat(dbContrat)
     }
