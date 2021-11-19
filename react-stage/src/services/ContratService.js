@@ -24,6 +24,18 @@ const ContratService = {
         const res = await fetch(url + '/superviseur/courriel/' + superviseurCourriel)
         const data = await res.json()
         return data
+    },
+
+    getMoniteurContratsToEvaluate: async (moniteurCourriel) => {
+        const res = await fetch(url + '/moniteur/courriel/' + moniteurCourriel + '/toEvaluate')
+        const data = await res.json()
+        return data
+    },
+
+    getSuperviseurContratsToEvaluate: async (superviseurCourriel) => {
+        const res = await fetch(url + '/superviseur/courriel/' + superviseurCourriel + '/toEvaluate')
+        const data = await res.json()
+        return data
     }
 }
 
