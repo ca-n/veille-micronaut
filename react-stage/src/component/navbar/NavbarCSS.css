@@ -1,24 +1,23 @@
 .nav-item .dropdown-menu {
-    background: #000000;
-    }
-  
-  .nav-item .dropdown-item {
-    color: #ffffff;
-    }
-  
-  .nav-item .dropdown-item:hover {
-    background: #23B6FD;
-    }
+  background: #000000;
+}
 
-.dropdown-divider{
-      color: #ffffff;
-    }
+.nav-item .dropdown-item {
+  color: #ffffff;
+}
+
+.nav-item .dropdown-item:hover {
+  background: #23b6fd;
+}
+
+.dropdown-divider {
+  color: #ffffff;
+}
 
 .App-logo {
-    height: 4vmin;
-    pointer-events: none;
-  }
-
+  height: 4vmin;
+  pointer-events: none;
+}
 
 button {
   padding: 0;
@@ -30,11 +29,13 @@ button {
 a {
   text-decoration: none;
   color: white;
-  
 }
 
-a:hover{
+a:hover {
   color: white;
 }
 
-
+.bell {
+  position: absolute;
+  right: 2%;
+}

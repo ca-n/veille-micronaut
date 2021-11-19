@@ -1,6 +1,7 @@
 package com.group1.stagesWs;
 
 import com.group1.stagesWs.enums.CVStatus;
+import com.group1.stagesWs.enums.NotifStatus;
 import com.group1.stagesWs.model.Session;
 import com.group1.stagesWs.enums.UserType;
 import com.group1.stagesWs.model.*;
@@ -28,6 +29,7 @@ public class StageswsApplication implements CommandLineRunner{
     private final SuperviseurRepository superviseurRepository;
     private final CVRepository cvRepository;
     private final EntrevueRepository entrevueRepository;
+    private final NotificationRepository notificationRepository;
 
     private final SessionService sessionService;
 
@@ -38,7 +40,8 @@ public class StageswsApplication implements CommandLineRunner{
                                SuperviseurRepository superviseurRepository,
                                CVRepository cvRepository,
                                EntrevueRepository entrevueRepository,
-                               SessionService sessionService) {
+                               SessionService sessionService,
+                               NotificationRepository notificationRepository) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
         this.moniteurRepository = moniteurRepository;
@@ -47,6 +50,7 @@ public class StageswsApplication implements CommandLineRunner{
         this.cvRepository = cvRepository;
         this.entrevueRepository = entrevueRepository;
         this.sessionService = sessionService;
+        this.notificationRepository = notificationRepository;
     }
 
     public static void main(String[] args) {
@@ -58,6 +62,14 @@ public class StageswsApplication implements CommandLineRunner{
         Session sessionAlternative = new Session("AUT-2021");
         sessionService.newSession(sessionAlternative.getNomSession());
         sessionService.newSession("HIVER-2021");
+
+        Notification notif1 = new Notification("test1", NotifStatus.ALERT);
+        Notification notif2 = new Notification("test2", NotifStatus.ALERT);
+        Notification notif3 = new Notification("test3", NotifStatus.URGENT);
+
+        notificationRepository.saveAll(List.of(notif1, notif2, notif3));
+
+
         Superviseur superviseur = new Superviseur();
         superviseur.setPrenom("Jeremie");
         superviseur.setNom("Munger");
@@ -135,6 +147,8 @@ public class StageswsApplication implements CommandLineRunner{
         etudiant.setAdresse("113 lapierre");
         etudiant.setNumMatricule("1822323");
         etudiant.setHasLicense(true);
+
+        etudiant.setNotifications(List.of(notif1, notif2, notif3));
         etudiantRepository.save(etudiant);
 
         Etudiant etudiant2 = new Etudiant();
@@ -270,6 +284,7 @@ public class StageswsApplication implements CommandLineRunner{
         moniteur6.setNomEntreprise("Bob the builder");
         moniteur6.setAdresseEntreprise("110 lapierre");
         moniteurRepository.save(moniteur6);
+
 
 
 

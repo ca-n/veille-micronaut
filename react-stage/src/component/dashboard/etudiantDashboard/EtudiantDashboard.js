@@ -89,8 +89,8 @@ const EtudiantDashboard = () => {
                     </tr>
                     <tr>
                         <td>Superviseur</td>
-                        <td>{superviseur.prenom} {superviseur.nom}</td>
-                        <td>{superviseur.courriel}</td>
+                        {/* <td>{superviseur.prenom} {superviseur.nom}</td>
+                        <td>{superviseur.courriel}</td> */}
                     </tr>
                     {contrat != null ?
                         <tr>

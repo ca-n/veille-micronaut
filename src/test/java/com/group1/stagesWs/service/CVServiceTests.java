@@ -3,6 +3,7 @@ package com.group1.stagesWs.service;
 import com.group1.stagesWs.enums.CVStatus;
 import com.group1.stagesWs.model.CV;
 import com.group1.stagesWs.model.Etudiant;
+import com.group1.stagesWs.model.Notification;
 import com.group1.stagesWs.repositories.CVRepository;
 import com.group1.stagesWs.repositories.EtudiantRepository;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,6 +28,12 @@ public class CVServiceTests {
     @Mock
     private CVRepository cvRepository;
 
+    @Mock
+    private EmailService emailService;
+
+    @Mock
+    private NotificationService notificationService;
+
     @InjectMocks
     private CVService cvService;
 
@@ -32,7 +41,10 @@ public class CVServiceTests {
     void testAcceptCV() {
         //Arrange
         CV expected = getCV();
+        expected.setEtudiant(new Etudiant());
         when(cvRepository.save(any())).thenReturn(expected);
+        doNothing().when(emailService).sendEtudiantEmailCVAccepted(expected);
+        when(notificationService.saveNotificationEtudiant(any(Notification.class), anyInt())).thenReturn(true);
 
         //Act
         Optional<CV> returned = cvService.acceptCV(expected);
@@ -48,7 +60,10 @@ public class CVServiceTests {
     void testRejectCV() {
         //Arrange
         CV expected = getCV();
+        expected.setEtudiant(new Etudiant());
         when(cvRepository.save(any())).thenReturn(expected);
+        doNothing().when(emailService).sendEtudiantEmailCVRejected(expected);
+        when(notificationService.saveNotificationEtudiant(any(Notification.class), anyInt())).thenReturn(true);
 
         //Act
         Optional<CV> returned = cvService.rejectCV(expected);
@@ -66,7 +81,7 @@ public class CVServiceTests {
         CV cv1 = getCV(); //Constructeur met leur session par defaut a la session actuelle
         CV cv2 = getCV(); //Constructeur met leur session par defaut a la session actuelle
         CV cv3 = getCV();
-        cv3.setSession("HIVER-2021"); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
+        cv3.setSession("AUT-2021"); //La session de ce cv est change de la valeur par defaut qui est la session actuelle
         List<CV> listCV = List.of(cv1, cv2, cv3);
         when(cvRepository.findAll(any(Sort.class))).thenReturn(listCV);
 
@@ -112,7 +127,10 @@ public class CVServiceTests {
     void testSaveCV(){
         //Arrange
         CV expected = getCV();
+        expected.setEtudiant(new Etudiant());
         when(cvRepository.save(any(CV.class))).thenReturn(expected);
+        when(notificationService.saveNotificationGestionnaire(any(Notification.class))).thenReturn(true);
+
 
         //Act
         Optional<CV> returned = cvService.saveCV(expected);
@@ -161,6 +179,8 @@ public class CVServiceTests {
         cv.setNom("cvTest.pdf");
         return cv;
     }
+
+
 
 
 

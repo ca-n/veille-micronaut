@@ -209,7 +209,7 @@ public class UserServiceTests {
     public void testGetAllEtudiants() {
         //Arrange
         List<Etudiant> expected = getEtudiants();   //List etudiant qui ont la session actuelle par defaut
-        expected.get(0).setSession("HIVER-2021"); //Changer un des etudiants a une session differente
+        expected.get(0).setSession(getSessionNonActuelle().getNomSession()); //Changer un des etudiants a une session differente
         when(etudiantRepository.findAll()).thenReturn(expected);
 
         //Act
@@ -238,7 +238,7 @@ public class UserServiceTests {
     public void testGetAllSuperviseurs() {
         //Arrange
         List<Superviseur> expected = List.of(getSuperviseur(), getSuperviseur(), getSuperviseur());  //List etudiant qui ont la session actuelle par defaut
-        expected.get(0).setSession("HIVER-2021"); //Changer un des etudiants a une session differente
+        expected.get(0).setSession(getSessionNonActuelle().getNomSession()); //Changer un des etudiants a une session differente
         when(superviseurRepository.findAll()).thenReturn(expected);
 
         //Act
@@ -265,7 +265,7 @@ public class UserServiceTests {
     public void testGetAllEtudiantsWithoutSuperviseur() {
         //Arrange
         List<Etudiant> expected = getEtudiants();   //List etudiant qui ont la session actuelle par defaut
-        expected.get(0).setSession("HIVER-2021"); //Changer un des etudiants a une session differente pour assurer que la fonction retourne juste les etudiants de la session actuelle
+        expected.get(0).setSession(getSessionNonActuelle().getNomSession()); //Changer un des etudiants a une session differente pour assurer que la fonction retourne juste les etudiants de la session actuelle
         when(etudiantRepository.findAllEtudiantBySuperviseurNull()).thenReturn(expected);
 
         //Act
@@ -332,6 +332,10 @@ public class UserServiceTests {
         assertThat(returned).hasSize(expected.size());
     }
 
+
+    private Session getSessionNonActuelle(){
+        return new Session("AUT-2021");
+    }
 
     private Etudiant getEtudiant() {
         return new Etudiant(

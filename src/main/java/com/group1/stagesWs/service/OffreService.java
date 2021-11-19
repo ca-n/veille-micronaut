@@ -1,5 +1,6 @@
 package com.group1.stagesWs.service;
 
+import com.group1.stagesWs.enums.NotifStatus;
 import com.group1.stagesWs.model.*;
 import com.group1.stagesWs.SessionManager;
 import com.group1.stagesWs.repositories.EtudiantRepository;
@@ -20,12 +21,18 @@ public class OffreService extends SessionManager<Offre> {
     private final EtudiantRepository etudiantRepository;
     private final MoniteurRepository moniteurRepository;
     private final UserService userService;
+    private final NotificationService notificationService;
 
-    public OffreService(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository, UserService userService) {
+    public OffreService(OffreRepository offreRepository,
+                        EtudiantRepository etudiantRepository,
+                        MoniteurRepository moniteurRepository,
+                        UserService userService,
+                        NotificationService notificationService) {
         this.offreRepository = offreRepository;
         this.etudiantRepository = etudiantRepository;
         this.moniteurRepository = moniteurRepository;
         this.userService = userService;
+        this.notificationService = notificationService;
     }
 
     public List<Offre> getAllOffres() {
@@ -88,9 +95,14 @@ public class OffreService extends SessionManager<Offre> {
         Offre offre = offreOptional.get();
         Etudiant etudiant = etudiantOptional.get();
 
+
         Set<Etudiant> applicants = offre.getApplicants();
         applicants.add(etudiant);
         offre.setApplicants(applicants);
+
+        notificationService.saveNotificationMoniteur(
+                new Notification("L'etudiant " + etudiant.getPrenom() + " " + etudiant.getNom() + " a applique a votre offre: " + offre.getTitre(), NotifStatus.ALERT),
+                offre.getMoniteur().getId());
         return Optional.of(offreRepository.save(offre));
     }
 }

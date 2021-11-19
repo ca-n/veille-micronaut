@@ -6,6 +6,7 @@ import logo from './logo.svg'
 import { Link } from 'react-router-dom';
 import { UserInfoContext } from '../../contexts/UserInfo';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import NotificationBell from '../../component/Notification/NotificationBell';
 
 
 
@@ -26,7 +27,7 @@ const NavbarHTML = () => {
       <Navbar.Brand as={Link} to="/dashboard"><img src={logo} className="App-logo" alt="logo" /></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
+        <Nav className="me-auto ">
 
           <NavDropdown title="Form" id="basic-nav-dropdown">
             <NavDropdown.Item><Link to="/etudiant">Form Etudiant</Link></NavDropdown.Item>
@@ -90,6 +91,13 @@ const NavbarHTML = () => {
             </NavDropdown>
             :
             null
+          }
+          {loggedUser.isLoggedIn &&
+            <Nav.Item>
+              <Nav.Link className="bell">
+                <NotificationBell />
+              </Nav.Link>
+            </Nav.Item>
           }
 
         </Nav>

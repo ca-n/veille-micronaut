@@ -49,6 +49,7 @@ function App() {
               <Route exact path="/gestion/superviseur"><SuperviseurEtudiantsAssignation /></Route>
               <Route exact path="/gestion/allSession"><AllSessionInfo /></Route>
               <Route exact path="/gestion/newContrat"><NewContrat /></Route>
+              <Route exact path="/notification"></Route>
 
             </Switch>
           </div>
