@@ -48,14 +48,14 @@ const useFormOffre = (callback, validateInfoOffre) => {
         if (Object.keys(errors).length === 0 && isSubmitting) {
             callback();
             var request = new XMLHttpRequest()
-            request.open('POST', 'http://localhost:8080/offres', true)
+            request.open('POST', `http://localhost:9191/offres${loggedUser.courriel}`, true)
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
 
             const offre = JSON.stringify(values)
 
             request.send(offre)
         }
-    }, [errors]
+    }, [errors, loggedUser]
     );
 
 

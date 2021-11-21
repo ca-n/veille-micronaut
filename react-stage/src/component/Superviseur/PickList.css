@@ -1,6 +1,5 @@
 /* PickListDemo.css */
 
-
 .picklist-demo .product-item {
     display: flex;
     align-items: center;
@@ -49,4 +48,5 @@
         width: 100px;
     }
 }
+
                  
