@@ -1,11 +1,14 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import UserService from '../../../services/UserService'
 import Offres from '../../Offres/Offres'
-import './MoniteurDashboard.css'
+import Entrevue from './Entrevue'
+import FormEntrevue from './FormEntrevue'
+import '../../../Css/Dashboard.css'
+import Table from "react-bootstrap/Table"
 
 const MoniteurDashboard = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const [fullUser, setFullUser] = useState({
         id: Number,
         prenom: String,
@@ -25,22 +28,20 @@ const MoniteurDashboard = () => {
         specialite: String
     })
     const [listGestionnaires, setListGestionnaires] = useState([])
-
+    const [reloadList, setReloadList] = useState(0)
+    const handleReloadList = () => {
+        setReloadList(reloadList + 1)
+    }
 
     useEffect(() => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data, "data")
-                    setFullUser(data)
-                    getGestionnaires()
-                })
+            UserService.getUserByEmail(loggedUser.courriel).then(data => {
+                setFullUser(data)
+                getGestionnaires()
+            })
 
         }
-    }, []);
+    }, [])
 
     const getGestionnaires = async () => {
         const gestionnaires = await UserService.getGestionnaires()
@@ -48,29 +49,35 @@ const MoniteurDashboard = () => {
     }
 
     const gestionnairesList = listGestionnaires.map((gestionnaire) =>
-        <tr key={gestionnaire.id.toString()}>
+        <tr className="text-white" key={gestionnaire.id.toString()}>
             <td>{gestionnaire.prenom} {gestionnaire.nom}</td>
             <td>{gestionnaire.courriel}</td>
-        </tr>);
+        </tr>)
 
     return (
-        <>
+        <div className="Dashboard">
             <div>
                 <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>
 
             <div>
-                <h1>Contact Gestionnaire</h1>
-                <table>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Courriel</th>
-                    </tr>
-                    {gestionnairesList}
-                </table>
+                <h2>Contact Gestionnaire</h2>
+                <Table striped bordered hover variant="dark" className="DashboardTable">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Courriel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {gestionnairesList}
+                    </tbody>
+                </Table>
             </div>
             <Offres />
-        </>
+            <FormEntrevue handleReloadList={handleReloadList} />
+            <Entrevue reloadList={reloadList} handleReloadList={handleReloadList} />
+        </div>
     )
 }
 

@@ -1,0 +1,42 @@
+.Dashboard h2,
+.Dashboard h1 {
+    text-align: center;
+    padding-top: 15px;
+    color: #DBB2FF !important;
+}
+
+.DashboardTable {
+    margin: auto;
+    margin-top: 50px;
+    width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.superviseurDashboard_P {
+    text-align: center;
+    color: #F08080;
+}
+
+.etudiantDashboardButton button {
+    background-color: #2c3034;
+    border: none;
+    color: white;
+}
+
+.etudiantDashboardButton button:hover {
+    background-color: #323539;
+    border: none;
+    color: white;
+}
+
+.FormEntrevue #titre::placeholder {
+    text-align: center;
+    color: gray;
+}
+
+#titre {
+    color: white;
+}
+

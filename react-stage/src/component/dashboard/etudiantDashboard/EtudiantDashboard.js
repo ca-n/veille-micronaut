@@ -1,15 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { UserInfoContext } from '../../../contexts/UserInfo'
 import Offres from '../../Offres/Offres'
-import Contrat from '../../contrat/Contrat'
 import VoirCVState from './VoirCVState'
-import './EtudiantDashboard.css'
-import UserService from '../../../services/UserService'
 import ContratService from '../../../services/ContratService'
+import Entrevue from './Entrevue'
+import UserService from '../../../services/UserService'
+import '../../../Css/Dashboard.css'
+import Table from "react-bootstrap/Table"
 
 
 const EtudiantDashboard = () => {
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [loggedUser] = useContext(UserInfoContext)
     const [fullUser, setFullUser] = useState({
         id: Number,
         prenom: String,
@@ -40,74 +41,84 @@ const EtudiantDashboard = () => {
         courriel: String
     })
 
-    useEffect(() => {
+    useEffect(async () => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data, "data")
+            let data = await UserService.getUserByEmail(loggedUser.courriel)
+            if (data != undefined) {
+                UserService.getUserByEmail(loggedUser.courriel).then(data => {
                     setFullUser(data)
-                    setSuperviseur(data)
-                    getMoniteur(data.id)
-                    getContrat(data.id)
+                    setSuperviseur(data.superviseur)
+                    getContrat(data.courriel)
                 })
-
+            }
         }
-    }, []);
+    }, [])
 
-    const getMoniteur = async (id) => {
-        const moniteur = await UserService.getMoniteur(id)
-        setMoniteur(moniteur)
-    }
-
-    const getContrat = async (id) => {
-        const dbContrat = await ContratService.getContrat(id)
-        console.log(dbContrat, "dbContrat")
+    const getContrat = async (courriel) => {
+        const dbContrat = await ContratService.getContratsByEtudiantEmail(courriel)
+        setMoniteur(dbContrat.moniteur)
         setContrat(dbContrat)
     }
 
-    console.log(loggedUser)
     return (
-        <>
+        <div className="Dashboard">
             <div>
                 <h1>Bonjour {fullUser.prenom} {fullUser.nom}</h1>
             </div>
             <div>
-                <h1>CV state</h1>
+                <h2>État de vos CV</h2>
                 <VoirCVState />
             </div>
-            <div>
-                <h1>Contact</h1>
-                <table>
-                    <tr>
-                        <th>Role</th>
-                        <th>Nom</th>
-                        <th>Courriel</th>
-                    </tr>
-                    <tr>
-                        <td>Superviseur</td>
-                        <td>{superviseur.prenom} {superviseur.nom}</td>
-                        <td>{superviseur.courriel}</td>
-                    </tr>
-                    {contrat != null ?
-                        <tr>
-                            <td>Moniteur</td>
-                            <td>{moniteur.prenom} {moniteur.nom}</td>
-                            <td>{moniteur.courriel}</td>
-                        </tr>
-                        :
-                        null
-                    }
-                </table>
-            </div>
-            {contrat != null ?
-                <Contrat />
+            {superviseur != null || contrat != null ?
+                <div>
+                    <h2>Contact</h2>
+                    <Table striped bordered hover variant="dark" className="DashboardTable">
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Nom</th>
+                                <th>Courriel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {superviseur != null ?
+                                <tr >
+                                    <td>Superviseur</td>
+                                    <td>{superviseur.prenom} {superviseur.nom}</td>
+                                    <td>{superviseur.courriel}</td>
+                                </tr>
+                                :
+                                null
+                            }
+                            {contrat != null ?
+                                <tr>
+                                    <td>Moniteur</td>
+                                    <td>{moniteur.prenom} {moniteur.nom}</td>
+                                    <td>{moniteur.courriel}</td>
+                                </tr>
+                                :
+                                null
+                            }
+                        </tbody>
+                    </Table>
+                </div>
                 :
-                <Offres />
+                null
             }
-        </>
+
+            <div>
+                {contrat == null ?
+                    <Offres />
+                    :
+                    null
+                }
+                {contrat == null ?
+                    <Entrevue />
+                    :
+                    null
+                }
+            </div>
+        </div>
     )
 }
 

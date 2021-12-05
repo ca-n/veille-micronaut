@@ -1,30 +1,48 @@
 import { React, useState, useContext, useEffect } from 'react'
-import { UserInfoContext } from '../../../contexts/UserInfo';
+import { UserInfoContext } from '../../../contexts/UserInfo'
 import { saveAs } from 'file-saver'
+import { Link } from 'react-router-dom'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineClockCircle } from 'react-icons/ai'
+import CVService from '../../../services/CVService'
+import UserService from '../../../services/UserService'
+import '../../../Css/Dashboard.css'
+import Table from "react-bootstrap/Table"
+import Swal from 'sweetalert2'
 
 const VoirCVState = () => {
     const [etudiant, setEtudiant] = useState()
-    const [cvs, setCvs] = useState([]);
-    const [loggedUser, setLoggedUser] = useContext(UserInfoContext)
+    const [cvs, setCvs] = useState([])
+    const [loggedUser] = useContext(UserInfoContext)
 
     const updateCvs = async () => {
-        fetch(`http://localhost:9191cv/etudiant/${etudiant.id}`)
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                setCvs(data)
-            })
+        const fetchCv = await CVService.getCvEtudiant(etudiant.id)
+        setCvs(fetchCv)
     }
 
     const deleteCV = async (cv) => {
-        const res = await fetch(`http://localhost:9191/cv/delete/${cv.id}`, { method: 'DELETE' })
-        await res.json().then(updateCvs())
+        const boolean = await CVService.deleteCv(cv.id)
+        if (boolean) {
+            updateCvs()
+        }
     }
 
-    const download = (cv) => {
-        saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
+    const download = async (cv) => {
+        fetch(`http://localhost:9191/cv/pdf/${cv.id}`).then(res => {
+            if (!res.ok) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erreur!",
+                    text: "Ce fichier est indisponible pour l'instant.",
+                });
+
+            }
+            else {
+                saveAs(`http://localhost:9191/cv/pdf/${cv.id}`)
+            }
+
+        })
+
+
     }
 
     const getStatusIcon = (status) => {
@@ -36,26 +54,16 @@ const VoirCVState = () => {
             case "REJECTED":
                 return <AiOutlineCloseCircle color="red" size="48px" />
             default:
-                return;
+                return
         }
     }
-    
-    useEffect(() => {
+
+    useEffect(async () => {
         if (loggedUser.isLoggedIn) {
-            fetch(`http://localhost:9191/user/${loggedUser.courriel}`)
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    setEtudiant(data)
-                    fetch(`http://localhost:9191/cv/etudiant/${data.id}`)
-                        .then(res => {
-                            return res.json()
-                        })
-                        .then(data => {
-                            setCvs(data)
-                        })
-                })
+            let data = await UserService.getUserByEmail(loggedUser.courriel)
+            setEtudiant(data)
+            let fetchCv = await CVService.getCvEtudiant(data.id)
+            setCvs(fetchCv)
         }
     }, [])
 
@@ -63,24 +71,30 @@ const VoirCVState = () => {
         <tr key={cv.id.toString()}>
             <td>{cv.nom}</td>
             <td>{cv.dateSoumission}</td>
-            <td><button onClick={() => deleteCV(cv)}>effacer</button></td>
-            <td><button onClick={() => download(cv)}>télécharger</button></td>
+            <td className="etudiantDashboardButton"><button onClick={() => deleteCV(cv)} >effacer</button></td>
+            <td className="etudiantDashboardButton"><button onClick={() => download(cv)} >télécharger</button></td>
             <td>{getStatusIcon(cv.status)}</td>
-        </tr>);
+        </tr>)
 
 
     return (
         <div>
-            {cvs.length > 0 ? <table>
-                <tr>
-                    <th>nom du fichier</th>
-                    <th>Date de soumission</th>
-                    <th>effacer</th>
-                    <th>télécarger</th>
-                    <th>Statut du CV</th>
-                </tr>
-                {cvList}
-            </table> : null}
+            {cvs.length > 0 ?
+                <Table striped bordered hover variant="dark" id="tableCv">
+                    <thead>
+                        <tr>
+                            <th>nom du fichier</th>
+                            <th>Date de soumission</th>
+                            <th>effacer</th>
+                            <th>télécarger</th>
+                            <th>Statut du CV</th>
+                        </tr>
+                    </thead>
+                    <tbody>{cvList}</tbody>
+                </Table>
+                :
+                <h5 style={{ textAlign: "center", color: "yellow" }}>Déposez votre cv <Link to="/dropCv" style={{ color: "white", textDecoration: "underline" }}>ici</Link></h5>
+            }
         </div>
     )
 }
