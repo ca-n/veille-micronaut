@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface GestionnaireRepository extends JpaRepository<Gestionnaire, Integer> {
+    Optional<Gestionnaire> findFirst();
     Optional<Gestionnaire> findByCourrielIgnoreCase(String email);
     Optional<Gestionnaire> findByCourrielIgnoreCaseAndPassword(String email, String password);
 }

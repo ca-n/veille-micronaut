@@ -1,4 +1,4 @@
-package xyz.carn.model.type;
+package xyz.carn.model.enums;
 
 public enum UserType {
     ETUDIANT,

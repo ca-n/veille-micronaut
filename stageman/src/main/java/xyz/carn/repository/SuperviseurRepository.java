@@ -5,10 +5,12 @@ import io.micronaut.data.jpa.repository.JpaRepository;
 import xyz.carn.model.Moniteur;
 import xyz.carn.model.Superviseur;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface SuperviseurRepository extends JpaRepository<Superviseur, Integer> {
     Optional<Superviseur> findByCourrielIgnoreCase(String email);
     Optional<Superviseur> findByCourrielIgnoreCaseAndPassword(String email, String password);
+    List<Superviseur> findAllBySession(String session);
 }

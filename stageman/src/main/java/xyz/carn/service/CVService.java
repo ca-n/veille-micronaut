@@ -1,11 +1,12 @@
 package xyz.carn.service;
 
 import jakarta.inject.Singleton;
+import xyz.carn.SessionManager;
 import xyz.carn.model.CV;
-import xyz.carn.model.Etudiant;
-import xyz.carn.model.type.CVStatus;
+import xyz.carn.model.Notification;
+import xyz.carn.model.enums.NotifStatus;
+import xyz.carn.model.enums.Status;
 import xyz.carn.repository.CVRepository;
-import xyz.carn.repository.EtudiantRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,52 +14,57 @@ import java.util.Optional;
 @Singleton
 public class CVService {
 
-    private final CVRepository cvRepository;
+    private final CVRepository repository;
 
-    private final EtudiantRepository etudiantRepository;
+    private final NotificationService notificationService;
 
-    public CVService(CVRepository cvRepository, EtudiantRepository etudiantRepository) {
-        this.cvRepository = cvRepository;
-        this.etudiantRepository = etudiantRepository;
+    public CVService(CVRepository repository, NotificationService notificationService) {
+        this.repository = repository;
+        this.notificationService = notificationService;
     }
 
-    public Optional<CV> saveCV(CV cv) {
-        return Optional.of(cvRepository.save(cv));
+    public CV saveCV(CV cv) {
+        repository.findAllByDefaultCVTrue().stream()
+                .peek(previousDefaultCV -> previousDefaultCV.setDefaultCV(false))
+                .forEach(repository::save);
+        cv.setDefaultCV(true);
+        notificationService.notifyOnNewCV(cv);
+        return repository.save(cv);
     }
 
-    public Optional<CV> getCV(int id) {
-        return cvRepository.findById(id);
+    public List<CV> getCurrentSessionCVs() {
+        return repository.findAllBySession(currentSession());
     }
 
     public List<CV> getAllCVs() {
-        return cvRepository.findAll();
+        return repository.findAll();
     }
 
-    public List<CV> getAllEtudiantCVs(int etudiantId) {
-        var etudiant = etudiantRepository.findById(etudiantId);
-        return etudiant.map(cvRepository::findAllByEtudiant)
-                .orElse(List.of());
+    public Optional<CV> getCvById(int id) {
+        return repository.findById(id);
     }
 
-    public void deleteCV(int id) {
-        var cv = cvRepository.findById(id);
-        cv.ifPresent(cvRepository::delete);
+    public void deleteCvById(int id) {
+        repository.deleteById(id);
     }
 
-    public Optional<CV> acceptCV(CV cv) {
-        cv.setStatus(CVStatus.ACCEPTED);
-        return Optional.of(cvRepository.save(cv));
+    public List<CV> getCVsByEtudiantId(int id) {
+        return repository.findAllByEtudiantIdAndSession(id, currentSession());
     }
 
-    public Optional<CV> rejectCV(CV cv) {
-        cv.setStatus(CVStatus.REJECTED);
-        return Optional.of(cvRepository.save(cv));
+    public CV acceptCV(CV cv) {
+        cv.setStatus(Status.ACCEPTED);
+        notificationService.notifyOnCvVerification(cv);
+        return repository.save(cv);
     }
 
-    public byte[] getPDF(int id) {
-        Optional<CV> cvOptional = cvRepository.findById(id);
-        return cvOptional
-                .map(CV::getData)
-                .orElse(new byte[0]);
+    public CV rejectCV(CV cv) {
+        cv.setStatus(Status.REJECTED);
+        notificationService.notifyOnCvVerification(cv);
+        return repository.save(cv);
+    }
+
+    private String currentSession() {
+        return SessionManager.CURRENT_SESSION.getNomSession();
     }
 }

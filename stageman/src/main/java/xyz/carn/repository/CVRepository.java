@@ -9,5 +9,7 @@ import java.util.List;
 
 @Repository
 public interface CVRepository extends JpaRepository<CV, Integer> {
-    List<CV> findAllByEtudiant(Etudiant etudiant);
+    List<CV> findAllBySession(String session);
+    List<CV> findAllByEtudiantIdAndSession(int id, String session);
+    List<CV> findAllByDefaultCVTrue();
 }

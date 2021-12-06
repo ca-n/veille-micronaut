@@ -1,30 +1,41 @@
 package xyz.carn.model;
 
 import lombok.Data;
+import xyz.carn.SessionManager;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
 public class Offre implements Serializable {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String titre;
     private String description;
     private String entreprise;
     private boolean valid;
-    private String addresse;
+    private String adresse;
     private String dateDebut;
     private String dateFin;
     private int nbTotalSemaine;
-    private String horaire;
-    private double heuresParSemaine;
+    private LocalTime horaireDebut;
+    private LocalTime horaireFin;
+    private double nbTotalHeuresParSemaine;
     private double tauxHoraire;
+    private String session;
+
+    @ManyToOne
+    private Gestionnaire gestionnaire;
+
+    @ManyToOne
+    private Moniteur moniteur;
 
     @ManyToMany
     private Set<Etudiant> whitelist;
@@ -32,14 +43,39 @@ public class Offre implements Serializable {
     @ManyToMany
     private Set<Etudiant> applicants;
 
-    @ManyToOne
-    private Moniteur moniteur;
-
-    @ManyToOne
-    private Gestionnaire gestionnaire;
-
     public Offre() {
-        whitelist = new HashSet<>();
-        applicants = new HashSet<>();
+        this.whitelist = new HashSet<>();
+        this.applicants = new HashSet<>();
+        this.session = SessionManager.CURRENT_SESSION.getNomSession();
+    }
+
+    public Offre(
+            String titre,
+            String description,
+            String entreprise,
+            boolean valid,
+            String adresse,
+            String dateDebut,
+            String dateFin,
+            int nbTotalSemaine,
+            LocalTime horaireDebut,
+            LocalTime horaireFin,
+            double nbTotalHeuresParSemaine,
+            double tauxHoraire) {
+        this.titre = titre;
+        this.description = description;
+        this.entreprise = entreprise;
+        this.valid = valid;
+        this.adresse = adresse;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.nbTotalSemaine = nbTotalSemaine;
+        this.horaireDebut = horaireDebut;
+        this.horaireFin = horaireFin;
+        this.nbTotalHeuresParSemaine = nbTotalHeuresParSemaine;
+        this.tauxHoraire = tauxHoraire;
+        this.whitelist = new HashSet<>();
+        this.applicants = new HashSet<>();
+        this.session = SessionManager.CURRENT_SESSION.getNomSession();
     }
 }

@@ -1,11 +1,8 @@
 package xyz.carn.service;
 
 import jakarta.inject.Singleton;
-import xyz.carn.model.Etudiant;
-import xyz.carn.model.Moniteur;
-import xyz.carn.model.Offre;
-import xyz.carn.repository.EtudiantRepository;
-import xyz.carn.repository.MoniteurRepository;
+import xyz.carn.SessionManager;
+import xyz.carn.model.*;
 import xyz.carn.repository.OffreRepository;
 
 import java.util.List;
@@ -14,49 +11,61 @@ import java.util.Set;
 
 @Singleton
 public class OffreService {
-    private final OffreRepository offreRepository;
+    private final OffreRepository repository;
 
-    private final EtudiantRepository etudiantRepository;
+    private final UserService userService;
+    private final NotificationService notificationService;
 
-    private final MoniteurRepository moniteurRepository;
+    public OffreService(OffreRepository repository, UserService userService, NotificationService notificationService) {
+        this.repository = repository;
+        this.userService = userService;
+        this.notificationService = notificationService;
+    }
 
-    public OffreService(OffreRepository offreRepository, EtudiantRepository etudiantRepository, MoniteurRepository moniteurRepository) {
-        this.offreRepository = offreRepository;
-        this.etudiantRepository = etudiantRepository;
-        this.moniteurRepository = moniteurRepository;
+    public List<Offre> getCurrentSessionOffres() {
+        return repository.findAllBySession(currentSession());
     }
 
     public List<Offre> getAllOffres() {
-        return offreRepository.findAll();
+        return repository.findAll();
     }
 
-    public Optional<Offre> saveOffre(Offre offre) {
-        return Optional.of(offreRepository.save(offre));
+    public Offre saveOffre(Offre offre, String email) {
+        Optional<User> userOptional = userService.getUserByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (user instanceof Moniteur) offre.setMoniteur((Moniteur) user);
+            if (user instanceof Gestionnaire) offre.setGestionnaire((Gestionnaire) user);
+        }
+        notificationService.notifyOnNewOffre(offre);
+        return repository.save(offre);
     }
 
     public List<Offre> getEtudiantOffres(String email) {
-        throw new UnsupportedOperationException("Not implemented due to issue in OffreRepository");
-//        Optional<Etudiant> etudiant = etudiantRepository.findByCourrielIgnoreCase(email);
-//        return etudiant.map(offreRepository::findAllByWhitelistContainsAndValidTrue)
-//                .orElse(List.of());
-    }
-
-    public List<Offre> getMoniteurOffres(String email) {
-        Optional<Moniteur> moniteur = moniteurRepository.findByCourrielIgnoreCase(email);
-        return moniteur.map(offreRepository::findAllByMoniteur)
+        return userService.getUserByEmail(email)
+                .map(user -> repository.findAllByValidTrueAndWhitelistContains((Etudiant) user))
                 .orElse(List.of());
     }
 
-    public Optional<Offre> applyForOffre(int offreId, String email) {
-        Optional<Etudiant> etudiant = etudiantRepository.findByCourrielIgnoreCase(email);
-        Optional<Offre> offreOptional = offreRepository.findById(offreId);
-        if (etudiant.isEmpty() || offreOptional.isEmpty()) return Optional.empty();
-        Offre offre = offreOptional.get();
+    public List<Offre> getMoniteurOffres(String email) {
+        return userService.getUserByEmail(email)
+                .map(user -> repository.findAllByMoniteur((Moniteur) user))
+                .orElse(List.of());
+    }
 
+    public Optional<Offre> applyForOffre(int id, String email) {
+        var optional = repository.findById(id);
+        var user = userService.getUserByEmail(email);
+        if (optional.isEmpty() || user.isEmpty()) return Optional.empty();
+        Offre offre = optional.get();
+        Etudiant etudiant = (Etudiant) user.get();
         Set<Etudiant> applicants = offre.getApplicants();
-        applicants.add(etudiant.get());
+        applicants.add(etudiant);
         offre.setApplicants(applicants);
+        return Optional.of(repository.save(offre));
+    }
 
-        return Optional.of(offreRepository.save(offre));
+    private String currentSession() {
+        return SessionManager.CURRENT_SESSION.getNomSession();
     }
 }

@@ -20,15 +20,18 @@ public class OffreController {
     }
 
     @Get
+    public HttpResponse<List<Offre>> getCurrentSessionOffres() {
+        return HttpResponse.ok(service.getCurrentSessionOffres());
+    }
+
+    @Get("/allSession")
     public HttpResponse<List<Offre>> getAllOffres() {
         return HttpResponse.ok(service.getAllOffres());
     }
 
-    @Post
-    public HttpResponse<Offre> saveOffre(@Body Offre offre) {
-        return service.saveOffre(offre)
-                .map(HttpResponse::ok)
-                .orElse(HttpResponse.status(HttpStatus.CONFLICT));
+    @Post("/{email}")
+    public HttpResponse<Offre> saveOffre(@Body Offre offre, @PathVariable String email) {
+        return HttpResponse.ok(service.saveOffre(offre, email));
     }
 
     @Get("/etudiant/{email}")
@@ -41,10 +44,10 @@ public class OffreController {
         return HttpResponse.ok(service.getMoniteurOffres(email));
     }
 
-    @Post("/{offreId}/apply")
-    public HttpResponse<Offre> applyForOffre(@PathVariable int offreId, @Body String email) {
-        return service.applyForOffre(offreId, email)
+    @Post("/{id}")
+    public HttpResponse<Offre> applyForOffre(@Body String email, @PathVariable int id) {
+        return service.applyForOffre(id, email)
                 .map(HttpResponse::ok)
-                .orElse(HttpResponse.serverError());
+                .orElse(HttpResponse.notFound());
     }
 }

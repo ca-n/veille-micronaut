@@ -9,9 +9,11 @@ import xyz.carn.model.Moniteur;
 import xyz.carn.model.Offre;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface OffreRepository extends JpaRepository<Offre, Integer> {
-//    List<Offre> findAllByWhitelistContainsAndValidTrue(Etudiant etudiant);
+    List<Offre> findAllBySession(String session);
     List<Offre> findAllByMoniteur(Moniteur moniteur);
+    List<Offre> findAllByValidTrueAndWhitelistContains(Etudiant etudiant);
 }
